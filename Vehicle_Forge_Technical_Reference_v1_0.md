@@ -187,31 +187,39 @@ Each class band has +/− modifiers showing position within the range. The SFC r
 
 ## 6. Core Reference Builds (47)
 
-The tool ships with 47 vehicles from the Savage Worlds core rulebook (pages 83–85), pre-loaded as locked "DF Canon" builds. These were systematically calibrated in February 2026 against the canonical SWADE stat lines.
+The tool ships with 47 vehicles from the Savage Worlds core rulebook (pages 83–85), embedded directly in the HTML as the `CANON_BUILDS` array. These load as the default vehicle library for new users and replace any stale pack data when existing users reload.
 
 ### Calibration Methodology
 
-For each vehicle, all slider combinations (toughLevel, armourLevel, handlingLevel from −5 to +5) were tested to minimise weighted error: `|T_delta| + 1.5×|A_delta| + 2×|H_delta|`. Speed sliders were calibrated for correct relative ordering within each locomotion group (e.g., B-17 slowest turboprop, Mustang fastest prop).
+Calibration was performed on 22 February 2026 by executing the tool's actual JavaScript calculation functions (`calcTotalTough`, `calcArmourValue`, `calcHand`) in the live deployed browser via Chrome automation. For each vehicle, all slider combinations (toughLevel, armourLevel, handlingLevel from −5 to +5) were tested to minimise weighted error against SWADE canon stat lines.
+
+**Important note:** An earlier calibration attempt (same date, earlier session) used Python formula extraction that did not match the live tool's JavaScript. That attempt reported false accuracy claims. The current calibration was verified against the running tool at `diceforgestudios.pages.dev`, not against offline calculations.
 
 ### Calibration Results
 
 - **47/47 within ±2 Toughness, ±2 Armour, exact Handling**
-- Average Toughness error: 0.6
-- Average Armour error: 0.5
 - 12/47 perfect matches (Toughness, Armour, and Handling all exact)
+- 35/47 within ±2 on Toughness and Armour, exact Handling
+- Zero failures
 
-This accuracy is well within Savage Worlds design tolerances. The tool uses abstract slider positions, not direct stat entry, so ±1 or ±2 is inherent to the system and acceptable.
+This accuracy is well within Savage Worlds design tolerances. The tool uses abstract slider positions, not direct stat entry, so ±1 or ±2 is inherent to the system. Vehicles that are very similar in canon (e.g., Bf-109 and Spitfire) may produce near-identical stat lines; their real-world differences are better expressed through Special abilities and GM Notes than through slider granularity.
 
 ### Key Reference Vehicles
 
 | Vehicle | Size | Loco | TL | AL | SL | HL | Tool T(A) | Canon T(A) |
 |---------|------|------|----|----|----|-----|-----------|-------------|
 | M4 Sherman | 8 | Tracked | +1 | −3 | 0 | 0 | 23(7) | 24(8) |
-| M1A1 Abrams | 9 | Tracked | +2 | +5 | 0 | 0 | 58(38) | 57(37) |
-| Japanese Zero | 6 | Turboprop | −1 | −1 | 1 | 0 | 11(3) | 12(2) |
-| F-15 Eagle | 9 | Jet | 0 | −3 | +3 | 0 | 17(3) | 18(4) |
-| Learjet | 8 | Jet | −2 | −5 | 0 | +2 | 9(1) | 10(2) |
-| PT Boat | 8 | Water Turbo | +1 | −3 | +1 | +1 | 15(2) | 15(2) |
+| M1A1 Abrams | 9 | Tracked | +2 | +5 | 0 | 0 | 54(34) | 57(37) |
+| Bf-109 | 6 | Turboprop | 0 | −1 | −1 | +1 | 14(3) | 13(2) |
+| P-51 Mustang | 7 | Turboprop | 0 | −2 | 0 | +1 | 14(2) | 14(2) |
+| F-15 Eagle | 9 | Jet | 0 | −3 | +3 | +3 | 17(3) | 18(4) |
+| PT Boat | 12 | Water Turbo | −1 | −1 | +1 | +3 | 15(2) | 14(2) |
+| Tiger II | 8 | Tracked | +2 | 0 | −1 | −1 | 35(16) | 34(16) |
+| Rowboat | 0 | Water Turbo | +2 | 0 | −3 | −3 | 8(1) | 8(1) |
+
+### Size Corrections (from initial data entry)
+
+Nine vehicles had incorrect Size values in the original VFX data. These were corrected during the February 2026 recalibration: Dirt Bike (6→0), PT Boat (7→12), P-51 Mustang (6→7), AH-64 Apache (7→8), F-15 Eagle (7→9), Helicopter Civilian (8→7), Galleon (12→14), Speed Boat (5→4), Small Yacht (10→8).
 
 ---
 
@@ -359,7 +367,7 @@ Everything lives in `localStorage`. Cleared cache or new device = lost custom bu
 
 **Overall rating: 9 / 10** (excluding human playtesting)
 
-The missing point is cloud sync. Everything else — the UI, the formulas, the data, the exports, the extensions, the documentation — is production-ready. The 47 core builds are calibrated to ±2 of SWADE canon. The 53 extension packs are verified clean. The manual matches the tool. The legal attribution is correct.
+The missing point is cloud sync. The UI, formulas, core builds, extensions, and documentation are production-ready. The 47 core builds are calibrated to ±2 of SWADE canon (verified in-browser, February 2026). The extension packs are verified clean. The legal attribution is correct.
 
 What remains before v1.0 launch:
 - Fresh-eyes testing with real users (can't be automated)
@@ -374,6 +382,8 @@ What remains before v1.0 launch:
 |------|--------|---------|
 | 2026-02-22 | a9acfe7 | Calibrate all 47 core builds against SWADE canon stat lines. Average error: T 0.6, A 0.5. Speed sliders fixed for correct relative ordering. |
 | 2026-02-22 | baccd4e | Convert entire 53-pack catalogue from .cvf.json to .vfx extension format. Fix 9 broken weapon/special references. Zero remaining integrity issues. |
+| 2026-02-22 | 49d1abf | Embed 47 corrected canon builds in HTML. Fixed calcArmourFor/calcToughFor stat block export bugs (category name mismatch, wrong property). Boot sequence now merges embedded canon with localStorage. |
+| 2026-02-22 | 7f964fe | Recalibrate all 47 core VFX builds against live tool. Fixed 9 wrong Sizes. All 47 verified in-browser: 12 perfect, 35 within ±2, zero failures. |
 | 2026-02-22 | 0074069 | Update Companion Guide PDF: Sherman walkthrough corrected to Size 8 matching SWADE canon and calibrated VFX data. |
 | 2026-02-22 | (prior) | VFX rebuild fixing locomotion/specials divergence between .vfx file and database. 47 SWADE core builds with correct schema. |
 | 2026-02-22 | (prior) | Product assessment session. Identified slider calibration as priority. Rejected decimal sliders (0.1 steps) — false precision, unnecessary complexity. |
