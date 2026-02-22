@@ -3,7 +3,7 @@
   "name": "SWADE Core Reference Builds",
   "version": "2.0",
   "publisher": "DiceForge Studios",
-  "description": "47 vehicles from the Savage Worlds core rulebook (pp.83-85), calibrated against canon stat lines. Weapons updated to match SWADE vehicular weapons table (pp.80-81).",
+  "description": "47 vehicles from the Savage Worlds core rulebook (pp.83-85), calibrated against canon stat lines. Weapons match SWADE vehicular weapons table (pp.80-81).",
   "price": "Free",
   "weapons": [],
   "mods": [],
@@ -14,6 +14,7 @@
       "size": -1,
       "loco": "wheeled",
       "armourLevel": -1,
+      "desc": "Two wheels, no engine, and the most efficient transport ever invented. She goes where cars can\\'t, makes no noise, and nobody looks twice at a cyclist.",
       "notes": "The bicycle is invisible. Nobody notices one more cyclist on a city street, which makes it the perfect surveillance and courier vehicle for low-tech campaigns. In chase scenes, she squeezes through gaps no car can follow — alleys, stairwells, crowded markets. 50% of shots hit the rider rather than the vehicle.",
       "weapons": [],
       "mods": {},
@@ -715,6 +716,7 @@
       "armourLevel": -1,
       "handlingLevel": 1,
       "speedLevel": -1,
+      "desc": "Lighter than air and twice as agile. The Zero sacrificed everything for manoeuvrability — no armour, no self-sealing tanks, no survivability. She turns inside anything the Allies fly, and she burns like paper when they catch her.",
       "notes": "The Zero trades armour for agility. She turns inside anything the Allies fly, which makes her lethal in a dogfight — until the first bullet hits, because she has no armour and no self-sealing fuel tanks. Glass cannon in aircraft form.",
       "weapons": [
         {
@@ -821,6 +823,7 @@
       "armourLevel": -2,
       "handlingLevel": 1,
       "speedLevel": 3,
+      "desc": "The jump jet. She takes off from a forest clearing, hovers behind a ridge line, and delivers ordnance where no conventional aircraft can operate. Slow for a jet, devastating for anything on the ground.",
       "notes": "The Harrier operates from roads, clearings, and ships too small for conventional aircraft. Her VTOL capability means she can be anywhere the enemy doesn't expect close air support. Slow for a jet, devastating for anything on the ground. VTOL.",
       "weapons": [
         {
@@ -886,6 +889,7 @@
       "armourLevel": -3,
       "handlingLevel": 2,
       "speedLevel": 2,
+      "desc": "Soviet air superiority in a twin-engined package. The Flanker is big, fast, and arguably the most manoeuvrable heavy fighter ever built. She represents peer-level opposition for any Western air force.",
       "notes": "The Flanker is the Soviet answer to the F-15 — arguably more manoeuvrable, certainly more dramatic in appearance, and equipped to fight at every range. She represents peer-level opposition for any modern air combat campaign. Night Vision.",
       "weapons": [
         {
@@ -919,6 +923,7 @@
       "loco": "vtol",
       "armourLevel": -2,
       "handlingLevel": 2,
+      "desc": "The distinctive whumping rotor beat that defined a generation of warfare. She carries a squad into hot LZs, extracts the wounded under fire, and provides suppressive fire from the door guns. Thin-skinned and irreplaceable.",
       "notes": "The Huey is the sound of the Vietnam War. Her distinctive rotor beat tells everyone — friendly and hostile — that she's coming. She carries troops, she evacuates wounded, she provides fire support, and she defines the helicopter warfare era. Helicopter.",
       "weapons": [
         {
@@ -963,6 +968,7 @@
       "toughLevel": -1,
       "armourLevel": -2,
       "handlingLevel": 1,
+      "desc": "Oars and sail. The galley moves when and where her captain commands, independent of wind. From the triremes of Athens to the galleys of Lepanto, she dominated naval warfare for two thousand years.",
       "notes": "The galley is your ancient and medieval warship. Oars give her independence from wind — she moves when and where the captain commands, which makes her the dominant naval platform from Greece to Lepanto. Her ram is as dangerous as her weapons. Heavy Armor, Oars+Sails.",
       "weapons": [
         {
@@ -987,6 +993,7 @@
       "armourLevel": -2,
       "handlingLevel": 1,
       "speedLevel": 2,
+      "desc": "At speed she lifts out of the water on submerged wings, cutting drag and doubling velocity. Fast, agile, and distinctive — the sports car of coastal patrol craft.",
       "notes": "The hydrofoil lifts out of the water at speed, reducing drag and dramatically increasing velocity. She's your fast patrol and intercept vessel for coastal operations — faster than conventional boats, more agile, and harder to hit at speed.",
       "weapons": [],
       "mods": {},
@@ -1000,6 +1007,7 @@
       "size": 7,
       "loco": "water_turbo",
       "handlingLevel": 1,
+      "desc": "Small enough for shallow rivers, armed enough to suppress both banks. The PBR defined riverine warfare in Vietnam — fast, loud, and bristling with heavy machine guns.",
       "notes": "The PBR is your brown-water navy vessel — rivers, estuaries, coastlines. She's small enough to navigate shallow waterways that would ground larger craft, and armed enough to suppress fire from both banks. The Vietnam riverine warfare workhorse. Heavy Armor.",
       "weapons": [
         {
@@ -1060,7 +1068,7 @@
       "toughLevel": 2,
       "handlingLevel": -3,
       "speedLevel": -3,
-      "desc": "Small powered craft for lake and river use. An outboard motor, a fibreglass hull, and room for four to six people. She's the runabout — fishing, water sports, and getting from one side of the lake to the other.",
+      "desc": "Oars, a flat bottom, and room for four. She's the silent insertion vehicle and the thing between your players and drowning when the ship sinks.",
       "notes": "The rowboat is your insertion vehicle. She's silent, she's invisible against a dark shoreline, and she carries a small team to wherever they need to be without alerting anyone. Also the thing that's between your players and drowning when the ship sinks.",
       "weapons": [],
       "mods": {},
@@ -1108,6 +1116,7 @@
       "size": 7,
       "loco": "tracked",
       "armourLevel": -2,
+      "desc": "Light, fast, and undergunned. The Stuart scouted ahead of the heavy armour, found the enemy, and reported back — assuming she survived first contact. A light tank in a medium tank war.",
       "notes": "The Stuart is your light tank — fast, undergunned, and used for reconnaissance rather than direct engagement. She scouts ahead of the main force, finds the enemy, and calls in the Shermans. Players driving Stuarts should feel the tension of bringing a light tank to a heavy fight. Heavy Armor, Tracked.",
       "weapons": [
         {
@@ -1139,6 +1148,7 @@
       "loco": "tracked",
       "toughLevel": 2,
       "armourLevel": 5,
+      "desc": "Composite armour, a stabilised 120mm gun, and thermal imaging that lets her fight at night as effectively as daylight. The modern benchmark for main battle tanks. Sixty-seven tons of American engineering dominance.",
       "notes": "The modern benchmark for main battle tanks. Her combination of composite armour, stabilised gun, and thermal imaging makes her dominant in open terrain. Use her to show players what modern military hardware can do — and to remind them that even the best tank is vulnerable in cities. Heavy Armor, Night Vision, Tracked.",
       "weapons": [
         {
@@ -1178,6 +1188,7 @@
       "loco": "tracked",
       "toughLevel": 2,
       "armourLevel": -3,
+      "desc": "Infantry fighting vehicle. She carries a squad and fights alongside them — her 25mm autocannon shreds light vehicles and her TOW missiles threaten anything heavier. Half taxi, half weapons platform.",
       "notes": "The Bradley is an infantry fighting vehicle — she carries troops and fights alongside them. Her autocannon shreds light vehicles and her TOW missiles threaten tanks. The players either ride in her or face her, and both experiences should feel dangerous. Heavy Armor, Night Vision, Tracked.",
       "weapons": [
         {
