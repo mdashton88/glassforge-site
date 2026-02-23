@@ -228,7 +228,7 @@ a.header-brand:hover{color:var(--accent)}
   </div>
   <div class="main">
     <div class="header">
-      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.9.1</span></div></div>
+      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.10.00</span></div></div>
       <div class="header-spacer"></div>
       <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
       <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
@@ -295,7 +295,7 @@ a.header-brand:hover{color:var(--accent)}
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--text-dim)">
-          Vehicle Forge v0.9.1 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.00 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds Adventure Edition
         </div>
       </div>
@@ -1414,7 +1414,7 @@ Audio.clunk=function(){if(audioEnabled)_origClunk()};Audio.click=function(){if(a
 
 // ═══ CANON REFERENCE BUILDS (47 SWADE core vehicles) ═══
 var CANON_BUILDS=[
-{name:"Bicycle",size:-1,loco:"wheeled",armourLevel:-1,speedLevel:-3,desc:"Two wheels, no engine, and the most efficient transport ever invented. She goes where cars can\\'t, makes no noise, and nobody looks twice at a cyclist.",notes:"The bicycle is invisible. Nobody notices one more cyclist on a city street, which makes it the perfect surveillance and courier vehicle for low-tech campaigns. In chase scenes, she squeezes through gaps no car can follow — alleys, stairwells, crowded markets. 50% of shots hit the rider rather than the vehicle.",weapons:[],mods:{},specials:["open_top"],_pack:"core"},
+{name:"Bicycle",size:-1,loco:"wheeled",armourLevel:-1,speedLevel:-3,woundsLevel:-2,desc:"Two wheels, no engine, and the most efficient transport ever invented. She goes where cars can\\'t, makes no noise, and nobody looks twice at a cyclist.",notes:"The bicycle is invisible. Nobody notices one more cyclist on a city street, which makes it the perfect surveillance and courier vehicle for low-tech campaigns. In chase scenes, she squeezes through gaps no car can follow — alleys, stairwells, crowded markets. 50% of shots hit the rider rather than the vehicle.",weapons:[],mods:{},specials:["open_top"],_pack:"core"},
 {name:"Carriage",size:3,loco:"wheeled",toughLevel:-1,armourLevel:-3,handlingLevel:-3,speedLevel:-3,passengers:3,desc:"Horse-drawn, four-wheeled, and the standard of overland travel for centuries. Speed depends entirely on the draft animals — a pair of carriage horses manages a comfortable trot, a post team at full gallop will shake your teeth loose.",notes:"The carriage is your chase vehicle for historical and fantasy campaigns. Stagecoach robberies, runaway horses, rooftop leaps onto the luggage rack — she exists to create cinematic moments. Horse-drawn, so she stops when the horses do.",weapons:[],mods:{},specials:["open_top", "towing"],_pack:"core"},
 {name:"Early Car",size:3,loco:"wheeled",armourLevel:-3,handlingLevel:-2,speedLevel:-2,passengers:3,desc:"Twenty horsepower, a top speed of forty-five miles an hour, and a hand-crank starter that will break your arm if you\'re not careful. She rattles, she stalls on hills, and she changed the world. Every car that followed owes something to this one.",notes:"The Model T generation. Slow, temperamental, and revolutionary. She puts your campaign on wheels for the first time — Prohibition rum-runners, early pulp adventures, the first getaway cars. Unreliable enough to create complications at the worst possible moment.",weapons:[],mods:{},specials:["enclosed", "temperamental"],_pack:"core"},
 {name:"Street Bike",size:1,loco:"wheeled",toughLevel:2,armourLevel:-2,speedLevel:1,passengers:1,desc:"Stock street motorcycle. Two wheels, one engine, no protection whatsoever. Fast enough to weave through traffic, light enough to lane-split, and the rider is completely exposed to everything from bullets to bad weather.",notes:"The street bike is your urban pursuit vehicle. She splits lanes, she threads traffic, she fits where cars can\'t follow. The rider is exposed — 50% of shots hit them rather than the bike. That vulnerability is the price of agility.",weapons:[],mods:{},specials:["open_top"],_pack:"core"},
