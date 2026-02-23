@@ -204,16 +204,8 @@ a.header-brand:hover{color:var(--accent)}
         <button class="header-btn" onclick="duplicateVehicle()" style="flex:1;text-align:center">Duplicate</button>
         <button class="header-btn" onclick="newVehicle()" style="flex:1;text-align:center">New</button>
       </div>
-      <div style="margin-bottom:8px">
-        <input type="text" id="hangarSearch" placeholder="Search vehicles..." oninput="renderSaved()" style="width:100%;padding:6px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:4px;color:var(--text-bright);font-size:12px">
-      </div>
-      <div style="display:flex;gap:4px;margin-bottom:8px">
-        <button class="hangar-tab active" id="hangarTabAll" onclick="setHangarTab('all')">All</button>
-        <button class="hangar-tab" id="hangarTabCanon" onclick="setHangarTab('canon')">DF Canon</button>
-        <button class="hangar-tab" id="hangarTabMine" onclick="setHangarTab('mine')">My Vehicles</button>
-      </div>
-      <div id="savedList" style="margin-top:4px;max-height:50vh;overflow-y:auto"></div>
-      <div class="io-buttons" style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px">
+      <button class="header-btn" id="openHangarBtn" onclick="showHangar()" style="width:100%;text-align:center;padding:10px;border-color:var(--accent);color:var(--accent);font-size:13px;margin-bottom:8px">📦 Open Hangar <span id="hangarBtnCount" style="font-size:11px;color:var(--text-dim)"></span></button>
+      <div style="display:flex;gap:4px;flex-wrap:wrap">
         <button class="header-btn" onclick="exportJSON()">Export .json</button>
         <button class="header-btn" onclick="exportStatBlock()" title="Pinnacle-format stat block (.txt)">Stat Block</button>
         <button class="header-btn" onclick="exportFGXML()" title="Fantasy Grounds XML">FG XML</button>
@@ -228,7 +220,7 @@ a.header-brand:hover{color:var(--accent)}
   </div>
   <div class="main">
     <div class="header">
-      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.10.10</span></div></div>
+      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.10.11</span></div></div>
       <div class="header-spacer"></div>
       <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
       <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
@@ -295,7 +287,7 @@ a.header-brand:hover{color:var(--accent)}
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--text-dim)">
-          Vehicle Forge v0.10.10 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.11 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -643,6 +635,27 @@ function importVFX(e){var file=e.target.files[0];if(!file)return;var reader=new 
   try{var data=JSON.parse(ev.target.result);installExtension(data)}catch(err){alert('Error reading .vfx file: '+err.message)}};reader.readAsText(file);e.target.value=''}
 function showExtensionManager(){
   var html='<h2 style="margin-bottom:12px">Extension Manager</h2>';
+
+function showHangar(){
+  var overlay=document.createElement('div');overlay.id='hangarOverlay';
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:flex;justify-content:center;align-items:center';
+  var box=document.createElement('div');box.style.cssText='background:var(--bg-panel);border:1px solid var(--border);padding:24px;max-width:700px;width:95%;max-height:85vh;overflow-y:auto';
+  box.innerHTML='<h2 style="margin-bottom:12px;color:var(--text-bright)">Vehicle Hangar</h2>'
+    +'<div style="margin-bottom:10px"><input type="text" id="hangarSearch" placeholder="Search vehicles..." oninput="renderSaved()" style="width:100%;padding:8px 12px;background:var(--input-bg);border:1px solid var(--border);border-radius:4px;color:var(--text-bright);font-size:13px"></div>'
+    +'<div style="display:flex;gap:4px;margin-bottom:10px">'
+    +'<button class="hangar-tab active" id="hangarTabAll" onclick="setHangarTab(\'all\')">All</button>'
+    +'<button class="hangar-tab" id="hangarTabCanon" onclick="setHangarTab(\'canon\')">DF Canon</button>'
+    +'<button class="hangar-tab" id="hangarTabMine" onclick="setHangarTab(\'mine\')">My Vehicles</button></div>'
+    +'<div id="savedList" style="max-height:55vh;overflow-y:auto"></div>'
+    +'<button class="header-btn" onclick="document.getElementById(\'hangarOverlay\').remove()" style="width:100%;text-align:center;margin-top:16px;padding:10px">Close Hangar</button>';
+  overlay.appendChild(box);
+  overlay.onclick=function(e){if(e.target===overlay)overlay.remove()};
+  document.body.appendChild(overlay);
+  hangarTab='all';
+  document.querySelectorAll('.hangar-tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('hangarTabAll').classList.add('active');
+  renderSaved();
+}
   html+='<p style="color:var(--text-dim);margin-bottom:16px;font-size:13px">Install .vfx files to add new weapons, modifications, specials, and vehicles.</p>';
   html+='<div style="margin-bottom:20px"><input type="file" id="vfxImport" accept=".vfx,.json" onchange="importVFX(event)" style="display:none"><button class="header-btn primary" onclick="document.getElementById(\'vfxImport\').click()" style="width:100%;text-align:center;padding:10px">Install .vfx Extension</button></div>';
   if(extensions.length===0){html+='<p style="color:var(--text-dim);text-align:center;padding:20px;border:1px dashed var(--border)">No extensions installed.</p>'}
@@ -1304,6 +1317,9 @@ function getPackName(v){if(!v._pack)return null;var ext=extensions.find(function
 function toggleGroup(key){collapsedGroups[key]=!collapsedGroups[key];renderSaved()}
 
 function renderSaved(){var list=document.getElementById('savedList');
+  var countBtn=document.getElementById('hangarBtnCount');
+  if(countBtn)countBtn.textContent='('+S.saved.length+')';
+  if(!list)return;
   var q=(document.getElementById('hangarSearch')||{}).value||'';q=q.toLowerCase();
   var items=S.saved.map(function(s,i){return{v:s,idx:i}});
   if(hangarTab==='canon')items=items.filter(function(o){return isCanon(o.v)});
@@ -1345,6 +1361,7 @@ function cloneCanon(i){Audio.click();var src=S.saved[i];if(!src)return;
   alert('Cloned "'+src.name+'" to My Vehicles.\nThe clone is fully editable.')}
 
 function loadVehicle(i){Audio.clunk();var d=S.saved[i];
+  var ho=document.getElementById('hangarOverlay');if(ho)ho.remove();
   if(isCanon(d)){
     S.name=d.name;S.desc=d.desc||'';S.notes=d.notes||'';S.image=d.image||'';S.size=d.size;S.loco=d.loco;
     S.mods=JSON.parse(JSON.stringify(d.mods));S.weapons=JSON.parse(JSON.stringify(d.weapons));
