@@ -130,10 +130,25 @@ TWO VIGNETTES, each told as a narrative of someone designing/building:
 
 Both vignettes should:
 - Be written as narrative prose, not dry instructions
+- Show the character USING VEHICLE FORGE — sliders moving, stat block
+  updating, mod counter ticking down, weapon panel filtering, Export button
 - Explain the REASONING behind every slider position
 - Reference real-world knowledge or genre conventions
-- Show a character actually thinking through the design
-- End with a complete stat block
+- Show iteration: start at one Size, discover a problem, adjust
+- End with a complete stat block via the Export button
+
+IP/LICENCE BOUNDARY (CRITICAL):
+- SHOW: Vehicle Forge's UI outputs (Toughness 23, mod slots remaining, etc.)
+- SHOW: Characters referencing their knowledge of the rules ("he knows
+  from the core rules what that means")
+- SHOW: Weapon stats from our tool's weapon panel (these are our data)
+- NEVER TEACH: How Savage Worlds mechanics work at the table
+- NEVER EXPLAIN: What Toughness does, how damage rolls resolve, how AP
+  reduces armour, what Wounds mean mechanically
+- PRINCIPLE: "Show outputs, reference capabilities, never teach mechanics"
+- The reader who owns Savage Worlds nods in recognition
+- The reader who doesn't thinks "I need those rules" — which is exactly
+  what Pinnacle's licence is designed to achieve
 
 ### Appendix A: Weapon Reference Tables
 - All weapons grouped by era
