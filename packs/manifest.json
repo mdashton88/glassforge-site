@@ -1,0 +1,314 @@
+[
+  {
+    "id": "blood-thunder-age-of-sail-fleet",
+    "name": "Blood & Thunder \u2014 Age of Sail Fleet",
+    "path": "packs/01_Blood_and_Thunder/Blood_Thunder_Age_of_Sail_Fleet.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "blood-thunder-napoleonic-navy",
+    "name": "Blood & Thunder \u2014 Napoleonic Navy",
+    "path": "packs/01_Blood_and_Thunder/Blood_Thunder_Napoleonic_Navy.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "blood-thunder-naval-starter",
+    "name": "Blood & Thunder \u2014 Naval Starter",
+    "path": "packs/01_Blood_and_Thunder/Blood_Thunder_Naval_Starter.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "blood-thunder-supplement-prebuilts",
+    "name": "Blood & Thunder \u2014 Supplement Pre-Builts",
+    "path": "packs/01_Blood_and_Thunder/Blood_Thunder_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "blood-thunder-viking-raiders",
+    "name": "Blood & Thunder \u2014 Viking Raiders",
+    "path": "packs/01_Blood_and_Thunder/Blood_Thunder_Viking_Raiders.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "blood-thunder-wwii-naval",
+    "name": "Blood & Thunder \u2014 WWII Naval",
+    "path": "packs/01_Blood_and_Thunder/Blood_Thunder_WWII_Naval.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "iron-steel-ancient-war-machines",
+    "name": "Iron & Steel \u2014 Ancient War Machines",
+    "path": "packs/02_Iron_and_Steel/Iron_Steel_Ancient_War_Machines.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "iron-steel-cold-war-arsenal",
+    "name": "Iron & Steel \u2014 Cold War Arsenal",
+    "path": "packs/02_Iron_and_Steel/Iron_Steel_Cold_War_Arsenal.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "iron-steel-medieval-siege",
+    "name": "Iron & Steel \u2014 Medieval Siege",
+    "path": "packs/02_Iron_and_Steel/Iron_Steel_Medieval_Siege.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "iron-steel-modern-military-ground",
+    "name": "Iron & Steel \u2014 Modern Military Ground",
+    "path": "packs/02_Iron_and_Steel/Iron_Steel_Modern_Military_Ground.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "iron-steel-supplement-prebuilts",
+    "name": "Iron & Steel \u2014 Supplement Pre-Builts",
+    "path": "packs/02_Iron_and_Steel/Iron_Steel_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "iron-steel-wwii-eastern-front",
+    "name": "Iron & Steel \u2014 WWII Eastern Front",
+    "path": "packs/02_Iron_and_Steel/Iron_Steel_WWII_Eastern_Front.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "iron-steel-wwii-western-front",
+    "name": "Iron & Steel \u2014 WWII Western Front",
+    "path": "packs/02_Iron_and_Steel/Iron_Steel_WWII_Western_Front.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "iron-steel-wwi-iron-harvest",
+    "name": "Iron & Steel \u2014 WWI Iron Harvest",
+    "path": "packs/02_Iron_and_Steel/Iron_Steel_WWI_Iron_Harvest.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "talons-contrails-modern-military-air",
+    "name": "Talons & Contrails \u2014 Modern Military Air",
+    "path": "packs/03_Talons_and_Contrails/Talons_Contrails_Modern_Military_Air.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "talons-contrails-supplement-prebuilts",
+    "name": "Talons & Contrails \u2014 Supplement Pre-Builts",
+    "path": "packs/03_Talons_and_Contrails/Talons_Contrails_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "talons-contrails-vietnam-air-cav",
+    "name": "Talons & Contrails \u2014 Vietnam Air Cav",
+    "path": "packs/03_Talons_and_Contrails/Talons_Contrails_Vietnam_Air_Cav.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "talons-contrails-wwii-air-war",
+    "name": "Talons & Contrails \u2014 WWII Air War",
+    "path": "packs/03_Talons_and_Contrails/Talons_Contrails_WWII_Air_War.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "talons-contrails-wwi-aces-high",
+    "name": "Talons & Contrails \u2014 WWI Aces High",
+    "path": "packs/03_Talons_and_Contrails/Talons_Contrails_WWI_Aces_High.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "star-void-battle-fleet",
+    "name": "Star & Void \u2014 Battle Fleet",
+    "path": "packs/04_Star_and_Void/Star_Void_Battle_Fleet.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "star-void-capital-ships-of-the-void",
+    "name": "Star & Void \u2014 Capital Ships of the Void",
+    "path": "packs/04_Star_and_Void/Star_Void_Capital_Ships_of_the_Void.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "star-void-patrol-fleet",
+    "name": "Star & Void \u2014 Patrol Fleet",
+    "path": "packs/04_Star_and_Void/Star_Void_Patrol_Fleet.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "star-void-starter-fleet",
+    "name": "Star & Void \u2014 Starter Fleet",
+    "path": "packs/04_Star_and_Void/Star_Void_Starter_Fleet.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "star-void-supplement-prebuilts",
+    "name": "Star & Void \u2014 Supplement Pre-Builts",
+    "path": "packs/04_Star_and_Void/Star_Void_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "fang-claw-heavy-lance",
+    "name": "Fang & Claw \u2014 Heavy Lance",
+    "path": "packs/05_Fang_and_Claw/Fang_Claw_Heavy_Lance.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "fang-claw-kaiju-defence-force",
+    "name": "Fang & Claw \u2014 Kaiju Defence Force",
+    "path": "packs/05_Fang_and_Claw/Fang_Claw_Kaiju_Defence_Force.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "fang-claw-light-lance",
+    "name": "Fang & Claw \u2014 Light Lance",
+    "path": "packs/05_Fang_and_Claw/Fang_Claw_Light_Lance.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "fang-claw-mech-starter",
+    "name": "Fang & Claw \u2014 Mech Starter",
+    "path": "packs/05_Fang_and_Claw/Fang_Claw_Mech_Starter.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "fang-claw-supplement-prebuilts",
+    "name": "Fang & Claw \u2014 Supplement Pre-Builts",
+    "path": "packs/05_Fang_and_Claw/Fang_Claw_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "sails-gasbags-fantasy-skyfleet",
+    "name": "Sails & Gasbags \u2014 Fantasy Skyfleet",
+    "path": "packs/06_Sails_and_Gasbags/Sails_Gasbags_Fantasy_Skyfleet.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "sails-gasbags-skyship-starter",
+    "name": "Sails & Gasbags \u2014 Skyship Starter",
+    "path": "packs/06_Sails_and_Gasbags/Sails_Gasbags_Skyship_Starter.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "sails-gasbags-supplement-prebuilts",
+    "name": "Sails & Gasbags \u2014 Supplement Pre-Builts",
+    "path": "packs/06_Sails_and_Gasbags/Sails_Gasbags_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "chrome-fury-chase-starter",
+    "name": "Chrome & Fury \u2014 Chase Starter",
+    "path": "packs/07_Chrome_and_Fury/Chrome_Fury_Chase_Starter.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "chrome-fury-spy-vehicles",
+    "name": "Chrome & Fury \u2014 Spy Vehicles",
+    "path": "packs/07_Chrome_and_Fury/Chrome_Fury_Spy_Vehicles.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "chrome-fury-supplement-prebuilts",
+    "name": "Chrome & Fury \u2014 Supplement Pre-Builts",
+    "path": "packs/07_Chrome_and_Fury/Chrome_Fury_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "chrome-fury-wasteland-fleet",
+    "name": "Chrome & Fury \u2014 Wasteland Fleet",
+    "path": "packs/07_Chrome_and_Fury/Chrome_Fury_Wasteland_Fleet.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "dread-ruin-haunted-vehicles",
+    "name": "Dread & Ruin \u2014 Haunted Vehicles",
+    "path": "packs/08_Dread_and_Ruin/Dread_Ruin_Haunted_Vehicles.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "dread-ruin-horror-starter",
+    "name": "Dread & Ruin \u2014 Horror Starter",
+    "path": "packs/08_Dread_and_Ruin/Dread_Ruin_Horror_Starter.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "dread-ruin-supplement-prebuilts",
+    "name": "Dread & Ruin \u2014 Supplement Pre-Builts",
+    "path": "packs/08_Dread_and_Ruin/Dread_Ruin_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "saddle-fang-dinosaur-mounts",
+    "name": "Saddle & Fang \u2014 Dinosaur Mounts",
+    "path": "packs/09_Saddle_and_Fang/Saddle_Fang_Dinosaur_Mounts.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "saddle-fang-fantasy-bestiary-mounts",
+    "name": "Saddle & Fang \u2014 Fantasy Bestiary Mounts",
+    "path": "packs/09_Saddle_and_Fang/Saddle_Fang_Fantasy_Bestiary_Mounts.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "saddle-fang-mount-starter",
+    "name": "Saddle & Fang \u2014 Mount Starter",
+    "path": "packs/09_Saddle_and_Fang/Saddle_Fang_Mount_Starter.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "saddle-fang-supplement-prebuilts",
+    "name": "Saddle & Fang \u2014 Supplement Pre-Builts",
+    "path": "packs/09_Saddle_and_Fang/Saddle_Fang_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "rust-ruin-supplement-prebuilts",
+    "name": "Rust & Ruin \u2014 Supplement Pre-Builts",
+    "path": "packs/10_Rust_and_Ruin/Rust_Ruin_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "rust-ruin-wasteland-starter",
+    "name": "Rust & Ruin \u2014 Wasteland Starter",
+    "path": "packs/10_Rust_and_Ruin/Rust_Ruin_Wasteland_Starter.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "rust-ruin-wasteland-survivors",
+    "name": "Rust & Ruin \u2014 Wasteland Survivors",
+    "path": "packs/10_Rust_and_Ruin/Rust_Ruin_Wasteland_Survivors.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "brass-steam-steampunk-starter",
+    "name": "Brass & Steam \u2014 Steampunk Starter",
+    "path": "packs/11_Brass_and_Steam/Brass_Steam_Steampunk_Starter.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "brass-steam-supplement-prebuilts",
+    "name": "Brass & Steam \u2014 Supplement Pre-Builts",
+    "path": "packs/11_Brass_and_Steam/Brass_Steam_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  },
+  {
+    "id": "brass-steam-victorian-arsenal",
+    "name": "Brass & Steam \u2014 Victorian Arsenal",
+    "path": "packs/11_Brass_and_Steam/Brass_Steam_Victorian_Arsenal.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "wire-chrome-cyberpunk-fleet",
+    "name": "Wire & Chrome \u2014 Cyberpunk Fleet",
+    "path": "packs/12_Wire_and_Chrome/Wire_Chrome_Cyberpunk_Fleet.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "wire-chrome-cyberpunk-starter",
+    "name": "Wire & Chrome \u2014 Cyberpunk Starter",
+    "path": "packs/12_Wire_and_Chrome/Wire_Chrome_Cyberpunk_Starter.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "wire-chrome-supplement-prebuilts",
+    "name": "Wire & Chrome \u2014 Supplement Pre-Builts",
+    "path": "packs/12_Wire_and_Chrome/Wire_Chrome_Supplement_PreBuilts.vfx",
+    "vehicles": 3
+  }
+]
