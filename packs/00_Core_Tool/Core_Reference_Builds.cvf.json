@@ -9,1398 +9,1319 @@
   "vehicles": [
     {
       "name": "Bicycle",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": -1,
-      "toughness": 4,
-      "armour": 0,
-      "handling": 1,
-      "topSpeed": 16,
-      "crew": "1",
-      "grade": "A",
-      "weapons": [],
-      "primaryWeapon": null,
+      "loco": "wheeled",
+      "desc": "Two wheels, no engine, and the most efficient transport ever invented. She goes where cars can\\\\'t, makes no noise, and nobody looks twice at a cyclist.",
       "notes": "The bicycle is invisible. Nobody notices one more cyclist on a city street, which makes it the perfect surveillance and courier vehicle for low-tech campaigns. In chase scenes, she squeezes through gaps no car can follow \u2014 alleys, stairwells, crowded markets. 50% of shots hit the rider rather than the vehicle.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
+      "weapons": [],
       "specials": [
         "open_top"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Carriage",
-      "source": "SWADE",
-      "era": "historical",
-      "type": "ground",
       "size": 3,
-      "toughness": 6,
-      "armour": 0,
-      "handling": -2,
-      "topSpeed": 16,
-      "crew": "1+3",
-      "grade": "A",
-      "weapons": [],
-      "primaryWeapon": null,
+      "loco": "wheeled",
+      "desc": "Horse-drawn, four-wheeled, and the standard of overland travel for centuries. Speed depends entirely on the draft animals \u2014 a pair of carriage horses manages a comfortable trot, a post team at full gallop will shake your teeth loose.",
       "notes": "The carriage is your chase vehicle for historical and fantasy campaigns. Stagecoach robberies, runaway horses, rooftop leaps onto the luggage rack \u2014 she exists to create cinematic moments. Horse-drawn, so she stops when the horses do.",
+      "toughLevel": -1,
+      "armourLevel": -3,
+      "speedLevel": -2,
+      "handlingLevel": -3,
+      "woundsLevel": 0,
+      "mods": {},
+      "weapons": [],
       "specials": [
         "open_top",
         "towing"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Early Car",
-      "source": "SWADE",
-      "era": "early20c",
-      "type": "ground",
       "size": 3,
-      "toughness": 7,
-      "armour": 0,
-      "handling": -1,
-      "topSpeed": 40,
-      "crew": "1+3",
-      "grade": "A",
-      "weapons": [],
-      "primaryWeapon": null,
+      "loco": "wheeled",
+      "desc": "Twenty horsepower, a top speed of forty-five miles an hour, and a hand-crank starter that will break your arm if you\\'re not careful. She rattles, she stalls on hills, and she changed the world. Every car that followed owes something to this one.",
       "notes": "The Model T generation. Slow, temperamental, and revolutionary. She puts your campaign on wheels for the first time \u2014 Prohibition rum-runners, early pulp adventures, the first getaway cars. Unreliable enough to create complications at the worst possible moment.",
+      "toughLevel": 0,
+      "armourLevel": -3,
+      "speedLevel": -1,
+      "handlingLevel": -2,
+      "woundsLevel": 0,
+      "mods": {},
+      "weapons": [],
       "specials": [
         "enclosed",
         "temperamental"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Street Bike",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 1,
-      "toughness": 8,
-      "armour": 0,
-      "handling": 1,
-      "topSpeed": 120,
-      "crew": "1+1",
-      "grade": "A",
+      "loco": "wheeled",
+      "desc": "Stock street motorcycle. Two wheels, one engine, no protection whatsoever. Fast enough to weave through traffic, light enough to lane-split, and the rider is completely exposed to everything from bullets to bad weather.",
+      "notes": "The street bike is your urban pursuit vehicle. She splits lanes, she threads traffic, she fits where cars can\\'t follow. The rider is exposed \u2014 50% of shots hit them rather than the bike. That vulnerability is the price of agility.",
+      "toughLevel": 2,
+      "armourLevel": -2,
+      "speedLevel": 2,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The street bike is your urban pursuit vehicle. She splits lanes, she threads traffic, she fits where cars can't follow. The rider is exposed \u2014 50% of shots hit them rather than the bike. That vulnerability is the price of agility.",
       "specials": [
         "open_top"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Dirt Bike",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 0,
-      "toughness": 7,
-      "armour": 0,
-      "handling": 1,
-      "topSpeed": 80,
-      "crew": "1",
-      "grade": "A",
+      "loco": "wheeled",
+      "desc": "Off-road motorcycle. Knobby tyres, long-travel suspension, and the ability to go anywhere a goat can go. She\\'s lighter than the street bike, slower on tarmac, and infinitely more useful when the road ends.",
+      "notes": "The dirt bike goes where roads don\\'t. She\\'s the jungle recon vehicle, the desert patrol bike, the mountain courier. Four-wheel drive equivalent for two wheels \u2014 she ignores terrain that stops wheeled vehicles cold.",
+      "toughLevel": 2,
+      "armourLevel": -2,
+      "speedLevel": 1,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The dirt bike goes where roads don't. She's the jungle recon vehicle, the desert patrol bike, the mountain courier. Four-wheel drive equivalent for two wheels \u2014 she ignores terrain that stops wheeled vehicles cold.",
       "specials": [
         "open_top",
         "all_terrain"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Compact Car",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 4,
-      "toughness": 10,
-      "armour": 2,
-      "handling": 1,
-      "topSpeed": 120,
-      "crew": "1+3",
-      "grade": "A",
+      "loco": "wheeled",
+      "desc": "A Honda Civic or similar daily driver. Reliable, fuel-efficient, and completely unremarkable. Nobody looks twice at a compact car, which is exactly why they\\'re the vehicle of choice for anyone who doesn\\'t want to be noticed.",
+      "notes": "The compact car is your default civilian vehicle. Every NPC drives one, every parking lot is full of them, every car chase starts or ends with one. Mechanically unremarkable, which is exactly the point \u2014 she\\'s the baseline everything else is measured against.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 1,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The compact car is your default civilian vehicle. Every NPC drives one, every parking lot is full of them, every car chase starts or ends with one. Mechanically unremarkable, which is exactly the point \u2014 she's the baseline everything else is measured against.",
       "specials": [
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Mid-Sized Car",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 4,
-      "toughness": 11,
-      "armour": 2,
-      "handling": 0,
-      "topSpeed": 120,
-      "crew": "1+4",
-      "grade": "A",
-      "weapons": [],
-      "primaryWeapon": null,
+      "loco": "wheeled",
+      "desc": "Air bags, cruise control, and enough legroom for adults in the back seat. The mid-sized sedan is the car that most people actually drive \u2014 comfortable enough for a road trip, anonymous enough for a stakeout.",
       "notes": "The family sedan. She carries more passengers and gear than the compact, handles roughly the same, and blends into traffic just as easily. The car your players borrow, steal, or commandeer when they need to move without attracting attention.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 1,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
+      "weapons": [],
       "specials": [
         "enclosed",
         "cargo_bay"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Minivan",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 4,
-      "toughness": 12,
-      "armour": 2,
-      "handling": 0,
-      "topSpeed": 90,
-      "crew": "1+7",
-      "grade": "A",
+      "loco": "wheeled",
+      "desc": "The family troop transport. Sliding doors, seven seats, and a cargo area that swallows luggage, equipment, and the occasional body. She\\'s not fast, she\\'s not cool, and she carries more people than anything else in the parking lot.",
+      "notes": "The minivan carries a full party plus gear. She\\'s the team vehicle for modern campaigns \u2014 the thing everyone piles into when the job starts. Not fast, not tough, but she holds everyone and their equipment in one vehicle.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The minivan carries a full party plus gear. She's the team vehicle for modern campaigns \u2014 the thing everyone piles into when the job starts. Not fast, not tough, but she holds everyone and their equipment in one vehicle.",
       "specials": [
         "enclosed",
         "cargo_bay"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "SUV",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 5,
-      "toughness": 14,
-      "armour": 2,
-      "handling": 0,
-      "topSpeed": 120,
-      "crew": "1+7",
-      "grade": "A",
+      "loco": "wheeled",
+      "desc": "Four-wheel drive, raised suspension, and the illusion of ruggedness. Most SUVs never leave the tarmac, but the ones that do can handle dirt roads, shallow fords, and light off-road terrain without complaint.",
+      "notes": "The SUV bridges civilian comfort and rough terrain capability. Four-wheel drive gets her off-road where sedans can\\'t follow. She\\'s the vehicle of choice for private security, rural law enforcement, and players who expect trouble outside city limits.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 1,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The SUV bridges civilian comfort and rough terrain capability. Four-wheel drive gets her off-road where sedans can't follow. She's the vehicle of choice for private security, rural law enforcement, and players who expect trouble outside city limits.",
       "specials": [
         "enclosed",
         "four_wd",
         "all_terrain"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Sports Car",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 4,
-      "toughness": 10,
-      "armour": 2,
-      "handling": 2,
-      "topSpeed": 160,
-      "crew": "1+3",
-      "grade": "A",
+      "loco": "wheeled",
+      "desc": "A Mustang or similar muscle car. More engine than the chassis strictly needs, louder than the neighbours would like, and fast enough to outrun most things on four wheels. She\\'s not practical. She\\'s not supposed to be.",
+      "notes": "The sports car wins chases through speed and handling. She\\'s fast on straights, nimble in corners, and utterly useless off-road or in bad weather. The vehicle your players lust after and the one that gets them into trouble.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 3,
+      "handlingLevel": 2,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The sports car wins chases through speed and handling. She's fast on straights, nimble in corners, and utterly useless off-road or in bad weather. The vehicle your players lust after and the one that gets them into trouble.",
       "specials": [
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Semi-Truck",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 9,
-      "toughness": 14,
-      "armour": 2,
-      "handling": 0,
-      "topSpeed": 75,
-      "crew": "1+1",
-      "grade": "A",
+      "loco": "wheeled",
+      "desc": "Eighteen wheels and a diesel engine the size of a bathtub. With trailer she\\'s seventy feet long, weighs forty tons, and takes a quarter mile to stop from highway speed. She carries everything civilisation needs from factory to shop. Without her, the economy stops.",
+      "notes": "The semi-truck is your convoy centrepiece and your roadblock. She can\\'t manoeuvre, she can\\'t hide, and she takes a long time to stop. But she carries anything, tows anything, and at highway speed she\\'s an unstoppable battering ram. Trailer: Size 7, Toughness 14(2).",
+      "toughLevel": -1,
+      "armourLevel": -4,
+      "speedLevel": -1,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The semi-truck is your convoy centrepiece and your roadblock. She can't manoeuvre, she can't hide, and she takes a long time to stop. But she carries anything, tows anything, and at highway speed she's an unstoppable battering ram. Trailer: Size 7, Toughness 14(2).",
       "specials": [
         "enclosed",
         "cargo_bay",
         "towing",
         "loud"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "WW2 Jeep",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "ground",
       "size": 4,
-      "toughness": 10,
-      "armour": 2,
-      "handling": 1,
-      "topSpeed": 65,
-      "crew": "2+3",
-      "grade": "A",
+      "loco": "wheeled",
+      "desc": "Four-wheel drive, canvas top, and room for four soldiers and their gear. The Jeep went everywhere the war went \u2014 North Africa, Normandy, the Pacific, the Italian mountains. She\\'s tough, simple, and fixable with a wrench and determination.",
+      "notes": "The jeep goes everywhere and carries everything. She\\'s the workhorse of military campaigns from WWII to Vietnam \u2014 reconnaissance, command vehicle, ambulance, weapons platform. Open-topped and lightly armoured, which means the crew is always one burst away from disaster. Four-wheel drive.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 0,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "Heavy MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "mmg",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "Heavy MG",
-        "grade": "A+",
-        "threat": 15
-      },
-      "notes": "The jeep goes everywhere and carries everything. She's the workhorse of military campaigns from WWII to Vietnam \u2014 reconnaissance, command vehicle, ambulance, weapons platform. Open-topped and lightly armoured, which means the crew is always one burst away from disaster. Four-wheel drive.",
       "specials": [
+        "heavy_armor",
         "open_top",
         "four_wd"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "M4 Sherman",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "ground",
       "size": 8,
-      "toughness": 24,
-      "armour": 8,
-      "handling": -1,
-      "topSpeed": 30,
-      "crew": "5",
-      "grade": "B",
+      "loco": "tracked",
+      "desc": "The workhorse of the Allied war effort. Reliable, numerous, and undergunned against late-war German armour \u2014 but she won through sheer numbers and mechanical dependability. If one broke down, another was right behind her.",
+      "notes": "The workhorse of the Allied armoured forces. She wasn\\'t the best tank of the war \u2014 the Germans outgunned her routinely \u2014 but there were always more Shermans. Use her as the reliable, available option that wins through numbers and logistics rather than individual superiority. Heavy Armor, Tracked.",
+      "toughLevel": 1,
+      "armourLevel": -3,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "75mm Tank Gun",
-          "avgDmg": 22,
-          "ap": 6,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "C-",
-          "threat": 28
+          "weaponId": "tank_gun_75mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Heavy MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "Medium MG",
-          "avgDmg": 9,
-          "ap": 2,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "A",
-          "threat": 11
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "75mm Tank Gun",
-        "grade": "C-",
-        "threat": 28
-      },
-      "notes": "The workhorse of the Allied armoured forces. She wasn't the best tank of the war \u2014 the Germans outgunned her routinely \u2014 but there were always more Shermans. Use her as the reliable, available option that wins through numbers and logistics rather than individual superiority. Heavy Armor, Tracked.",
       "specials": [
+        "heavy_armor",
         "enclosed"
-      ]
-    },
-    {
-      "name": "M5A1 Stuart",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "ground",
-      "size": 7,
-      "toughness": 21,
-      "armour": 7,
-      "handling": 0,
-      "topSpeed": 36,
-      "crew": "4",
-      "grade": "B",
-      "weapons": [
-        {
-          "name": "37mm Tank Gun",
-          "avgDmg": 18,
-          "ap": 3,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "B",
-          "threat": 21
-        },
-        {
-          "name": "Heavy MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "A+",
-          "threat": 15
-        }
       ],
-      "primaryWeapon": {
-        "name": "37mm Tank Gun",
-        "grade": "B",
-        "threat": 21
-      },
-      "notes": "The Stuart is your light tank \u2014 fast, undergunned, and used for reconnaissance rather than direct engagement. She scouts ahead of the main force, finds the enemy, and calls in the Shermans. Players driving Stuarts should feel the tension of bringing a light tank to a heavy fight. Heavy Armor, Tracked.",
-      "specials": [
-        "enclosed"
-      ]
+      "customSpecial": ""
     },
     {
       "name": "T-34/76",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "ground",
       "size": 7,
-      "toughness": 24,
-      "armour": 8,
-      "handling": -1,
-      "topSpeed": 35,
-      "crew": "4",
-      "grade": "B",
+      "loco": "tracked",
+      "desc": "Sloped armour, a powerful gun, and wide tracks that ate Russian mud for breakfast. The T-34 was the shock that broke the Wehrmacht\\'s confidence \u2014 the first time German tankers met something their standard guns couldn\\'t penetrate frontally.",
+      "notes": "The T-34 changed tank warfare. Her sloped armour deflected shots that would penetrate a flat-faced Sherman, and she was simple enough to build in staggering numbers. The backbone of the Soviet armoured force and the benchmark for medium tank design. Heavy Armor, Sloped Armor (front), Tracked.",
+      "toughLevel": 1,
+      "armourLevel": -2,
+      "speedLevel": 0,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "76mm Tank Gun",
-          "avgDmg": 22,
-          "ap": 10,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "C-",
-          "threat": 32
+          "weaponId": "tank_gun_76mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "turret",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "76mm Tank Gun",
-        "grade": "C-",
-        "threat": 32
-      },
-      "notes": "The T-34 changed tank warfare. Her sloped armour deflected shots that would penetrate a flat-faced Sherman, and she was simple enough to build in staggering numbers. The backbone of the Soviet armoured force and the benchmark for medium tank design. Heavy Armor, Sloped Armor (front), Tracked.",
       "specials": [
+        "heavy_armor",
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Pz IVJ",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "ground",
       "size": 7,
-      "toughness": 26,
-      "armour": 10,
-      "handling": -1,
-      "topSpeed": 25,
-      "crew": "5",
-      "grade": "B",
+      "loco": "tracked",
+      "desc": "The backbone of the German Panzer divisions from 1939 to 1945. She started the war as a support tank with a short gun and finished it as a front-line medium with a long 75mm that could kill a Sherman at a thousand metres.",
+      "notes": "The Panzer IV was Germany\\'s reliable medium tank \u2014 not as famous as the Tiger, not as advanced as the Panther, but available in numbers and effective across the entire war. She\\'s the opponent your players face most often in a European theatre campaign. Heavy Armor, Tracked.",
+      "toughLevel": 1,
+      "armourLevel": -1,
+      "speedLevel": -1,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "75mm Gun",
-          "avgDmg": 22,
-          "ap": 6,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "C-",
-          "threat": 28
+          "weaponId": "tank_gun_75mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "turret",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "75mm Gun",
-        "grade": "C-",
-        "threat": 28
-      },
-      "notes": "The Panzer IV was Germany's reliable medium tank \u2014 not as famous as the Tiger, not as advanced as the Panther, but available in numbers and effective across the entire war. She's the opponent your players face most often in a European theatre campaign. Heavy Armor, Tracked.",
       "specials": [
+        "heavy_armor",
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Pz VI Tiger II",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "ground",
       "size": 8,
-      "toughness": 34,
-      "armour": 16,
-      "handling": -2,
-      "topSpeed": 25,
-      "crew": "5",
-      "grade": "C",
+      "loco": "tracked",
+      "desc": "The heaviest tank fielded in significant numbers during the war. Frontal armour that no Allied gun could penetrate at combat range, and an 88mm cannon that could kill anything on the battlefield. She weighs seventy tons and breaks bridges.",
+      "notes": "The King Tiger is your named threat. She outguns everything the Allies field and her frontal armour shrugs off most anti-tank weapons. Use her as a boss encounter \u2014 the players hear her coming, they plan around her, and they need a clever approach because a straight fight is suicide. Heavy Armor, Tracked.",
+      "toughLevel": 2,
+      "armourLevel": 0,
+      "speedLevel": -1,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "88mm Tank Gun",
-          "avgDmg": 23,
-          "ap": 16,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "C+",
-          "threat": 39
+          "weaponId": "tank_gun_88mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "turret",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "88mm Tank Gun",
-        "grade": "C+",
-        "threat": 39
-      },
-      "notes": "The King Tiger is your named threat. She outguns everything the Allies field and her frontal armour shrugs off most anti-tank weapons. Use her as a boss encounter \u2014 the players hear her coming, they plan around her, and they need a clever approach because a straight fight is suicide. Heavy Armor, Tracked.",
       "specials": [
+        "heavy_armor",
         "enclosed",
         "famous"
-      ]
-    },
-    {
-      "name": "M1A1 Abrams",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
-      "size": 9,
-      "toughness": 57,
-      "armour": 37,
-      "handling": -1,
-      "topSpeed": 40,
-      "crew": "4",
-      "grade": "D",
-      "weapons": [
-        {
-          "name": "120mm Tank Gun",
-          "avgDmg": 27.5,
-          "ap": 31,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "D+",
-          "threat": 58.5
-        },
-        {
-          "name": "Heavy MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "A+",
-          "threat": 15
-        }
       ],
-      "primaryWeapon": {
-        "name": "120mm Tank Gun",
-        "grade": "D+",
-        "threat": 58.5
-      },
-      "notes": "The modern benchmark for main battle tanks. Her combination of composite armour, stabilised gun, and thermal imaging makes her dominant in open terrain. Use her to show players what modern military hardware can do \u2014 and to remind them that even the best tank is vulnerable in cities. Heavy Armor, Night Vision, Tracked.",
-      "specials": [
-        "enclosed",
-        "night_ops"
-      ]
-    },
-    {
-      "name": "M2 Bradley",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
-      "size": 7,
-      "toughness": 22,
-      "armour": 6,
-      "handling": 0,
-      "topSpeed": 40,
-      "crew": "3+7",
-      "grade": "B",
-      "weapons": [
-        {
-          "name": "25mm Autocannon",
-          "avgDmg": 13.5,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Turret",
-          "grade": "A+",
-          "threat": 17.5
-        },
-        {
-          "name": "TOW Launcher",
-          "avgDmg": 22,
-          "ap": 16,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "C+",
-          "threat": 38
-        }
-      ],
-      "primaryWeapon": {
-        "name": "TOW Launcher",
-        "grade": "C+",
-        "threat": 38
-      },
-      "notes": "The Bradley is an infantry fighting vehicle \u2014 she carries troops and fights alongside them. Her autocannon shreds light vehicles and her TOW missiles threaten tanks. The players either ride in her or face her, and both experiences should feel dangerous. Heavy Armor, Night Vision, Tracked.",
-      "specials": [
-        "enclosed",
-        "night_ops"
-      ]
+      "customSpecial": ""
     },
     {
       "name": "T-72 MBT",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 9,
-      "toughness": 43,
-      "armour": 25,
-      "handling": -1,
-      "topSpeed": 50,
-      "crew": "3",
-      "grade": "D",
+      "loco": "tracked",
+      "desc": "The Soviet Union\\'s answer to the Abrams \u2014 cheaper, simpler, and produced in staggering numbers. She\\'s outclassed by Western tanks in one-on-one combat, but nobody fights one T-72. They fight fifty.",
+      "notes": "The T-72 is the world\\'s most exported tank. She shows up everywhere \u2014 every regional conflict, every arms deal, every third-world army. Not as capable as Western designs but available, affordable, and dangerous enough. Heavy Armor, Tracked.",
+      "toughLevel": 1,
+      "armourLevel": 2,
+      "speedLevel": 1,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "125mm Tank Gun",
-          "avgDmg": 27.5,
-          "ap": 30,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "D+",
-          "threat": 57.5
+          "weaponId": "tank_gun_125mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "125mm Tank Gun",
-        "grade": "D+",
-        "threat": 57.5
-      },
-      "notes": "The T-72 is the world's most exported tank. She shows up everywhere \u2014 every regional conflict, every arms deal, every third-world army. Not as capable as Western designs but available, affordable, and dangerous enough. Heavy Armor, Tracked.",
       "specials": [
+        "heavy_armor",
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "T-80 MBT",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 8,
-      "toughness": 52,
-      "armour": 32,
-      "handling": -1,
-      "topSpeed": 43,
-      "crew": "3",
-      "grade": "D",
+      "loco": "tracked",
+      "desc": "The advanced Soviet tank that bridged the gap between the T-72 and Western designs. Reactive armour, a gas turbine engine, and an autoloaded 125mm gun. She was expensive by Soviet standards, which meant fewer were built.",
+      "notes": "The T-80 is the Soviet answer to the Abrams \u2014 faster, lower-profile, and equipped with reactive armour. She represents the top tier of opposition for Cold War and modern campaigns. Heavy Armor, Night Vision, Tracked.",
+      "toughLevel": 3,
+      "armourLevel": 5,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "125mm Tank Gun",
-          "avgDmg": 27.5,
-          "ap": 30,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "D+",
-          "threat": 57.5
+          "weaponId": "tank_gun_125mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "125mm Tank Gun",
-        "grade": "D+",
-        "threat": 57.5
-      },
-      "notes": "The T-80 is the Soviet answer to the Abrams \u2014 faster, lower-profile, and equipped with reactive armour. She represents the top tier of opposition for Cold War and modern campaigns. Heavy Armor, Night Vision, Tracked.",
       "specials": [
+        "heavy_armor",
         "enclosed",
         "night_ops"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "BTR-70 APC",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "ground",
       "size": 6,
-      "toughness": 20,
-      "armour": 5,
-      "handling": -1,
-      "topSpeed": 49,
-      "crew": "2+8",
-      "grade": "B",
+      "loco": "wheeled",
+      "desc": "Eight wheels, an amphibious hull, and a turret-mounted heavy machine gun. She carries a squad of infantry and swims across rivers under her own power. The standard Soviet APC for decades.",
+      "notes": "The BTR-70 carries infantry into combat and provides fire support with her turret-mounted weapons. She swims rivers without preparation, which changes the tactical map \u2014 obstacles that stop wheeled vehicles don\\'t stop a BTR. Amphibious, 4WD, Heavy Armor.",
+      "toughLevel": 1,
+      "armourLevel": -3,
+      "speedLevel": 1,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "Heavy MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Turret",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "hmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "Heavy MG",
-        "grade": "A+",
-        "threat": 15
-      },
-      "notes": "The BTR-70 carries infantry into combat and provides fire support with her turret-mounted weapons. She swims rivers without preparation, which changes the tactical map \u2014 obstacles that stop wheeled vehicles don't stop a BTR. Amphibious, 4WD, Heavy Armor.",
       "specials": [
+        "heavy_armor",
         "enclosed",
         "amphibious",
         "four_wd"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Hover Tank (SWADE)",
-      "source": "SWADE",
-      "era": "futuristic",
-      "type": "hover",
       "size": 7,
-      "toughness": 38,
-      "armour": 22,
-      "handling": 0,
-      "topSpeed": 45,
-      "crew": "4",
-      "grade": "C",
+      "loco": "hover",
+      "desc": "A sleek killing machine that glides over terrain as though the ground were an inconvenience. The hover drive ignores rubble, rivers, and rough terrain entirely \u2014 which means your carefully prepared defensive position means nothing when one of these comes over the hill.",
+      "notes": "The hover tank represents the next generation of armoured warfare. She ignores terrain, crosses water without slowing, and positions faster than any tracked vehicle. The trade-off is that hover vehicles can\\'t dig in \u2014 she fights on the move or not at all. Heavy Armor, Hover, Night Vision.",
+      "toughLevel": 1,
+      "armourLevel": 3,
+      "speedLevel": -1,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "Heavy Laser",
-          "avgDmg": 22,
-          "ap": 30,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "D",
-          "threat": 52
+          "weaponId": "laser_heavy",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Gatling Laser",
-          "avgDmg": 14.5,
-          "ap": 4,
-          "rof": 4,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 18.5
+          "weaponId": "laser_gat",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "Heavy Laser",
-        "grade": "D",
-        "threat": 52
-      },
-      "notes": "The hover tank represents the next generation of armoured warfare. She ignores terrain, crosses water without slowing, and positions faster than any tracked vehicle. The trade-off is that hover vehicles can't dig in \u2014 she fights on the move or not at all. Heavy Armor, Hover, Night Vision.",
       "specials": [
+        "heavy_armor",
         "enclosed",
         "night_ops"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Hover APC (SWADE)",
-      "source": "SWADE",
-      "era": "futuristic",
-      "type": "hover",
       "size": 7,
-      "toughness": 26,
-      "armour": 10,
-      "handling": 0,
-      "topSpeed": 75,
-      "crew": "2+14",
-      "grade": "B",
+      "loco": "hover",
+      "desc": "Troop transport on a hover chassis. She carries a squad across any terrain at speed, including water, and mounts a defensive weapon system that keeps heads down during the approach. The infantry dismount directly into whatever hellscape the APC just glided across.",
+      "notes": "The hover APC delivers troops across any terrain at speed. She\\'s the future of mechanised infantry \u2014 rivers, rubble, swamp, and rough ground are no longer obstacles. Heavy Armor, Hover.",
+      "toughLevel": 1,
+      "armourLevel": -1,
+      "speedLevel": 2,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "Gatling Laser",
-          "avgDmg": 14.5,
-          "ap": 4,
-          "rof": 4,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 18.5
+          "weaponId": "laser_gat",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "Gatling Laser",
-        "grade": "B-",
-        "threat": 18.5
-      },
-      "notes": "The hover APC delivers troops across any terrain at speed. She's the future of mechanised infantry \u2014 rivers, rubble, swamp, and rough ground are no longer obstacles. Heavy Armor, Hover.",
       "specials": [
+        "heavy_armor",
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Biplane (Civilian)",
-      "source": "SWADE",
-      "era": "early20c",
-      "type": "air",
       "size": 4,
-      "toughness": 12,
-      "armour": 1,
-      "handling": 1,
-      "topSpeed": 125,
-      "crew": "1",
-      "grade": "A",
+      "loco": "turboprop",
+      "desc": "Two wings, an open cockpit, and the wind in your face at a hundred miles an hour. She\\'s slow by modern standards but capable of aerobatics that would tear a modern fighter apart. Barnstormers, crop dusters, and Great War aces all flew something like this.",
+      "notes": "The biplane is your inter-war and pulp adventure aircraft. She\\'s slow enough that the players can shoot pistols from the cockpit, low enough to barnstorm, and fragile enough that every bullet matters. Open cockpit, wind in your face, goggles and scarves.",
+      "toughLevel": 1,
+      "armourLevel": -1,
+      "speedLevel": -2,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The biplane is your inter-war and pulp adventure aircraft. She's slow enough that the players can shoot pistols from the cockpit, low enough to barnstorm, and fragile enough that every bullet matters. Open cockpit, wind in your face, goggles and scarves.",
       "specials": [
         "open_top",
         "short_range"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Cessna Skyhawk",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "air",
       "size": 5,
-      "toughness": 12,
-      "armour": 2,
-      "handling": 1,
-      "topSpeed": 140,
-      "crew": "1+3",
-      "grade": "A",
+      "loco": "turboprop",
+      "desc": "The most popular single-engine aircraft ever built. Four seats, a cruising speed of a hundred and twenty knots, and the ability to land on any reasonably flat strip of ground. Every flight school, bush pilot, and weekend aviator knows the Cessna.",
+      "notes": "The Cessna is your civilian light aircraft. She\\'s the plane the players charter, steal, or escape in. Simple to fly, cheap to hire, and she lands on dirt strips that would destroy anything bigger. The most produced aircraft in history for a reason.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": -2,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The Cessna is your civilian light aircraft. She's the plane the players charter, steal, or escape in. Simple to fly, cheap to hire, and she lands on dirt strips that would destroy anything bigger. The most produced aircraft in history for a reason.",
       "specials": [
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Helicopter (Civilian)",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "air",
       "size": 7,
-      "toughness": 12,
-      "armour": 2,
-      "handling": 0,
-      "topSpeed": 130,
-      "crew": "1+3",
-      "grade": "A",
+      "loco": "vtol",
+      "desc": "Cargo and troop helicopter. She carries a squad, their equipment, and enough supplies for a short deployment. She lands in clearings, rooftops, and anywhere else flat enough to fit her rotors.",
+      "notes": "The civilian helicopter\\'s unique ability is hover and vertical landing. She doesn\\'t need a runway. Use her for medical evacuation, news coverage, executive transport, and dramatic rooftop extractions. VTOL.",
+      "toughLevel": -1,
+      "armourLevel": -2,
+      "speedLevel": -1,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The civilian helicopter's unique ability is hover and vertical landing. She doesn't need a runway. Use her for medical evacuation, news coverage, executive transport, and dramatic rooftop extractions. VTOL.",
       "specials": [
         "enclosed",
         "stol"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Learjet",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "air",
       "size": 8,
-      "toughness": 16,
-      "armour": 2,
-      "handling": 2,
-      "topSpeed": 540,
-      "crew": "2+10",
-      "grade": "A",
+      "loco": "jet",
+      "desc": "Private business jet. She seats eight in leather comfort, cruises at five hundred miles an hour, and lands at airports that commercial airliners can\\'t reach. The aircraft of choice for executives, celebrities, and anyone fleeing the country in a hurry.",
+      "notes": "The Learjet is your fast long-range transport. She gets the players across continents in hours, and her presence tells them something about whoever owns it \u2014 money, connections, urgency. She\\'s also a beautiful target sitting on a runway.",
+      "toughLevel": 1,
+      "armourLevel": -3,
+      "speedLevel": -1,
+      "handlingLevel": 3,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The Learjet is your fast long-range transport. She gets the players across continents in hours, and her presence tells them something about whoever owns it \u2014 money, connections, urgency. She's also a beautiful target sitting on a runway.",
       "specials": [
         "enclosed",
         "spacious",
         "long_range"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Space Shuttle",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "air",
       "size": 13,
-      "toughness": 20,
-      "armour": 4,
-      "handling": -1,
-      "topSpeed": 17000,
-      "crew": "1+40",
-      "grade": "B",
+      "loco": "jet",
+      "desc": "Orbital re-entry vehicle. She launches vertically on rocket boosters, operates in low Earth orbit, and glides home unpowered to a runway landing. The most complex vehicle ever built by human hands.",
+      "notes": "The shuttle is your near-future and hard sci-fi reference point. She demonstrates that size and Toughness don\\'t always correlate with combat power \u2014 the shuttle is large but fragile, designed for a specific mission rather than a fight.",
+      "toughLevel": -1,
+      "armourLevel": -2,
+      "speedLevel": 5,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The shuttle is your near-future and hard sci-fi reference point. She demonstrates that size and Toughness don't always correlate with combat power \u2014 the shuttle is large but fragile, designed for a specific mission rather than a fight.",
       "specials": [
         "enclosed",
         "sealed",
         "pressurised"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "B-17 Flying Fortress",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "air",
       "size": 10,
-      "toughness": 19,
-      "armour": 2,
-      "handling": -2,
-      "topSpeed": 115,
-      "crew": "10",
-      "grade": "B",
+      "loco": "turboprop",
+      "desc": "Four engines, a crew of ten, and thirteen machine guns covering every angle of approach. She flies in formation at twenty-five thousand feet through flak and fighters to deliver her bomb load, then flies home again. If she can. Many didn\\'t.",
+      "notes": "The Flying Fortress is your strategic bomber and your crew survival scenario. She carries ten men, she bristles with defensive guns, and she has to hold formation through flak and fighters for hours. Every mission is a survival horror session at 25,000 feet.",
+      "toughLevel": 0,
+      "armourLevel": -3,
+      "speedLevel": -4,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "2x Linked Heavy MG (multiple turrets)",
-          "avgDmg": 13,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Turret",
-          "grade": "B-",
-          "threat": 19
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "bombs_ww",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "2x Linked Heavy MG (multiple turrets)",
-        "grade": "B-",
-        "threat": 19
-      },
-      "notes": "The Flying Fortress is your strategic bomber and your crew survival scenario. She carries ten men, she bristles with defensive guns, and she has to hold formation through flak and fighters for hours. Every mission is a survival horror session at 25,000 feet.",
       "specials": [
+        "heavy_armor",
         "enclosed",
         "long_range"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Bf-109",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "air",
       "size": 6,
-      "toughness": 13,
-      "armour": 2,
-      "handling": 1,
-      "topSpeed": 380,
-      "crew": "1",
-      "grade": "A",
+      "loco": "turboprop",
+      "desc": "Germany\\'s frontline fighter from the first day of the war to the last. Fast, well-armed, and flown by some of the highest-scoring aces in history. Her narrow undercarriage made her a terror on landing, but in the air she was lethal.",
+      "notes": "The Messerschmitt is Germany\\'s primary fighter across the entire war. She\\'s fast, she climbs well, and her cannon armament hits hard. The opposition your players face in every European air combat scenario from the Battle of Britain to Berlin.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": -1,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "20mm Cannon",
-          "avgDmg": 13,
-          "ap": 4,
-          "rof": 4,
-          "mount": "Fixed Front",
-          "grade": "A+",
-          "threat": 17
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "2x Linked Heavy MG",
-          "avgDmg": 13,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 19
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
-      "primaryWeapon": {
-        "name": "2x Linked Heavy MG",
-        "grade": "B-",
-        "threat": 19
-      },
-      "notes": "The Messerschmitt is Germany's primary fighter across the entire war. She's fast, she climbs well, and her cannon armament hits hard. The opposition your players face in every European air combat scenario from the Battle of Britain to Berlin.",
       "specials": [
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "P-51 Mustang",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "air",
       "size": 7,
-      "toughness": 14,
-      "armour": 2,
-      "handling": 1,
-      "topSpeed": 437,
-      "crew": "1",
-      "grade": "A",
+      "loco": "turboprop",
+      "desc": "The fighter that won the air war over Europe. A Merlin engine, six .50-calibre guns, and the range to escort bombers all the way to Berlin and back. The P-51 made daylight bombing possible by killing the Luftwaffe over its own airfields.",
+      "notes": "The Mustang is the best all-round fighter of the war. She escorts bombers to Berlin and back, she dogfights anything the Luftwaffe sends up, and she strafes ground targets on the way home. The player character\\'s fighter of choice.",
+      "toughLevel": 0,
+      "armourLevel": -2,
+      "speedLevel": 0,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "6x Heavy MG",
-          "avgDmg": 15,
-          "ap": 8,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "B",
-          "threat": 23
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
-      "primaryWeapon": {
-        "name": "6x Heavy MG",
-        "grade": "B",
-        "threat": 23
-      },
-      "notes": "The Mustang is the best all-round fighter of the war. She escorts bombers to Berlin and back, she dogfights anything the Luftwaffe sends up, and she strafes ground targets on the way home. The player character's fighter of choice.",
       "specials": [
         "enclosed",
         "long_range"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Japanese Zero",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "air",
       "size": 6,
-      "toughness": 12,
-      "armour": 2,
-      "handling": 1,
-      "topSpeed": 350,
-      "crew": "1",
-      "grade": "A",
+      "loco": "turboprop",
+      "desc": "Lighter than air and twice as agile. The Zero sacrificed everything for manoeuvrability \u2014 no armour, no self-sealing tanks, no survivability. She turns inside anything the Allies fly, and she burns like paper when they catch her.",
+      "notes": "The Zero trades armour for agility. She turns inside anything the Allies fly, which makes her lethal in a dogfight \u2014 until the first bullet hits, because she has no armour and no self-sealing fuel tanks. Glass cannon in aircraft form.",
+      "toughLevel": -1,
+      "armourLevel": -1,
+      "speedLevel": -1,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "2x Linked 20mm Cannon",
-          "avgDmg": 15,
-          "ap": 6,
-          "rof": 4,
-          "mount": "Fixed Front",
-          "grade": "B",
-          "threat": 21
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
         },
         {
-          "name": "2x Linked Medium MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
-      "primaryWeapon": {
-        "name": "2x Linked 20mm Cannon",
-        "grade": "B",
-        "threat": 21
-      },
-      "notes": "The Zero trades armour for agility. She turns inside anything the Allies fly, which makes her lethal in a dogfight \u2014 until the first bullet hits, because she has no armour and no self-sealing fuel tanks. Glass cannon in aircraft form.",
       "specials": [
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Spitfire Mk IIA",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "air",
       "size": 6,
-      "toughness": 14,
-      "armour": 1,
-      "handling": 1,
-      "topSpeed": 360,
-      "crew": "1",
-      "grade": "A",
+      "loco": "turboprop",
+      "desc": "The elliptical wings, the Merlin engine growl, and the tightest turning circle of any fighter in the European theatre. She won the Battle of Britain by out-turning the Bf-109 in close combat. More than any other aircraft, the Spitfire is a legend.",
+      "notes": "The Spitfire is Britain\\'s finest. She matches the Bf-109 in speed, outturns it at most altitudes, and her elliptical wing is the most recognisable silhouette of the war. The Battle of Britain in one aircraft.",
+      "toughLevel": 1,
+      "armourLevel": -2,
+      "speedLevel": -1,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "8x Linked Medium MG",
-          "avgDmg": 13,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 19
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
-      "primaryWeapon": {
-        "name": "8x Linked Medium MG",
-        "grade": "B-",
-        "threat": 19
-      },
-      "notes": "The Spitfire is Britain's finest. She matches the Bf-109 in speed, outturns it at most altitudes, and her elliptical wing is the most recognisable silhouette of the war. The Battle of Britain in one aircraft.",
       "specials": [
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "AH-64 Apache",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "air",
       "size": 8,
-      "toughness": 20,
-      "armour": 4,
-      "handling": 0,
-      "topSpeed": 225,
-      "crew": "2",
-      "grade": "B",
+      "loco": "vtol",
+      "desc": "Rotary-wing gun platform. She hovers behind tree lines, pops up to fire, and disappears before the return fire arrives. The attack helicopter turned armoured warfare upside down \u2014 tanks that ruled the battlefield for decades are now prey.",
+      "notes": "The Apache is your modern attack helicopter \u2014 she finds targets with her sensor suite, kills them with Hellfire missiles, and moves on before anyone can shoot back. Use her to demonstrate the terrifying gap between infantry and modern air power. Helicopter, Night Vision.",
+      "toughLevel": 1,
+      "armourLevel": -2,
+      "speedLevel": 0,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "30mm Cannon",
-          "avgDmg": 13.5,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 19.5
+          "weaponId": "autocannon_30mm",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "16x Hellfire Missiles",
-          "avgDmg": 22,
-          "ap": 16,
-          "rof": 1,
-          "mount": "Fixed",
-          "grade": "C+",
-          "threat": 38
+          "weaponId": "hellfire",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "16x Hellfire Missiles",
-        "grade": "C+",
-        "threat": 38
-      },
-      "notes": "The Apache is your modern attack helicopter \u2014 she finds targets with her sensor suite, kills them with Hellfire missiles, and moves on before anyone can shoot back. Use her to demonstrate the terrifying gap between infantry and modern air power. Helicopter, Night Vision.",
       "specials": [
+        "heavy_armor",
         "enclosed",
         "night_ops"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "AV-8B Harrier",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "air",
       "size": 7,
-      "toughness": 17,
-      "armour": 3,
-      "handling": 1,
-      "topSpeed": 630,
-      "crew": "1",
-      "grade": "A",
+      "loco": "vtol",
+      "desc": "The jump jet. She takes off from a forest clearing, hovers behind a ridge line, and delivers ordnance where no conventional aircraft can operate. Slow for a jet, devastating for anything on the ground.",
+      "notes": "The Harrier operates from roads, clearings, and ships too small for conventional aircraft. Her VTOL capability means she can be anywhere the enemy doesn\\'t expect close air support. Slow for a jet, devastating for anything on the ground. VTOL.",
+      "toughLevel": 1,
+      "armourLevel": -2,
+      "speedLevel": 3,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "25mm Cannon",
-          "avgDmg": 13.5,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "A+",
-          "threat": 17.5
+          "weaponId": "autocannon_25mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "bombs_mod",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "25mm Cannon",
-        "grade": "A+",
-        "threat": 17.5
-      },
-      "notes": "The Harrier operates from roads, clearings, and ships too small for conventional aircraft. Her VTOL capability means she can be anywhere the enemy doesn't expect close air support. Slow for a jet, devastating for anything on the ground. VTOL.",
       "specials": [
         "enclosed",
         "stol"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "F-15 Eagle",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "air",
       "size": 9,
-      "toughness": 18,
-      "armour": 4,
-      "handling": 2,
-      "topSpeed": 1875,
-      "crew": "1",
-      "grade": "B",
+      "loco": "jet",
+      "desc": "Generic modern combat aircraft. Supersonic, radar-equipped, and carrying enough ordnance to ruin someone\\'s entire day. She represents any current-generation fighter from an F-16 to a Eurofighter \u2014 the specific type matters less than the capability.",
+      "notes": "The Eagle has never been shot down in air-to-air combat. She\\'s the benchmark for air superiority fighters \u2014 fast, well-armed, and equipped with sensors that let her fight beyond visual range. The thing your players hear about but never want to see. Night Vision.",
+      "toughLevel": 0,
+      "armourLevel": -3,
+      "speedLevel": 3,
+      "handlingLevel": 3,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "20mm Cannon",
-          "avgDmg": 13,
-          "ap": 4,
-          "rof": 4,
-          "mount": "Fixed Front",
-          "grade": "A+",
-          "threat": 17
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sparrow",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "20mm Cannon",
-        "grade": "A+",
-        "threat": 17
-      },
-      "notes": "The Eagle has never been shot down in air-to-air combat. She's the benchmark for air superiority fighters \u2014 fast, well-armed, and equipped with sensors that let her fight beyond visual range. The thing your players hear about but never want to see. Night Vision.",
       "specials": [
         "enclosed",
         "night_ops"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "SU-27",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "air",
       "size": 9,
-      "toughness": 16,
-      "armour": 4,
-      "handling": 1,
-      "topSpeed": 1550,
-      "crew": "1",
-      "grade": "A",
+      "loco": "jet",
+      "desc": "Soviet air superiority in a twin-engined package. The Flanker is big, fast, and arguably the most manoeuvrable heavy fighter ever built. She represents peer-level opposition for any Western air force.",
+      "notes": "The Flanker is the Soviet answer to the F-15 \u2014 arguably more manoeuvrable, certainly more dramatic in appearance, and equipped to fight at every range. She represents peer-level opposition for any modern air combat campaign. Night Vision.",
+      "toughLevel": 0,
+      "armourLevel": -3,
+      "speedLevel": 2,
+      "handlingLevel": 2,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "30mm Cannon",
-          "avgDmg": 13.5,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 19.5
+          "weaponId": "autocannon_30mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sparrow",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "30mm Cannon",
-        "grade": "B-",
-        "threat": 19.5
-      },
-      "notes": "The Flanker is the Soviet answer to the F-15 \u2014 arguably more manoeuvrable, certainly more dramatic in appearance, and equipped to fight at every range. She represents peer-level opposition for any modern air combat campaign. Night Vision.",
       "specials": [
         "enclosed",
         "night_ops"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "UH-1 Huey",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "air",
       "size": 7,
-      "toughness": 14,
-      "armour": 2,
-      "handling": 2,
-      "topSpeed": 120,
-      "crew": "4+12",
-      "grade": "A",
+      "loco": "vtol",
+      "desc": "The distinctive whumping rotor beat that defined a generation of warfare. She carries a squad into hot LZs, extracts the wounded under fire, and provides suppressive fire from the door guns. Thin-skinned and irreplaceable.",
+      "notes": "The Huey is the sound of the Vietnam War. Her distinctive rotor beat tells everyone \u2014 friendly and hostile \u2014 that she\\'s coming. She carries troops, she evacuates wounded, she provides fire support, and she defines the helicopter warfare era. Helicopter.",
+      "toughLevel": 0,
+      "armourLevel": -2,
+      "speedLevel": 0,
+      "handlingLevel": 2,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "Medium MG",
-          "avgDmg": 9,
-          "ap": 2,
-          "rof": 3,
-          "mount": "Fixed",
-          "grade": "A",
-          "threat": 11
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "Medium MG",
-        "grade": "A",
-        "threat": 11
-      },
-      "notes": "The Huey is the sound of the Vietnam War. Her distinctive rotor beat tells everyone \u2014 friendly and hostile \u2014 that she's coming. She carries troops, she evacuates wounded, she provides fire support, and she defines the helicopter warfare era. Helicopter.",
       "specials": [
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Galleon",
-      "source": "SWADE",
-      "era": "medieval",
-      "type": "water",
       "size": 14,
-      "toughness": 20,
-      "armour": 4,
-      "handling": -2,
-      "topSpeed": 9,
-      "crew": "20+80",
-      "grade": "B",
+      "loco": "water_sail",
+      "desc": "A general-purpose sailing vessel \u2014 merchant brig, coastal trader, island hopper. She carries cargo and passengers under sail, she needs wind to move, and she\\'s the backbone of maritime trade in any pre-industrial setting.",
+      "notes": "The galleon is your Age of Sail warship and your pirate campaign flagship. She carries dozens of guns, a crew of hundreds, and enough provisions for months at sea. She\\'s a floating fortress, a mobile settlement, and a slow-moving target for anything faster. Heavy Armor.",
+      "toughLevel": -1,
+      "armourLevel": -2,
+      "speedLevel": -1,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "Cannon Broadside",
-          "avgDmg": 11.5,
-          "ap": 4,
-          "rof": 1,
-          "mount": "Fixed Left/Right",
-          "grade": "A+",
-          "threat": 15.5
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "Cannon Broadside",
-        "grade": "A+",
-        "threat": 15.5
-      },
-      "notes": "The galleon is your Age of Sail warship and your pirate campaign flagship. She carries dozens of guns, a crew of hundreds, and enough provisions for months at sea. She's a floating fortress, a mobile settlement, and a slow-moving target for anything faster. Heavy Armor.",
       "specials": [
+        "heavy_armor",
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Galley",
-      "source": "SWADE",
-      "era": "ancient",
-      "type": "water",
       "size": 13,
-      "toughness": 20,
-      "armour": 4,
-      "handling": -1,
-      "topSpeed": 20,
-      "crew": "20+100",
-      "grade": "B",
+      "loco": "water_sail",
+      "desc": "Oars and sail. The galley moves when and where her captain commands, independent of wind. From the triremes of Athens to the galleys of Lepanto, she dominated naval warfare for two thousand years.",
+      "notes": "The galley is your ancient and medieval warship. Oars give her independence from wind \u2014 she moves when and where the captain commands, which makes her the dominant naval platform from Greece to Lepanto. Her ram is as dangerous as her weapons. Heavy Armor, Oars+Sails.",
+      "toughLevel": -1,
+      "armourLevel": -2,
+      "speedLevel": 0,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "Catapult",
-          "avgDmg": 18,
-          "ap": 0,
-          "rof": 1,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 18
+          "weaponId": "ballista",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "Catapult",
-        "grade": "B-",
-        "threat": 18
-      },
-      "notes": "The galley is your ancient and medieval warship. Oars give her independence from wind \u2014 she moves when and where the captain commands, which makes her the dominant naval platform from Greece to Lepanto. Her ram is as dangerous as her weapons. Heavy Armor, Oars+Sails.",
       "specials": [
+        "heavy_armor",
         "enclosed",
         "ram_plate"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Hydrofoil",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "water",
       "size": 10,
-      "toughness": 15,
-      "armour": 3,
-      "handling": 0,
-      "topSpeed": 70,
-      "crew": "1+9",
-      "grade": "A",
+      "loco": "water_turbo",
+      "desc": "At speed she lifts out of the water on submerged wings, cutting drag and doubling velocity. Fast, agile, and distinctive \u2014 the sports car of coastal patrol craft.",
+      "notes": "The hydrofoil lifts out of the water at speed, reducing drag and dramatically increasing velocity. She\\'s your fast patrol and intercept vessel for coastal operations \u2014 faster than conventional boats, more agile, and harder to hit at speed.",
+      "toughLevel": -1,
+      "armourLevel": -2,
+      "speedLevel": 2,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The hydrofoil lifts out of the water at speed, reducing drag and dramatically increasing velocity. She's your fast patrol and intercept vessel for coastal operations \u2014 faster than conventional boats, more agile, and harder to hit at speed.",
       "specials": [
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Patrol Boat, River",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "water",
       "size": 7,
-      "toughness": 15,
-      "armour": 4,
-      "handling": 1,
-      "topSpeed": 32,
-      "crew": "4",
-      "grade": "A",
+      "loco": "water_turbo",
+      "desc": "Small enough for shallow rivers, armed enough to suppress both banks. The PBR defined riverine warfare in Vietnam \u2014 fast, loud, and bristling with heavy machine guns.",
+      "notes": "The PBR is your brown-water navy vessel \u2014 rivers, estuaries, coastlines. She\\'s small enough to navigate shallow waterways that would ground larger craft, and armed enough to suppress fire from both banks. The Vietnam riverine warfare workhorse. Heavy Armor.",
+      "toughLevel": 0,
+      "armourLevel": 0,
+      "speedLevel": 0,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": "2x Linked Heavy MG",
-          "avgDmg": 13,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "B-",
-          "threat": 19
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "2x Linked Heavy MG",
-        "grade": "B-",
-        "threat": 19
-      },
-      "notes": "The PBR is your brown-water navy vessel \u2014 rivers, estuaries, coastlines. She's small enough to navigate shallow waterways that would ground larger craft, and armed enough to suppress fire from both banks. The Vietnam riverine warfare workhorse. Heavy Armor.",
       "specials": [
+        "heavy_armor",
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "PT Boat",
-      "source": "SWADE",
-      "era": "ww2",
-      "type": "water",
       "size": 12,
-      "toughness": 14,
-      "armour": 2,
-      "handling": 1,
-      "topSpeed": 40,
-      "crew": "10",
-      "grade": "A",
+      "loco": "water_turbo",
+      "desc": "Plywood, speed, and torpedoes. She attacks at night, at forty knots, and her only defence is being too fast and too small to hit. Lieutenant Kennedy commanded one in the Pacific. It didn\\'t end well for the boat, but he survived.",
+      "notes": "The PT boat is your fast attack craft \u2014 she closes with the enemy at speed, launches torpedoes, and gets out before the return fire finds her. Small crew, high risk, enormous potential reward if the torpedoes hit. JFK commanded one. Heavy Armor.",
+      "toughLevel": -1,
+      "armourLevel": -1,
+      "speedLevel": 1,
+      "handlingLevel": 3,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [
         {
-          "name": ".50 cal MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
         },
         {
-          "name": "4x Torpedo",
-          "avgDmg": 27.5,
-          "ap": 10,
-          "rof": 1,
-          "mount": "Fixed Front",
-          "grade": "C+",
-          "threat": 37.5
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
-      "primaryWeapon": {
-        "name": "4x Torpedo",
-        "grade": "C+",
-        "threat": 37.5
-      },
-      "notes": "The PT boat is your fast attack craft \u2014 she closes with the enemy at speed, launches torpedoes, and gets out before the return fire finds her. Small crew, high risk, enormous potential reward if the torpedoes hit. JFK commanded one. Heavy Armor.",
       "specials": [
         "enclosed"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Rowboat",
-      "source": "SWADE",
-      "era": "historical",
-      "type": "water",
       "size": 0,
-      "toughness": 8,
-      "armour": 1,
-      "handling": -2,
-      "topSpeed": 5,
-      "crew": "1+3",
-      "grade": "A",
+      "loco": "water_turbo",
+      "desc": "Oars, a flat bottom, and room for four. She\\'s the silent insertion vehicle and the thing between your players and drowning when the ship sinks.",
+      "notes": "The rowboat is your insertion vehicle. She\\'s silent, she\\'s invisible against a dark shoreline, and she carries a small team to wherever they need to be without alerting anyone. Also the thing that\\'s between your players and drowning when the ship sinks.",
+      "toughLevel": 2,
+      "armourLevel": 0,
+      "speedLevel": -3,
+      "handlingLevel": -3,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The rowboat is your insertion vehicle. She's silent, she's invisible against a dark shoreline, and she carries a small team to wherever they need to be without alerting anyone. Also the thing that's between your players and drowning when the ship sinks.",
       "specials": [
         "open_top",
         "shallow_draft"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Speed Boat",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "water",
       "size": 4,
-      "toughness": 10,
-      "armour": 1,
-      "handling": 1,
-      "topSpeed": 90,
-      "crew": "1+3",
-      "grade": "A",
+      "loco": "water_turbo",
+      "desc": "Civilian power boat. Fibreglass hull, outboard motors, and enough speed to pull water skiers or outrun the harbour patrol. She\\'s the default recreational watercraft and the smuggler\\'s best friend in coastal waters.",
+      "notes": "The speedboat is your modern chase vehicle on water. Fast, agile, and fragile \u2014 she\\'s the equivalent of a sports car on the open sea. Drug runners, coast guard, and players who need to be somewhere coastal in a hurry.",
+      "toughLevel": 0,
+      "armourLevel": -3,
+      "speedLevel": 2,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The speedboat is your modern chase vehicle on water. Fast, agile, and fragile \u2014 she's the equivalent of a sports car on the open sea. Drug runners, coast guard, and players who need to be somewhere coastal in a hurry.",
       "specials": [
         "open_top"
-      ]
+      ],
+      "customSpecial": ""
     },
     {
       "name": "Small Yacht",
-      "source": "SWADE",
-      "era": "modern",
-      "type": "water",
       "size": 8,
-      "toughness": 14,
-      "armour": 2,
-      "handling": 0,
-      "topSpeed": 35,
-      "crew": "1+9",
-      "grade": "A",
+      "loco": "water_turbo",
+      "desc": "Luxury sailing or motor vessel. She\\'s someone\\'s floating home, someone\\'s status symbol, and occasionally someone\\'s crime scene. A yacht large enough to sleep six is large enough to hide contraband, hostages, or secrets.",
+      "notes": "The yacht is a location, not a chase vehicle. She\\'s where the party happens, where the deal goes down, where the villain entertains guests while the players infiltrate from the waterline. Comfortable, expensive, and conspicuous.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 0,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "mods": {},
       "weapons": [],
-      "primaryWeapon": null,
-      "notes": "The yacht is a location, not a chase vehicle. She's where the party happens, where the deal goes down, where the villain entertains guests while the players infiltrate from the waterline. Comfortable, expensive, and conspicuous.",
       "specials": [
         "enclosed",
         "spacious",
         "long_range"
-      ]
+      ],
+      "customSpecial": ""
+    },
+    {
+      "name": "M5A1 Stuart",
+      "size": 7,
+      "loco": "tracked",
+      "desc": "Light, fast, and undergunned. The Stuart scouted ahead of the heavy armour, found the enemy, and reported back \u2014 assuming she survived first contact. A light tank in a medium tank war.",
+      "notes": "The Stuart is your light tank \u2014 fast, undergunned, and used for reconnaissance rather than direct engagement. She scouts ahead of the main force, finds the enemy, and calls in the Shermans. Players driving Stuarts should feel the tension of bringing a light tank to a heavy fight. Heavy Armor, Tracked.",
+      "toughLevel": 0,
+      "armourLevel": -2,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "tank_gun_37mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed"
+      ],
+      "customSpecial": ""
+    },
+    {
+      "name": "M1A1 Abrams",
+      "size": 9,
+      "loco": "tracked",
+      "desc": "Composite armour, a stabilised 120mm gun, and thermal imaging that lets her fight at night as effectively as daylight. The modern benchmark for main battle tanks. Sixty-seven tons of American engineering dominance.",
+      "notes": "The modern benchmark for main battle tanks. Her combination of composite armour, stabilised gun, and thermal imaging makes her dominant in open terrain. Use her to show players what modern military hardware can do \u2014 and to remind them that even the best tank is vulnerable in cities. Heavy Armor, Night Vision, Tracked.",
+      "toughLevel": 2,
+      "armourLevel": 5,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "tank_gun_120mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed",
+        "night_ops"
+      ],
+      "customSpecial": ""
+    },
+    {
+      "name": "M2 Bradley",
+      "size": 7,
+      "loco": "tracked",
+      "desc": "Infantry fighting vehicle. She carries a squad and fights alongside them \u2014 her 25mm autocannon shreds light vehicles and her TOW missiles threaten anything heavier. Half taxi, half weapons platform.",
+      "notes": "The Bradley is an infantry fighting vehicle \u2014 she carries troops and fights alongside them. Her autocannon shreds light vehicles and her TOW missiles threaten tanks. The players either ride in her or face her, and both experiences should feel dangerous. Heavy Armor, Night Vision, Tracked.",
+      "toughLevel": 2,
+      "armourLevel": -3,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "autocannon_25mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "tow_missile",
+          "mount": "fixed",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed",
+        "night_ops"
+      ],
+      "customSpecial": ""
     }
-  ]
+  ],
+  "version": "1.1"
 }

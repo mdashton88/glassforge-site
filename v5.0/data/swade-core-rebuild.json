@@ -229,28 +229,19 @@
       "cost": "45K",
       "weapons": [
         {
-          "name": "75mm Tank Gun",
-          "dmg": "4d10",
-          "ap": 6,
-          "rof": 1,
-          "rng": "75/150/300",
-          "mount": "Turret, Stabilizer"
+          "weaponId": "tank_gun_75mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Medium MG",
-          "dmg": "2d8+1",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "Fixed Front"
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "Heavy MG",
-          "dmg": "2d10",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Pintle Mount on Turret"
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "notes": "Heavy Armor, Tracked."
@@ -271,28 +262,19 @@
       "cost": "30K",
       "weapons": [
         {
-          "name": "37mm Tank Gun",
-          "dmg": "4d8",
-          "ap": 3,
-          "rof": 1,
-          "rng": "50/100/200",
-          "mount": "Turret, Stabilizer"
+          "weaponId": "tank_gun_37mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Medium MG",
-          "dmg": "2d8+1",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "Fixed Front"
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "Heavy MG",
-          "dmg": "2d10",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Pintle Mount on Turret"
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "notes": "Heavy Armor, Tracked."
@@ -313,20 +295,19 @@
       "cost": "30K",
       "weapons": [
         {
-          "name": "76mm Tank Gun",
-          "dmg": "4d10",
-          "ap": 10,
-          "rof": 1,
-          "rng": "75/150/300",
-          "mount": "Turret"
+          "weaponId": "tank_gun_76mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Medium MG",
-          "dmg": "2d8+1",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "Fixed Front and Turret"
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "turret",
+          "linked": 0
         }
       ],
       "notes": "Heavy Armor, Sloped Armor (front only), Tracked."
@@ -415,28 +396,24 @@
       "cost": "4M",
       "weapons": [
         {
-          "name": "120mm Tank Gun",
-          "dmg": "5d10",
-          "ap": 31,
-          "rof": 1,
-          "rng": "100/200/400",
-          "mount": "Turret, Imp Stabilizer"
+          "weaponId": "tank_gun_120mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Medium MG",
-          "dmg": "2d8+1",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "Fixed Front and Turret"
+          "weaponId": "mmg_modern",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "Heavy MG",
-          "dmg": "2d10",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Pintle Mount on Turret"
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "notes": "Heavy Armor, Night Vision, Tracked."
@@ -457,28 +434,19 @@
       "cost": "3M",
       "weapons": [
         {
-          "name": "25mm Autocannon",
-          "dmg": "3d8",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Turret, Imp Stabilizer"
+          "weaponId": "autocannon_25mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Medium MG",
-          "dmg": "2d8+1",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "In Turret"
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "TOW Launcher",
-          "dmg": "4d8",
-          "ap": 16,
-          "rof": 1,
-          "rng": "75/150/300",
-          "mount": "Turret"
+          "weaponId": "tow_missile",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": "Heavy Armor, Night Vision, Tracked."
@@ -497,28 +465,19 @@
       "cost": "1M",
       "weapons": [
         {
-          "name": "125mm Tank Gun",
-          "dmg": "5d10",
-          "ap": 30,
-          "rof": 1,
-          "rng": "100/200/400",
-          "mount": "Turret"
+          "weaponId": "tank_gun_125mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Medium MG",
-          "dmg": "2d8+1",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "In Turret"
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Heavy MG",
-          "dmg": "2d10",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Pintle Mount on Turret"
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "notes": "Heavy Armor, Tracked."
@@ -539,28 +498,19 @@
       "cost": "2.2M",
       "weapons": [
         {
-          "name": "125mm Tank Gun",
-          "dmg": "5d10",
-          "ap": 30,
-          "rof": 1,
-          "rng": "100/200/400",
-          "mount": "Turret, Imp Stabilizer"
+          "weaponId": "tank_gun_125mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Medium MG",
-          "dmg": "2d8+1",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "In Turret"
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Heavy MG",
-          "dmg": "2d10",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Pintle Mount on Turret"
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "notes": "Heavy Armor, Night Vision, Tracked."
@@ -581,20 +531,14 @@
       "cost": "700K",
       "weapons": [
         {
-          "name": "Heavy MG",
-          "dmg": "2d10",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Turret"
+          "weaponId": "hmg_modern",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Medium MG",
-          "dmg": "2d8+1",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "Turret"
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
         }
       ],
       "notes": "Amphibious, Four-Wheel Drive, Heavy Armor."
@@ -760,12 +704,34 @@
       "cost": "250K",
       "weapons": [
         {
-          "name": "Linked Heavy MG (×4 sets)",
-          "dmg": "2d10",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "2× Fixed Front, 2× Turret"
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "bombs_ww",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": "Four .50 cal MG positions, dual linked each."
@@ -786,20 +752,14 @@
       "cost": "30K",
       "weapons": [
         {
-          "name": "2× Linked Light MG",
-          "dmg": "2d8",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "Fixed Front"
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "20mm Cannon",
-          "dmg": "2d12",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Fixed Front"
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
       "notes": ""
@@ -820,12 +780,19 @@
       "cost": "50K",
       "weapons": [
         {
-          "name": "6× Linked Heavy MG",
-          "dmg": "2d10+4",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Fixed Front"
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
       "notes": ""
@@ -844,20 +811,14 @@
       "cost": "25K",
       "weapons": [
         {
-          "name": "2× Linked Light MG",
-          "dmg": "2d8",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "Fixed Front"
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
         },
         {
-          "name": "2× Linked 20mm Cannon",
-          "dmg": "2d12+1",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Fixed Front"
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
       "notes": ""
@@ -878,12 +839,24 @@
       "cost": "12K",
       "weapons": [
         {
-          "name": "8× Linked Light MG",
-          "dmg": "2d8+4",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "Fixed Front"
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
       "notes": ""
@@ -904,20 +877,14 @@
       "cost": "20M",
       "weapons": [
         {
-          "name": "M230 30mm Chain Gun",
-          "dmg": "3d8",
-          "ap": 6,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Fixed Front"
+          "weaponId": "autocannon_30mm",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "Hellfire Missile",
-          "dmg": "5d10",
-          "ap": 20,
-          "rof": 1,
-          "rng": "100/200/400",
-          "mount": "Wing Hardpoints"
+          "weaponId": "hellfire",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": "AMCM, Helicopter, Night Vision."
@@ -936,20 +903,19 @@
       "cost": "25M",
       "weapons": [
         {
-          "name": "25mm Cannon",
-          "dmg": "3d8",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Fixed Front"
+          "weaponId": "autocannon_25mm",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "Bombs/Missiles",
-          "dmg": "varies",
-          "ap": 0,
-          "rof": 1,
-          "rng": "varies",
-          "mount": "Hardpoints"
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "bombs_mod",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": "Helicopter (VTOL)."
@@ -970,20 +936,19 @@
       "cost": "30M",
       "weapons": [
         {
-          "name": "20mm Gatling",
-          "dmg": "2d12",
-          "ap": 4,
-          "rof": 4,
-          "rng": "50/100/200",
-          "mount": "Fixed Front"
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "Sidewinder Missile",
-          "dmg": "5d6",
-          "ap": 6,
-          "rof": 1,
-          "rng": "200/400/800",
-          "mount": "Wing Hardpoints"
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sparrow",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": "AMCM, Night Vision, Stealth Paint."
@@ -1004,20 +969,19 @@
       "cost": "30M",
       "weapons": [
         {
-          "name": "30mm Cannon",
-          "dmg": "3d8",
-          "ap": 6,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Fixed Front"
+          "weaponId": "autocannon_30mm",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "AA Missiles",
-          "dmg": "5d6",
-          "ap": 6,
-          "rof": 1,
-          "rng": "200/400/800",
-          "mount": "Wing Hardpoints"
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sparrow",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": "AMCM."
@@ -1038,12 +1002,9 @@
       "cost": "250K",
       "weapons": [
         {
-          "name": "2× Medium MG",
-          "dmg": "2d8+1",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "Door Mounts"
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": "Helicopter."
@@ -1064,12 +1025,24 @@
       "cost": "varies",
       "weapons": [
         {
-          "name": "Cannons",
-          "dmg": "2d12+1",
-          "ap": 4,
-          "rof": 1,
-          "rng": "25/50/100",
-          "mount": "Broadside"
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": "Heavy Armor."
@@ -1088,12 +1061,9 @@
       "cost": "varies",
       "weapons": [
         {
-          "name": "Ram/Ballista",
-          "dmg": "varies",
-          "ap": 0,
-          "rof": 1,
-          "rng": "varies",
-          "mount": "Fixed Front"
+          "weaponId": "ballista",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": "Heavy Armor."
@@ -1131,20 +1101,24 @@
       "cost": "varies",
       "weapons": [
         {
-          "name": "2× Heavy MG",
-          "dmg": "2d10",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Front and Rear Turrets"
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 1
         },
         {
-          "name": "Medium MG",
-          "dmg": "2d8+1",
-          "ap": 2,
-          "rof": 3,
-          "rng": "30/60/120",
-          "mount": "Side Mounts"
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": "Heavy Armor."
@@ -1165,20 +1139,34 @@
       "cost": "varies",
       "weapons": [
         {
-          "name": "2× Dual Linked Heavy MG",
-          "dmg": "2d10+1",
-          "ap": 4,
-          "rof": 3,
-          "rng": "50/100/200",
-          "mount": "Turrets"
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
         },
         {
-          "name": "Torpedoes",
-          "dmg": "5d10",
-          "ap": 4,
-          "rof": 1,
-          "rng": "50/100/200",
-          "mount": "Fixed Front"
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "notes": ""

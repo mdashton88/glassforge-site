@@ -231,13 +231,9 @@
       "grade": "A",
       "weapons": [
         {
-          "name": "Heavy MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "mmg",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -261,31 +257,19 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "75mm Tank Gun",
-          "avgDmg": 22,
-          "ap": 6,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "C-",
-          "threat": 28
+          "weaponId": "tank_gun_75mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Heavy MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "Medium MG",
-          "avgDmg": 9,
-          "ap": 2,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "A",
-          "threat": 11
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -309,22 +293,19 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "37mm Tank Gun",
-          "avgDmg": 18,
-          "ap": 3,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "B",
-          "threat": 21
+          "weaponId": "tank_gun_37mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Heavy MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -348,13 +329,19 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "76mm Tank Gun",
-          "avgDmg": 22,
-          "ap": 10,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "C-",
-          "threat": 32
+          "weaponId": "tank_gun_76mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "turret",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -378,13 +365,19 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "75mm Gun",
-          "avgDmg": 22,
-          "ap": 6,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "C-",
-          "threat": 28
+          "weaponId": "tank_gun_75mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "turret",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -408,13 +401,19 @@
       "grade": "C",
       "weapons": [
         {
-          "name": "88mm Tank Gun",
-          "avgDmg": 23,
-          "ap": 16,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "C+",
-          "threat": 39
+          "weaponId": "tank_gun_88mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "turret",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -438,22 +437,24 @@
       "grade": "D",
       "weapons": [
         {
-          "name": "120mm Tank Gun",
-          "avgDmg": 27.5,
-          "ap": 31,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "D+",
-          "threat": 58.5
+          "weaponId": "tank_gun_120mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Heavy MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "mmg_modern",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -477,22 +478,19 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "25mm Autocannon",
-          "avgDmg": 13.5,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Turret",
-          "grade": "A+",
-          "threat": 17.5
+          "weaponId": "autocannon_25mm",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "TOW Launcher",
-          "avgDmg": 22,
-          "ap": 16,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "C+",
-          "threat": 38
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "tow_missile",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -516,13 +514,19 @@
       "grade": "D",
       "weapons": [
         {
-          "name": "125mm Tank Gun",
-          "avgDmg": 27.5,
-          "ap": 30,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "D+",
-          "threat": 57.5
+          "weaponId": "tank_gun_125mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -546,13 +550,19 @@
       "grade": "D",
       "weapons": [
         {
-          "name": "125mm Tank Gun",
-          "avgDmg": 27.5,
-          "ap": 30,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "D+",
-          "threat": 57.5
+          "weaponId": "tank_gun_125mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -576,13 +586,14 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "Heavy MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Turret",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "hmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -606,22 +617,14 @@
       "grade": "C",
       "weapons": [
         {
-          "name": "Heavy Laser",
-          "avgDmg": 22,
-          "ap": 30,
-          "rof": 1,
-          "mount": "Turret",
-          "grade": "D",
-          "threat": 52
+          "weaponId": "laser_heavy",
+          "mount": "turret",
+          "linked": 0
         },
         {
-          "name": "Gatling Laser",
-          "avgDmg": 14.5,
-          "ap": 4,
-          "rof": 4,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 18.5
+          "weaponId": "laser_gat",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -645,13 +648,9 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "Gatling Laser",
-          "avgDmg": 14.5,
-          "ap": 4,
-          "rof": 4,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 18.5
+          "weaponId": "laser_gat",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -755,13 +754,34 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "2x Linked Heavy MG (multiple turrets)",
-          "avgDmg": 13,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Turret",
-          "grade": "B-",
-          "threat": 19
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "bombs_ww",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -785,22 +805,14 @@
       "grade": "A",
       "weapons": [
         {
-          "name": "20mm Cannon",
-          "avgDmg": 13,
-          "ap": 4,
-          "rof": 4,
-          "mount": "Fixed Front",
-          "grade": "A+",
-          "threat": 17
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "2x Linked Heavy MG",
-          "avgDmg": 13,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 19
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
       "primaryWeapon": {
@@ -824,13 +836,19 @@
       "grade": "A",
       "weapons": [
         {
-          "name": "6x Heavy MG",
-          "avgDmg": 15,
-          "ap": 8,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "B",
-          "threat": 23
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
       "primaryWeapon": {
@@ -854,22 +872,14 @@
       "grade": "A",
       "weapons": [
         {
-          "name": "2x Linked 20mm Cannon",
-          "avgDmg": 15,
-          "ap": 6,
-          "rof": 4,
-          "mount": "Fixed Front",
-          "grade": "B",
-          "threat": 21
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
         },
         {
-          "name": "2x Linked Medium MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
       "primaryWeapon": {
@@ -893,13 +903,24 @@
       "grade": "A",
       "weapons": [
         {
-          "name": "8x Linked Medium MG",
-          "avgDmg": 13,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 19
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
         }
       ],
       "primaryWeapon": {
@@ -923,22 +944,14 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "30mm Cannon",
-          "avgDmg": 13.5,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 19.5
+          "weaponId": "autocannon_30mm",
+          "mount": "fixed",
+          "linked": 0
         },
         {
-          "name": "16x Hellfire Missiles",
-          "avgDmg": 22,
-          "ap": 16,
-          "rof": 1,
-          "mount": "Fixed",
-          "grade": "C+",
-          "threat": 38
+          "weaponId": "hellfire",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -962,13 +975,19 @@
       "grade": "A",
       "weapons": [
         {
-          "name": "25mm Cannon",
-          "avgDmg": 13.5,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "A+",
-          "threat": 17.5
+          "weaponId": "autocannon_25mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "bombs_mod",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -992,13 +1011,19 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "20mm Cannon",
-          "avgDmg": 13,
-          "ap": 4,
-          "rof": 4,
-          "mount": "Fixed Front",
-          "grade": "A+",
-          "threat": 17
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sparrow",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -1022,13 +1047,19 @@
       "grade": "A",
       "weapons": [
         {
-          "name": "30mm Cannon",
-          "avgDmg": 13.5,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 19.5
+          "weaponId": "autocannon_30mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sparrow",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -1052,13 +1083,9 @@
       "grade": "A",
       "weapons": [
         {
-          "name": "Medium MG",
-          "avgDmg": 9,
-          "ap": 2,
-          "rof": 3,
-          "mount": "Fixed",
-          "grade": "A",
-          "threat": 11
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -1082,13 +1109,24 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "Cannon Broadside",
-          "avgDmg": 11.5,
-          "ap": 4,
-          "rof": 1,
-          "mount": "Fixed Left/Right",
-          "grade": "A+",
-          "threat": 15.5
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "med_cannon_bp",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -1112,13 +1150,9 @@
       "grade": "B",
       "weapons": [
         {
-          "name": "Catapult",
-          "avgDmg": 18,
-          "ap": 0,
-          "rof": 1,
-          "mount": "Fixed Front",
-          "grade": "B-",
-          "threat": 18
+          "weaponId": "ballista",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -1158,13 +1192,24 @@
       "grade": "A",
       "weapons": [
         {
-          "name": "2x Linked Heavy MG",
-          "avgDmg": 13,
-          "ap": 6,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "B-",
-          "threat": 19
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {
@@ -1188,22 +1233,34 @@
       "grade": "A",
       "weapons": [
         {
-          "name": ".50 cal MG",
-          "avgDmg": 11,
-          "ap": 4,
-          "rof": 3,
-          "mount": "Pintle",
-          "grade": "A+",
-          "threat": 15
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
         },
         {
-          "name": "4x Torpedo",
-          "avgDmg": 27.5,
-          "ap": 10,
-          "rof": 1,
-          "mount": "Fixed Front",
-          "grade": "C+",
-          "threat": 37.5
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_ww",
+          "mount": "fixed",
+          "linked": 0
         }
       ],
       "primaryWeapon": {

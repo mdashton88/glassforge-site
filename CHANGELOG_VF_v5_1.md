@@ -59,6 +59,6 @@ Tested against all 44 SWADE core rulebook stock vehicles:
 ### Known Issues / Next Steps
 - Military vehicles need Hull Plating + Reinforced Frame to match canon Toughness (by design)
 - Comfort Upgrade tiered cost needs UI testing
-- 12 supplement .vfx files need updating to v5.1 mod IDs
+- ~~12 supplement .vfx files need updating to v5.1 mod IDs~~ **RESOLVED** 2026-02-23: all packs verified clean
 - Companion Guide manual needs rewrite
-- 300 test vehicle validation pass pending
+- ~~300 test vehicle validation pass pending~~ **RESOLVED** 2026-02-23: 594 vehicles audited, 0 broken refs, 0 stat mismatches. See DATA_GOVERNANCE.md audit log.
