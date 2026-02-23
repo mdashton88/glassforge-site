@@ -228,7 +228,7 @@ a.header-brand:hover{color:var(--accent)}
   </div>
   <div class="main">
     <div class="header">
-      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.10.07</span></div></div>
+      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.10.10</span></div></div>
       <div class="header-spacer"></div>
       <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
       <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
@@ -295,8 +295,8 @@ a.header-brand:hover{color:var(--accent)}
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--text-dim)">
-          Vehicle Forge v0.10.07 — DiceForge Studios Ltd<br>
-          Compatible with Savage Worlds Adventure Edition
+          Vehicle Forge v0.10.10 — DiceForge Studios Ltd<br>
+          Compatible with Savage Worlds
         </div>
       </div>
     </div>
@@ -359,47 +359,47 @@ var MPH_MODEL={wheeled:[90,25,1],tracked:[35,10,1],hover:[80,25,5],vtol:[225,135
 function speedMPH(spd,locoId,spdLvl,mphOvr){if(mphOvr>0)return mphOvr;var lid=locoId||S.loco;var sl=(spdLvl!==undefined)?spdLvl:S.speedLevel;var ovr=(mphOvr!==undefined)?mphOvr:S.mphOverride;if(ovr>0)return ovr;var m=MPH_MODEL[lid];if(!m)return spd+'?';return Math.max(m[2],Math.round(m[0]+m[1]*sl))}
 
 var MODS=[
-  {id:'unmanned',name:'Unmanned',cat:'Drawbacks',max:1,mods:-2,costFn:function(s){return -5000*s},desc:'No crew. Requires Remote Operator or Machine Intelligence.'},
-  {id:'open_crew',name:'Open Crew',cat:'Drawbacks',max:3,mods:-1,costFn:function(s){return -5000*s},desc:'Take 1: Medium Cover (-4). Take 2: Light Cover (-2). Take 3: No Cover.'},
-  {id:'temperamental',name:'Temperamental',cat:'Drawbacks',max:2,mods:-2,costFn:function(s){return -10000*s},desc:'Repair at -1 per take. Snake eyes on vehicle roll: random system shorts for 1 round.'},
-  {id:'gas_guzzler',name:'Gas-Guzzler',cat:'Drawbacks',max:1,mods:-1,costFn:function(s){return -5000*s},desc:'+50% fuel consumption.'},
-  {id:'low_tech',name:'Low-Tech',cat:'Drawbacks',max:1,mods:-2,costFn:function(s){return -10000*s},desc:'No electronics. Cannot install electronic mods.'},
-  {id:'skeleton_crew',name:'Skeleton Crew',cat:'Drawbacks',max:1,mods:-1,costFn:function(s){return -10000*s},desc:'Halve crew capacity.'},
-  {id:'bone_shaker',name:'Bone Shaker',cat:'Drawbacks',max:1,mods:-1,costFn:function(s){return -8000*s},desc:'Unstable Platform penalty is -3 instead of -2.'},
-  {id:'death_trap',name:'Death Trap',cat:'Drawbacks',max:1,mods:-1,costFn:function(s){return -8000*s},desc:'Full collision damage. Eject at -2. Crew take +2 damage from penetrating hits.'},
-  {id:'machine_intel',name:'Machine Intelligence',cat:'Core Systems',max:3,mods:2,costFn:function(s){return 8000*s},desc:'AI companion. 1st: d6+Wild Die. 2nd: d8. 3rd: d10 + one free action per round.'},
-  {id:'enhanced_sensors',name:'Enhanced Sensors',cat:'Core Systems',max:1,mods:1,costFn:function(){return 12000},desc:'30x magnification, ignore 2 Illumination, +1 Notice.'},
-  {id:'tactical_relay',name:'Tactical Relay',cat:'Core Systems',max:1,mods:2,costFn:function(){return 15000},desc:'Share sensory feeds with linked vehicles. +1 Battle rolls.'},
-  {id:'signal_rig',name:'Signal Rig',cat:'Core Systems',max:2,mods:1,costFn:function(){return 5000},desc:'15 mile range (1st), 75 miles (2nd). +1 cooperative rolls in range.'},
-  {id:'remote_operator',name:'Remote Operator',cat:'Core Systems',max:1,mods:1,costFn:function(){return 10000},desc:'Operate remotely at -1 Piloting/Driving. Requires Signal Rig.'},
-  {id:'detection_grid',name:'Detection Grid',cat:'Core Systems',max:1,mods:1,costFn:function(){return 8000},desc:'Active detection 40 yds. +2 Notice vs hidden/concealed.'},
-  {id:'sensor_array',name:'Sensor Array',cat:'Core Systems',max:1,mods:4,costFn:function(){return 25000},desc:'Scan 1 light-year / LOS. Full round, Vulnerable. +2 Notice extreme range.'},
-  {id:'sloped_armour',name:'Sloped Armour',cat:'Defensive Systems',max:1,mods:3,costFn:function(s){return 10000*s},desc:'-2 enemy Shooting (direct-fire energy/kinetic only).'},
-  {id:'countermeasure_suite',name:'Countermeasure Suite',cat:'Defensive Systems',max:1,mods:1,costFn:function(s){return 5000*s},desc:'+2 vs Guided Weapons. One free Evasion reroll per encounter.'},
-  {id:'surge_protection',name:'Surge Protection',cat:'Defensive Systems',max:1,mods:2,costFn:function(s){return 5000*s},desc:'Halve EMP penalties (round down).'},
-  {id:'crew_escape',name:'Crew Escape',cat:'Defensive Systems',max:1,mods:2,costFn:function(s){return 2000*s},desc:'Ejection (Size 6-) or pods (Size 7+). Agility/Smarts at -1.'},
-  {id:'nanorepair',name:'Nanorepair System',cat:'Defensive Systems',max:2,mods:3,costFn:function(s){return 30000*s},desc:'1st: d6/round, 5-6 heals 1 Wound. 2nd: heals on 4-6.'},
-  {id:'deflection_field',name:'Deflection Field',cat:'Defensive Systems',max:1,mods:3,costFn:function(s){return 20000*s},desc:'Charges = Wounds/2. Soak with Smarts. Recharges 1/round out of combat.'},
-  {id:'stealth_system',name:'Stealth System',cat:'Defensive Systems',max:1,mods:'sizehalf',costFn:function(s){return 15000*s},desc:'-4 to detect with Electronics. Low-observable profile.'},
-  {id:'gimballed',name:'Gimballed Weapons',cat:'Offensive Systems',max:1,mods:1,costFn:function(){return 5000},desc:'Reduce Unstable Platform penalty to -1 for all direct-fire weapons.'},
-  {id:'fire_control',name:'Fire Control',cat:'Offensive Systems',max:1,mods:2,costFn:function(){return 25000},desc:'Reduce Shooting penalties by 1 (Called Shot, Cover, Range, Scale, Speed). On raise, by 2.'},
-  {id:'amphibious',name:'Amphibious Kit',cat:'Locomotion & Power',max:2,mods:2,costFn:function(s){return 10000*s},desc:'Enter water. Handling -1, Speed 2. 2nd take: Speed 3.'},
-  {id:'boosters',name:'Boost Injector',cat:'Locomotion & Power',max:4,mods:1,costFn:function(s){return 5000*s},desc:'Once/encounter: +1 Speed Rating for one round per take.'},
-  {id:'reserve_tanks',name:'Reserve Tanks',cat:'Locomotion & Power',max:'U',mods:2,costFn:function(s){return 5000*s},desc:'+50% fuel capacity per take.'},
-  {id:'offroad',name:'Off-Road Package',cat:'Locomotion & Power',max:1,mods:1,costFn:function(){return 5000},desc:'Wheeled only. Halve Difficult Ground penalties.'},
-  {id:'fusion_core',name:'Fusion Core',cat:'Locomotion & Power',max:1,mods:4,costFn:function(s){return 20000*s},desc:'Energy x8. Locomotion Critical: 1-2 on d6 = core breach.'},
-  {id:'road_vehicle',name:'Road Vehicle',cat:'Locomotion & Power',max:1,mods:0,costFn:function(){return 2000},desc:'Wheeled only. +3 Speed Ratings on paved roads.'},
-  {id:'submersible',name:'Submersible',cat:'Locomotion & Power',max:2,mods:2,costFn:function(s){return 15000*s},desc:'Submerge as action. -4 to detect. 2nd: deep dive, crush-proof.'},
-  {id:'variable_form',name:'Variable Form',cat:'Locomotion & Power',max:1,mods:3,costFn:function(s){return 20000*s},desc:'Switch between two locomotion types as an action.'},
-  {id:'berths',name:'Berths',cat:'Personnel',max:'U',mods:2,costFn:function(){return 10000},desc:'Each take adds living space for 8.'},
-  {id:'comfort',name:'Comfort Upgrade',cat:'Personnel',max:3,mods:'comfort',costFn:function(s){var tk=S.mods.comfort||0;if(tk<=0)return 20000*s;if(tk===1)return 40000*s;return 80000*s},desc:'Take 1: +1 Spirit. Take 2: +2 Spirit, +1 Persuasion. Take 3: +3 Spirit, +2 Persuasion.'},
-  {id:'troop_bay',name:'Troop Bay',cat:'Personnel',max:'U',mods:2,costFn:function(){return 50000},desc:'8 passengers per take, short trips.'},
-  {id:'specialist_workshop',name:'Specialist Workshop',cat:'Personnel',max:'U',mods:3,costFn:function(){return 80000},desc:'Skill-specific facility. +2 to relevant Trait rolls.'},
-  {id:'env_seal',name:'Environmental Seal',cat:'Personnel',max:1,mods:2,costFn:function(s){return 10000*s},desc:'Airtight, pressurised, life support. Vacuum, gas, radiation protection.'},
-  {id:'vehicle_bay',name:'Vehicle Bay',cat:'Structural',max:'U',mods:4,costFn:function(s){return 50000*s},desc:'Carry up to 8 Size points per take. Includes fuelling and maintenance.'},
-  {id:'jump_jets',name:'Jump Jets',cat:'Walker Systems',max:1,mods:1,costFn:function(){return 10000},desc:'Move as VTOL once per encounter. Walker only.'},
-  {id:'dual_cockpit',name:'Dual Cockpit',cat:'Walker Systems',max:1,mods:-1,costFn:function(){return 0},desc:'Requires two pilots. Walker only.'},
-  {id:'compact_eng',name:'Compact Engineering',cat:'Structural',mods:-1,max:3,costFn:function(s){return 20000*s},desc:'Miniaturised components. Each take grants +1 Mod slot.'}];
+  {id:'unmanned',name:'Unmanned',cat:'Drawbacks',max:1,mods:-2,costFn:function(s){return -5000*s},desc:'No crew compartment. Remote or AI controlled. Immune to crew-targeting but vulnerable to signal disruption.'},
+  {id:'open_crew',name:'Open Crew',cat:'Drawbacks',max:3,mods:-1,costFn:function(s){return -5000*s},desc:'Crew positions exposed. Take 1: Medium Cover (-4). Take 2: Light Cover (-2). Take 3: No Cover. Chariots, technicals, open-topped vehicles.'},
+  {id:'temperamental',name:'Temperamental',cat:'Drawbacks',max:2,mods:-2,costFn:function(s){return -10000*s},desc:'Unreliable systems. Repair at -1 per take. Snake eyes on any vehicle roll shorts a random system for 1 round.'},
+  {id:'gas_guzzler',name:'Gas-Guzzler',cat:'Drawbacks',max:1,mods:-1,costFn:function(s){return -5000*s},desc:'Burns fuel at +50% rate. Range reduced accordingly. The price of power.'},
+  {id:'low_tech',name:'Low-Tech',cat:'Drawbacks',max:1,mods:-2,costFn:function(s){return -10000*s},desc:'No electrical systems. Immune to EMP but cannot mount any electronic modifications.'},
+  {id:'skeleton_crew',name:'Skeleton Crew',cat:'Drawbacks',max:1,mods:-1,costFn:function(s){return -10000*s},desc:'Crew capacity halved. All tasks at -1 from being short-handed.'},
+  {id:'bone_shaker',name:'Bone Shaker',cat:'Drawbacks',max:1,mods:-1,costFn:function(s){return -8000*s},desc:'Rough ride. Unstable Platform penalty is -3 instead of -2. Constant vibration makes everything harder.'},
+  {id:'death_trap',name:'Death Trap',cat:'Drawbacks',max:1,mods:-1,costFn:function(s){return -8000*s},desc:'Catastrophic failure mode. Full collision damage to crew, eject at -2, crew take +2 damage from penetrating hits.'},
+  {id:'machine_intel',name:'Machine Intelligence',cat:'Core Systems',max:3,mods:2,costFn:function(s){return 8000*s},desc:'AI-assisted operation. 1st take: d6+Wild Die independent action. 2nd: d8. 3rd: d10 + one free action per round.'},
+  {id:'enhanced_sensors',name:'Enhanced Sensors',cat:'Core Systems',max:1,mods:1,costFn:function(){return 12000},desc:'Advanced optics and sensors. 30x magnification, ignore 2 points of Illumination penalty, +1 Notice.'},
+  {id:'tactical_relay',name:'Tactical Relay',cat:'Core Systems',max:1,mods:2,costFn:function(){return 15000},desc:'Shares targeting data and sensory feeds with linked allied vehicles. +1 to Battle rolls when networked.'},
+  {id:'signal_rig',name:'Signal Rig',cat:'Core Systems',max:2,mods:1,costFn:function(){return 5000},desc:'Long-range communication. 1st take: 15 mile range. 2nd: 75 miles. +1 to cooperative rolls within range.'},
+  {id:'remote_operator',name:'Remote Operator',cat:'Core Systems',max:1,mods:1,costFn:function(){return 10000},desc:'Remotely controlled from a separate location at -1 Piloting/Driving. Requires Signal Rig installed.'},
+  {id:'detection_grid',name:'Detection Grid',cat:'Core Systems',max:1,mods:1,costFn:function(){return 8000},desc:'Area surveillance system. Auto-detects movement within 40 yards. +2 Notice vs hidden or concealed targets.'},
+  {id:'sensor_array',name:'Sensor Array',cat:'Core Systems',max:1,mods:4,costFn:function(){return 25000},desc:'Multi-spectrum scanning. Range: 1 light-year or line of sight. Full round to deploy, vehicle is Vulnerable. +2 Notice at extreme range.'},
+  {id:'sloped_armour',name:'Sloped Armour',cat:'Defensive Systems',max:1,mods:3,costFn:function(s){return 10000*s},desc:'Angled armour plate. -2 to enemy Shooting rolls against front arc (direct-fire energy and kinetic weapons only).'},
+  {id:'countermeasure_suite',name:'Countermeasure Suite',cat:'Defensive Systems',max:1,mods:1,costFn:function(s){return 5000*s},desc:'Jammers, chaff, and flares. +2 to evade Guided Weapons. One free Evasion reroll per encounter.'},
+  {id:'surge_protection',name:'Surge Protection',cat:'Defensive Systems',max:1,mods:2,costFn:function(s){return 5000*s},desc:'Hardened electronics. Halve all EMP and ion penalties (round down).'},
+  {id:'crew_escape',name:'Crew Escape',cat:'Defensive Systems',max:1,mods:2,costFn:function(s){return 2000*s},desc:'Emergency evacuation. Ejection seats (Size 6 and under) or escape pods (Size 7+). Agility or Smarts roll at -1.'},
+  {id:'nanorepair',name:'Nanorepair System',cat:'Defensive Systems',max:2,mods:3,costFn:function(s){return 30000*s},desc:'Self-repairing hull. 1st take: roll d6 each round, 5-6 heals 1 Wound. 2nd take: heals on 4-6.'},
+  {id:'deflection_field',name:'Deflection Field',cat:'Defensive Systems',max:1,mods:3,costFn:function(s){return 20000*s},desc:'Energy shielding. Charges equal to half Wounds. Soak damage with Smarts roll. Recharges 1 per round out of combat.'},
+  {id:'stealth_system',name:'Stealth System',cat:'Defensive Systems',max:1,mods:'sizehalf',costFn:function(s){return 15000*s},desc:'Radar-absorbent materials or active camouflage. -4 to detect with Electronics. Low-observable profile.'},
+  {id:'gimballed',name:'Gimballed Weapons',cat:'Offensive Systems',max:1,mods:1,costFn:function(){return 5000},desc:'Enhanced weapon articulation. Reduces Unstable Platform penalty to -1 for all direct-fire weapons.'},
+  {id:'fire_control',name:'Fire Control',cat:'Offensive Systems',max:1,mods:2,costFn:function(){return 25000},desc:'Computerised targeting system. Reduces Shooting penalties by 1 (Called Shot, Cover, Range, Scale, Speed). On a raise, by 2.'},
+  {id:'amphibious',name:'Amphibious Kit',cat:'Locomotion & Power',max:2,mods:2,costFn:function(s){return 10000*s},desc:'Sealed hull and water propulsion. Can enter water at Handling -1, Speed 2. 2nd take: Speed 3.'},
+  {id:'boosters',name:'Boost Injector',cat:'Locomotion & Power',max:4,mods:1,costFn:function(s){return 5000*s},desc:'Nitrous, afterburner, or emergency thrust. Once per encounter: +1 Speed Rating for one round per take.'},
+  {id:'reserve_tanks',name:'Reserve Tanks',cat:'Locomotion & Power',max:'U',mods:2,costFn:function(s){return 5000*s},desc:'Extended fuel capacity. +50% operational range per take. Doubles endurance for long-range operations.'},
+  {id:'offroad',name:'Off-Road Package',cat:'Locomotion & Power',max:1,mods:1,costFn:function(){return 5000},desc:'Reinforced suspension and skid plates. Wheeled vehicles only. Halves Difficult Ground penalties.'},
+  {id:'fusion_core',name:'Fusion Core',cat:'Locomotion & Power',max:1,mods:4,costFn:function(s){return 20000*s},desc:'Fusion power plant. Energy capacity x8. Locomotion Critical Hit: roll d6, 1-2 = core breach.'},
+  {id:'road_vehicle',name:'Road Vehicle',cat:'Locomotion & Power',max:1,mods:0,costFn:function(){return 2000},desc:'Optimised for paved surfaces. Wheeled only. +3 Speed Ratings on roads, -1 Handling off-road.'},
+  {id:'submersible',name:'Submersible',cat:'Locomotion & Power',max:2,mods:2,costFn:function(s){return 15000*s},desc:'Pressure hull and ballast tanks. Submerge as an action, -4 to detect. 2nd take: deep dive capable, crush-proof.'},
+  {id:'variable_form',name:'Variable Form',cat:'Locomotion & Power',max:1,mods:3,costFn:function(s){return 20000*s},desc:'Transforming chassis. Switch between two locomotion types as an action. Use base Toughness in both forms.'},
+  {id:'berths',name:'Berths',cat:'Personnel',max:'U',mods:2,costFn:function(){return 10000},desc:'Sleeping quarters for extended operations. Each take adds living space for 8 crew or passengers.'},
+  {id:'comfort',name:'Comfort Upgrade',cat:'Personnel',max:3,mods:'comfort',costFn:function(s){var tk=S.mods.comfort||0;if(tk<=0)return 20000*s;if(tk===1)return 40000*s;return 80000*s},desc:'Climate control and sound insulation. Take 1: +1 Spirit. Take 2: +2 Spirit, +1 Persuasion. Take 3: +3 Spirit, +2 Persuasion.'},
+  {id:'troop_bay',name:'Troop Bay',cat:'Personnel',max:'U',mods:2,costFn:function(){return 50000},desc:'Infantry compartment with rapid-deployment ramp. 8 passengers per take, designed for short tactical insertions.'},
+  {id:'specialist_workshop',name:'Specialist Workshop',cat:'Personnel',max:'U',mods:3,costFn:function(){return 80000},desc:'Onboard skill-specific facility (medical bay, armoury, lab, etc.). +2 to relevant Trait rolls performed aboard.'},
+  {id:'env_seal',name:'Environmental Seal',cat:'Personnel',max:1,mods:2,costFn:function(s){return 10000*s},desc:'Life support and pressurisation. Airtight, climate controlled. Operates safely in vacuum, toxic atmosphere, or radiation.'},
+  {id:'vehicle_bay',name:'Vehicle Bay',cat:'Structural',max:'U',mods:4,costFn:function(s){return 50000*s},desc:'Internal hangar. Carry up to 8 Size points of smaller vehicles per take. Includes fuelling and maintenance facilities.'},
+  {id:'jump_jets',name:'Jump Jets',cat:'Walker Systems',max:1,mods:1,costFn:function(){return 10000},desc:'Thruster-assisted leap. Move as VTOL once per encounter. Walker only. Clear obstacles, reposition, or perform Death From Above.'},
+  {id:'dual_cockpit',name:'Dual Cockpit',cat:'Walker Systems',max:1,mods:-1,costFn:function(){return 0},desc:'Pilot and gunner operate independently. Removes multi-action penalties between manoeuvring and firing. Walker only.'},
+  {id:'compact_eng',name:'Compact Engineering',cat:'Structural',mods:-1,max:3,costFn:function(s){return 20000*s},desc:'Miniaturised components and efficient packaging. Each take grants +1 bonus Mod slot.'}];
 
 var WEAPONS=[
   // ANCIENT
@@ -429,7 +429,7 @@ var WEAPONS=[
   {id:'mortar_bp',name:'Mortar',cat:'Blackpowder Guns',era:'blackpowder',range:'24/48/96',damage:'3d8',ap:0,rof:1,shots:0,minSize:2,mods:1,cost:500,notes:'Reload 3, Indirect, MBT, HW',desc:'High-angle bombardment piece. Lobs explosive shells over walls and into fortifications.'},
   {id:'congreve',name:'Congreve Rocket',cat:'Rockets',era:'blackpowder',range:'18/36/72',damage:'3d6',ap:0,rof:1,shots:6,minSize:1,mods:1,cost:400,notes:'Inaccurate (-1 Shooting), Incendiary, MBT',desc:'Fin-stabilised incendiary rocket. Wildly inaccurate, psychologically devastating.'},
   {id:'chain_shot',name:'Chain Shot',cat:'Blackpowder Guns',era:'blackpowder',range:'15/30/60',damage:'3d6',ap:0,rof:1,shots:0,minSize:3,mods:0,cost:200,notes:'Anti-rigging. Reload 3. Targets mast/locomotion only',desc:'Two balls connected by chain, fired to shred rigging and masts. Anti-sail specialist.'},
-  // INDUSTRIAL (WWI/WWII era) — SWADE Core pp.80-81
+  // INDUSTRIAL (WWI/WWII era)
   {id:'mmg',name:'Medium Machine Gun',cat:'Machine Guns',era:'industrial',range:'30/60/120',damage:'2d8+1',ap:2,rof:3,shots:200,minSize:1,mods:1,cost:750,notes:'Pt Def, Rxn Fire',desc:'Belt-fed rifle-calibre machine gun. Browning M1919s, MG 34s, Besas — the standard co-axial and hull weapon.'},
   {id:'hmg',name:'Heavy Machine Gun',cat:'Machine Guns',era:'industrial',range:'50/100/200',damage:'2d10',ap:4,rof:3,shots:200,minSize:1,mods:1,cost:1000,notes:'Pt Def, Rxn Fire, HW',desc:'Heavy .50 calibre machine gun. M2 Brownings, DShKs, and equivalents. Shreds light vehicles and infantry.'},
   {id:'cannon_20mm',name:'20mm Cannon',cat:'Cannons',era:'industrial',range:'50/100/200',damage:'2d12',ap:4,rof:4,shots:100,minSize:2,mods:1,cost:50000,notes:'HW',desc:'Light automatic cannon. Oerlikons, Hispano-Suizas, MG 151s — standard WW2 aircraft armament.'},
@@ -447,7 +447,7 @@ var WEAPONS=[
   {id:'depth_charge_ww',name:'Depth Charges',cat:'Anti-Submarine',era:'industrial',range:'—',damage:'4d8',ap:4,rof:1,shots:8,minSize:4,mods:1,cost:2000,notes:'Drop, MBT. Anti-sub only.',desc:'Anti-submarine explosive dropped from surface vessels. Set to detonate at a specific depth.'},
   {id:'naval_gun_ww',name:'Naval Gun',cat:'Naval Guns',era:'industrial',range:'100/200/400',damage:'5d10',ap:12,rof:1,shots:60,minSize:8,mods:4,cost:35000,notes:'SBT, HW. Deck-mounted.',desc:'Deck-mounted naval cannon. Five-inch and six-inch guns on destroyers, cruisers, and escorts.'},
   {id:'mine_ww',name:'Naval Mine Layer',cat:'Mines',era:'industrial',range:'—',damage:'5d10',ap:8,rof:0,shots:20,minSize:4,mods:2,cost:4000,notes:'Deploy mine per round. 3d6 trigger radius.',desc:'Moored or contact naval mine deployed in shipping lanes. Silent, patient, lethal.'},
-  // MODERN — SWADE Core pp.79-81
+  // MODERN
   {id:'hmg_modern',name:'Heavy Machine Gun',cat:'Machine Guns',era:'modern',range:'50/100/200',damage:'2d10',ap:4,rof:3,shots:200,minSize:1,mods:1,cost:2000,notes:'Pt Def, Rxn Fire, HW',desc:'Modern heavy machine gun. M2 Browning, NSV, KORD — roof-mounted on everything from jeeps to main battle tanks.'},
   {id:'mmg_modern',name:'Medium Machine Gun',cat:'Machine Guns',era:'modern',range:'30/60/120',damage:'2d8+1',ap:2,rof:3,shots:200,minSize:1,mods:1,cost:1500,notes:'Pt Def, Rxn Fire',desc:'Modern medium machine gun. M240s, PKMs, MAG 58s — co-axial and pintle mounts across NATO and Eastern Bloc.'},
   {id:'minigun_modern',name:'Minigun',cat:'Machine Guns',era:'modern',range:'50/100/200',damage:'2d8+1',ap:2,rof:5,shots:2000,minSize:3,mods:1,cost:10000,notes:'Min RoF 3, Pt Def, Rxn Fire, HW',desc:'Electrically driven rotary machine gun. M134 Minigun on helicopters and gunships. Six thousand rounds per minute.'},
@@ -1412,7 +1412,7 @@ Audio.clunk=function(){if(audioEnabled)_origClunk()};Audio.click=function(){if(a
 // ═══ NAV BAR ═══
 
 
-// ═══ CANON REFERENCE BUILDS (47 SWADE core vehicles) ═══
+// ═══ CANON REFERENCE BUILDS (47 core vehicles) ═══
 var CANON_BUILDS=[
 {name:"Bicycle",size:-1,loco:"wheeled",armourLevel:-2,speedLevel:-3,woundsLevel:-2,mphOverride:16,desc:"Two wheels, no motor, no armour, no dignity. Half of all shots hit the rider instead.",notes:"The bicycle is invisible. Nobody notices one more cyclist on a city street, which makes it the perfect surveillance and courier vehicle for low-tech campaigns. In chase scenes, she squeezes through gaps no car can follow — alleys, stairwells, crowded markets. 50% of shots hit the rider rather than the vehicle.",weapons:[],mods:{},specials:["open_top"],_pack:"core"},
 {name:"Horse-Drawn Carriage",size:3,loco:"wheeled",toughLevel:-1,armourLevel:-2,handlingLevel:-3,speedLevel:-3,passengers:3,woundsLevel:-1,mphOverride:16,desc:"Four wheels, one horse, variable passenger comfort. Stagecoaches, hansoms, and broughams all fall here.",notes:"The carriage covers everything from open farm carts to enclosed broughams and four-horse stagecoaches. She's your chase vehicle for historical and fantasy campaigns — highway robberies, runaway horses, rooftop leaps onto the luggage rack. Variants include the fast but fragile hansom cab, the armoured prison wagon, and the heavy freight coach. Horse-drawn, so she stops when the horses do.",weapons:[],mods:{},specials:["open_top", "towing"],_pack:"core"},
