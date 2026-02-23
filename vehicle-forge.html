@@ -7,17 +7,15 @@
 <meta name="description" content="Free browser-based vehicle construction tool for Savage Worlds. 127 weapons, 47 reference builds, export to Fantasy Grounds, Foundry VTT, and print. No login required.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚒</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/diceforge.css">
 <style>
-:root{--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;--bg-panel:#201E1A;--border:#3A3530;--border-light:#4A4540;--accent:#C4A44A;--accent-dim:#C4A44A40;--accent-glow:#C4A44A20;--text:#E4D8B8;--text-bright:#F5EDD8;--text-dim:#A89868;--green:#5A9A5A;--red:#8C3030;--red-bright:#B04040;--blue:#4A7A9A;--orange:#B07830;--text-scale:1}
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;background:var(--bg-deep);color:var(--text);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.6}
+:root{--bg-deep:var(--bg);--bg-dark:var(--bg-card);--bg-card:var(--bg-elevated);--bg-panel:var(--bg-panel);--accent:var(--gold);--accent-dim:var(--gold-glow);--accent-glow:#C4A44A20;--orange:#B07830;--text-scale:1;--input-bg:var(--bg)}
+html,body{height:100%;font-size:15px;line-height:1.6}
 
-.app{display:flex;height:calc(100vh - 38px);overflow:hidden}
+.app{display:flex;height:calc(100vh - var(--nav-height) - 38px);overflow:hidden}
 .sidebar{width:33.33%;min-width:280px;background:var(--bg-dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .header{background:var(--bg-dark);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.header-brand{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;transition:color .2s}
-a.header-brand:hover{color:var(--accent)}
 .header-title{font-family:'Cinzel',serif;font-size:18px;color:var(--accent);letter-spacing:2px}
 .header-spacer{flex:1}
 .header-btn{background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:6px 14px;font-family:'Crimson Pro',serif;font-size:13px;cursor:pointer;transition:all .15s;white-space:nowrap}
@@ -104,13 +102,20 @@ a.header-brand:hover{color:var(--accent)}
 .hangar-group{margin-bottom:8px}.hangar-group-head{font-size:11px;color:var(--accent);padding:4px 0;font-weight:600;cursor:pointer;user-select:none}
 .hangar-group-head:hover{color:var(--accent-bright)}.hangar-count{font-size:11px;color:var(--text-dim);padding:2px 8px}
 .empty-state{text-align:center;color:var(--text-dim);padding:20px;font-style:italic}
-.stat-block{background:var(--bg-dark);border:2px solid var(--accent-dim);padding:16px;font-size:14px;line-height:1.5}
-.sb-name{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--accent);letter-spacing:1px}
-.sb-type{font-size:12px;color:var(--text-dim);font-style:italic;margin-bottom:4px}
-.sb-divider{border:none;border-top:1px solid var(--accent-dim);margin:6px 0}
-.sb-line{font-size:13px;margin:2px 0}.sb-label{font-weight:700;color:var(--text-bright)}
-.sb-notes{font-size:12px;font-style:italic;color:var(--text-dim)}
-.sb-watermark{font-size:9px;color:var(--text-dim);text-align:right;margin-top:8px;font-style:italic;opacity:.5}
+.stat-block{background:var(--bg-deep);border:1px solid var(--border);padding:20px;font-size:13px;line-height:1.5}
+.sb-name{font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:2px}
+.sb-desc{font-style:italic;color:var(--text);font-size:13px;line-height:1.5;margin-bottom:8px}
+.sb-stats-table{width:100%;border-collapse:collapse;margin:8px 0 12px;font-size:12px}
+.sb-stats-table th{font-family:'Cinzel',serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);padding:4px 8px 3px;text-align:center;border-bottom:1px solid var(--accent);font-weight:600}
+.sb-stats-table td{font-size:13px;color:var(--text-bright);padding:6px 8px;text-align:center;font-weight:700}
+.sb-stats-table th:first-child,.sb-stats-table td:first-child{text-align:left}
+.sb-section{margin:10px 0;font-size:13px;line-height:1.6}
+.sb-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:2px}
+.sb-weapon{margin:3px 0 3px 12px;font-size:12px;color:var(--text)}
+.sb-divider{border:none;border-top:1px solid var(--border);margin:10px 0}
+.sb-notes{font-size:12px;font-style:italic;color:var(--text-dim);line-height:1.5}
+.sb-gm-notes{font-size:12px;color:var(--text-dim);line-height:1.5;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.sb-watermark{font-size:9px;color:var(--text-dim);text-align:right;margin-top:12px;font-style:italic;opacity:.4}
 /* Search bars */
 .search-bar{background:var(--bg-deep);border:1px solid var(--border);color:var(--text);padding:5px 10px;font-family:'Crimson Pro',serif;font-size:13px;width:100%;margin-bottom:6px}
 .search-bar:focus{outline:none;border-color:var(--accent)}
@@ -138,8 +143,24 @@ a.header-brand:hover{color:var(--accent)}
 @media(max-width:768px){.app{flex-direction:column;height:auto}.sidebar{width:100%;min-width:0;max-width:none;max-height:45vh}.main{min-height:50vh}.dnd-layout{grid-template-columns:1fr}}
 </style>
 </head>
-<body>
+<body class="df-tool">
 
+<a href="#main-tool" class="skip-link">Skip to Vehicle Forge</a>
+
+<nav class="df-nav" role="navigation" aria-label="Site navigation">
+  <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
+  <button class="hamburger" onclick="document.getElementById('dfNavLinks').classList.toggle('open');this.classList.toggle('open')" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="dfNavLinks">
+    <li><a href="/">Home</a></li>
+    <li><a href="/vehicle-forge-landing" class="active">Vehicle Forge</a></li>
+    <li><a href="/#arrath">World of Arr'ath</a></li>
+    <li><a href="/#about">About</a></li>
+  </ul>
+</nav>
+
+<div style="padding-top:var(--nav-height)" id="main-tool">
 <div class="app">
   <div class="sidebar">
     <div class="sidebar-section">
@@ -217,11 +238,11 @@ a.header-brand:hover{color:var(--accent)}
     </div>
   </div>
   <div class="main">
-    <div class="header">
-      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.8.22</span></div></div>
+    <div class="header" role="toolbar" aria-label="Vehicle Forge controls">
+      <div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.8.22</span></div>
       <div class="header-spacer"></div>
-      <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
-      <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
+      <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)" aria-label="Undo">↩ Undo</button>
+      <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)" aria-label="Redo">↪ Redo</button>
     </div>
     <div class="tabs">
       <div class="tab active" data-tab="output" onclick="switchTab('output')">Stat Block</div>
@@ -950,17 +971,17 @@ function renderStats(){var f=getFrame(S.size),used=calcModsUsed(),gained=calcMod
 function renderOutput(){var p=document.getElementById('outputContent'),f=getFrame(S.size);
   var loco=LOCOS.find(function(l){return l.id===S.loco});var spd=calcSpeed();
   var used=calcModsUsed(),gained=calcModsGained(),left=(f.modSlots+gained)-used;
-  var notes=[];MODS.forEach(function(m){if(S.mods[m.id]>0)notes.push(S.mods[m.id]>1?S.mods[m.id]+'× '+m.name:m.name)});
+  var notes=[];MODS.forEach(function(m){if(S.mods[m.id]>0)notes.push(S.mods[m.id]>1?S.mods[m.id]+'\u00d7 '+m.name:m.name)});
   var wl=[];S.weapons.forEach(function(w){var wp=getAllWeapons().find(function(x){return x.id===w.weaponId});if(wp){var ml=w.mount==='fixed'?'Fixed Front':w.mount==='turret'?'Turret':'Pintle';
-    var lk=w.linked||0;var lkTxt=lk===1?' ×2 Linked':lk>=3?' ×4 Linked':'';var lkBonus=lk===1?' (+1 Shooting, +2 damage)':lk>=3?' (+2 Shooting, +4 damage)':'';
+    var lk=w.linked||0;var lkTxt=lk===1?' \u00d72 Linked':lk>=3?' \u00d74 Linked':'';var lkBonus=lk===1?' (+1 Shooting, +2 damage)':lk>=3?' (+2 Shooting, +4 damage)':'';
     var wcls=weaponClassLabel(wp,lk);
-    wl.push(wp.name+lkTxt+' ['+wcls+'] ('+ml+'): Range '+wp.range+', Damage '+wp.damage+', AP '+wp.ap+', RoF '+wp.rof+(wp.notes?', '+wp.notes:'')+lkBonus)}});
+    wl.push({name:wp.name+lkTxt,cls:wcls,mount:ml,range:wp.range,dmg:wp.damage,ap:wp.ap,rof:wp.rof,notes:wp.notes||'',bonus:lkBonus})}});
   var special=[];
   if(isHeavyArmor())special.push('Heavy Armor');
   if(loco)special.push(loco.name+': '+loco.notes);
-  if(isWalker())special.push('Piloting skill. Parry 2 + ½ Piloting + Handling. Fighting = lower of Piloting/Fighting. Always armed (Str '+walkerStr()+' damage, HW).');
+  if(isWalker())special.push('Piloting skill. Parry 2 + \u00bd Piloting + Handling. Fighting = lower of Piloting/Fighting. Always armed (Str '+walkerStr()+' damage, HW).');
   if(S.mods.shields)special.push('Shields: '+Math.floor(calcWounds()/2)+' charges, Soak with Electronics.');
-  if(S.mods.fusion_core)special.push('Fusion Core: Energy ×8. Locomotion Crit 1-2 on d6 = core breach.');
+  if(S.mods.fusion_core)special.push('Fusion Core: Energy \u00d78. Locomotion Crit 1-2 on d6 = core breach.');
   if(S.mods.stabilizer)special.push('Stabilizer: No Unstable Platform penalty.');
   if(S.mods.targeting)special.push('Targeting: -2 Shooting penalties.');
   if(S.mods.submersible)special.push('Submersible'+(S.mods.submersible>1?' (Deep Dive)':'')+': Submerge as action. -4 to detect when submerged.');
@@ -971,29 +992,42 @@ function renderOutput(){var p=document.getElementById('outputContent'),f=getFram
   if(S.woundsLevel!==0)special.push('Wounds: '+woundsLabel(S.woundsLevel)+'.');
   if(S.mods.road_vehicle)special.push('Road Vehicle: Speed '+calcRoadSpeed()+' ('+speedMPH(calcRoadSpeed())+' MPH) on paved roads.');
 
-  var imgHtml=S.image?'<div style="text-align:center;margin-bottom:10px"><img src="'+S.image+'" style="max-width:100%;max-height:250px;border:1px solid var(--border)"></div>':'';
-  var descHtml=S.desc?'<div style="font-size:13px;font-style:italic;color:var(--text);margin-bottom:8px;line-height:1.4">'+esc(S.desc)+'</div>':'';
-  var notesHtml=S.notes?'<div style="font-size:12px;color:var(--text-dim);margin-top:8px;padding-top:6px;border-top:1px solid var(--border);line-height:1.4"><span class="sb-label">GM Notes:</span> '+esc(S.notes)+'</div>':'';
-
-  p.innerHTML=imgHtml+'<div class="stat-block">'
-    +'<div class="sb-name">'+(S.name||'Untitled Vehicle')+'</div>'
-    +descHtml
-    +'<div class="sb-type">Class '+vehicleClass()+' ('+sfcNumeral(calcTotalTough())+') \u2014 Size '+S.size+' ('+f.cat+'), '+loco.name+', Handling '+(calcHand()>=0?'+':'')+calcHand()+', Top Speed '+spd+' ('+speedMPH(spd)+' MPH)</div>'
-    +'<hr class="sb-divider">'
-    +'<div class="sb-line"><span class="sb-label">Toughness:</span> '+calcTotalTough()+' ('+calcArmourValue()+')</div>'
-    +'<div class="sb-line"><span class="sb-label">Wounds:</span> '+calcWounds()+'</div>'
-    +'<div class="sb-line"><span class="sb-label">Crew:</span> '+f.crew+'</div>'
-    +(isWalker()?'<div class="sb-line"><span class="sb-label">Strength:</span> '+walkerStr()+'</div>':'')
-    +'<div class="sb-line"><span class="sb-label">Energy:</span> '+calcEnergy()+' days</div>'
-    +'<div class="sb-line"><span class="sb-label">Cost:</span> $'+fmtC(calcCost())+', Mods '+left+' remaining</div>'
-    +'<hr class="sb-divider">'
-    +(notes.length?'<div class="sb-line"><span class="sb-label">Mods:</span> '+notes.join(', ')+'.</div>':'')
-    +(wl.length?'<div class="sb-line"><span class="sb-label">Weapons:</span></div>'+wl.map(function(w){return '<div class="sb-line">&nbsp;&nbsp;• '+w+'</div>'}).join(''):'')
-    +(special.length?'<hr class="sb-divider"><div class="sb-notes"><span class="sb-label">Special:</span> '+special.join(' ')+'</div>':'')
-    +notesHtml
-    +'<div class="sb-watermark">Built with DiceForge Vehicle Forge · diceforgestudios.pages.dev</div>'
-    +'</div>'
-    +'<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="header-btn" onclick="copyBlock()">Copy to Clipboard</button><button class="header-btn" onclick="exportJSON()">Export .json</button><button class="header-btn" onclick="exportStatBlock()">Stat Block .txt</button><button class="header-btn" onclick="exportFGXML()">FG XML</button><button class="header-btn" onclick="printStatBlock()">Print</button></div>'}
+  var imgHtml=S.image?'<div style="text-align:center;margin-bottom:12px"><img src="'+S.image+'" style="max-width:100%;max-height:250px;border:1px solid var(--border)" alt="'+esc(S.name||'Vehicle')+' image"></div>':'';
+  var h='';
+  h+=imgHtml+'<div class="stat-block">';
+  h+='<div class="sb-name">'+(S.name||'Untitled Vehicle')+'</div>';
+  if(S.desc)h+='<div class="sb-desc">'+esc(S.desc)+'</div>';
+  // Pinnacle-format stats table
+  h+='<table class="sb-stats-table"><thead><tr>';
+  h+='<th>Size</th><th>Handling</th><th>Top Speed (MPH)</th><th>Toughness</th>';
+  if(isWalker())h+='<th>Strength</th>';
+  h+='<th>Crew</th><th>Wounds</th><th>Cost</th>';
+  h+='</tr></thead><tbody><tr>';
+  h+='<td style="text-align:left">'+S.size+' ('+f.cat+')</td>';
+  h+='<td>'+(calcHand()>=0?'+':'')+calcHand()+'</td>';
+  h+='<td>'+spd+' ('+speedMPH(spd)+')</td>';
+  h+='<td>'+calcTotalTough()+' ('+calcArmourValue()+')</td>';
+  if(isWalker())h+='<td>'+walkerStr()+'</td>';
+  h+='<td>'+f.crew+'</td>';
+  h+='<td>'+calcWounds()+'</td>';
+  h+='<td>$'+fmtC(calcCost())+'</td>';
+  h+='</tr></tbody></table>';
+  // Class badge
+  h+='<div style="font-size:11px;color:var(--text-dim);margin-bottom:8px">Class '+vehicleClass()+' ('+sfcNumeral(calcTotalTough())+') \u2014 '+loco.name+'. Energy: '+calcEnergy()+' days. Mods: '+left+' remaining.</div>';
+  // Notes sections as prose
+  if(notes.length){h+='<hr class="sb-divider"><div class="sb-section"><div class="sb-section-label">Modifications</div>';
+    h+=notes.join(', ')+'.';h+='</div>';}
+  if(wl.length){h+='<hr class="sb-divider"><div class="sb-section"><div class="sb-section-label">Weapons</div>';
+    wl.forEach(function(w){h+='<div class="sb-weapon">\u2022 <b>'+w.name+'</b> ['+w.cls+'] ('+w.mount+'): Range '+w.range+', Damage '+w.dmg+', AP '+w.ap+', RoF '+w.rof+(w.notes?', '+w.notes:'')+(w.bonus?w.bonus:'')+'</div>'});
+    h+='</div>';}
+  if(special.length){h+='<hr class="sb-divider"><div class="sb-section"><div class="sb-section-label">Special</div>';
+    h+='<div class="sb-notes">'+special.join(' ')+'</div></div>';}
+  if(S.notes){h+='<hr class="sb-divider"><div class="sb-section"><div class="sb-section-label">GM Notes</div>';
+    h+='<div class="sb-gm-notes">'+esc(S.notes)+'</div></div>';}
+  h+='<div class="sb-watermark">Built with DiceForge Vehicle Forge \u00b7 diceforgestudios.pages.dev</div>';
+  h+='</div>';
+  h+='<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="header-btn" onclick="copyBlock()">Copy to Clipboard</button><button class="header-btn" onclick="exportJSON()">Export .json</button><button class="header-btn" onclick="exportStatBlock()">Stat Block .txt</button><button class="header-btn" onclick="exportFGXML()">FG XML</button><button class="header-btn" onclick="printStatBlock()">Print</button></div>';
+  p.innerHTML=h}
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
 
 function copyBlock(){var f=getFrame(S.size),loco=LOCOS.find(function(l){return l.id===S.loco});var spd=calcSpeed();
@@ -1468,5 +1502,6 @@ updateSettingsInfo();
   document.body.appendChild(overlay);
 })();
 </script>
+</div><!-- /main-tool padding wrapper -->
 </body>
 </html>
