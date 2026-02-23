@@ -129,7 +129,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .hangar-select{background:var(--bg-deep);border:1px solid var(--border);color:var(--text-dim);padding:4px 8px;font-size:12px;font-family:inherit;border-radius:3px;cursor:pointer;min-width:100px}
 .hangar-select:focus{border-color:var(--accent);color:var(--text);outline:none}
 .hangar-count-bar{font-size:12px;color:var(--text-dim);padding:0 0 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
-.hangar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;outline:none}
+.hangar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;outline:none}
 .hangar-card{background:var(--bg-deep);border:1px solid var(--border);padding:10px;cursor:pointer;transition:border-color .12s,background .12s;position:relative;min-height:72px}
 .hangar-card:hover{border-color:var(--accent-dim);background:rgba(196,164,74,0.04)}
 .hangar-card.selected{border-color:var(--accent);background:rgba(196,164,74,0.1);box-shadow:0 0 0 1px var(--accent)}
@@ -142,9 +142,6 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .hangar-card:hover .hc-actions{display:flex;gap:4px}
 .hc-act{background:none;border:1px solid var(--border);color:var(--text-dim);padding:2px 6px;font-size:11px;cursor:pointer;font-family:inherit;border-radius:2px}
 .hc-act:hover{border-color:var(--accent);color:var(--accent)}
-@media(max-width:1200px){.hangar-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:900px){.hangar-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.hangar-grid{grid-template-columns:1fr}}
 .empty-state{text-align:center;color:var(--text-dim);padding:20px;font-style:italic}
 .stat-block{background:var(--bg-deep);border:1px solid var(--border);padding:20px;font-size:15px;line-height:1.5}
 .sb-name{font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:2px}
@@ -1406,8 +1403,7 @@ function renderSaved(){var list=document.getElementById('savedList');
     html+='<div class="hangar-card" data-fi="'+fi+'" onclick="selectHangarCard('+fi+')" ondblclick="loadFromHangar('+i+')">';
     html+='<div class="hc-class" title="Class '+cls+' ('+sfc+')">'+cls+'</div>';
     html+='<div class="hc-name" title="'+esc(s.name)+'">'+esc(s.name)+'</div>';
-    html+='<div class="hc-meta">Size '+s.size+' '+cat+'</div>';
-    html+='<div class="hc-meta">'+(loco?loco.name:'Unknown')+'</div>';
+    html+='<div class="hc-meta">Size '+s.size+' '+cat+' — '+(loco?loco.name:'')+'</div>';
     html+='<div class="hc-meta" style="margin-top:3px">';
     if(canon)html+='<span class="hc-badge canon">CANON</span>';
     else html+='<span class="hc-badge user">MINE</span>';
@@ -1444,7 +1440,7 @@ document.addEventListener('keydown',function(e){
   var list=document.getElementById('savedList');
   if(!list||!list.closest('.panel.active')||!hangarItems.length)return;
   if(document.activeElement&&(document.activeElement.tagName==='INPUT'||document.activeElement.tagName==='SELECT'||document.activeElement.tagName==='TEXTAREA'))return;
-  var cols=4;var w=list.offsetWidth;if(w<600)cols=1;else if(w<900)cols=2;else if(w<1200)cols=3;
+  var cols=Math.max(1,Math.round(list.offsetWidth/206));
   var max=hangarItems.length-1;var cur=hangarSel;var moved=false;
   if(e.key==='ArrowRight'){cur=Math.min(max,cur+1);moved=true}
   else if(e.key==='ArrowLeft'){cur=Math.max(0,cur-1);moved=true}
