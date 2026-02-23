@@ -228,7 +228,7 @@ a.header-brand:hover{color:var(--accent)}
   </div>
   <div class="main">
     <div class="header">
-      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.10.02</span></div></div>
+      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.10.03</span></div></div>
       <div class="header-spacer"></div>
       <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
       <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
@@ -295,7 +295,7 @@ a.header-brand:hover{color:var(--accent)}
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--text-dim)">
-          Vehicle Forge v0.10.02 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.03 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds Adventure Edition
         </div>
       </div>
@@ -335,12 +335,12 @@ var baseTough=5+sz;
 var maxArmor=Math.max(1,Math.ceil(sz/2));var mods=Math.max(3,Math.floor(sz*2.5));
 var cost=Math.round(1000*sz*sz);
 var cat,hand,wounds,crew,energy;
-if(sz<=3){cat='Light';hand=1;wounds=3;crew=1;energy=3}
-else if(sz<=7){cat='Medium';hand=0;wounds=4;crew=1;energy=5}
-else if(sz<=11){cat='Heavy';hand=-1;wounds=5;crew=5;energy=15}
-else if(sz<=20){cat='Super-Heavy';hand=-2;wounds=6;crew=20;energy=30}
-else if(sz<=25){cat='Capital';hand=-3;wounds=7;crew=100;energy=60}
-else{cat='Titan';hand=-4;wounds=8;crew=500;energy=100}
+if(sz<=3){cat='Normal';hand=1;wounds=3;crew=1;energy=3}
+else if(sz<=7){cat='Large';hand=0;wounds=4;crew=1;energy=5}
+else if(sz<=11){cat='Huge';hand=-1;wounds=5;crew=5;energy=15}
+else if(sz<=20){cat='Gargantuan';hand=-2;wounds=6;crew=20;energy=30}
+else if(sz<=25){cat='Gargantuan';hand=-3;wounds=7;crew=100;energy=60}
+else{cat='Gargantuan';hand=-4;wounds=8;crew=500;energy=100}
 return{cat:cat,hand:hand,baseTough:baseTough,wounds:wounds,crew:crew,energy:energy,modSlots:mods,costBase:cost,compactBonus:0}}
 
 var LOCOS=[
@@ -691,8 +691,8 @@ function calcHand(){var f=getFrame(S.size);return f.hand+S.handlingLevel}
 function calcSpeed(){var loco=LOCOS.find(function(l){return l.id===S.loco});return Math.max(1,(loco?loco.speed:4)+S.speedLevel)}
 function calcHandFor(v){var f=getFrame(v.size);return f.hand+(v.handlingLevel||0)}
 function calcSpeedFor(v){var loco=LOCOS.find(function(l){return l.id===v.loco});return Math.max(1,(loco?loco.speed:4)+(v.speedLevel||0))}
-function calcArmourFor(v){var f=getFrame(v.size);var base=f.cat==='Light'?2:f.cat==='Medium'?4:f.cat==='Heavy'?6:8;var step=f.cat==='Light'?1:f.cat==='Medium'?2:f.cat==='Heavy'?3:4;return Math.max(0,base+(v.armourLevel||0)*step)}
-function calcToughFor(v){var f=getFrame(v.size);var base=f.baseTough;var step=f.cat==='Light'?2:f.cat==='Medium'?3:f.cat==='Heavy'?4:5;return base+(v.toughLevel||0)*step}
+function calcArmourFor(v){var f=getFrame(v.size);var base=f.cat==='Normal'?2:f.cat==='Large'?4:f.cat==='Huge'?6:8;var step=f.cat==='Normal'?1:f.cat==='Large'?2:f.cat==='Huge'?3:4;return Math.max(0,base+(v.armourLevel||0)*step)}
+function calcToughFor(v){var f=getFrame(v.size);var base=f.baseTough;var step=f.cat==='Normal'?2:f.cat==='Large'?3:f.cat==='Huge'?4:5;return base+(v.toughLevel||0)*step}
 function calcTotalToughFor(v){return calcToughFor(v)+calcArmourFor(v)}
 function calcWoundsFor(v){var f=getFrame(v.size);return Math.max(1,f.wounds+(v.woundsLevel||0))}
 function calcCostFor(v){var f=getFrame(v.size),loco=LOCOS.find(function(l){return l.id===v.loco});var base=f.baseCost;if(loco)base+=loco.costMult*v.size*1000;return base}
