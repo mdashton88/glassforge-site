@@ -782,7 +782,7 @@ function importJSON(e){var file=e.target.files[0];if(!file)return;var reader=new
       document.getElementById('vName').value=S.name;document.getElementById('vDesc').value=S.desc;document.getElementById('vNotes').value=S.notes;document.getElementById('sizeSlider').value=S.size;
       showImage();renderAll();Audio.clunk()}
     else if(data.vehicles&&Array.isArray(data.vehicles)){data.vehicles.forEach(function(v){
-        S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0})});
+        S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0})});
       localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));renderSaved();Audio.clunk();
       alert('Imported '+data.vehicles.length+' vehicles.')}
     else alert('Invalid .cvf.json file.')}catch(err){alert('Error reading file: '+err.message)}};reader.readAsText(file);e.target.value=''}
@@ -1349,7 +1349,7 @@ function loadVehicle(i){Audio.clunk();var d=S.saved[i];
     S.name=d.name;S.desc=d.desc||'';S.notes=d.notes||'';S.image=d.image||'';S.size=d.size;S.loco=d.loco;
     S.mods=JSON.parse(JSON.stringify(d.mods));S.weapons=JSON.parse(JSON.stringify(d.weapons));
     S.toughLevel=d.toughLevel||0;S.armourLevel=d.armourLevel||0;S.speedLevel=d.speedLevel||0;
-    S.handlingLevel=d.handlingLevel||0;S.woundsLevel=d.woundsLevel||0;S.specials=d.specials||[];S.customSpecial=d.customSpecial||'';
+    S.handlingLevel=d.handlingLevel||0;S.woundsLevel=d.woundsLevel||0;S.crewLevel=d.crewLevel||0;S.passengers=d.passengers||0;S.mphOverride=d.mphOverride||0;S.specials=d.specials||[];S.customSpecial=d.customSpecial||'';
     S._loadedCanon=true;S._loadedIdx=i;
     document.getElementById('vName').value=S.name;document.getElementById('vDesc').value=S.desc;document.getElementById('vNotes').value=S.notes;
     document.getElementById('sizeSlider').value=S.size;showImage();renderAll();
@@ -1358,7 +1358,7 @@ function loadVehicle(i){Audio.clunk();var d=S.saved[i];
   S.name=d.name;S.desc=d.desc||'';S.notes=d.notes||'';S.image=d.image||'';S.size=d.size;S.loco=d.loco;
   S.mods=JSON.parse(JSON.stringify(d.mods));S.weapons=JSON.parse(JSON.stringify(d.weapons));
   S.toughLevel=d.toughLevel||0;S.armourLevel=d.armourLevel||0;S.speedLevel=d.speedLevel||0;
-  S.handlingLevel=d.handlingLevel||0;S.woundsLevel=d.woundsLevel||0;S.specials=d.specials||[];S.customSpecial=d.customSpecial||'';
+  S.handlingLevel=d.handlingLevel||0;S.woundsLevel=d.woundsLevel||0;S.crewLevel=d.crewLevel||0;S.passengers=d.passengers||0;S.mphOverride=d.mphOverride||0;S.specials=d.specials||[];S.customSpecial=d.customSpecial||'';
   document.getElementById('vName').value=S.name;document.getElementById('vDesc').value=S.desc;document.getElementById('vNotes').value=S.notes;
   document.getElementById('sizeSlider').value=S.size;showImage();renderAll()}
 
