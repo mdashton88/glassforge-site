@@ -1233,8 +1233,7 @@ function printStatBlock(){var f=getFrame(S.size),loco=LOCOS.find(function(l){ret
     +'.line{margin:2px 0}.label{font-weight:bold}'
     +'.special{font-size:14px;font-style:italic;color:#444}'
     +'.watermark{font-size:11px;color:#aaa;text-align:right;margin-top:12px}'
-    +'@media print{body{padding:12px}.watermark{color:#ccc}}</style></head><body>
-<a href="#panel-output" class="skip-link" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;font-size:14px;padding:8px 16px;background:var(--accent);color:var(--bg-deep)">Skip to stat block</a>'
+    +'@media print{body{padding:12px}.watermark{color:#ccc}}</style></head><body>'
     +imgTag
     +'<h1>'+esc(S.name)+'</h1>'
     +descLine
@@ -1300,8 +1299,7 @@ function printAll(){if(!S.saved.length){alert('No saved vehicles to print.');ret
     +'.spec{font-style:italic;color:#444}'
     +'.gm{color:#666;border-top:1px solid #ddd;padding-top:3px;margin-top:4px}'
     +'.watermark{font-size:11px;color:#aaa;text-align:right;margin-top:8px}'
-    +'@media print{.card{border:1.5px solid #333}}</style></head><body>
-<a href="#panel-output" class="skip-link" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;font-size:14px;padding:8px 16px;background:var(--accent);color:var(--bg-deep)">Skip to stat block</a>'
+    +'@media print{.card{border:1.5px solid #333}}</style></head><body>'
     +cards
     +'<div class="watermark">Built with DiceForge Vehicle Forge · diceforgestudios.pages.dev</div>'
     +'<script>window.onload=function(){window.print()}<\\/script>'
@@ -1414,8 +1412,7 @@ function toggleSpecial(id){var idx=S.specials.indexOf(id);if(idx>=0)S.specials.s
 function handleImageDrop(e){var files=e.dataTransfer.files;if(files.length>0){var fakeEvent={target:{files:files}};handleImage(fakeEvent)}}
 
 // ═══ POP-OUT HELP ═══
-function popOutHelp(){var w=window.open('','Vehicle Forge Reference','width=800,height=600');var content=document.getElementById('helpContent');if(w&&content){w.document.write('<html lang="en"><head><title>Vehicle Forge Reference</title><style>body{background:#141210;color:#D4C8B0;font-family:Crimson Pro,serif;padding:20px;line-height:1.6}h3{color:#C4A44A}code{background:#1A1816;padding:2px 6px}</style></head><body>
-<a href="#panel-output" class="skip-link" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;font-size:14px;padding:8px 16px;background:var(--accent);color:var(--bg-deep)">Skip to stat block</a>'+content.innerHTML+'</body></html>');w.document.close()}}
+function popOutHelp(){var w=window.open('','Vehicle Forge Reference','width=800,height=600');var content=document.getElementById('helpContent');if(w&&content){w.document.write('<html lang="en"><head><title>Vehicle Forge Reference</title><style>body{background:#141210;color:#D4C8B0;font-family:Crimson Pro,serif;padding:20px;line-height:1.6}h3{color:#C4A44A}code{background:#1A1816;padding:2px 6px}</style></head><body>'+content.innerHTML+'</body></html>');w.document.close()}}
 
 // ═══ SETTINGS ═══
 var audioEnabled=true;
