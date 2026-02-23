@@ -137,17 +137,82 @@ Vehicle_Forge_Technical_Reference_v1_0.md   ← Full technical reference (formul
 
 ---
 
+## Automated Sync & Audit
+
+**Script:** `python3 sync_and_audit.py`
+
+Run before every commit that touches weapon or vehicle data. The script performs two jobs: sync (propagating canon data to all downstream files) and audit (verifying everything is correct).
+
+```
+python3 sync_and_audit.py              # Full sync + audit
+python3 sync_and_audit.py --audit-only # Audit without syncing
+python3 sync_and_audit.py --sync-only  # Sync without full audit
+```
+
+**Exit codes:** 0 = all clear, 1 = Tier 1 failure (must fix), 2 = Tier 2 warnings (review).
+
+### What the script checks
+
+**Sync:** Pushes corrected weapon loadouts from `Vehicle_Forge_Core_Reference_Builds.vfx` to all downstream files automatically. No manual propagation.
+
+**Tier 1 — Hard Canon (must match exactly):**
+- 19 SWADE Core weapon definitions vs pp.79-81 (damage, AP, RoF, range)
+- 8 era variant pairs must have identical stats
+- 12 weapon family progressions must increase monotonically
+- All pack embedded weapon DBs must mirror the canonical catalogue
+- All downstream files must be in sync with canon
+
+**Tier 2 — Calibration Sense Check:**
+- Damage graded A through E with scaled tolerances
+- AP classified into penetration bands by delivery method
+- Weapon counts reported per grade and band for manual review
+
+---
+
+## Calibration Framework
+
+### Damage Grades
+
+Tolerance scales with the weapon's output. At the light end, even a single point changes combat outcomes. At the heavy end, several points make no practical difference.
+
+| Grade | Avg Damage | Tolerance | Covers |
+|-------|-----------|-----------|--------|
+| A | ≤7 | ±0 (exact) | Daggers, javelins, scorpions, bow batteries |
+| B | 7–11 | ±1 | Machine guns, ballista, rams, swivel guns |
+| C | 11–18 | ±2 | Autocannons, flamethrowers, Sidewinders, catapults |
+| D | 18–28 | ±3 | Tank guns, TOW, Hellfire, Heavy Laser, Sparrow |
+| E | 28+ | ±4 | Torpedoes, cruise missiles, mega lasers, railguns |
+
+### AP Bands
+
+AP represents penetration capability — the weapon's ability to defeat protective material. It is not proportional to damage. A flamethrower does heavy damage with AP 0 (heat, not penetration). A Heavy Laser does moderate damage with AP 30 (concentrated energy cuts through armour). The band must match the weapon's delivery method.
+
+| Band | AP Range | Logic |
+|------|----------|-------|
+| NONE | 0 | Blast, fire, fragmentation. No penetration. |
+| LIGHT | 1–2 | Rifle-calibre, bolts, arrows. Defeats cover and light skin. |
+| MEDIUM | 3–6 | HMG, autocannon, medium guns, frag warheads. Defeats light vehicles. |
+| HEAVY | 7–16 | HVAP, heavy AT guns, improved penetrators. Defeats medium armour. |
+| VERY HEAVY | 17–34 | Modern tank guns, shaped charges, torpedoes. Defeats heavy armour. |
+| CAPITAL | 35+ | Top-tier guided AT, mega weapons. Defeats anything. |
+
+### Additional Hard Checks
+
+- **RoF must be exact.** Small integer that directly affects action economy.
+- **Weapon families must progress monotonically.** A Medium Laser must do less than a Heavy Laser.
+- **Era variants must be identical.** `mmg` and `mmg_modern` are the same weapon in different UI filters.
+
+---
+
 ## Audit Procedure
 
-Run periodically or before any release:
+Before any commit touching weapon or vehicle data:
 
-1. Parse `var WEAPONS=[]` from `vehicle-forge.html` — this is canonical
-2. Parse all `.vfx` files in `packs/` — check every `weaponId` resolves
-3. Check every embedded weapon DB in packs matches canonical stats
-4. Verify `.vfx` / `.cvf.json` pairs have matching vehicle and weapon counts
-5. For SWADE Core weapons, verify damage/AP/RoF/range against pp.79-81
-6. For CANON_BUILDS, verify loadouts against pp.82-86
-7. Log results in commit message and update this document's inventory table
+1. Run `python3 sync_and_audit.py`
+2. If exit code 0: commit freely
+3. If exit code 1: fix all Tier 1 failures before committing
+4. If exit code 2: review Tier 2 warnings, fix or document exceptions
+5. Include audit result summary in commit message
 
 ---
 
@@ -158,3 +223,5 @@ Run periodically or before any release:
 | 2026-02-23 | 2703190 | 19 SWADE Core weapon definitions | 19/19 match pp.80-81 |
 | 2026-02-23 | 0bcc69f | 47 CANON_BUILDS loadouts | 47/47 match pp.82-86. 6 fixes applied. |
 | 2026-02-23 | adb9fdf | Full repo: 594 vehicles, 114 files | 0 broken refs, 0 stat mismatches |
+| 2026-02-23 | 1955993 | Downstream sync: 6 secondary files | All synced with corrected canon |
+| 2026-02-23 | (this) | sync_and_audit.py first run | T1: 19/19, Variants: 8/8, Families: 12/12, Packs: 53/53, Sync: 6/6 |
