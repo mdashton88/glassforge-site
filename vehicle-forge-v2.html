@@ -18,6 +18,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .nav-brand{font-family:'Cinzel',serif;font-weight:700;font-size:16px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;text-decoration:none}
 .nav-brand:hover{color:var(--gold-bright)}
 .nav-brand .anvil{font-size:22px;color:var(--gold-bright)}
+.nav-title{font-family:'Cinzel',serif;font-size:14px;color:var(--text);letter-spacing:2px;margin-left:16px;padding-left:16px;border-left:1px solid var(--border)}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);text-decoration:none;position:relative;transition:color .2s}
 .nav-links a:hover,.nav-links a.active{color:var(--gold)}
@@ -174,7 +175,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .io-buttons .header-btn{flex:1;text-align:center;font-size:14px}
 /* Responsive */
 @media(max-width:1200px){.context-panel{display:none}}
-@media(max-width:768px){.hamburger{display:flex}.nav-links{position:fixed;top:64px;left:0;right:0;background:#0A0908F5;backdrop-filter:blur(16px);flex-direction:column;padding:32px 40px;gap:24px;border-bottom:1px solid var(--border);transform:translateY(-100%);opacity:0;pointer-events:none;transition:all .3s}.nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}.app{flex-direction:column;height:auto;margin-top:64px}.sidebar{width:100%;min-width:0;max-width:none;max-height:45vh;flex:none}.main{min-height:50vh;flex:1}.dnd-layout{flex-direction:column}}
+@media(max-width:768px){.nav-title{display:none}.hamburger{display:flex}.nav-links{position:fixed;top:64px;left:0;right:0;background:#0A0908F5;backdrop-filter:blur(16px);flex-direction:column;padding:32px 40px;gap:24px;border-bottom:1px solid var(--border);transform:translateY(-100%);opacity:0;pointer-events:none;transition:all .3s}.nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}.app{flex-direction:column;height:auto;margin-top:64px}.sidebar{width:100%;min-width:0;max-width:none;max-height:45vh;flex:none}.main{min-height:50vh;flex:1}.dnd-layout{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -182,6 +183,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 
 <nav class="site-nav">
   <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
+  <span class="nav-title">Vehicle Forge <span style="font-size:11px;color:var(--text-dim);font-weight:400;letter-spacing:1px">— Free Savage Worlds Vehicle Builder</span></span>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="navLinks">
     <li><a href="/">Home</a></li>
