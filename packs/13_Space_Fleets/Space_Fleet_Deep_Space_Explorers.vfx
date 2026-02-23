@@ -1,0 +1,121 @@
+{
+  "id":"space-fleet-deep-space-explorers",
+  "name":"Space Fleets — Deep Space Explorers",
+  "version":"1.0",
+  "publisher":"DiceForge Studios Ltd.",
+  "description":"10 vehicles — Exploration vessels, science ships, and the naval escorts that protect them. Built for long-range missions into uncharted space, where diplomacy is the first option and photon weapons are the second.",
+  "weapons":[],
+  "mods":[],
+  "specials":[],
+  "vehicles":[
+    {
+      "name":"Light Explorer",
+      "desc":"Small long-range scout designed for solo deep-space survey missions. Her sensor suite is the most expensive component on board — worth more than the rest of the ship combined. A crew of twelve rotates through six-month deployments mapping uncharted systems, cataloguing anomalies, and occasionally making first contact with species who aren't always pleased to meet them.",
+      "notes":"Science-focused. Excellent sensors. Lightly armed for self-defence only.",
+      "size":9,"loco":"space_ftl",
+      "toughLevel":-1,"armourLevel":0,"speedLevel":1,"handlingLevel":1,"woundsLevel":0,"crewLevel":-2,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Heavy Cruiser (Exploration)",
+      "desc":"Multi-role capital ship that serves as explorer, diplomat, warship, and mobile laboratory depending on what the mission requires. She carries a crew of several hundred across disciplines — science officers, engineers, security teams, medical staff, and a command structure that balances military authority with academic freedom. She's the flagship of an optimistic civilisation, and she represents the best of them.",
+      "notes":"The iconic exploration cruiser. Multi-role. Well-armed but diplomacy-first doctrine.",
+      "size":18,"loco":"space_ftl",
+      "toughLevel":1,"armourLevel":1,"speedLevel":1,"handlingLevel":0,"woundsLevel":0,"crewLevel":160,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"pb_med","mount":"turret","linked":0},
+        {"weaponId":"pb_light","mount":"turret","linked":0},
+        {"weaponId":"torpedo_future","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Stealth Corvette",
+      "desc":"Black-hulled reconnaissance vessel designed to observe without being observed. Heat sinks absorb her thermal signature, anechoic hull coating defeats active sensors, and her crew operates under strict emissions control that turns off everything from the coffee maker to the gravity plating. She's the eye of the fleet, and she sees everything while remaining invisible.",
+      "notes":"Stealth systems. Near-invisible to sensors. Light armament for emergencies only.",
+      "size":10,"loco":"space_ftl",
+      "toughLevel":-1,"armourLevel":0,"speedLevel":2,"handlingLevel":1,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"torpedo_light","mount":"fixed","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Diplomatic Vessel",
+      "desc":"Purpose-built for first contact scenarios and interspecies negotiation. Her interior can be reconfigured to accommodate the atmospheric, gravitational, and temperature requirements of dozens of known species, and her communications array can crack unknown languages in hours. She carries no offensive weapons — a deliberate signal of peaceful intent that occasionally gets her killed.",
+      "notes":"Unarmed. Adaptive environmental systems. Universal translator. Vulnerable.",
+      "size":12,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-11,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    },
+    {
+      "name":"Escort Destroyer",
+      "desc":"Fast warship assigned to protect exploration flotillas from the things they discover. She's built for speed and torpedo attacks — her doctrine is to close fast, deliver a devastating alpha strike, and withdraw before the enemy can bring capital weapons to bear. Her crew are combat veterans who volunteered for exploration duty, which tells you something about how dull they found peacetime.",
+      "notes":"Escort and strike role. Fast, well-armed, moderate armour.",
+      "size":15,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":2,"handlingLevel":1,"woundsLevel":0,"crewLevel":55,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"pb_med","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"torpedo_future","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Long-Range Science Vessel",
+      "desc":"Dedicated research ship with laboratory facilities that would embarrass most planetary universities. She carries specialist equipment for stellar cartography, xenobiology, quantum physics, and a dozen other disciplines. Her crew are scientists first and spacers second, which occasionally causes problems when the science leads them somewhere dangerous and they refuse to leave until the data is complete.",
+      "notes":"Extensive laboratories. Long endurance. Crew of researchers.",
+      "size":12,"loco":"space_ftl",
+      "toughLevel":-1,"armourLevel":-1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-11,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Runabout",
+      "desc":"Versatile short-range vessel used for away missions, personnel transfers, and planetary survey work. She's the ship's car — nothing glamorous, but essential for daily operations. Crew of four in a cabin that feels cramped after the first hour. Armed enough to handle minor threats, fast enough to outrun major ones, and tough enough to survive an emergency landing on an uncharted world.",
+      "notes":"Utility craft. 4 crew. Short-range operations from a mothership.",
+      "size":6,"loco":"space_ftl",
+      "toughLevel":-1,"armourLevel":0,"speedLevel":1,"handlingLevel":1,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_light","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Deep Space Station",
+      "desc":"Enormous orbital facility positioned at strategic locations to serve as waypoint, repair dock, and diplomatic hub for exploration fleets. She's a city in space — tens of thousands of residents from dozens of species, a promenade of shops and bars, and enough drama to fuel a decade of stories. Her weapons are defensive only, and her shields are designed to protect against natural phenomena as much as hostile action.",
+      "notes":"Stationary. Multi-species hub. Extensive docking and repair facilities.",
+      "size":22,"loco":"none",
+      "toughLevel":2,"armourLevel":1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":10,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"pb_med","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      ]
+    },
+    {
+      "name":"Stealth Frigate",
+      "desc":"Ice-hauling vessel from the outer planets repurposed for covert military operations. Her drive system uses superheated reaction mass rather than exotic particles, making her invisible to conventional sensors but limiting her range and acceleration. In a universe of sleek warships, she's a blue-collar bruiser — ugly, practical, and terrifyingly effective in the hands of a competent crew.",
+      "notes":"Expanse archetype. Reaction drive. Stealth through low emissions. Torpedo-focused.",
+      "size":10,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":1,"handlingLevel":1,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"torpedo_light","mount":"fixed","linked":0},
+        {"weaponId":"torpedo_light","mount":"fixed","linked":0},
+        {"weaponId":"slug_future","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Dreadnought (Exploration Command)",
+      "desc":"Massive vessel that serves as mobile headquarters for deep-space exploration operations. She carries smaller ships in internal hangars, maintains a crew of thousands, and can sustain independent operations for years without resupply. Her weapons are formidable but secondary to her role as a mobile base of operations. She represents the full commitment of a civilisation to the exploration of the unknown.",
+      "notes":"Exploration flagship. Extensive hangar capacity. Self-sustaining for years.",
+      "size":24,"loco":"space_ftl",
+      "toughLevel":2,"armourLevel":2,"speedLevel":-1,"handlingLevel":-2,"woundsLevel":0,"crewLevel":140,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"pb_heavy","mount":"turret","linked":0},
+        {"weaponId":"pb_med","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"torpedo_future","mount":"fixed","linked":0}
+      ]
+    }
+  ]
+}
