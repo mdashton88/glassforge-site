@@ -2,7 +2,7 @@
 
 **Document:** DATA_GOVERNANCE.md  
 **Authority:** MANDATORY READ before any session that reads, writes, or audits vehicle or weapon data.  
-**Last Audit:** 2026-02-23 (commit adb9fdf)  
+**Last Audit:** 2026-02-23 (commit below)  
 **Tool Version:** v0.8.22  
 
 ---
@@ -66,7 +66,7 @@ vehicle-forge.html                          ← THE SOURCE OF TRUTH
   └─ var CANON_BUILDS=[]                    ← 47 SWADE core vehicles (CANONICAL)
 
 packs/
-  00_Core_Tool/                             ← Core reference packs
+  00_Core_Tool/                             ← Core reference packs (3 packs, ~47 veh)
   01_Blood_and_Thunder/                     ← Naval (6 packs, 53 vehicles)
   02_Iron_and_Steel/                        ← Ground (8 packs, 73 vehicles)
   03_Talons_and_Contrails/                  ← Air (5 packs, 43 vehicles)
@@ -75,10 +75,11 @@ packs/
   06_Sails_and_Gasbags/                     ← Airships (3 packs, 23 vehicles)
   07_Chrome_and_Fury/                       ← Chase/civilian (4 packs, 33 vehicles)
   08_Dread_and_Ruin/                        ← Horror (3 packs, 23 vehicles)
-  09_Saddle_and_Fang/                       ← Mounts (4 packs, 33 vehicles)
+  09_Saddle_and_Fang/                       ← Mounts (4 packs, 33 vehicles, all unarmed)
   10_Rust_and_Ruin/                         ← Post-apoc (3 packs, 23 vehicles)
   11_Brass_and_Steam/                       ← Steampunk (3 packs, 23 vehicles)
   12_Wire_and_Chrome/                       ← Cyberpunk (3 packs, 23 vehicles)
+  Total: 54 packs, 547 vehicles + 47 CANON_BUILDS = 594 unique
 
 Vehicle_Forge_Core_Reference_Builds.vfx     ← Generated export of CANON_BUILDS
 VEHICLE_MANIFEST.json                       ← Machine-readable file inventory
@@ -225,3 +226,4 @@ Before any commit touching weapon or vehicle data:
 | 2026-02-23 | adb9fdf | Full repo: 594 vehicles, 114 files | 0 broken refs, 0 stat mismatches |
 | 2026-02-23 | 1955993 | Downstream sync: 6 secondary files | All synced with corrected canon |
 | 2026-02-23 | (this) | sync_and_audit.py first run | T1: 19/19, Variants: 8/8, Families: 12/12, Packs: 53/53, Sync: 6/6 |
+| 2026-02-23 | (this) | 100-encounter combat proving ground | 960 attacks, 37 weapons, 5 grades, 5 AP bands. All sanity checks pass. |
