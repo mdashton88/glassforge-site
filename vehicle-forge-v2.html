@@ -8,14 +8,39 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚒</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;--bg-panel:#201E1A;--border:#3A3530;--border-light:#4A4540;--accent:#C4A44A;--accent-dim:#C4A44A40;--accent-glow:#C4A44A20;--text:#E4D8B8;--text-bright:#F5EDD8;--text-dim:#A89868;--green:#5A9A5A;--red:#8C3030;--red-bright:#B04040;--blue:#4A7A9A;--orange:#B07830;--text-scale:1}
+:root{--bg:#0A0908;--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;--bg-elevated:#181513;--bg-panel:#201E1A;--border:#2A2520;--border-light:#3A3530;--gold:#C4A44A;--gold-dim:#8A7A3A;--gold-bright:#D4B45A;--gold-glow:#C4A44A30;--accent:#C4A44A;--accent-dim:#C4A44A40;--accent-glow:#C4A44A20;--accent-bright:#D4B45A;--text:#D4C9B8;--text-bright:#EAE0D0;--text-dim:#8A8070;--green:#5A9A5A;--red:#8C3030;--red-bright:#B04040;--blue:#4A7A9A;--orange:#B07830;--text-scale:1}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;background:var(--bg-deep);color:var(--text);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.6}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
 
-.app{display:flex;height:calc(100vh - 38px);overflow:hidden}
-.sidebar{width:280px;min-width:240px;max-width:320px;background:var(--bg-dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+/* ── SHARED NAV ── */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-brand{font-family:'Cinzel',serif;font-weight:700;font-size:16px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;text-decoration:none}
+.nav-brand:hover{color:var(--gold-bright)}
+.nav-brand .anvil{font-size:22px;color:var(--gold-bright)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);text-decoration:none;position:relative;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:1001}
+.hamburger span{display:block;width:24px;height:2px;background:var(--gold);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* ── SHARED FOOTER ── */
+.site-footer{border-top:1px solid var(--border);padding:20px 40px;text-align:center;background:var(--bg)}
+.footer-brand{font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px}
+.site-footer p{font-size:12px;color:var(--text-dim);line-height:1.8;max-width:600px;margin:0 auto}
+.site-footer a{color:var(--gold-dim);text-decoration:none}
+.site-footer a:hover{color:var(--gold)}
+
+/* ── THREE-COLUMN APP ── */
+.app{display:flex;height:calc(100vh - 64px);margin-top:64px;overflow:hidden}
+.sidebar{flex:1;min-width:240px;background:var(--bg-dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
 .main{flex:2;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.context-panel{width:320px;min-width:280px;max-width:380px;background:var(--bg-dark);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.context-panel{flex:1;min-width:240px;background:var(--bg-dark);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
 .context-section{padding:10px 14px;border-bottom:1px solid var(--border)}
 .context-section h3{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:6px}
 .header{background:var(--bg-dark);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
@@ -149,11 +174,22 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .io-buttons .header-btn{flex:1;text-align:center;font-size:14px}
 /* Responsive */
 @media(max-width:1200px){.context-panel{display:none}}
-@media(max-width:768px){.app{flex-direction:column;height:auto}.sidebar{width:100%;min-width:0;max-width:none;max-height:45vh}}.main{min-height:50vh}.dnd-layout{grid-template-columns:1fr}}
+@media(max-width:768px){.hamburger{display:flex}.nav-links{position:fixed;top:64px;left:0;right:0;background:#0A0908F5;backdrop-filter:blur(16px);flex-direction:column;padding:32px 40px;gap:24px;border-bottom:1px solid var(--border);transform:translateY(-100%);opacity:0;pointer-events:none;transition:all .3s}.nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}.app{flex-direction:column;height:auto;margin-top:64px}.sidebar{width:100%;min-width:0;max-width:none;max-height:45vh;flex:none}.main{min-height:50vh;flex:1}.dnd-layout{flex-direction:column}}
 </style>
 </head>
 <body>
 <a href="#panel-output" class="skip-link" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;font-size:14px;padding:8px 16px;background:var(--accent);color:var(--bg-deep)">Skip to stat block</a>
+
+<nav class="site-nav">
+  <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/">Home</a></li>
+    <li><a href="/vehicle-forge.html" class="active">Vehicle Forge</a></li>
+    <li><a href="/#arrath">World of Arr'ath</a></li>
+    <li><a href="/#about">About</a></li>
+  </ul>
+</nav>
 
 <div class="app">
   <div class="sidebar" role="complementary" aria-label="Vehicle configuration">
@@ -227,19 +263,16 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
     </div>
   </div>
   <div class="main" role="main">
-    <div class="header">
-      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:16px;color:var(--text-dim);font-weight:400">v0.10.12</span></div></div>
-      <div class="header-spacer"></div>
-      <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
-      <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
-    </div>
     <div class="tabs" role="tablist" aria-label="Construction panels">
       <div class="tab active" tabindex="0" role="tab" data-tab="output" onclick="switchTab('output')">Stat Block</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="mods" onclick="switchTab('mods')">Modifications</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="weapons" onclick="switchTab('weapons')">Weapons</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="specials" onclick="switchTab('specials')">Special</div>
-      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="help" onclick="switchTab('help')">Reference Guide</div>
-      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="settings" onclick="switchTab('settings')" style="margin-left:auto">⚙ Settings</div>
+      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="help" onclick="switchTab('help')">Reference</div>
+      <div style="flex:1"></div>
+      <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)" style="border:none;padding:6px 12px;font-size:13px">↩ Undo</button>
+      <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)" style="border:none;padding:6px 12px;font-size:13px">↪ Redo</button>
+      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="settings" onclick="switchTab('settings')">⚙</div>
     </div>
     <div class="panel" id="panel-mods"><div class="dnd-layout"><div class="dnd-column"><h3>Modifications Catalogue</h3><input type="text" class="search-bar" id="modSearch" placeholder="Search modifications..." oninput="renderModCatalogue()"><div id="modCatalogue"></div></div></div></div>
     <div class="panel" id="panel-weapons"><div class="dnd-layout"><div class="dnd-column"><h3>Vehicular Weapons</h3><div id="eraFilter" style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px"></div><input type="text" class="search-bar" id="weaponSearch" placeholder="Search weapons..." oninput="renderWeaponCatalogue()"><div id="weaponCatalogue"></div><div style="margin-top:12px;padding-top:8px;border-top:1px solid var(--border)"><button class="header-btn" onclick="toggleCustomForm()" style="width:100%;text-align:center">+ Add Custom Weapon</button><div id="customForm" style="display:none;margin-top:8px"></div></div></div></div></div>
@@ -330,7 +363,15 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
     </div>
   </div>
 </div>
+
+<footer class="site-footer">
+  <div class="footer-brand">DiceForge Studios</div>
+  <p>This site references the Savage Worlds game system, available from <a href="https://www.peginc.com">Pinnacle Entertainment Group</a>. Savage Worlds and all associated logos and trademarks are copyrights of Pinnacle Entertainment Group. Used with permission.</p>
+  <p style="margin-top:8px">Vehicle Forge v0.10.12 &middot; &copy; 2025 DiceForge Studios. All rights reserved.</p>
+</footer>
+
 <script>
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('open');document.querySelector('.hamburger').classList.toggle('open')}
 // ═══ AUDIO ENGINE ═══
 var Audio={ctx:null,init:function(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();if(this.ctx.state==='suspended')this.ctx.resume()},
 clunk:function(){this.init();var c=this.ctx,n=c.currentTime;var buf=c.createBuffer(1,c.sampleRate*.02,c.sampleRate);var d=buf.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,12);var ns=c.createBufferSource();ns.buffer=buf;var bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=4200;bp.Q.value=2;var o1=c.createOscillator();o1.type='sine';o1.frequency.value=820;var g1=c.createGain();g1.gain.setValueAtTime(.06,n);g1.gain.exponentialRampToValueAtTime(.001,n+.06);var o2=c.createOscillator();o2.type='sine';o2.frequency.value=2200;var g2=c.createGain();g2.gain.setValueAtTime(.02,n);g2.gain.exponentialRampToValueAtTime(.001,n+.03);var m=c.createGain();m.gain.value=.3;ns.connect(bp).connect(m);o1.connect(g1).connect(m);o2.connect(g2).connect(m);m.connect(c.destination);ns.start(n);ns.stop(n+.02);o1.start(n);o1.stop(n+.08);o2.start(n);o2.stop(n+.05)},
