@@ -3,6 +3,10 @@
 **DiceForge Studios — public website and tools.**
 Deployed via Cloudflare Pages at [diceforgestudios.pages.dev](https://diceforgestudios.pages.dev)
 
+## ⚠ Data Governance — READ FIRST
+
+**Before working on Vehicle Forge weapon data, vehicle builds, or pack files, read [`DATA_GOVERNANCE.md`](DATA_GOVERNANCE.md).** This document defines the single source of truth, the update procedure, and the audit process. All weapon stats are authored in `vehicle-forge.html` and propagate outward to packs. See also [`VEHICLE_FORGE_VERSIONING.md`](VEHICLE_FORGE_VERSIONING.md) for the full file architecture.
+
 ## Tools
 
 ```

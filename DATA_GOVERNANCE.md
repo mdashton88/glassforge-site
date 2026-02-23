@@ -1,0 +1,160 @@
+# Vehicle Forge — Data Governance
+
+**Document:** DATA_GOVERNANCE.md  
+**Authority:** MANDATORY READ before any session that reads, writes, or audits vehicle or weapon data.  
+**Last Audit:** 2026-02-23 (commit adb9fdf)  
+**Tool Version:** v0.8.22  
+
+---
+
+## Rule One: Read This First
+
+Any Claude session that touches Vehicle Forge weapon data, vehicle builds, pack files, or the weapon catalogue **must read this document before making any changes.** No exceptions. If this document and another file disagree, this document wins until Mike explicitly updates it.
+
+---
+
+## Sources of Truth (in priority order)
+
+### 1. Weapon Catalogue — `vehicle-forge.html` → `var WEAPONS=[]`
+
+This is the **single canonical definition** of every weapon in the system. 127 weapons across 7 eras: ancient, medieval, blackpowder, industrial, modern, future, advanced.
+
+Every weapon's `id`, `name`, `damage`, `ap`, `rof`, `range`, and `notes` are authored here and nowhere else. All other files — packs, exports, databases — inherit copies of these values. When a weapon stat changes, it changes here first and propagates outward.
+
+**SWADE Core weapons (19 verified against pp.79-81):** mmg, hmg, cannon_20mm, autocannon_25mm, autocannon_30mm, tank_gun_37mm, tank_gun_75mm, tank_gun_76mm, tank_gun_88mm, tank_gun_120mm, tank_gun_125mm, flamethrower_ww, torpedo_ww, tow_missile, hellfire, sidewinder, sparrow, laser_gat, laser_heavy.
+
+**Era variant pairs (identical stats, different IDs for UI filtering):** mmg/mmg_modern, hmg/hmg_modern, tank_gun_37mm/tank_gun_light, tank_gun_75mm/tank_gun_med, tank_gun_88mm/tank_gun_heavy, autocannon_ww/cannon_20mm, tank_gun_125mm/cannon_mod, tow_missile/atgm.
+
+### 2. Canon Vehicle Builds — `vehicle-forge.html` → `var CANON_BUILDS=[]`
+
+47 vehicles reproducing SWADE Core Rules pp.82-86. 27 armed, 20 unarmed, 78 weapon mounts. Every loadout verified line-by-line against the rulebook. These are what the tool loads on first visit.
+
+### 3. Downloadable Packs — `packs/XX_Name/*.vfx` and `*.cvf.json`
+
+54 unique packs across 13 thematic families. 547 unique vehicles, 381 armed. Each pack embeds a copy of the weapons it references from the canonical catalogue. The `.vfx` and `.cvf.json` versions of each pack must contain identical vehicle and weapon data.
+
+### 4. Everything Else — development scaffolding
+
+`vehicle-database.json`, `v5.0/data/*.json`, `archive/` — these are calibration data, legacy exports, or empty placeholders. They are not authoritative. Do not read from them to determine what a weapon's stats should be. Do not update them unless Mike specifically requests it.
+
+---
+
+## The Golden Rules
+
+### Never invent weapon stats.
+If a weapon ID doesn't exist in `var WEAPONS=[]`, it doesn't exist. Don't create approximate values. Don't guess from the name. Flag it as a broken reference and stop.
+
+### Never assume SWADE stats from memory.
+Always verify against the actual SWADE text in project knowledge (pp.79-86) or the canonical catalogue. Previous sessions may have contained errors. The catalogue is the corrected, verified version.
+
+### Pack embedded weapons must mirror the catalogue exactly.
+When regenerating packs, copy weapon definitions verbatim from `var WEAPONS=[]`. Do not reformat, round, abbreviate, or "improve" the values.
+
+### VFX and CVF pairs must match.
+If you update a `.vfx` file, update the matching `.cvf.json` file with identical vehicle and weapon data.
+
+### Commit messages must include audit scope.
+Every commit that touches weapon or vehicle data must state: how many weapons/vehicles were changed, what was verified, and against what source.
+
+---
+
+## File Map
+
+```
+vehicle-forge.html                          ← THE SOURCE OF TRUTH
+  └─ var WEAPONS=[]                         ← 127 weapons, 7 eras (CANONICAL)
+  └─ var CANON_BUILDS=[]                    ← 47 SWADE core vehicles (CANONICAL)
+
+packs/
+  00_Core_Tool/                             ← Core reference packs
+  01_Blood_and_Thunder/                     ← Naval (6 packs, 53 vehicles)
+  02_Iron_and_Steel/                        ← Ground (8 packs, 73 vehicles)
+  03_Talons_and_Contrails/                  ← Air (5 packs, 43 vehicles)
+  04_Star_and_Void/                         ← Sci-fi (5 packs, 43 vehicles)
+  05_Fang_and_Claw/                         ← Mechs (5 packs, 43 vehicles)
+  06_Sails_and_Gasbags/                     ← Airships (3 packs, 23 vehicles)
+  07_Chrome_and_Fury/                       ← Chase/civilian (4 packs, 33 vehicles)
+  08_Dread_and_Ruin/                        ← Horror (3 packs, 23 vehicles)
+  09_Saddle_and_Fang/                       ← Mounts (4 packs, 33 vehicles)
+  10_Rust_and_Ruin/                         ← Post-apoc (3 packs, 23 vehicles)
+  11_Brass_and_Steam/                       ← Steampunk (3 packs, 23 vehicles)
+  12_Wire_and_Chrome/                       ← Cyberpunk (3 packs, 23 vehicles)
+
+Vehicle_Forge_Core_Reference_Builds.vfx     ← Generated export of CANON_BUILDS
+VEHICLE_MANIFEST.json                       ← Machine-readable file inventory
+DATA_GOVERNANCE.md                          ← THIS FILE
+VEHICLE_FORGE_VERSIONING.md                 ← Human-readable architecture overview
+Vehicle_Forge_Technical_Reference_v1_0.md   ← Full technical reference (formulas, etc.)
+```
+
+---
+
+## Inventory at Last Audit
+
+| Metric | Count |
+|--------|-------|
+| Weapons in catalogue | 127 |
+| Weapons verified vs SWADE canon | 19/19 |
+| Unique vehicles (deduplicated) | 594 |
+| Armed vehicles | 408 |
+| Weapon mounts (all vehicles) | 871 |
+| Unique weapon IDs referenced in packs | 40 |
+| Broken weapon references | 0 |
+| Embedded DB mismatches | 0 |
+| VFX/CVF pair mismatches | 2 (cosmetic, Core_Tool only) |
+| Pack families | 13 |
+| Unique packs | 54 |
+
+---
+
+## Update Procedure
+
+### Changing a weapon stat
+1. Edit `var WEAPONS=[]` in `vehicle-forge.html`
+2. If it's a SWADE Core weapon, verify against pp.79-81
+3. If it has an era variant pair, update both IDs
+4. Search all `.vfx` and `.cvf.json` files for embedded copies — update them
+5. Regenerate `Vehicle_Forge_Core_Reference_Builds.vfx` if affected
+6. Commit with: what changed, how many files affected, what was verified
+
+### Adding a weapon
+1. Add to `var WEAPONS=[]` with a unique `id`
+2. Assign correct `era`
+3. If it's a real-world weapon, verify stats against published Savage Worlds source
+4. Commit with source citation
+
+### Adding a vehicle to a pack
+1. Build in Vehicle Forge UI using existing catalogue weapons
+2. Export `.vfx`, generate matching `.cvf.json`
+3. Verify all weaponIds resolve to catalogue
+4. Place in correct `packs/XX_Name/` directory
+
+### Adding a new pack family
+1. Create `packs/XX_Name/` directory
+2. Follow naming convention: `XX_Name_PackTitle.vfx` / `.cvf.json`
+3. Update this document's inventory table
+4. Update `VEHICLE_MANIFEST.json`
+
+---
+
+## Audit Procedure
+
+Run periodically or before any release:
+
+1. Parse `var WEAPONS=[]` from `vehicle-forge.html` — this is canonical
+2. Parse all `.vfx` files in `packs/` — check every `weaponId` resolves
+3. Check every embedded weapon DB in packs matches canonical stats
+4. Verify `.vfx` / `.cvf.json` pairs have matching vehicle and weapon counts
+5. For SWADE Core weapons, verify damage/AP/RoF/range against pp.79-81
+6. For CANON_BUILDS, verify loadouts against pp.82-86
+7. Log results in commit message and update this document's inventory table
+
+---
+
+## Audit Log
+
+| Date | Commit | Scope | Result |
+|------|--------|-------|--------|
+| 2026-02-23 | 2703190 | 19 SWADE Core weapon definitions | 19/19 match pp.80-81 |
+| 2026-02-23 | 0bcc69f | 47 CANON_BUILDS loadouts | 47/47 match pp.82-86. 6 fixes applied. |
+| 2026-02-23 | adb9fdf | Full repo: 594 vehicles, 114 files | 0 broken refs, 0 stat mismatches |
