@@ -30,11 +30,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
 .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
 /* ── SHARED FOOTER ── */
-.site-footer{border-top:1px solid var(--border);padding:20px 40px;text-align:center;background:var(--bg)}
-.footer-brand{font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px}
-.site-footer p{font-size:12px;color:var(--text-dim);line-height:1.8;max-width:600px;margin:0 auto}
-.site-footer a{color:var(--gold-dim);text-decoration:none}
-.site-footer a:hover{color:var(--gold)}
 
 /* ── THREE-COLUMN APP ── */
 .app{display:flex;height:calc(100vh - 72px);margin-top:72px;overflow:hidden}
@@ -394,13 +389,6 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
     </div>
   </div>
 </div>
-
-<footer class="site-footer">
-  <div class="footer-brand">DiceForge Studios</div>
-  <p>This site references the Savage Worlds game system, available from <a href="https://www.peginc.com">Pinnacle Entertainment Group</a>. Savage Worlds and all associated logos and trademarks are copyrights of Pinnacle Entertainment Group. Used with permission.</p>
-  <p style="margin-top:8px">Vehicle Forge v0.10.12 &middot; &copy; 2025 DiceForge Studios. All rights reserved.</p>
-</footer>
-
 <script>
 function toggleMenu(){document.getElementById('navLinks').classList.toggle('open');document.querySelector('.hamburger').classList.toggle('open')}
 // ═══ AUDIO ENGINE ═══
