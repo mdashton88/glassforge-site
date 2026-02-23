@@ -93,7 +93,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .sidebar-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .sidebar-panel{display:none;padding:12px 16px}
 .sidebar-panel.active{display:block}
-.panel{display:none;flex:1;overflow-y:auto;padding:16px 20px}.panel.active{display:block}
+.panel{display:none;flex:1;overflow-y:auto;padding:16px 20px}.panel.active{display:block}#panel-hangar.active{display:flex}
 .dnd-layout{display:flex;flex-direction:column;height:100%}
 .dnd-column{overflow-y:auto;flex:1}
 .dnd-column h3{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}
@@ -304,8 +304,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
       </div>
     </div>
     <div class="panel active" id="panel-output"><div id="outputContent"></div></div>
-    <div class="panel" id="panel-hangar">
-      <div class="hangar-toolbar">
+    <div class="panel" id="panel-hangar" style="display:none;flex-direction:column;padding:0;overflow:hidden">
+      <div class="hangar-toolbar" style="padding:12px 16px 0">
         <input type="text" class="search-bar" id="hangarSearch" placeholder="Search vehicles..." oninput="renderSaved()" style="flex:2;margin:0;min-width:160px">
         <select id="hangarFilterSize" onchange="renderSaved()" class="hangar-select"><option value="">All Sizes</option><option value="Normal">Normal (1–3)</option><option value="Large">Large (4–7)</option><option value="Huge">Huge (8–11)</option><option value="Gargantuan">Gargantuan (12+)</option></select>
         <select id="hangarFilterClass" onchange="renderSaved()" class="hangar-select"><option value="">All Classes</option></select>
@@ -316,8 +316,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           <button class="hangar-tab" id="hangarTabMine" onclick="setHangarTab('mine')">Mine</button>
         </div>
       </div>
-      <div class="hangar-count-bar" id="hangarCountBar"></div>
-      <div class="hangar-grid" id="savedList" tabindex="0"></div>
+      <div class="hangar-count-bar" id="hangarCountBar" style="padding:4px 16px 8px;margin:0"></div>
+      <div class="hangar-grid" id="savedList" tabindex="0" style="overflow-y:auto;flex:1;padding:0 16px 16px"></div>
     </div>
     <div class="panel" id="panel-help"><div style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="search-bar help-search" id="helpSearch" placeholder="Search reference guide..." oninput="filterHelp()" style="flex:1;margin:0"><button class="btn" onclick="popOutHelp()" title="Open in new window" style="white-space:nowrap;padding:6px 14px">⧉ Pop Out</button></div><div id="helpContent"></div></div>
     <div class="panel" id="panel-settings">
