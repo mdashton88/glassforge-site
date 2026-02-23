@@ -7,15 +7,17 @@
 <meta name="description" content="Free browser-based vehicle construction tool for Savage Worlds. 127 weapons, 47 reference builds, export to Fantasy Grounds, Foundry VTT, and print. No login required.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚒</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
 <style>
-:root{--bg-deep:var(--bg);--bg-dark:var(--bg-card);--bg-card:var(--bg-elevated);--bg-panel:var(--bg-panel);--accent:var(--gold);--accent-dim:var(--gold-glow);--accent-glow:#C4A44A20;--orange:#B07830;--text-scale:1;--input-bg:var(--bg)}
-html,body{height:100%;font-size:15px;line-height:1.6}
+:root{--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;--bg-panel:#201E1A;--border:#3A3530;--border-light:#4A4540;--accent:#C4A44A;--accent-dim:#C4A44A40;--accent-glow:#C4A44A20;--text:#E4D8B8;--text-bright:#F5EDD8;--text-dim:#A89868;--green:#5A9A5A;--red:#8C3030;--red-bright:#B04040;--blue:#4A7A9A;--orange:#B07830;--text-scale:1}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--bg-deep);color:var(--text);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.6}
 
-.app{display:flex;height:calc(100vh - var(--nav-height) - 38px);overflow:hidden}
+.app{display:flex;height:calc(100vh - 38px);overflow:hidden}
 .sidebar{width:33.33%;min-width:280px;background:var(--bg-dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .header{background:var(--bg-dark);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.header-brand{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;transition:color .2s}
+a.header-brand:hover{color:var(--accent)}
 .header-title{font-family:'Cinzel',serif;font-size:18px;color:var(--accent);letter-spacing:2px}
 .header-spacer{flex:1}
 .header-btn{background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:6px 14px;font-family:'Crimson Pro',serif;font-size:13px;cursor:pointer;transition:all .15s;white-space:nowrap}
@@ -143,24 +145,8 @@ html,body{height:100%;font-size:15px;line-height:1.6}
 @media(max-width:768px){.app{flex-direction:column;height:auto}.sidebar{width:100%;min-width:0;max-width:none;max-height:45vh}.main{min-height:50vh}.dnd-layout{grid-template-columns:1fr}}
 </style>
 </head>
-<body class="df-tool">
+<body>
 
-<a href="#main-tool" class="skip-link">Skip to Vehicle Forge</a>
-
-<nav class="df-nav" role="navigation" aria-label="Site navigation">
-  <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
-  <button class="hamburger" onclick="document.getElementById('dfNavLinks').classList.toggle('open');this.classList.toggle('open')" aria-label="Menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links" id="dfNavLinks">
-    <li><a href="/">Home</a></li>
-    <li><a href="/vehicle-forge-landing" class="active">Vehicle Forge</a></li>
-    <li><a href="/#arrath">World of Arr'ath</a></li>
-    <li><a href="/#about">About</a></li>
-  </ul>
-</nav>
-
-<div style="padding-top:var(--nav-height)" id="main-tool">
 <div class="app">
   <div class="sidebar">
     <div class="sidebar-section">
@@ -238,11 +224,11 @@ html,body{height:100%;font-size:15px;line-height:1.6}
     </div>
   </div>
   <div class="main">
-    <div class="header" role="toolbar" aria-label="Vehicle Forge controls">
-      <div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.8.22</span></div>
+    <div class="header">
+      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.8.22</span></div></div>
       <div class="header-spacer"></div>
-      <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)" aria-label="Undo">↩ Undo</button>
-      <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)" aria-label="Redo">↪ Redo</button>
+      <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
+      <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
     </div>
     <div class="tabs">
       <div class="tab active" data-tab="output" onclick="switchTab('output')">Stat Block</div>
@@ -997,7 +983,6 @@ function renderOutput(){var p=document.getElementById('outputContent'),f=getFram
   h+=imgHtml+'<div class="stat-block">';
   h+='<div class="sb-name">'+(S.name||'Untitled Vehicle')+'</div>';
   if(S.desc)h+='<div class="sb-desc">'+esc(S.desc)+'</div>';
-  // Pinnacle-format stats table
   h+='<table class="sb-stats-table"><thead><tr>';
   h+='<th>Size</th><th>Handling</th><th>Top Speed (MPH)</th><th>Toughness</th>';
   if(isWalker())h+='<th>Strength</th>';
@@ -1012,9 +997,7 @@ function renderOutput(){var p=document.getElementById('outputContent'),f=getFram
   h+='<td>'+calcWounds()+'</td>';
   h+='<td>$'+fmtC(calcCost())+'</td>';
   h+='</tr></tbody></table>';
-  // Class badge
   h+='<div style="font-size:11px;color:var(--text-dim);margin-bottom:8px">Class '+vehicleClass()+' ('+sfcNumeral(calcTotalTough())+') \u2014 '+loco.name+'. Energy: '+calcEnergy()+' days. Mods: '+left+' remaining.</div>';
-  // Notes sections as prose
   if(notes.length){h+='<hr class="sb-divider"><div class="sb-section"><div class="sb-section-label">Modifications</div>';
     h+=notes.join(', ')+'.';h+='</div>';}
   if(wl.length){h+='<hr class="sb-divider"><div class="sb-section"><div class="sb-section-label">Weapons</div>';
@@ -1502,6 +1485,5 @@ updateSettingsInfo();
   document.body.appendChild(overlay);
 })();
 </script>
-</div><!-- /main-tool padding wrapper -->
 </body>
 </html>
