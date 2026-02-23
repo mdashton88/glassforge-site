@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+Allow: /vehicle-forge-landing
+Allow: /vehicle-forge
+Allow: /battle-log-ticker
+
+# Internal/development tools — not for indexing
+Disallow: /builder
+Disallow: /character-vault
+Disallow: /adventure-vault
+Disallow: /adventure-forge
+Disallow: /foundry
+Disallow: /task-vault
+Disallow: /forge-help
+Disallow: /vault-help
+Disallow: /pa-forge
+Disallow: /walker-workshop
+Disallow: /character-db
+Disallow: /npc-manager
+Disallow: /packs/
+Disallow: /v5.0/
+Disallow: /archive/
+
+Sitemap: https://diceforgestudios.pages.dev/sitemap.xml

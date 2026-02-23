@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vehicle Forge — DiceForge Studios</title>
+<title>Vehicle Forge — Free Savage Worlds Vehicle Builder | DiceForge Studios</title>
+<meta name="description" content="Free browser-based vehicle construction tool for Savage Worlds. 127 weapons, 47 reference builds, export to Fantasy Grounds, Foundry VTT, and print. No login required.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚒</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;--bg-panel:#201E1A;--border:#3A3530;--border-light:#4A4540;--accent:#C4A44A;--accent-dim:#C4A44A40;--accent-glow:#C4A44A20;--text:#E4D8B8;--text-bright:#F5EDD8;--text-dim:#A89868;--green:#5A9A5A;--red:#8C3030;--red-bright:#B04040;--blue:#4A7A9A;--orange:#B07830;--text-scale:1}
@@ -16,7 +18,8 @@ html,body{height:100%;background:var(--bg-deep);color:var(--text);font-family:'C
 .sidebar{width:33.33%;min-width:280px;background:var(--bg-dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .header{background:var(--bg-dark);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.header-brand{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase}
+.header-brand{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;transition:color .2s}
+a.header-brand:hover{color:var(--accent)}
 .header-title{font-family:'Cinzel',serif;font-size:18px;color:var(--accent);letter-spacing:2px}
 .header-spacer{flex:1}
 .header-btn{background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:6px 14px;font-family:'Crimson Pro',serif;font-size:13px;cursor:pointer;transition:all .15s;white-space:nowrap}
@@ -217,7 +220,7 @@ html,body{height:100%;background:var(--bg-deep);color:var(--text);font-family:'C
   </div>
   <div class="main">
     <div class="header">
-      <div><div class="header-brand">DiceForge Studios</div><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.8.22</span></div></div>
+      <div><a href="/" class="header-brand" style="text-decoration:none;color:var(--text-dim)">⚒ DiceForge Studios</a><div class="header-title">Vehicle Forge <span style="font-size:14px;color:var(--text-dim);font-weight:400">v0.8.22</span></div></div>
       <div class="header-spacer"></div>
       <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
       <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
