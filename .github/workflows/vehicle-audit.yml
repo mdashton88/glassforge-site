@@ -35,8 +35,18 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run sync & audit
-        run: python3 sync_and_audit.py --audit-only
+      - name: Run audit (Tier 1 failures block, Tier 2 warnings allowed)
+        run: |
+          python3 sync_and_audit.py --audit-only
+          RESULT=$?
+          if [ $RESULT -eq 1 ]; then
+            echo "TIER 1 FAILURE — hard canon mismatch. Fix before merging."
+            exit 1
+          elif [ $RESULT -eq 2 ]; then
+            echo "TIER 2 WARNINGS — review in audit output above."
+            echo "These are informational and do not block the build."
+            exit 0
+          fi
 
       - name: Check for desync (sync would change files)
         run: |
