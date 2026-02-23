@@ -700,18 +700,17 @@ var SPECIALS=[
 var extensions=[];var extMods=[];var extWeapons=[];var extSpecials=[];
 try{var ext=localStorage.getItem('diceforge-cvf-extensions');if(ext)extensions=JSON.parse(ext)}catch(e){}
 function saveExtensions(){localStorage.setItem('diceforge-cvf-extensions',JSON.stringify(extensions))}
-function installExtension(data){
-  if(!data||!data.id||!data.name){alert('Invalid .vfx file.');return}
+function installExtension(data,silent){
+  if(!data||!data.id||!data.name){if(!silent)alert('Invalid .vfx file.');return}
   extensions=extensions.filter(function(e){return e.id!==data.id});
   extensions.push(data);saveExtensions();rebuildExtensionData();
-  var msg=data.name+' installed successfully!';
+  var added=0;
   if(data.vehicles&&data.vehicles.length){
-    var added=0;data.vehicles.forEach(function(v){
+    data.vehicles.forEach(function(v){
       var exists=S.saved.some(function(s){return s.name===v.name&&s.size===v.size&&s.loco===v.loco});
       if(!exists){S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:data.id});added++}});
-    if(added){localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));msg+='\n'+added+' vehicles added to your library.'}
-    else{msg+='\nVehicles already in library (skipped duplicates).'}}
-  renderAll();alert(msg)}
+    if(added)localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))}
+  if(!silent){renderAll();alert(data.name+' installed! '+(added?added+' vehicles added.':'Vehicles already in library.'))}}
 function removeExtension(id){Audio.remove();
   S.saved=S.saved.filter(function(v){return v._pack!==id});
   localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));
@@ -727,7 +726,7 @@ rebuildExtensionData();
   if(extensions.find(function(e){return e.id==='core'}))return;
   fetch('packs/00_Core_Tool/Vehicle_Forge_Core_Reference_Builds.vfx')
     .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
-    .then(function(data){installExtension(data);console.log('Core Reference Builds auto-installed ('+data.vehicles.length+' vehicles)')})
+    .then(function(data){installExtension(data,true);renderAll();console.log('Core Reference Builds auto-installed ('+data.vehicles.length+' vehicles)')})
     .catch(function(err){console.warn('Could not auto-install core pack:',err)})
 })();
 (function autoInstallAllPacks(){
@@ -735,16 +734,16 @@ rebuildExtensionData();
     .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
     .then(function(manifest){
       var toInstall=manifest.filter(function(p){return !extensions.find(function(e){return e.id===p.id})});
-      if(!toInstall.length){console.log('All '+manifest.length+' packs already installed');return}
+      if(!toInstall.length){console.log('All '+manifest.length+' packs already installed ('+S.saved.length+' vehicles)');return}
       console.log('Auto-installing '+toInstall.length+' packs...');
       var loaded=0;
       toInstall.forEach(function(p){
         fetch(p.path)
           .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
-          .then(function(data){installExtension(data);loaded++;
-            if(loaded===toInstall.length){console.log('All packs installed ('+S.saved.length+' vehicles total)');renderSaved()}})
-          .catch(function(err){console.warn('Failed to install '+p.name+':',err);loaded++;
-            if(loaded===toInstall.length)renderSaved()})
+          .then(function(data){installExtension(data,true);loaded++;
+            if(loaded===toInstall.length){console.log('All packs installed ('+S.saved.length+' vehicles total)');renderAll()}})
+          .catch(function(err){console.warn('Failed: '+p.name,err);loaded++;
+            if(loaded===toInstall.length)renderAll()})
       })
     })
     .catch(function(err){console.warn('Could not load pack manifest:',err)})
