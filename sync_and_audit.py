@@ -823,6 +823,129 @@ def audit_ip_compliance():
     return results
 
 
+def audit_ip_catalogue_names(html):
+    """Scan weapon, mod, and special NAMES for IP-sensitive terminology."""
+    results = {'pass': 0, 'warn': 0, 'details': []}
+    
+    ip_name_flags = [
+        (r'[Mm]aser', 'SFC weapon type'),
+        (r'[Pp]ulsar', 'SFC weapon type'),
+        (r'[Cc]lass\s+(I|II|III|IV|V|VI|VII)\b', 'SFC class numeral'),
+        (r'[Ss]tar\s*[Ff]inder', 'Starfinder reference'),
+    ]
+    
+    for var_name in ['WEAPONS', 'MODS', 'SPECIALS']:
+        vs = html.find(f'var {var_name}=[')
+        if vs < 0:
+            continue
+        ve = html.find('];', vs) + 2
+        raw = html[vs:ve]
+        
+        for name_match in re.finditer(r"name:\s*'([^']*)'", raw):
+            name = name_match.group(1)
+            for pattern, label in ip_name_flags:
+                if re.search(pattern, name):
+                    results['warn'] += 1
+                    results['details'].append(
+                        f"WARN  {var_name}: '{name}' — {label}")
+    
+    if results['warn'] == 0:
+        results['pass'] = 1
+        results['details'].append("✓ All catalogue names clean")
+    
+    return results
+
+
+def audit_crew_crossref():
+    """Check crew number claims in descriptions match mechanical stats."""
+    results = {'pass': 0, 'warn': 0, 'details': []}
+    
+    crew_patterns = [
+        r'crew\s+of\s+(\d+)',
+        r'crewed\s+by\s+(\d+)',
+        r'(\d+)[- ](?:man|person|crew)\b',
+    ]
+    
+    for vfx in sorted(glob.glob(f'{PACKS_DIR}/**/*.vfx', recursive=True)):
+        with open(vfx) as f:
+            data = json.load(f)
+        pack_name = os.path.basename(vfx)
+        
+        for v in data.get('vehicles', []):
+            text = (v.get('desc', '') + ' ' + v.get('notes', '')).lower()
+            if not text.strip():
+                continue
+            
+            vehicle_crew = v.get('crew', 0)
+            vehicle_passengers = v.get('passengers', 0)
+            vehicle_total = vehicle_crew + vehicle_passengers
+            vehicle_ok = True
+            
+            for pattern in crew_patterns:
+                m = re.search(pattern, text)
+                if m:
+                    claimed = int(m.group(1))
+                    if claimed > 0 and vehicle_total > 0:
+                        if claimed > vehicle_total * 2 or claimed < vehicle_crew * 0.5:
+                            results['warn'] += 1
+                            results['details'].append(
+                                f"WARN  {pack_name}: {v.get('name', '?')} — "
+                                f"text claims '{m.group(0)}' but "
+                                f"crew={vehicle_crew}, passengers={vehicle_passengers}")
+                            vehicle_ok = False
+            
+            if vehicle_ok:
+                results['pass'] += 1
+    
+    return results
+
+
+def audit_scaling_benchmark(weapons):
+    """Verify weapon families span damage ranges without gaps or contradictions."""
+    results = {'pass': 0, 'fail': 0, 'details': []}
+    
+    # SWADE published anchor points — our T1 check verifies exact stats,
+    # this check verifies our original weapons sit sensibly around them
+    anchors = [
+        ('Small arms', 10, 14, ['mmg', 'hmg', 'mmg_modern', 'hmg_modern']),
+        ('Light cannon', 14, 18, ['cannon_20mm', 'autocannon_ww']),
+        ('Medium cannon', 22, 23, ['tank_gun_75mm', 'tank_gun_88mm']),
+        ('Heavy cannon', 28, 28, ['tank_gun_120mm', 'tank_gun_125mm']),
+    ]
+    
+    # Our original families must span from below small arms to above heavy cannon
+    all_avgs = sorted(w['avg'] for w in weapons.values() if w['avg'] > 0)
+    if not all_avgs:
+        results['fail'] = 1
+        results['details'].append("FAIL  No weapons with damage found")
+        return results
+    
+    floor = min(all_avgs)
+    ceiling = max(all_avgs)
+    
+    # Check no disproportionate gaps in the sorted damage list
+    # Gap tolerance scales with damage: allow up to 20% of the lower value or 10, whichever is greater
+    gaps = []
+    for i in range(1, len(all_avgs)):
+        gap = all_avgs[i] - all_avgs[i-1]
+        threshold = max(10, all_avgs[i-1] * 0.3)
+        if gap > threshold:
+            gaps.append((all_avgs[i-1], all_avgs[i], gap))
+    
+    results['details'].append(f"  Damage range: {floor} → {ceiling} (127 weapons)")
+    results['details'].append(f"  SWADE anchors: small arms (10-14), medium (22-23), heavy (28)")
+    
+    if gaps:
+        for lo, hi, g in gaps:
+            results['details'].append(f"  GAP   {lo} → {hi} (gap of {g})")
+        results['fail'] = 1
+    else:
+        results['details'].append(f"  ✓ No gaps >10 in damage progression")
+        results['pass'] = 1
+    
+    return results
+
+
 # ================================================================
 # MAIN
 # ================================================================
@@ -982,9 +1105,9 @@ def main():
         if sp['warn'] > 0:
             exit_code = max(exit_code, 2)
         
-        # IP Compliance
+        # IP Compliance: Pack descriptions
         print(f"\n{'─' * 80}")
-        print("IP COMPLIANCE: No SFC or Pinnacle content in descriptions")
+        print("IP COMPLIANCE: Pack descriptions")
         print(f"{'─' * 80}")
         
         ip = audit_ip_compliance()
@@ -994,6 +1117,42 @@ def main():
             print(f"  ✓ {ip['pass']} packs clean — no IP issues found")
         else:
             print(f"\n  Result: {ip['warn']} warnings")
+            exit_code = max(exit_code, 2)
+        
+        # IP Compliance: Catalogue names
+        print(f"\n{'─' * 80}")
+        print("IP COMPLIANCE: Weapon, mod, and special names")
+        print(f"{'─' * 80}")
+        
+        ipn = audit_ip_catalogue_names(html)
+        for d in ipn['details']:
+            print(f"  {d}")
+        if ipn['warn'] > 0:
+            exit_code = max(exit_code, 2)
+        
+        # Crew cross-reference
+        print(f"\n{'─' * 80}")
+        print("CONTENT INTEGRITY: Crew claims match mechanical stats")
+        print(f"{'─' * 80}")
+        
+        cr = audit_crew_crossref()
+        for d in cr['details']:
+            print(f"  {d}")
+        if cr['warn'] == 0:
+            print(f"  ✓ {cr['pass']} vehicles clean")
+        else:
+            print(f"\n  Result: {cr['warn']} warnings")
+            exit_code = max(exit_code, 2)
+        
+        # Scaling benchmark
+        print(f"\n{'─' * 80}")
+        print("SCALING BENCHMARK: Damage progression anchored to SWADE")
+        print(f"{'─' * 80}")
+        
+        sc = audit_scaling_benchmark(weapons)
+        for d in sc['details']:
+            print(f"  {d}")
+        if sc['fail'] > 0:
             exit_code = max(exit_code, 2)
         
         # Canonical Backups

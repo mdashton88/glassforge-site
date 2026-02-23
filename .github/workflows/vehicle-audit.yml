@@ -13,6 +13,7 @@ on:
       - 'packs/**'
       - 'v5.0/data/**'
       - 'sync_and_audit.py'
+      - 'test_combat_regression.py'
   pull_request:
     paths:
       - 'vehicle-forge.html'
@@ -25,6 +26,7 @@ on:
       - 'packs/**'
       - 'v5.0/data/**'
       - 'sync_and_audit.py'
+      - 'test_combat_regression.py'
   workflow_dispatch:
 
 jobs:
@@ -40,6 +42,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Run combat regression tests
+        run: python3 test_combat_regression.py
 
       - name: Run audit (Tier 1 failures block, Tier 2 warnings allowed)
         run: |
