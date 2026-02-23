@@ -9,11 +9,26 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle,
-    KeepTogether, HRFlowable
+    KeepTogether, HRFlowable, Flowable
 )
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import os, re
+
+
+class BookmarkAnchor(Flowable):
+    """Zero-height flowable that registers a named destination (bookmark)."""
+    def __init__(self, name, level=0, title=None):
+        Flowable.__init__(self)
+        self.name = name
+        self.level = level
+        self.title = title or name
+        self.width = 0
+        self.height = 0
+
+    def draw(self):
+        self.canv.bookmarkPage(self.name)
+        self.canv.addOutlineEntry(self.title, self.name, level=self.level)
 
 # Pull version from the tool HTML
 TOOL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 
@@ -79,6 +94,10 @@ styles['Callout'] = ParagraphStyle(
 styles['Legal'] = ParagraphStyle(
     'Legal', fontSize=7.5, leading=10, textColor=GREY,
     spaceAfter=4, fontName='Helvetica', alignment=TA_CENTER)
+
+styles['TOCEntry'] = ParagraphStyle(
+    'TOCEntry', fontSize=12, leading=20, textColor=GOLD,
+    fontName='Helvetica', spaceAfter=2)
 
 styles['TableHead'] = ParagraphStyle(
     'TableHead', fontSize=9, leading=12, textColor=HexColor('#FFFFFF'),
@@ -183,26 +202,29 @@ def build_guide():
     story.append(Paragraph("Contents", styles['H1']))
     story.append(gold_rule())
     toc_items = [
-        "1. Getting Started",
-        "2. The Six Sliders",
-        "3. Weapons and Modifications",
-        "4. The Class System",
-        "5. The Vehicle Hangar",
-        "6. Export Formats",
-        "7. Extension Packs",
-        "8. Building Vehicles: A Walkthrough",
-        "9. SFC Compatibility",
-        "Appendix A: Product Catalogue",
-        "Appendix B: Keyboard Shortcuts",
-        "Appendix C: Licence and Credits",
+        ("ch1", "1. Getting Started"),
+        ("ch2", "2. The Six Sliders"),
+        ("ch3", "3. Weapons and Modifications"),
+        ("ch4", "4. The Class System"),
+        ("ch5", "5. The Vehicle Hangar"),
+        ("ch6", "6. Export Formats"),
+        ("ch7", "7. Extension Packs"),
+        ("ch8", "8. Building Vehicles: A Walkthrough"),
+        ("ch9", "9. SFC Compatibility"),
+        ("appA", "Appendix A: Product Catalogue"),
+        ("appB", "Appendix B: Keyboard Shortcuts"),
+        ("appC", "Appendix C: Licence and Credits"),
     ]
-    for item in toc_items:
-        story.append(Paragraph(item, B))
+    for anchor, title in toc_items:
+        story.append(Paragraph(
+            f'<a href="#{anchor}" color="#C4A44A">{title}</a>',
+            styles['TOCEntry']))
     story.append(PageBreak())
 
     # ═══════════════════════════════════════════
     # 1. GETTING STARTED
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('ch1', level=0, title='1. Getting Started'))
     story.append(Paragraph("1. Getting Started", styles['H1']))
     story.append(gold_rule())
     story.append(Paragraph(
@@ -212,7 +234,8 @@ def build_guide():
         "Open the URL and start building.", B))
     story.append(Paragraph(
         "The tool is designed around Savage Worlds\u2019 Fast! Furious! Fun! philosophy. "
-        "Six sliders control the core statistics. Weapons snap into mount points. "
+        'Six sliders control the core statistics (see <a href="#ch2" color="#C4A44A">Chapter 2</a>). '
+        "Weapons snap into mount points. "
         "Modifications add capability. The stat block generates automatically in "
         "real time as you make changes. A vehicle that would take thirty minutes "
         "to build from reference tables takes three minutes in the Forge.", B))
@@ -237,6 +260,7 @@ def build_guide():
     # ═══════════════════════════════════════════
     # 2. THE SIX SLIDERS
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('ch2', level=0, title='2. The Six Sliders'))
     story.append(Paragraph("2. The Six Sliders", styles['H1']))
     story.append(gold_rule())
     story.append(Paragraph(
@@ -269,12 +293,13 @@ def build_guide():
     # ═══════════════════════════════════════════
     # 3. WEAPONS AND MODIFICATIONS
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('ch3', level=0, title='3. Weapons and Modifications'))
     story.append(Paragraph("3. Weapons and Modifications", styles['H1']))
     story.append(gold_rule())
 
     story.append(Paragraph("Weapons", styles['H2']))
     story.append(Paragraph(
-        "The Forge includes 71 weapons across seven technology eras: Ancient, "
+        "The Forge includes 127 weapons across seven technology eras: Ancient, "
         "Black Powder, Industrial, Modern, Future, Advanced, and Stun. Each "
         "weapon has a minimum size requirement \u2014 you can\u2019t mount a Super Heavy "
         "Cannon on a motorcycle.", B))
@@ -299,13 +324,16 @@ def build_guide():
         "The \u201cAdd Custom Weapon\u201d button lets you define entirely new weapons "
         "with your own damage, AP, range, RoF, and notes. Custom weapons are "
         "stored in your browser alongside your saved vehicles and appear in the "
-        "weapon catalogue for all future builds.", B))
+        'weapon catalogue for all future builds. See <a href="#ch5" color="#C4A44A">'
+        'Chapter 5: The Vehicle Hangar</a> for details on how vehicles and '
+        'weapons are stored.', B))
 
     story.append(PageBreak())
 
     # ═══════════════════════════════════════════
     # 4. THE CLASS SYSTEM
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('ch4', level=0, title='4. The Class System'))
     story.append(Paragraph("4. The Class System", styles['H1']))
     story.append(gold_rule())
     story.append(Paragraph(
@@ -367,6 +395,7 @@ def build_guide():
     # ═══════════════════════════════════════════
     # 5. THE VEHICLE HANGAR
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('ch5', level=0, title='5. The Vehicle Hangar'))
     story.append(Paragraph("5. The Vehicle Hangar", styles['H1']))
     story.append(gold_rule())
     story.append(Paragraph(
@@ -401,11 +430,14 @@ def build_guide():
     # ═══════════════════════════════════════════
     # 6. EXPORT FORMATS
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('ch6', level=0, title='6. Export Formats'))
     story.append(Paragraph("6. Export Formats", styles['H1']))
     story.append(gold_rule())
     story.append(Paragraph(
         "Vehicle Forge exports to three formats from a single source of truth. "
-        "Build once, export everywhere.", B))
+        'Build once, export everywhere. Extension packs '
+        '(<a href="#ch7" color="#C4A44A">Chapter 7</a>) add new content '
+        'that integrates seamlessly with all export formats.', B))
 
     export_data = [
         ["JSON (.json)", "Vehicle Forge native format. Batch import/export, backup.", "Vehicle Forge"],
@@ -428,6 +460,7 @@ def build_guide():
     # ═══════════════════════════════════════════
     # 7. EXTENSION PACKS
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('ch7', level=0, title='7. Extension Packs'))
     story.append(Paragraph("7. Extension Packs (.vfx)", styles['H1']))
     story.append(gold_rule())
     story.append(Paragraph(
@@ -448,6 +481,7 @@ def build_guide():
     # ═══════════════════════════════════════════
     # 8. BUILDING VEHICLES: A WALKTHROUGH
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('ch8', level=0, title='8. Building Vehicles: A Walkthrough'))
     story.append(Paragraph("8. Building Vehicles: A Walkthrough", styles['H1']))
     story.append(gold_rule())
     story.append(Paragraph(
@@ -487,6 +521,7 @@ def build_guide():
     # ═══════════════════════════════════════════
     # 9. SFC COMPATIBILITY
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('ch9', level=0, title='9. SFC Compatibility'))
     story.append(Paragraph("9. SFC Compatibility", styles['H1']))
     story.append(gold_rule())
     story.append(Paragraph(
@@ -516,13 +551,16 @@ def build_guide():
         "the SFC\u2019s Class VII ceiling. The system scales to Z (and theoretically "
         "beyond), accommodating everything from orbital battle stations to "
         "generation ships. The SFC was designed for one book\u2019s worth of "
-        "vehicles. The DiceForge system was designed for all of them.", B))
+        'vehicles. The DiceForge system was designed for all of them. '
+        'See <a href="#ch9" color="#C4A44A">Chapter 9: SFC Compatibility</a> '
+        'for the full mapping table.', B))
 
     story.append(PageBreak())
 
     # ═══════════════════════════════════════════
     # APPENDIX A: PRODUCT CATALOGUE
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('appA', level=0, title='Appendix A: Product Catalogue'))
     story.append(Paragraph("Appendix A: Product Catalogue", styles['H1']))
     story.append(gold_rule())
     story.append(Paragraph(
@@ -530,7 +568,7 @@ def build_guide():
         "Visit diceforgestudios.pages.dev for the current catalogue.", B))
 
     cat_data = [
-        ["Vehicle Forge Tool", "FREE", "Complete construction system, 64 reference builds"],
+        ["Vehicle Forge Tool", "FREE", "Complete construction system, 47 canon reference builds"],
         ["Vehicle Packs", "$2.99", "10 DF Canon vehicles per pack, .vfx format"],
         ["One-Sheet Adventures", "$1.99", "4\u20136 page adventures using pack vehicles"],
         ["NPC Crew Packs", "$1.99", "6\u20138 named NPCs with stat blocks"],
@@ -548,6 +586,7 @@ def build_guide():
     # ═══════════════════════════════════════════
     # APPENDIX B: KEYBOARD SHORTCUTS
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('appB', level=0, title='Appendix B: Keyboard Shortcuts'))
     story.append(Paragraph("Appendix B: Keyboard Shortcuts", styles['H1']))
     story.append(gold_rule())
     key_data = [
@@ -566,6 +605,7 @@ def build_guide():
     # ═══════════════════════════════════════════
     # APPENDIX C: LICENCE AND CREDITS
     # ═══════════════════════════════════════════
+    story.append(BookmarkAnchor('appC', level=0, title='Appendix C: Licence and Credits'))
     story.append(Paragraph("Appendix C: Licence and Credits", styles['H1']))
     story.append(gold_rule())
 
