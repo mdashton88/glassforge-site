@@ -205,6 +205,21 @@ AP represents penetration capability — the weapon's ability to defeat protecti
 - **RoF must be exact.** Small integer that directly affects action economy.
 - **Weapon families must progress monotonically.** A Medium Laser must do less than a Heavy Laser.
 - **Era variants must be identical.** `mmg` and `mmg_modern` are the same weapon in different UI filters.
+- **Description text must match loadout.** If a vehicle's desc or notes mentions a specific weapon by name or calibre, that weapon (or a valid equivalent) must exist in the loadout. Catches stale prose after loadout changes.
+- **Canonical backup must match source.** `canonical-weapons.json` contains a standalone export of all 127 weapons. The audit verifies this matches `var WEAPONS[]` exactly — if they drift, the backup is stale.
+
+---
+
+## Rollback Baseline
+
+The repository is tagged at verified clean states. If a bad commit introduces errors that pass the audit, roll back to the nearest clean tag:
+
+```
+git tag -l 'audit-*'         # List all clean baselines
+git checkout audit-clean-v1  # Restore first verified baseline
+```
+
+Tags are created after each comprehensive audit pass. The tag message documents exactly what was verified.
 
 ---
 

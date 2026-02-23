@@ -477,6 +477,129 @@ def audit_downstream_sync(canon_vfx_path, downstream_files):
 
 
 # ================================================================
+# DESCRIPTION-vs-LOADOUT CONSISTENCY
+# ================================================================
+
+# Specific search patterns — each distinctive enough that finding it in
+# description text strongly implies the author is referencing THAT weapon.
+# Format: (regex_pattern, implied_weapon_family, label)
+DESC_WEAPON_PATTERNS = [
+    # Calibre-specific guns
+    (r'\b37\s*mm\b', ['tank_gun_37mm', 'tank_gun_light'], '37mm gun'),
+    (r'\b75\s*mm\b', ['tank_gun_75mm', 'tank_gun_med'], '75mm gun'),
+    (r'\b76\s*mm\b', ['tank_gun_76mm'], '76mm gun'),
+    (r'\b88\s*mm\b', ['tank_gun_88mm', 'tank_gun_heavy'], '88mm gun'),
+    (r'\b120\s*mm\b', ['tank_gun_120mm', 'cannon_mod'], '120mm gun'),
+    (r'\b125\s*mm\b', ['tank_gun_125mm', 'cannon_mod'], '125mm gun'),
+    (r'\b20\s*mm\b', ['cannon_20mm', 'autocannon_ww', 'autocannon_light', 'autocannon_light_future'], '20mm cannon'),
+    (r'\b25\s*mm\b', ['autocannon_25mm', 'autocannon_light', 'autocannon_light_future'], '25mm cannon'),
+    (r'\b30\s*mm\b', ['autocannon_30mm', 'autocannon_med', 'autocannon_light', 'autocannon_light_future'], '30mm cannon'),
+    (r'\b40\s*mm\b', ['autocannon_40mm', 'autocannon_med', 'autocannon_light_future'], '40mm cannon'),
+    # Named missiles
+    (r'\bhellfire\b', ['hellfire', 'atgm', 'missile_heavy'], 'Hellfire'),
+    (r'\bsidewinder\b', ['sidewinder', 'sam'], 'Sidewinder'),
+    (r'\bsparrow\b', ['sparrow', 'sam'], 'Sparrow'),
+    (r'\btow\s+(?:missile|launcher)\b', ['tow_missile', 'atgm'], 'TOW'),
+    # Specific weapon types
+    (r'\btrebuchet\b', ['trebuchet'], 'trebuchet'),
+    (r'\bballista[e]?\b', ['ballista'], 'ballista'),
+    (r'\bcatapult\b', ['catapult'], 'catapult'),
+    (r'\bscorpion\b', ['scorpion'], 'scorpion'),
+    (r'\bgreek\s+fire\b', ['greek_fire_s'], 'Greek fire'),
+    (r'\bgatling\s+laser\b', ['laser_gat'], 'Gatling Laser'),
+    (r'\bheavy\s+laser\b', ['laser_heavy'], 'Heavy Laser'),
+    (r'\bmedium\s+laser\b', ['laser_med'], 'Medium Laser'),
+    (r'\brailgun\b', ['railgun'], 'Railgun'),
+    (r'\bflamethrower\b', ['flamethrower_ww', 'flamethrower_mod', 'flamethrower_future'], 'Flamethrower'),
+    (r'\bplasma\s+cannon\b', ['plasma_cannon'], 'Plasma Cannon'),
+    (r'\bmass\s+driver\b', ['md_light', 'md_med', 'md_heavy', 'md_super', 'md_superheavy', 'md_mega'], 'Mass Driver'),
+    (r'\bparticle\s+beam\b', ['pb_light', 'pb_med', 'pb_heavy'], 'Particle Beam'),
+    (r'\bparticle\s+cannon\b', ['pc_light', 'pc_med', 'pc_heavy'], 'Particle Cannon'),
+    (r'\bion\s+cannon\b', ['ion_light', 'ion_med', 'ion_heavy'], 'Ion Cannon'),
+]
+
+
+def audit_desc_vs_loadout(weapons):
+    """Check vehicle descriptions don't reference weapons missing from loadout."""
+    results = {'pass': 0, 'warn': 0, 'details': []}
+    
+    for vfx in sorted(glob.glob(f'{PACKS_DIR}/**/*.vfx', recursive=True)):
+        with open(vfx) as f:
+            data = json.load(f)
+        pack_name = os.path.basename(vfx)
+        
+        for v in data.get('vehicles', []):
+            loadout_ids = set(w.get('weaponId', '') for w in v.get('weapons', []))
+            if not loadout_ids:
+                continue
+            
+            text = (v.get('desc', '') + ' ' + v.get('notes', '')).lower()
+            if not text.strip():
+                continue
+            
+            vehicle_ok = True
+            for pattern, valid_ids, label in DESC_WEAPON_PATTERNS:
+                if re.search(pattern, text):
+                    if not set(valid_ids).intersection(loadout_ids):
+                        loadout_names = [weapons.get(w, {}).get('name', w) for w in sorted(loadout_ids)]
+                        results['warn'] += 1
+                        results['details'].append(
+                            f"WARN  {pack_name}: {v.get('name', '?')} — "
+                            f"text mentions '{label}' but loadout is: "
+                            f"{', '.join(loadout_names)}")
+                        vehicle_ok = False
+            
+            if vehicle_ok:
+                results['pass'] += 1
+    
+    return results
+
+
+def audit_canonical_backup(weapons):
+    """Verify canonical-weapons.json matches source of truth."""
+    backup_path = 'canonical-weapons.json'
+    results = {'pass': 0, 'fail': 0, 'details': []}
+    
+    if not os.path.exists(backup_path):
+        results['fail'] += 1
+        results['details'].append(f"MISSING  {backup_path} does not exist — run full sync to generate")
+        return results
+    
+    with open(backup_path) as f:
+        backup = json.load(f)
+    
+    backup_by_id = {w['id']: w for w in backup.get('weapons', [])}
+    
+    # Count check
+    if len(backup_by_id) != len(weapons):
+        results['fail'] += 1
+        results['details'].append(
+            f"COUNT   backup has {len(backup_by_id)} weapons, source has {len(weapons)}")
+    
+    # Stat check
+    mismatches = 0
+    for wid, w in weapons.items():
+        bw = backup_by_id.get(wid)
+        if not bw:
+            mismatches += 1
+            results['details'].append(f"MISSING  {wid} not in backup")
+            continue
+        for field in ['damage', 'ap', 'rof']:
+            if str(w.get(field, '')) != str(bw.get(field, '')):
+                mismatches += 1
+                results['details'].append(
+                    f"DRIFT   {wid}.{field}: source={w.get(field)} backup={bw.get(field)}")
+    
+    if mismatches == 0:
+        results['pass'] = 1
+        results['details'].append(f"MATCH   {len(weapons)} weapons verified against backup")
+    else:
+        results['fail'] = 1
+    
+    return results
+
+
+# ================================================================
 # MAIN
 # ================================================================
 
@@ -610,6 +733,29 @@ def main():
         
         print(f"\n  By Grade: {', '.join(f'{k}={v}' for k, v in grade_counts.items())}")
         print(f"  By AP Band: {', '.join(f'{k}={v}' for k, v in band_counts.items())}")
+        
+        # Description vs Loadout
+        print(f"\n{'─' * 80}")
+        print("CONTENT INTEGRITY: Description text matches weapon loadout")
+        print(f"{'─' * 80}")
+        
+        dl = audit_desc_vs_loadout(weapons)
+        for d in dl['details']:
+            print(f"  {d}")
+        print(f"\n  Result: {dl['pass']} vehicles clean, {dl['warn']} warnings")
+        if dl['warn'] > 0:
+            exit_code = max(exit_code, 2)
+        
+        # Canonical Backup
+        print(f"\n{'─' * 80}")
+        print("CANONICAL BACKUP: canonical-weapons.json matches source of truth")
+        print(f"{'─' * 80}")
+        
+        cb = audit_canonical_backup(weapons)
+        for d in cb['details']:
+            print(f"  {d}")
+        if cb['fail'] > 0:
+            exit_code = max(exit_code, 2)
     
     # ── SUMMARY ──
     print(f"\n{'=' * 80}")
