@@ -9,6 +9,8 @@
 
 This document is the canonical reference for the Vehicle Forge tool — its architecture, design philosophy, formulas, data structures, file locations, and development history. It exists so that new conversations can orient quickly without reconstructing decisions from transcripts.
 
+**For data integrity, source of truth hierarchy, audit procedures, and the calibration framework, see [`DATA_GOVERNANCE.md`](DATA_GOVERNANCE.md).**
+
 ---
 
 ## 1. What Vehicle Forge Is

@@ -210,6 +210,18 @@ AP represents penetration capability — the weapon's ability to defeat protecti
 
 ---
 
+## Related Documentation
+
+| Document | Purpose |
+|----------|---------|
+| `DATA_GOVERNANCE.md` | This file. Source of truth, audit procedures, calibration framework. |
+| `Vehicle_Forge_Technical_Reference_v1_0.md` | Developer guide: formulas, class system, export formats, design rationale. |
+| `VEHICLE_FORGE_VERSIONING.md` | Retired — redirects here. |
+| `ARMOUR_V2_DESIGN_SPEC.md` | Armour system v2 design specification. |
+| `CHANGELOG_VF_v5_1.md` | Release changelog. |
+
+---
+
 ## Rollback Baseline
 
 The repository is tagged at verified clean states. If a bad commit introduces errors that pass the audit, roll back to the nearest clean tag:

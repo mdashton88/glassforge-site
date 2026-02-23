@@ -651,6 +651,71 @@ def audit_vehicle_backup():
     return results
 
 
+def audit_specials_backup(html):
+    """Verify canonical-specials.json matches source of truth."""
+    backup_path = 'canonical-specials.json'
+    results = {'pass': 0, 'fail': 0, 'details': []}
+    
+    if not os.path.exists(backup_path):
+        results['fail'] += 1
+        results['details'].append(f"MISSING  {backup_path}")
+        return results
+    
+    # Parse specials from HTML
+    ss = html.find('var SPECIALS=[')
+    se = html.find('];', ss) + 2
+    raw = html[ss:se]
+    source_ids = set(re.findall(r"id:\s*'([^']*)'", raw))
+    
+    with open(backup_path) as f:
+        backup = json.load(f)
+    backup_ids = set(s['id'] for s in backup.get('specials', []))
+    
+    if source_ids == backup_ids:
+        results['pass'] = 1
+        results['details'].append(f"MATCH   {len(source_ids)} specials verified")
+    else:
+        results['fail'] = 1
+        for sid in source_ids - backup_ids:
+            results['details'].append(f"MISSING  {sid} not in backup")
+        for sid in backup_ids - source_ids:
+            results['details'].append(f"EXTRA   {sid} in backup but not source")
+    
+    return results
+
+
+def audit_mods_backup(html):
+    """Verify canonical-mods.json matches source of truth."""
+    backup_path = 'canonical-mods.json'
+    results = {'pass': 0, 'fail': 0, 'details': []}
+    
+    if not os.path.exists(backup_path):
+        results['fail'] += 1
+        results['details'].append(f"MISSING  {backup_path}")
+        return results
+    
+    ms = html.find('var MODS=[')
+    me = html.find('];', ms) + 2
+    raw = html[ms:me]
+    source_ids = set(re.findall(r"id:\s*'([^']*)'", raw))
+    
+    with open(backup_path) as f:
+        backup = json.load(f)
+    backup_ids = set(m['id'] for m in backup.get('mods', []))
+    
+    if source_ids == backup_ids:
+        results['pass'] = 1
+        results['details'].append(f"MATCH   {len(source_ids)} mods verified")
+    else:
+        results['fail'] = 1
+        for mid in source_ids - backup_ids:
+            results['details'].append(f"MISSING  {mid} not in backup")
+        for mid in backup_ids - source_ids:
+            results['details'].append(f"EXTRA   {mid} in backup but not source")
+    
+    return results
+
+
 # ================================================================
 # SPECIALS CROSS-REFERENCE
 # ================================================================
@@ -933,7 +998,7 @@ def main():
         
         # Canonical Backups
         print(f"\n{'─' * 80}")
-        print("CANONICAL BACKUPS: Weapon and vehicle backups match source of truth")
+        print("CANONICAL BACKUPS: All backups match source of truth")
         print(f"{'─' * 80}")
         
         cb = audit_canonical_backup(weapons)
@@ -946,6 +1011,18 @@ def main():
         for d in vb['details']:
             print(f"  {d}")
         if vb['fail'] > 0:
+            exit_code = max(exit_code, 2)
+        
+        sb = audit_specials_backup(html)
+        for d in sb['details']:
+            print(f"  {d}")
+        if sb['fail'] > 0:
+            exit_code = max(exit_code, 2)
+        
+        mb = audit_mods_backup(html)
+        for d in mb['details']:
+            print(f"  {d}")
+        if mb['fail'] > 0:
             exit_code = max(exit_code, 2)
     
     # ── SUMMARY ──
