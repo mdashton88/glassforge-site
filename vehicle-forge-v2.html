@@ -730,6 +730,25 @@ rebuildExtensionData();
     .then(function(data){installExtension(data);console.log('Core Reference Builds auto-installed ('+data.vehicles.length+' vehicles)')})
     .catch(function(err){console.warn('Could not auto-install core pack:',err)})
 })();
+(function autoInstallAllPacks(){
+  fetch('packs/manifest.json')
+    .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+    .then(function(manifest){
+      var toInstall=manifest.filter(function(p){return !extensions.find(function(e){return e.id===p.id})});
+      if(!toInstall.length){console.log('All '+manifest.length+' packs already installed');return}
+      console.log('Auto-installing '+toInstall.length+' packs...');
+      var loaded=0;
+      toInstall.forEach(function(p){
+        fetch(p.path)
+          .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+          .then(function(data){installExtension(data);loaded++;
+            if(loaded===toInstall.length){console.log('All packs installed ('+S.saved.length+' vehicles total)');renderSaved()}})
+          .catch(function(err){console.warn('Failed to install '+p.name+':',err);loaded++;
+            if(loaded===toInstall.length)renderSaved()})
+      })
+    })
+    .catch(function(err){console.warn('Could not load pack manifest:',err)})
+})();
 function importVFX(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){
   try{var data=JSON.parse(ev.target.result);installExtension(data)}catch(err){alert('Error reading .vfx file: '+err.message)}};reader.readAsText(file);e.target.value=''}
 function showExtensionManager(){
