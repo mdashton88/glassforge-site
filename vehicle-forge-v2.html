@@ -14,14 +14,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
 
 /* ── SHARED NAV ── */
-.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px}
-.nav-brand{font-family:'Cinzel',serif;font-weight:700;font-size:16px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;text-decoration:none}
-.nav-brand:hover{color:var(--gold-bright)}
+/* ── SHARED NAV (canonical: index.html) ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-brand{font-family:'Cinzel',serif;font-weight:700;font-size:16px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:10px}
 .nav-brand .anvil{font-size:22px;color:var(--gold-bright)}
 .nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);text-decoration:none;position:relative;transition:color .2s}
+.nav-links a{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.3s;position:relative}
 .nav-links a:hover,.nav-links a.active{color:var(--gold)}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.3s}
 .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:1001}
 .hamburger span{display:block;width:24px;height:2px;background:var(--gold);transition:all .3s}
@@ -180,7 +180,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 <body>
 <a href="#panel-output" class="skip-link" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;font-size:14px;padding:8px 16px;background:var(--accent);color:var(--bg-deep)">Skip to stat block</a>
 
-<nav class="site-nav">
+<nav>
   <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="navLinks">
