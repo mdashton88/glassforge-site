@@ -896,7 +896,7 @@ function dropWeapon(id){var w=getAllWeapons().find(function(x){return x.id===id}
   pushUndo();S.weapons.push({weaponId:id,mount:'pintle',linked:0});Audio.clunk();renderWeaponBay(id);renderStats();renderOutput()}
 // ═══ RENDER FUNCTIONS ═══
 function renderLocoGrid(){var el=document.getElementById('locoGrid');
-  el.innerHTML=LOCOS.map(function(l){return '<div class="loco-btn'+(S.loco===l.id?' active':'')+'" onclick="setLoco(\''+l.id+'\')"><span>'+l.name+'</span><span class="loco-speed">Spd '+l.speed+'</span></div>'}).join('')}
+  el.innerHTML=LOCOS.map(function(l){return '<div class="loco-btn'+(S.loco===l.id?' active':'')+'" onclick="setLoco(\''+l.id+'\')">'+l.name+'</div>'}).join('')}
 function setLoco(id){S.loco=id;Audio.click();renderLocoGrid();renderSliders();renderStats();renderOutput();renderModCatalogue()}
 var TOUGH_LABELS={'-5':'Fragile','-4':'Flimsy','-3':'Lightweight','-2':'Light','-1':'Slightly Light','0':'Standard','1':'Sturdy','2':'Robust','3':'Very Tough','4':'Extremely Tough','5':'Ironclad'};
 var TOUGH_DESC={'-5':'Extremely fragile construction for this class.','-4':'Very flimsy. Will not survive serious impacts.','-3':'Lightweight construction. Sacrifices durability for speed.','-2':'Lighter than average for this size class.','-1':'Slightly below standard structural strength.','0':'Standard structural strength for this size class.','1':'Sturdier than typical. Reinforced frame or heavier materials.','2':'Robust construction. Built to take punishment.','3':'Very tough. Significantly over-engineered for its class.','4':'Extremely tough. Among the most solid of this size.','5':'Ironclad. Maximum structural integrity for this class.'};
