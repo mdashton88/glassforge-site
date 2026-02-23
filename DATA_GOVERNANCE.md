@@ -140,9 +140,12 @@ Vehicle_Forge_Technical_Reference_v1_0.md   ← Full technical reference (formul
 
 ## Automated Sync & Audit
 
-**Script:** `python3 sync_and_audit.py`
+**Script:** `python3 sync_and_audit.py`  
+**CI Pipeline:** `.github/workflows/vehicle-audit.yml`
 
-Run before every commit that touches weapon or vehicle data. The script performs two jobs: sync (propagating canon data to all downstream files) and audit (verifying everything is correct).
+The audit runs automatically on every push or pull request that touches weapon data, vehicle builds, pack files, or the audit script itself. It also runs on manual dispatch. The pipeline performs two checks: first the full audit (Tier 1 hard canon, era variants, family progressions, pack integrity, downstream sync), then a desync detection that runs the sync engine and fails if any downstream file would be changed — meaning someone edited the source of truth but forgot to propagate.
+
+**To run locally** before committing:
 
 ```
 python3 sync_and_audit.py              # Full sync + audit

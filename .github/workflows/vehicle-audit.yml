@@ -1,0 +1,55 @@
+name: Vehicle Forge — Data Audit
+
+on:
+  push:
+    paths:
+      - 'vehicle-forge.html'
+      - 'Vehicle_Forge_Core_Reference_Builds.vfx'
+      - 'vehicle-database.json'
+      - 'packs/**'
+      - 'v5.0/data/**'
+      - 'sync_and_audit.py'
+  pull_request:
+    paths:
+      - 'vehicle-forge.html'
+      - 'Vehicle_Forge_Core_Reference_Builds.vfx'
+      - 'vehicle-database.json'
+      - 'packs/**'
+      - 'v5.0/data/**'
+      - 'sync_and_audit.py'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: Sync & Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run sync & audit
+        run: python3 sync_and_audit.py --audit-only
+
+      - name: Check for desync (sync would change files)
+        run: |
+          python3 sync_and_audit.py --sync-only
+          if [ -n "$(git diff --name-only)" ]; then
+            echo ""
+            echo "=========================================="
+            echo "DESYNC DETECTED — downstream files are stale"
+            echo "=========================================="
+            echo ""
+            echo "The following files need updating:"
+            git diff --name-only
+            echo ""
+            echo "Run 'python3 sync_and_audit.py' locally and commit the result."
+            exit 1
+          else
+            echo "All downstream files in sync."
+          fi
