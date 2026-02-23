@@ -237,23 +237,18 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
       <div id="costDisplay" class="cost-display"></div>
     </div>
     <div class="sidebar-section">
-      <h3>Vehicle Hangar</h3>
+      <h3>Quick Actions</h3>
       <div style="display:flex;gap:4px;margin-bottom:8px">
         <button class="header-btn primary" onclick="saveVehicle()" style="flex:1;text-align:center">Save</button>
         <button class="header-btn" onclick="duplicateVehicle()" style="flex:1;text-align:center">Duplicate</button>
         <button class="header-btn" onclick="newVehicle()" style="flex:1;text-align:center">New</button>
       </div>
-      <button class="header-btn" id="openHangarBtn" onclick="showHangar()" style="width:100%;text-align:center;padding:10px;border-color:var(--accent);color:var(--accent);font-size:15px;margin-bottom:8px">📦 Open Hangar <span id="hangarBtnCount" style="font-size:13px;color:var(--text-dim)"></span></button>
       <div style="display:flex;gap:4px;flex-wrap:wrap">
         <button class="header-btn" onclick="exportJSON()">Export .json</button>
-        <button class="header-btn" onclick="exportStatBlock()" title="Pinnacle-format stat block (.txt)">Stat Block</button>
-        <button class="header-btn" onclick="exportFGXML()" title="Fantasy Grounds XML">FG XML</button>
         <button class="header-btn" onclick="document.getElementById('importInput').click()">Import .json</button>
-        <button class="header-btn" onclick="showExtensionManager()" title="Install supplement extensions" style="border-color:var(--accent);color:var(--accent)">⚙ Extensions</button>
-        <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)" title="Open the Vehicle Forge Companion Guide (PDF)">📖 Manual</a>
+        <button class="header-btn" onclick="showExtensionManager()" style="border-color:var(--accent);color:var(--accent)">⚙ Extensions</button>
+        <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
-        <button class="header-btn" onclick="batchExport()" title="Export all saved vehicles as one file">Batch Export</button>
-        <button class="header-btn" onclick="printAll()" title="Print all saved vehicles as stat blocks">Print All</button>
       </div>
     </div>
   </div>
@@ -263,6 +258,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="mods" onclick="switchTab('mods')">Modifications</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="weapons" onclick="switchTab('weapons')">Weapons</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="specials" onclick="switchTab('specials')">Special</div>
+      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="hangar" onclick="switchTab('hangar')">Hangar <span id="hangarTabCount" style="font-size:11px;color:var(--text-dim)"></span></div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="help" onclick="switchTab('help')">Reference</div>
       <div style="flex:1"></div>
       <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)" style="border:none;padding:6px 12px;font-size:13px">↩ Undo</button>
@@ -283,6 +279,17 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
       </div>
     </div>
     <div class="panel active" id="panel-output"><div id="outputContent"></div></div>
+    <div class="panel" id="panel-hangar">
+      <div style="max-width:900px">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
+          <input type="text" class="search-bar" id="hangarSearch" placeholder="Search vehicles by name, type, or pack..." oninput="renderSaved()" style="flex:1;margin:0">
+          <button class="hangar-tab active" id="hangarTabAll" onclick="setHangarTab('all')">All</button>
+          <button class="hangar-tab" id="hangarTabCanon" onclick="setHangarTab('canon')">DF Canon</button>
+          <button class="hangar-tab" id="hangarTabMine" onclick="setHangarTab('mine')">My Vehicles</button>
+        </div>
+        <div id="savedList"></div>
+      </div>
+    </div>
     <div class="panel" id="panel-help"><div style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="search-bar help-search" id="helpSearch" placeholder="Search reference guide..." oninput="filterHelp()" style="flex:1;margin:0"><button class="btn" onclick="popOutHelp()" title="Open in new window" style="white-space:nowrap;padding:6px 14px">⧉ Pop Out</button></div><div id="helpContent"></div></div>
     <div class="panel" id="panel-settings">
       <div style="max-width:600px">
@@ -672,26 +679,7 @@ function importVFX(e){var file=e.target.files[0];if(!file)return;var reader=new 
 function showExtensionManager(){
   var html='<h2 style="margin-bottom:12px">Extension Manager</h2>';
 
-function showHangar(){
-  var overlay=document.createElement('div');overlay.id='hangarOverlay';
-  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:flex;justify-content:center;align-items:center';
-  var box=document.createElement('div');box.style.cssText='background:var(--bg-panel);border:1px solid var(--border);padding:24px;max-width:700px;width:95%;max-height:85vh;overflow-y:auto';
-  box.innerHTML='<h2 style="margin-bottom:12px;color:var(--text-bright)">Vehicle Hangar</h2>'
-    +'<div style="margin-bottom:10px"><input type="text" id="hangarSearch" placeholder="Search vehicles..." aria-label="Search vehicle hangar" oninput="renderSaved()" style="width:100%;padding:8px 12px;background:var(--input-bg);border:1px solid var(--border);border-radius:4px;color:var(--text-bright);font-size:15px"></div>'
-    +'<div style="display:flex;gap:4px;margin-bottom:10px">'
-    +'<button class="hangar-tab active" id="hangarTabAll" onclick="setHangarTab(\'all\')">All</button>'
-    +'<button class="hangar-tab" id="hangarTabCanon" onclick="setHangarTab(\'canon\')">DF Canon</button>'
-    +'<button class="hangar-tab" id="hangarTabMine" onclick="setHangarTab(\'mine\')">My Vehicles</button></div>'
-    +'<div id="savedList" style="max-height:55vh;overflow-y:auto"></div>'
-    +'<button class="header-btn" onclick="document.getElementById(\'hangarOverlay\').remove()" style="width:100%;text-align:center;margin-top:16px;padding:10px">Close Hangar</button>';
-  overlay.appendChild(box);
-  overlay.onclick=function(e){if(e.target===overlay)overlay.remove()};
-  document.body.appendChild(overlay);
-  hangarTab='all';
-  document.querySelectorAll('.hangar-tab').forEach(function(t){t.classList.remove('active')});
-  document.getElementById('hangarTabAll').classList.add('active');
-  renderSaved();
-}
+function showHangar(){switchTab('hangar')}
   html+='<p style="color:var(--text-dim);margin-bottom:16px;font-size:15px">Install .vfx files to add new weapons, modifications, specials, and vehicles.</p>';
   html+='<div style="margin-bottom:20px"><input type="file" id="vfxImport" accept=".vfx,.json" onchange="importVFX(event)" style="display:none"><button class="header-btn primary" onclick="document.getElementById(\'vfxImport\').click()" style="width:100%;text-align:center;padding:10px">Install .vfx Extension</button></div>';
   if(extensions.length===0){html+='<p style="color:var(--text-dim);text-align:center;padding:20px;border:1px dashed var(--border)">No extensions installed.</p>'}
@@ -1233,7 +1221,7 @@ function filterHelp(){var q=(document.getElementById('helpSearch').value||'').to
     s.style.display=tags.indexOf(q)>=0?'':'none'})}
 
 // ═══ TABS, SAVE/LOAD, UTILS ═══
-function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput()}
+function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput();if(tab==='hangar')renderSaved()}
 function switchSidebarTab(tab){document.querySelectorAll('.sidebar-tab').forEach(function(t){t.classList.toggle('active',t.dataset.stab===tab)});document.querySelectorAll('.sidebar-panel').forEach(function(p){p.classList.toggle('active',p.id==='spanel-'+tab)})}
 document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.getAttribute('role')==='button'){e.preventDefault();e.target.click()}})
 function newVehicle(){Audio.click();S={name:'Untitled Vehicle',desc:'',notes:'',image:'',size:6,loco:'wheeled',mods:{},weapons:[],currentMount:'pintle',saved:S.saved,toughLevel:0,armourLevel:0,speedLevel:0,handlingLevel:0,woundsLevel:0,crewLevel:0,passengers:0,mphOverride:0,specials:[],customSpecial:''};document.getElementById('vName').value=S.name;document.getElementById('vDesc').value='';document.getElementById('vNotes').value='';document.getElementById('sizeSlider').value=6;var ci=document.getElementById('customSpecialInput');if(ci)ci.value='';clearImage();undoStack=[];redoStack=[];renderAll()}
@@ -1355,8 +1343,8 @@ function getPackName(v){if(!v._pack)return null;var ext=extensions.find(function
 function toggleGroup(key){collapsedGroups[key]=!collapsedGroups[key];renderSaved()}
 
 function renderSaved(){var list=document.getElementById('savedList');
-  var countBtn=document.getElementById('hangarBtnCount');
-  if(countBtn)countBtn.textContent='('+S.saved.length+')';
+  var countEl=document.getElementById('hangarTabCount');
+  if(countEl)countEl.textContent='('+S.saved.length+')';
   if(!list)return;
   var q=(document.getElementById('hangarSearch')||{}).value||'';q=q.toLowerCase();
   var items=S.saved.map(function(s,i){return{v:s,idx:i}});
@@ -1399,7 +1387,7 @@ function cloneCanon(i){Audio.click();var src=S.saved[i];if(!src)return;
   alert('Cloned "'+src.name+'" to My Vehicles.\nThe clone is fully editable.')}
 
 function loadVehicle(i){Audio.clunk();var d=S.saved[i];
-  var ho=document.getElementById('hangarOverlay');if(ho)ho.remove();
+  switchTab('output');
   if(isCanon(d)){
     S.name=d.name;S.desc=d.desc||'';S.notes=d.notes||'';S.image=d.image||'';S.size=d.size;S.loco=d.loco;
     S.mods=JSON.parse(JSON.stringify(d.mods));S.weapons=JSON.parse(JSON.stringify(d.weapons));
