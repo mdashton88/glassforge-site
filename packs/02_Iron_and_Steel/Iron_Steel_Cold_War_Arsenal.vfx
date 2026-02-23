@@ -125,7 +125,10 @@
       "armourLevel": 0,
       "speedLevel": 0,
       "handlingLevel": -1,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "amphibious"
+      ]
     },
     {
       "name": "M113",
@@ -225,7 +228,10 @@
       "armourLevel": 2,
       "speedLevel": -1,
       "handlingLevel": -1,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "unreliable"
+      ]
     },
     {
       "name": "BMP-1",

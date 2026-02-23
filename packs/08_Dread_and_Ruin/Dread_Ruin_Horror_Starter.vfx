@@ -45,7 +45,8 @@
       "specials": [
         "haunted",
         "sentient",
-        "stealth"
+        "stealth",
+        "cursed"
       ]
     },
     {
@@ -148,7 +149,8 @@
         "haunted",
         "sentient",
         "long_range",
-        "stealth"
+        "stealth",
+        "cursed"
       ]
     },
     {
@@ -190,7 +192,10 @@
       "armourLevel": 1,
       "speedLevel": -1,
       "handlingLevel": -1,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "cursed"
+      ]
     },
     {
       "name": "Witch's Hut",

@@ -135,7 +135,10 @@
       "armourLevel": -3,
       "speedLevel": 0,
       "handlingLevel": 2,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "four_wd"
+      ]
     },
     {
       "name": "Panzer IV Ausf H",

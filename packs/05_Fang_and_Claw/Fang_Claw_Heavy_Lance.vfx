@@ -251,7 +251,11 @@
       "armourLevel": 1,
       "speedLevel": -1,
       "handlingLevel": -1,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "amphibious",
+        "sealed"
+      ]
     },
     {
       "name": "Aerospace Mech",

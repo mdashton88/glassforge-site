@@ -27,7 +27,10 @@
       "armourLevel": 1,
       "speedLevel": 2,
       "handlingLevel": 2,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "smoke_screen"
+      ]
     },
     {
       "name": "Stealth Motorcycle",
@@ -133,7 +136,7 @@
     {
       "name": "Gyrocopter",
       "desc": "A single-seat autogyro with a minimal radar signature, a quiet engine, and the ability to land on a tennis court. She's the personal aircraft for agents who need to get somewhere fast without filing a flight plan or appearing on anyone's radar.",
-      "notes": "The gyrocopter is your personal stealth aircraft. She's smaller than a helicopter, quieter, and can land almost anywhere. Use her for solo insertion missions, rooftop landings, and dramatic arrivals at locations that don't have airports.",
+      "notes": "The gyrocopter is your personal covert aircraft. She's smaller than a helicopter, quieter, and can land almost anywhere. Use her for solo insertion missions, rooftop landings, and dramatic arrivals at locations that don't have airports.",
       "image": "",
       "size": 2,
       "loco": "vtol",
@@ -159,7 +162,7 @@
     {
       "name": "Armoured Limo",
       "desc": "A stretch limousine with armour plating, bulletproof glass, and a chauffeur who trained with the Secret Service. She carries diplomats, heads of state, and anyone whose death would cause an international incident. She's a mobile fortress disguised as luxury.",
-      "notes": "The armoured limo is your protection detail vehicle. The players drive it, ride in it, or assault it. She's designed to survive ambushes \u2014 ram through roadblocks, absorb IED blasts, and deliver her passengers alive. The passenger compartment is a sealed vault on wheels.",
+      "notes": "The armoured limo is your protection detail vehicle. The players drive it, ride in it, or assault it. She's designed to survive ambushes \u2014 ram through roadblocks, absorb IED blasts, and deliver her passengers alive. The passenger compartment is an armoured vault on wheels.",
       "image": "",
       "size": 6,
       "loco": "wheeled",
@@ -200,7 +203,7 @@
     {
       "name": "Q-Branch Special",
       "desc": "A one-of-a-kind prototype that does something no production vehicle can do. Invisibility cloaking, vertical takeoff, weaponised EMP, holographic disguise \u2014 the specific capability changes with every mission because Q-Branch never builds the same thing twice.",
-      "notes": "The Q-Branch Special is your GM wildcard. She has one unique capability that the mission requires \u2014 define it at the start of the adventure. She's also temperamental, experimental, and prone to malfunctioning at the worst possible moment. The gadget fails on a Critical Failure and may fail on a normal failure.",
+      "notes": "The Q-Branch Special is your GM wildcard. She has one unique capability that the mission requires \u2014 define it at the start of the adventure. She's also finicky, experimental, and prone to malfunctioning at the worst possible moment. The gadget fails on a Critical Failure and may fail on a normal failure.",
       "image": "",
       "size": 4,
       "loco": "wheeled",
@@ -216,7 +219,10 @@
       "armourLevel": 1,
       "speedLevel": 3,
       "handlingLevel": 2,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "prototype"
+      ]
     }
   ]
 }

@@ -32,7 +32,10 @@
       "armourLevel": -2,
       "speedLevel": 2,
       "handlingLevel": 2,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "shallow_draft"
+      ]
     },
     {
       "name": "Brigantine",

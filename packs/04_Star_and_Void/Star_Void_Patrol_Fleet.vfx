@@ -146,7 +146,7 @@
     {
       "name": "Courier",
       "desc": "A single-crew vessel built for one purpose: getting a message, a package, or a person from one system to another as fast as physically possible. She's tiny, she's fast, and she carries exactly one critical thing that someone needs very badly.",
-      "notes": "The courier is your plot delivery vehicle. Whatever she's carrying is important enough to justify a dedicated ship \u2014 intelligence, diplomatic pouches, prototype technology, or a person who must not be intercepted. She creates urgency: the cargo has a deadline and the enemies know her route.",
+      "notes": "The courier is your plot delivery vehicle. Whatever she's carrying is important enough to justify a dedicated ship \u2014 intelligence, diplomatic pouches, experimental technology, or a person who must not be intercepted. She creates urgency: the cargo has a deadline and the enemies know her route.",
       "image": "",
       "size": 7,
       "loco": "jet",

@@ -599,6 +599,165 @@ def audit_canonical_backup(weapons):
     return results
 
 
+def audit_vehicle_backup():
+    """Verify canonical-vehicles.json matches source of truth."""
+    backup_path = 'canonical-vehicles.json'
+    canon_path = ROOT_VFX
+    results = {'pass': 0, 'fail': 0, 'details': []}
+    
+    if not os.path.exists(backup_path):
+        results['fail'] += 1
+        results['details'].append(f"MISSING  {backup_path} does not exist")
+        return results
+    
+    if not os.path.exists(canon_path):
+        results['fail'] += 1
+        results['details'].append(f"MISSING  {canon_path} does not exist")
+        return results
+    
+    with open(backup_path) as f:
+        backup = json.load(f)
+    with open(canon_path) as f:
+        canon = json.load(f)
+    
+    backup_by_name = {v['name']: v for v in backup.get('vehicles', [])}
+    canon_by_name = {v['name']: v for v in canon.get('vehicles', [])}
+    
+    if len(backup_by_name) != len(canon_by_name):
+        results['fail'] += 1
+        results['details'].append(
+            f"COUNT   backup has {len(backup_by_name)} vehicles, canon has {len(canon_by_name)}")
+        return results
+    
+    mismatches = 0
+    for name, cv in canon_by_name.items():
+        bv = backup_by_name.get(name)
+        if not bv:
+            mismatches += 1
+            results['details'].append(f"MISSING  '{name}' not in backup")
+            continue
+        cw = json.dumps(cv.get('weapons', []), sort_keys=True)
+        bw = json.dumps(bv.get('weapons', []), sort_keys=True)
+        if cw != bw:
+            mismatches += 1
+            results['details'].append(f"DRIFT   '{name}' weapon loadout differs")
+    
+    if mismatches == 0:
+        results['pass'] = 1
+        results['details'].append(f"MATCH   {len(canon_by_name)} vehicles verified against backup")
+    else:
+        results['fail'] = 1
+    
+    return results
+
+
+# ================================================================
+# SPECIALS CROSS-REFERENCE
+# ================================================================
+
+SPECIAL_PATTERNS = [
+    (r'\bheavy\s+armou?r\b', 'heavy_armor', 'Heavy Armor'),
+    (r'\bshallow\s+draft\b', 'shallow_draft', 'Shallow Draft'),
+    (r'\bamphibious\b', 'amphibious', 'Amphibious'),
+    (r'\bfour[\s-]wheel\s+drive\b', 'four_wd', 'Four Wheel Drive'),
+    (r'\b4wd\b', 'four_wd', 'Four Wheel Drive'),
+    (r'\ball[\s-]terrain\b', 'all_terrain', 'All-Terrain'),
+    (r'\bstealth\b', 'stealth', 'Stealth'),
+    (r'\bejection\s+(seat|system)\b', 'ejection', 'Ejection System'),
+    (r'\bsmoke\s+screen\b', 'smoke_screen', 'Smoke Screen'),
+    (r'\bflares\b', 'flares', 'Flares / Chaff'),
+    (r'\bchaff\b', 'flares', 'Flares / Chaff'),
+    (r'\bfireproof\b', 'fireproof', 'Fireproof'),
+    (r'\bsealed\b', 'sealed', 'Sealed'),
+    (r'\bpressuri[sz]ed\b', 'pressurised', 'Pressurised'),
+    (r'\bhaunted\b', 'haunted', 'Haunted'),
+    (r'\bsentient\b', 'sentient', 'Sentient'),
+    (r'\bcursed\b', 'cursed', 'Cursed'),
+    (r'\btemperamental\b', 'temperamental', 'Temperamental'),
+    (r'\bunreliable\b', 'unreliable', 'Unreliable System'),
+    (r'\bprototype\b', 'prototype', 'Prototype'),
+    (r'\bram\s+plate\b', 'ram_plate', 'Ram Plate'),
+    (r'\bopen[\s-]top\b', 'open_top', 'Open Top'),
+]
+
+
+def audit_specials_vs_desc():
+    """Check vehicle descriptions don't reference specials the vehicle lacks."""
+    results = {'pass': 0, 'warn': 0, 'details': []}
+    
+    for vfx in sorted(glob.glob(f'{PACKS_DIR}/**/*.vfx', recursive=True)):
+        with open(vfx) as f:
+            data = json.load(f)
+        pack_name = os.path.basename(vfx)
+        
+        for v in data.get('vehicles', []):
+            text = (v.get('desc', '') + ' ' + v.get('notes', '')).lower()
+            if not text.strip():
+                continue
+            
+            vehicle_specials = set(v.get('specials', []))
+            vehicle_ok = True
+            
+            for pattern, special_id, label in SPECIAL_PATTERNS:
+                if re.search(pattern, text) and special_id not in vehicle_specials:
+                    results['warn'] += 1
+                    results['details'].append(
+                        f"WARN  {pack_name}: {v.get('name', '?')} — "
+                        f"text mentions '{label}' but special not assigned")
+                    vehicle_ok = False
+            
+            if vehicle_ok:
+                results['pass'] += 1
+    
+    return results
+
+
+# ================================================================
+# IP COMPLIANCE
+# ================================================================
+
+IP_RED_FLAGS = [
+    (r'\bClass\s+(I|II|III|IV|V|VI|VII)\b', 'SFC Class numeral'),
+    (r'\bStar[Ff]inder\b', 'Starfinder reference'),
+    (r'\bFan\s+Companion\b', 'Fan Companion reference'),
+    (r'\bMedium\s+Maser\b', 'SFC weapon name'),
+    (r'\bHeavy\s+Maser\b', 'SFC weapon name'),
+    (r'\bSuper\s+Maser\b', 'SFC weapon name'),
+    (r'\bMedium\s+Torpedo\s+Tube\b', 'SFC weapon name'),
+    (r'Toughness:\s*\d+\s*\(\d+\)', 'Possible reproduced stat block'),
+]
+
+
+def audit_ip_compliance():
+    """Scan pack descriptions for potential IP violations."""
+    results = {'pass': 0, 'warn': 0, 'details': []}
+    
+    for vfx in sorted(glob.glob(f'{PACKS_DIR}/**/*.vfx', recursive=True)):
+        with open(vfx) as f:
+            data = json.load(f)
+        pack_name = os.path.basename(vfx)
+        pack_clean = True
+        
+        for v in data.get('vehicles', []):
+            for field in ['desc', 'notes']:
+                text = v.get(field, '')
+                if not text:
+                    continue
+                for pattern, label in IP_RED_FLAGS:
+                    m = re.search(pattern, text)
+                    if m:
+                        results['warn'] += 1
+                        results['details'].append(
+                            f"WARN  {pack_name}: {v.get('name', '?')}.{field} — "
+                            f"'{m.group(0)}' ({label})")
+                        pack_clean = False
+        
+        if pack_clean:
+            results['pass'] += 1
+    
+    return results
+
+
 # ================================================================
 # MAIN
 # ================================================================
@@ -734,7 +893,7 @@ def main():
         print(f"\n  By Grade: {', '.join(f'{k}={v}' for k, v in grade_counts.items())}")
         print(f"  By AP Band: {', '.join(f'{k}={v}' for k, v in band_counts.items())}")
         
-        # Description vs Loadout
+        # Content Integrity: Description vs Loadout
         print(f"\n{'─' * 80}")
         print("CONTENT INTEGRITY: Description text matches weapon loadout")
         print(f"{'─' * 80}")
@@ -746,15 +905,47 @@ def main():
         if dl['warn'] > 0:
             exit_code = max(exit_code, 2)
         
-        # Canonical Backup
+        # Content Integrity: Specials vs Description
         print(f"\n{'─' * 80}")
-        print("CANONICAL BACKUP: canonical-weapons.json matches source of truth")
+        print("CONTENT INTEGRITY: Description text matches specials loadout")
+        print(f"{'─' * 80}")
+        
+        sp = audit_specials_vs_desc()
+        for d in sp['details']:
+            print(f"  {d}")
+        print(f"\n  Result: {sp['pass']} vehicles clean, {sp['warn']} warnings")
+        if sp['warn'] > 0:
+            exit_code = max(exit_code, 2)
+        
+        # IP Compliance
+        print(f"\n{'─' * 80}")
+        print("IP COMPLIANCE: No SFC or Pinnacle content in descriptions")
+        print(f"{'─' * 80}")
+        
+        ip = audit_ip_compliance()
+        for d in ip['details']:
+            print(f"  {d}")
+        if ip['warn'] == 0:
+            print(f"  ✓ {ip['pass']} packs clean — no IP issues found")
+        else:
+            print(f"\n  Result: {ip['warn']} warnings")
+            exit_code = max(exit_code, 2)
+        
+        # Canonical Backups
+        print(f"\n{'─' * 80}")
+        print("CANONICAL BACKUPS: Weapon and vehicle backups match source of truth")
         print(f"{'─' * 80}")
         
         cb = audit_canonical_backup(weapons)
         for d in cb['details']:
             print(f"  {d}")
         if cb['fail'] > 0:
+            exit_code = max(exit_code, 2)
+        
+        vb = audit_vehicle_backup()
+        for d in vb['details']:
+            print(f"  {d}")
+        if vb['fail'] > 0:
             exit_code = max(exit_code, 2)
     
     # ── SUMMARY ──

@@ -149,7 +149,7 @@
     {
       "name": "Elven Windrunner",
       "desc": "A living vessel \u2014 her hull grows, her sails breathe, and her keel feels the currents of the upper atmosphere the way a fish feels the sea. She's silent, she's fast, and she moves through cloud cover as though it weren't there. Elven crews claim she has a soul. They may not be wrong.",
-      "notes": "The windrunner is your stealth and speed vessel. She's invisible in cloud cover, silent at all speeds, and her organic hull self-repairs minor damage over time. Use her for special operations \u2014 reconnaissance, infiltration, and surgical strikes against targets the main fleet can't reach quietly.",
+      "notes": "The windrunner is your silent and swift vessel. She's invisible in cloud cover, silent at all speeds, and her organic hull self-repairs minor damage over time. Use her for special operations \u2014 reconnaissance, infiltration, and surgical strikes against targets the main fleet can't reach quietly.",
       "image": "",
       "size": 10,
       "loco": "water_sail",

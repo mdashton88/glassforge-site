@@ -68,7 +68,10 @@
       "armourLevel": 4,
       "speedLevel": -2,
       "handlingLevel": -3,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "heavy_armor"
+      ]
     },
     {
       "name": "Super Dreadnought",

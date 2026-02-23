@@ -35,7 +35,10 @@
       "armourLevel": 0,
       "speedLevel": 3,
       "handlingLevel": 3,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "stealth"
+      ]
     },
     {
       "name": "AH-64D Apache",
@@ -128,7 +131,10 @@
       "armourLevel": 0,
       "speedLevel": 2,
       "handlingLevel": 2,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "stealth"
+      ]
     },
     {
       "name": "Su-57 Felon",
@@ -157,7 +163,10 @@
       "armourLevel": 0,
       "speedLevel": 3,
       "handlingLevel": 2,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "stealth"
+      ]
     },
     {
       "name": "MiG-29 Fulcrum",
@@ -224,7 +233,7 @@
     {
       "name": "Eurofighter Typhoon",
       "desc": "Europe's multi-role fighter. Delta-canard configuration, supercruise capability, and the latest European missile systems. She's designed to do everything \u2014 air superiority, ground attack, maritime strike \u2014 and she does all of it competently without excelling at any single mission.",
-      "notes": "The Typhoon is your NATO European fighter. She's a generation behind the F-22 in stealth but competitive in manoeuvrability and sensors. Use her for European theatre scenarios where the players are flying NATO aircraft that aren't American. She pairs well with F-35s in a high-low mix.",
+      "notes": "The Typhoon is your NATO European fighter. She's a generation behind the F-22 in low observability but competitive in manoeuvrability and sensors. Use her for European theatre scenarios where the players are flying NATO aircraft that aren't American. She pairs well with F-35s in a high-low mix.",
       "image": "",
       "size": 7,
       "loco": "jet",

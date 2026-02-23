@@ -27,7 +27,10 @@
       "armourLevel": -4,
       "speedLevel": 1,
       "handlingLevel": 2,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "shallow_draft"
+      ]
     },
     {
       "name": "Snekkja",
@@ -98,7 +101,7 @@
     },
     {
       "name": "Byzantine Chelandion",
-      "desc": "The warship of the Eastern Roman Empire, equipped with the most devastating naval weapon of the medieval world: Greek fire. A pressurised siphon mounted at the bow sprays liquid flame across the water's surface. It burns on contact with water. It cannot be extinguished.",
+      "desc": "The warship of the Eastern Roman Empire, equipped with the most devastating naval weapon of the medieval world: Greek fire. a pumped siphon mounted at the bow sprays liquid flame across the water's surface. It burns on contact with water. It cannot be extinguished.",
       "notes": "Greek fire is terrifying and should be treated as such. The flame projector uses the Cone Template and ignores Waterborne protection. Wooden longships burn beautifully. Use the chelandion as the reason the Vikings don't just sail into Constantinople \u2014 they tried once, and the survivors never forgot.",
       "image": "",
       "size": 11,
@@ -206,7 +209,7 @@
     },
     {
       "name": "Currach",
-      "desc": "A small boat of wicker frame covered in animal hide, sealed with tallow. The Irish monks sailed these across the North Atlantic centuries before the Vikings. She's barely a vessel by warship standards, but she's light enough for two men to carry overland between rivers.",
+      "desc": "A small boat of wicker frame covered in animal hide, waterproofed with tallow. The Irish monks sailed these across the North Atlantic centuries before the Vikings. She's barely a vessel by warship standards, but she's light enough for two men to carry overland between rivers.",
       "notes": "The currach is your stealth insertion vehicle. She's invisible against a dark coastline, draws almost no water, and can be portaged overland. Use her for infiltration, scouting, or escape \u2014 the players abandon their longship to pursue someone up a river too shallow for the drekar, and the only vessel that fits is this ridiculous little hide boat.",
       "image": "",
       "size": 3,

@@ -181,7 +181,8 @@
       "woundsLevel": 0,
       "specials": [
         "open_top",
-        "all_terrain"
+        "all_terrain",
+        "unreliable"
       ]
     },
     {
@@ -227,7 +228,10 @@
       "armourLevel": 1,
       "speedLevel": -1,
       "handlingLevel": -2,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "unreliable"
+      ]
     }
   ]
 }

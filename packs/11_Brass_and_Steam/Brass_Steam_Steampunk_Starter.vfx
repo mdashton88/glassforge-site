@@ -60,7 +60,7 @@
     {
       "name": "Ornithopter",
       "desc": "Mechanical wings that beat like a bird's, driven by a compact steam engine and the optimistic calculations of an inventor who may have underestimated gravity. She flies \u2014 barely \u2014 and her pilot controls her through a combination of pedals, levers, and prayer.",
-      "notes": "The ornithopter is your steampunk aircraft. She's unreliable \u2014 Piloting checks are harder than for conventional aircraft because the controls are temperamental. She's also quiet compared to propeller aircraft, which gives her a stealth advantage.",
+      "notes": "The ornithopter is your steampunk aircraft. She's unreliable \u2014 Piloting checks are harder than for conventional aircraft because the controls are temperamental. She's also quiet compared to propeller aircraft, which gives her a noise advantage.",
       "image": "",
       "size": 4,
       "loco": "vtol",
@@ -76,7 +76,11 @@
       "armourLevel": -3,
       "speedLevel": -2,
       "handlingLevel": 1,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "temperamental",
+        "unreliable"
+      ]
     },
     {
       "name": "Ironclad Monitor",
@@ -178,7 +182,8 @@
       "specials": [
         "enclosed",
         "loud",
-        "temperamental"
+        "temperamental",
+        "unreliable"
       ]
     },
     {

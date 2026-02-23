@@ -192,7 +192,10 @@
       "armourLevel": 1,
       "speedLevel": -1,
       "handlingLevel": -2,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "amphibious"
+      ]
     },
     {
       "name": "Monitor",
@@ -249,7 +252,10 @@
       "armourLevel": -1,
       "speedLevel": 1,
       "handlingLevel": 1,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "stealth"
+      ]
     },
     {
       "name": "EW Ship",

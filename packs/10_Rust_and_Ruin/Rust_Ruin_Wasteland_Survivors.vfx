@@ -85,7 +85,8 @@
       "woundsLevel": 0,
       "specials": [
         "open_top",
-        "temperamental"
+        "temperamental",
+        "unreliable"
       ]
     },
     {
@@ -147,7 +148,10 @@
       "armourLevel": 0,
       "speedLevel": -2,
       "handlingLevel": -1,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "unreliable"
+      ]
     },
     {
       "name": "River Barge (Armoured)",
@@ -173,7 +177,7 @@
     {
       "name": "Pedal-Powered Cart",
       "desc": "A cart driven by pedal power \u2014 human legs turning a chain drive connected to wheels. She costs no fuel, she makes no noise, and she moves at whatever speed the rider's legs can sustain. She's the ultimate low-tech transport.",
-      "notes": "The pedal cart is your zero-fuel stealth vehicle. She's silent, which matters when engine noise attracts raiders. Use her for covert supply runs, scouting missions, and any scenario where fuel is unavailable. The rider's Vigor determines range.",
+      "notes": "The pedal cart is your zero-fuel silent vehicle. She's silent, which matters when engine noise attracts raiders. Use her for covert supply runs, scouting missions, and any scenario where fuel is unavailable. The rider's Vigor determines range.",
       "image": "",
       "size": 2,
       "loco": "wheeled",
@@ -213,7 +217,10 @@
       "armourLevel": 1,
       "speedLevel": -1,
       "handlingLevel": -2,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "unreliable"
+      ]
     }
   ]
 }

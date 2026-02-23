@@ -27,7 +27,10 @@
       "armourLevel": -1,
       "speedLevel": 2,
       "handlingLevel": 3,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "stealth"
+      ]
     },
     {
       "name": "Striker Mech",
@@ -115,7 +118,10 @@
       "armourLevel": 2,
       "speedLevel": -1,
       "handlingLevel": -1,
-      "woundsLevel": 0
+      "woundsLevel": 0,
+      "specials": [
+        "heavy_armor"
+      ]
     },
     {
       "name": "Missile Boat",
