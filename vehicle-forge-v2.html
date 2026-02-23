@@ -136,10 +136,28 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .si-delete:hover{color:var(--red-bright)}.si-badge{font-size:11px;padding:1px 5px;border-radius:2px;font-weight:700;letter-spacing:0.5px;white-space:nowrap}
 .si-badge.canon{background:var(--accent);color:var(--bg-deep)}.si-badge.user{background:var(--green);color:var(--bg-deep)}
 .si-lock{color:var(--accent-dim);font-size:12px;margin-left:4px}.si-pack{font-size:12px;color:var(--text-dim);font-style:italic}
-.hangar-tab{background:var(--bg-deep);border:1px solid var(--border);color:var(--text-dim);padding:4px 10px;font-size:13px;cursor:pointer;flex:1;text-align:center;font-family:inherit;border-radius:3px}
+.hangar-tab{background:var(--bg-deep);border:1px solid var(--border);color:var(--text-dim);padding:4px 10px;font-size:12px;cursor:pointer;text-align:center;font-family:inherit;border-radius:3px;white-space:nowrap}
 .hangar-tab:hover{border-color:var(--accent-dim);color:var(--text)}.hangar-tab.active{border-color:var(--accent);color:var(--accent);background:rgba(196,164,74,0.08)}
-.hangar-group{margin-bottom:8px}.hangar-group-head{font-size:13px;color:var(--accent);padding:4px 0;font-weight:600;cursor:pointer;user-select:none}
-.hangar-group-head:hover{color:var(--accent-bright)}.hangar-count{font-size:13px;color:var(--text-dim);padding:2px 8px}
+.hangar-toolbar{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.hangar-select{background:var(--bg-deep);border:1px solid var(--border);color:var(--text-dim);padding:4px 8px;font-size:12px;font-family:inherit;border-radius:3px;cursor:pointer;min-width:100px}
+.hangar-select:focus{border-color:var(--accent);color:var(--text);outline:none}
+.hangar-count-bar{font-size:12px;color:var(--text-dim);padding:0 0 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
+.hangar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;outline:none}
+.hangar-card{background:var(--bg-deep);border:1px solid var(--border);padding:10px;cursor:pointer;transition:border-color .12s,background .12s;position:relative;min-height:72px}
+.hangar-card:hover{border-color:var(--accent-dim);background:rgba(196,164,74,0.04)}
+.hangar-card.selected{border-color:var(--accent);background:rgba(196,164,74,0.1);box-shadow:0 0 0 1px var(--accent)}
+.hangar-card .hc-name{font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:var(--text-bright);line-height:1.3;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hangar-card .hc-meta{font-size:11px;color:var(--text-dim);line-height:1.4}
+.hangar-card .hc-class{position:absolute;top:6px;right:8px;font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--accent)}
+.hangar-card .hc-badge{display:inline-block;font-size:9px;padding:1px 4px;border-radius:2px;font-weight:700;letter-spacing:.5px}
+.hc-badge.canon{background:rgba(196,164,74,0.15);color:var(--accent)}.hc-badge.user{background:rgba(100,200,100,0.15);color:var(--green)}
+.hangar-card .hc-actions{position:absolute;bottom:6px;right:8px;display:none}
+.hangar-card:hover .hc-actions{display:flex;gap:4px}
+.hc-act{background:none;border:1px solid var(--border);color:var(--text-dim);padding:2px 6px;font-size:11px;cursor:pointer;font-family:inherit;border-radius:2px}
+.hc-act:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:1200px){.hangar-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){.hangar-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.hangar-grid{grid-template-columns:1fr}}
 .empty-state{text-align:center;color:var(--text-dim);padding:20px;font-style:italic}
 .stat-block{background:var(--bg-deep);border:1px solid var(--border);padding:20px;font-size:15px;line-height:1.5}
 .sb-name{font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:2px}
@@ -287,15 +305,19 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
     </div>
     <div class="panel active" id="panel-output"><div id="outputContent"></div></div>
     <div class="panel" id="panel-hangar">
-      <div style="max-width:900px">
-        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
-          <input type="text" class="search-bar" id="hangarSearch" placeholder="Search vehicles by name, type, or pack..." oninput="renderSaved()" style="flex:1;margin:0">
+      <div class="hangar-toolbar">
+        <input type="text" class="search-bar" id="hangarSearch" placeholder="Search vehicles..." oninput="renderSaved()" style="flex:2;margin:0;min-width:160px">
+        <select id="hangarFilterSize" onchange="renderSaved()" class="hangar-select"><option value="">All Sizes</option><option value="Normal">Normal (1–3)</option><option value="Large">Large (4–7)</option><option value="Huge">Huge (8–11)</option><option value="Gargantuan">Gargantuan (12+)</option></select>
+        <select id="hangarFilterClass" onchange="renderSaved()" class="hangar-select"><option value="">All Classes</option></select>
+        <select id="hangarFilterLoco" onchange="renderSaved()" class="hangar-select"><option value="">All Types</option></select>
+        <div style="display:flex;gap:2px">
           <button class="hangar-tab active" id="hangarTabAll" onclick="setHangarTab('all')">All</button>
-          <button class="hangar-tab" id="hangarTabCanon" onclick="setHangarTab('canon')">DF Canon</button>
-          <button class="hangar-tab" id="hangarTabMine" onclick="setHangarTab('mine')">My Vehicles</button>
+          <button class="hangar-tab" id="hangarTabCanon" onclick="setHangarTab('canon')">Canon</button>
+          <button class="hangar-tab" id="hangarTabMine" onclick="setHangarTab('mine')">Mine</button>
         </div>
-        <div id="savedList"></div>
       </div>
+      <div class="hangar-count-bar" id="hangarCountBar"></div>
+      <div class="hangar-grid" id="savedList" tabindex="0"></div>
     </div>
     <div class="panel" id="panel-help"><div style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="search-bar help-search" id="helpSearch" placeholder="Search reference guide..." oninput="filterHelp()" style="flex:1;margin:0"><button class="btn" onclick="popOutHelp()" title="Open in new window" style="white-space:nowrap;padding:6px 14px">⧉ Pop Out</button></div><div id="helpContent"></div></div>
     <div class="panel" id="panel-settings">
@@ -1267,7 +1289,7 @@ function filterHelp(){var q=(document.getElementById('helpSearch').value||'').to
     s.style.display=tags.indexOf(q)>=0?'':'none'})}
 
 // ═══ TABS, SAVE/LOAD, UTILS ═══
-function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput();if(tab==='hangar')renderSaved();updateContext(tab)}
+function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput();if(tab==='hangar'){initHangarFilters();renderSaved()}updateContext(tab)}
 function switchSidebarTab(tab){document.querySelectorAll('.sidebar-tab').forEach(function(t){t.classList.toggle('active',t.dataset.stab===tab)});document.querySelectorAll('.sidebar-panel').forEach(function(p){p.classList.toggle('active',p.id==='spanel-'+tab)})}
 function updateContext(tab){
   var sections=['ctx-stats','ctx-mods','ctx-weapons','ctx-specials','ctx-export'];
@@ -1389,51 +1411,85 @@ function save(){localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))}
 function deleteSaved(i){if(isCanon(S.saved[i])){alert('Cannot delete DF Canon vehicles.\nUninstall the pack via ⚙ Extensions to remove them.');return}Audio.remove();S.saved.splice(i,1);save();renderSaved()}
 var hangarTab='all';
 var collapsedGroups={};
+var hangarSel=-1;var hangarItems=[];
 function setHangarTab(tab){hangarTab=tab;
   document.querySelectorAll('.hangar-tab').forEach(function(t){t.classList.remove('active')});
   document.getElementById('hangarTab'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
   renderSaved()}
 function isCanon(v){return !!v._pack}
 function getPackName(v){if(!v._pack)return null;var ext=extensions.find(function(e){return e.id===v._pack});return ext?ext.name:v._pack}
-function toggleGroup(key){collapsedGroups[key]=!collapsedGroups[key];renderSaved()}
-
+function initHangarFilters(){
+  var cs=document.getElementById('hangarFilterClass');if(!cs)return;
+  var letters=['A','B','C','D','E','F','G'];
+  cs.innerHTML='<option value="">All Classes</option>';
+  letters.forEach(function(l){cs.innerHTML+='<option value="'+l+'">Class '+l+' ('+sfcNumeral({A:5,B:20,C:30,D:40,E:50,F:60,G:70}[l])+')</option>'});
+  var ls=document.getElementById('hangarFilterLoco');if(!ls)return;
+  ls.innerHTML='<option value="">All Types</option>';
+  var groups={};LOCOS.forEach(function(l){var g=l.group;if(!groups[g])groups[g]=[];groups[g].push(l)});
+  Object.keys(groups).forEach(function(g){groups[g].forEach(function(l){ls.innerHTML+='<option value="'+l.id+'">'+l.name+'</option>'})})
+}
 function renderSaved(){var list=document.getElementById('savedList');
   var countEl=document.getElementById('hangarTabCount');
   if(countEl)countEl.textContent='('+S.saved.length+')';
   if(!list)return;
   var q=(document.getElementById('hangarSearch')||{}).value||'';q=q.toLowerCase();
+  var fSize=(document.getElementById('hangarFilterSize')||{}).value||'';
+  var fClass=(document.getElementById('hangarFilterClass')||{}).value||'';
+  var fLoco=(document.getElementById('hangarFilterLoco')||{}).value||'';
   var items=S.saved.map(function(s,i){return{v:s,idx:i}});
   if(hangarTab==='canon')items=items.filter(function(o){return isCanon(o.v)});
   if(hangarTab==='mine')items=items.filter(function(o){return !isCanon(o.v)});
   if(q)items=items.filter(function(o){var hay=(o.v.name+' '+(o.v.desc||'')+' '+(getPackName(o.v)||'')+' '+(LOCOS.find(function(l){return l.id===o.v.loco})||{}).name).toLowerCase();return hay.indexOf(q)>=0});
+  if(fSize)items=items.filter(function(o){return getFrame(o.v.size).cat===fSize});
+  if(fClass)items=items.filter(function(o){return classLetter(calcTotalToughFor(o.v))===fClass});
+  if(fLoco)items=items.filter(function(o){return o.v.loco===fLoco});
+  hangarItems=items;hangarSel=-1;
+  var bar=document.getElementById('hangarCountBar');
+  if(bar)bar.textContent=items.length+' vehicle'+(items.length!==1?'s':'')+' found'+(q?' for "'+q+'"':'');
   if(!items.length){
-    var msg=q?'No vehicles match "'+esc(q)+'".':(hangarTab==='canon'?'No DF Canon vehicles installed. Use ⚙ Extensions to install .vfx packs.':(hangarTab==='mine'?'No custom vehicles yet. Build one and hit Save!':'No saved vehicles. Build one or install a .vfx pack.'));
-    list.innerHTML='<div class="empty-state" style="padding:16px;text-align:center;color:var(--text-dim);font-size:14px">'+msg+'</div>';return}
-  var groups={};items.forEach(function(o){var key=isCanon(o.v)?(getPackName(o.v)||'DF Canon'):'My Vehicles';if(!groups[key])groups[key]=[];groups[key].push(o)});
-  var sortedKeys=Object.keys(groups).sort(function(a,b){if(a==='My Vehicles')return -1;if(b==='My Vehicles')return 1;return a.localeCompare(b)});
-  var html='<div class="hangar-count">'+items.length+' vehicle'+(items.length!==1?'s':'')+'</div>';
-  sortedKeys.forEach(function(key){
-    var collapsed=collapsedGroups[key];var gItems=groups[key];
-    var isUser=key==='My Vehicles';
-    html+='<div class="hangar-group">';
-    html+='<div class="hangar-group-head" role="button" tabindex="0" onclick="toggleGroup(\''+key.replace(/'/g,"\\'")+'\')" style="border-left:3px solid '+(isUser?'var(--green)':'var(--accent)')+';padding-left:6px">';
-    html+=(collapsed?'▸ ':'▾ ')+esc(key)+' <span style="font-weight:400;color:var(--text-dim)">('+gItems.length+')</span></div>';
-    if(!collapsed){gItems.forEach(function(o){
-      var s=o.v;var i=o.idx;var canon=isCanon(s);var loco=LOCOS.find(function(l){return l.id===s.loco});
-      html+='<div role="button" tabindex="0" class="saved-item '+(canon?'canon':'user')+'" onclick="loadVehicle('+i+')">';
-      html+='<div style="flex:1;min-width:0">';
-      html+='<div class="si-name">'+esc(s.name);
-      if(canon)html+=' <span class="si-lock" title="DF Canon \u2014 clone to edit">🔒</span>';
-      html+='</div>';
-      html+='<div class="si-chassis">Size '+s.size+' '+(loco?loco.name:'');
-      if(canon)html+=' \u2014 <span class="si-badge canon">DF</span>';
-      else html+=' \u2014 <span class="si-badge user">MINE</span>';
-      html+='</div></div>';
-      if(canon){html+='<button class="si-delete" onclick="event.stopPropagation();cloneCanon('+i+')" title="Clone to My Vehicles" style="color:var(--green);font-size:13px">Clone</button>'}
-      else{html+='<button class="si-delete" onclick="event.stopPropagation();deleteSaved('+i+')" title="Delete">&times;</button>'}
-      html+='</div>'})}
-    html+='</div>'});
-  list.innerHTML=html}
+    var msg=q?'No vehicles match "'+esc(q)+'".':(hangarTab==='canon'?'No canon vehicles. Install .vfx packs via Extensions.':(hangarTab==='mine'?'No custom vehicles yet.':'No vehicles. Build one or install a pack.'));
+    list.innerHTML='<div class="empty-state">'+msg+'</div>';return}
+  var html='';items.forEach(function(o,fi){
+    var s=o.v;var i=o.idx;var canon=isCanon(s);var loco=LOCOS.find(function(l){return l.id===s.loco});
+    var cls=vehicleClassFor(s);var sfc=sfcNumeral(calcTotalToughFor(s));
+    var cat=getFrame(s.size).cat;
+    html+='<div class="hangar-card" data-fi="'+fi+'" onclick="selectHangarCard('+fi+')" ondblclick="loadFromHangar('+i+')">';
+    html+='<div class="hc-class" title="Class '+cls+' ('+sfc+')">'+cls+'</div>';
+    html+='<div class="hc-name" title="'+esc(s.name)+'">'+esc(s.name)+'</div>';
+    html+='<div class="hc-meta">Size '+s.size+' '+cat+'</div>';
+    html+='<div class="hc-meta">'+(loco?loco.name:'Unknown')+'</div>';
+    html+='<div class="hc-meta" style="margin-top:3px">';
+    if(canon)html+='<span class="hc-badge canon">CANON</span>';
+    else html+='<span class="hc-badge user">MINE</span>';
+    html+='</div>';
+    html+='<div class="hc-actions">';
+    if(canon)html+='<button class="hc-act" onclick="event.stopPropagation();cloneCanon('+i+')" title="Clone">Clone</button>';
+    else html+='<button class="hc-act" onclick="event.stopPropagation();deleteSaved('+i+')" title="Delete">✕</button>';
+    html+='</div></div>'});
+  list.innerHTML=html;
+  list.focus()}
+
+function selectHangarCard(fi){
+  hangarSel=fi;
+  document.querySelectorAll('.hangar-card').forEach(function(c,j){c.classList.toggle('selected',j===fi)});
+  var item=hangarItems[fi];if(item)previewVehicle(item.idx);
+  var card=document.querySelector('.hangar-card[data-fi="'+fi+'"]');
+  if(card)card.scrollIntoView({block:'nearest'})}
+
+function previewVehicle(i){
+  var d=S.saved[i];if(!d)return;
+  S.name=d.name;S.desc=d.desc||'';S.notes=d.notes||'';S.image=d.image||'';S.size=d.size;S.loco=d.loco;
+  S.mods=JSON.parse(JSON.stringify(d.mods));S.weapons=JSON.parse(JSON.stringify(d.weapons));
+  S.toughLevel=d.toughLevel||0;S.armourLevel=d.armourLevel||0;S.speedLevel=d.speedLevel||0;
+  S.handlingLevel=d.handlingLevel||0;S.woundsLevel=d.woundsLevel||0;S.crewLevel=d.crewLevel||0;
+  S.passengers=d.passengers||0;S.mphOverride=d.mphOverride||0;S.specials=d.specials||[];S.customSpecial=d.customSpecial||'';
+  S._loadedCanon=isCanon(d);S._loadedIdx=i;
+  document.getElementById('vName').value=S.name;document.getElementById('vDesc').value=S.desc;document.getElementById('vNotes').value=S.notes;
+  document.getElementById('sizeSlider').value=S.size;showImage();
+  renderLocoGrid();renderSliders();renderStats();renderFrameInfo()}
+
+function loadFromHangar(i){Audio.clunk();previewVehicle(i);switchTab('output');renderAll()}
+function loadVehicle(i){Audio.clunk();previewVehicle(i);switchTab('output');renderAll()}
 
 function cloneCanon(i){Audio.click();var src=S.saved[i];if(!src)return;
   var clone=JSON.parse(JSON.stringify(src));
@@ -1441,24 +1497,18 @@ function cloneCanon(i){Audio.click();var src=S.saved[i];if(!src)return;
   S.saved.push(clone);save();renderSaved();
   alert('Cloned "'+src.name+'" to My Vehicles.\nThe clone is fully editable.')}
 
-function loadVehicle(i){Audio.clunk();var d=S.saved[i];
-  switchTab('output');
-  if(isCanon(d)){
-    S.name=d.name;S.desc=d.desc||'';S.notes=d.notes||'';S.image=d.image||'';S.size=d.size;S.loco=d.loco;
-    S.mods=JSON.parse(JSON.stringify(d.mods));S.weapons=JSON.parse(JSON.stringify(d.weapons));
-    S.toughLevel=d.toughLevel||0;S.armourLevel=d.armourLevel||0;S.speedLevel=d.speedLevel||0;
-    S.handlingLevel=d.handlingLevel||0;S.woundsLevel=d.woundsLevel||0;S.crewLevel=d.crewLevel||0;S.passengers=d.passengers||0;S.mphOverride=d.mphOverride||0;S.specials=d.specials||[];S.customSpecial=d.customSpecial||'';
-    S._loadedCanon=true;S._loadedIdx=i;
-    document.getElementById('vName').value=S.name;document.getElementById('vDesc').value=S.desc;document.getElementById('vNotes').value=S.notes;
-    document.getElementById('sizeSlider').value=S.size;showImage();renderAll();
-    return}
-  S._loadedCanon=false;S._loadedIdx=i;
-  S.name=d.name;S.desc=d.desc||'';S.notes=d.notes||'';S.image=d.image||'';S.size=d.size;S.loco=d.loco;
-  S.mods=JSON.parse(JSON.stringify(d.mods));S.weapons=JSON.parse(JSON.stringify(d.weapons));
-  S.toughLevel=d.toughLevel||0;S.armourLevel=d.armourLevel||0;S.speedLevel=d.speedLevel||0;
-  S.handlingLevel=d.handlingLevel||0;S.woundsLevel=d.woundsLevel||0;S.crewLevel=d.crewLevel||0;S.passengers=d.passengers||0;S.mphOverride=d.mphOverride||0;S.specials=d.specials||[];S.customSpecial=d.customSpecial||'';
-  document.getElementById('vName').value=S.name;document.getElementById('vDesc').value=S.desc;document.getElementById('vNotes').value=S.notes;
-  document.getElementById('sizeSlider').value=S.size;showImage();renderAll()}
+document.addEventListener('keydown',function(e){
+  var list=document.getElementById('savedList');
+  if(!list||!list.closest('.panel.active')||!hangarItems.length)return;
+  if(document.activeElement&&(document.activeElement.tagName==='INPUT'||document.activeElement.tagName==='SELECT'||document.activeElement.tagName==='TEXTAREA'))return;
+  var cols=4;var w=list.offsetWidth;if(w<600)cols=1;else if(w<900)cols=2;else if(w<1200)cols=3;
+  var max=hangarItems.length-1;var cur=hangarSel;var moved=false;
+  if(e.key==='ArrowRight'){cur=Math.min(max,cur+1);moved=true}
+  else if(e.key==='ArrowLeft'){cur=Math.max(0,cur-1);moved=true}
+  else if(e.key==='ArrowDown'){cur=Math.min(max,cur+cols);moved=true}
+  else if(e.key==='ArrowUp'){cur=Math.max(0,cur-cols);moved=true}
+  else if(e.key==='Enter'&&cur>=0){var item=hangarItems[cur];if(item)loadFromHangar(item.idx);e.preventDefault();return}
+  if(moved){e.preventDefault();selectHangarCard(cur)}})
 
 function fmtN(n){return n.toLocaleString()}
 function fmtC(n){if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(n%1e6===0?0:2)+'M';if(n>=1e3)return(n/1e3).toFixed(n%1e3===0?0:1)+'K';return n.toString()}
