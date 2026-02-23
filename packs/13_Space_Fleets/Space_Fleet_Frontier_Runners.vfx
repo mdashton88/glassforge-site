@@ -1,0 +1,116 @@
+{
+  "id":"space-fleet-frontier-runners",
+  "name":"Space Fleets — Frontier Runners",
+  "version":"1.0",
+  "publisher":"DiceForge Studios Ltd.",
+  "description":"10 vehicles — The ships of the frontier: tramp freighters running cargo between backwater colonies, bounty hunters stalking their marks, and lawmen too far from civilisation to call for backup.",
+  "weapons":[],
+  "mods":[],
+  "specials":[],
+  "vehicles":[
+    {
+      "name":"Tramp Freighter",
+      "desc":"She's been flying for forty years, through six owners, three wars, and an engine rebuild that used parts from two different manufacturers. The cargo hold smells of everything she's ever carried, the nav computer crashes during hard burns, and the captain's chair has a spring that catches you if you sit down wrong. But she's home, and she's paid for, and she'll get you where you're going if you treat her right.",
+      "notes":"The classic crew ship. Room for 6-8 in crew quarters. Plenty of hidden compartments.",
+      "size":10,"loco":"space_ftl",
+      "toughLevel":-1,"armourLevel":-1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Bounty Hunter Ship",
+      "desc":"Single-occupant pursuit vessel modified far beyond factory spec. The cockpit is a nest of aftermarket displays, the engines have been bored out to redline tolerances, and the weapon systems were installed by someone who prioritised firepower over safety margins. She's got a holding cell where the cargo bay used to be and a reputation that arrives before she does.",
+      "notes":"Solo operator ship. Holding cell for 2-3 prisoners. Sensor suite for tracking.",
+      "size":7,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":2,"handlingLevel":2,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"fixed","linked":0},
+        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Frontier Patrol Cutter",
+      "desc":"Government vessel assigned to police the shipping lanes between colony worlds. She's fast enough to catch smugglers, armed enough to discourage pirates, and carries a squad of marshals for boarding operations. Her crew rotates every six months because longer postings on the frontier tend to erode a person's commitment to the letter of the law.",
+      "notes":"Law enforcement. Boarding capability. Scanning equipment.",
+      "size":8,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":2,"handlingLevel":1,"woundsLevel":0,"crewLevel":-2,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Cattle Barge",
+      "desc":"Ugly, slow, and indispensable. She carries livestock, terraforming supplies, prefab housing, and anything else the frontier colonies need to survive. Her hold is cavernous and her crew is small — four people rattling around in a ship designed for cargo, not comfort. Pirates love her because she can't run and can barely shoot back. Her insurance premiums are astronomical.",
+      "notes":"Heavy cargo hauler. Minimal armament. Slow but enormous cargo capacity.",
+      "size":14,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":-2,"handlingLevel":-2,"woundsLevel":0,"crewLevel":-9,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Salvage Tug",
+      "desc":"Stubby, powerful vessel built around oversized engines and a towing rig capable of hauling derelict ships back to port. Her crew are part engineer, part treasure hunter, and part gravedigger. The frontier is littered with wrecks, and someone has to strip them before they become navigation hazards. The work is dangerous, occasionally haunted, and surprisingly profitable.",
+      "notes":"Salvage and towing capability. Cutting tools can be weaponised in desperation.",
+      "size":8,"loco":"space_ftl",
+      "toughLevel":1,"armourLevel":0,"speedLevel":-1,"handlingLevel":-1,"woundsLevel":0,"crewLevel":-2,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_light","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Luxury Yacht (Modified)",
+      "desc":"Someone with too much money bought a pleasure craft and then paid someone with too many guns to make it dangerous. The hull is polished chrome over concealed armour plating, the weapons fold out from behind decorative panels, and the master suite has a panic room with its own escape pod. She's the ship of a person who made enemies on their way to the top and intends to stay there.",
+      "notes":"Concealed weapons. Looks civilian on scanners until it's too late.",
+      "size":9,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":1,"speedLevel":1,"handlingLevel":1,"woundsLevel":0,"crewLevel":-2,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"turret","linked":0},
+        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Colony Transport",
+      "desc":"Massive settlement ship carrying everything a new colony needs: people, livestock, seed stock, prefabricated structures, and enough supplies to survive the first year. She makes the crossing once, lands, and her hull becomes the colony's first permanent structure. Her crew knows they're not going home. Most of them are fine with that — they didn't have much to go back to.",
+      "notes":"One-way trip. Carries 200-500 colonists plus equipment. Minimal self-defence.",
+      "size":18,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":-2,"handlingLevel":-3,"woundsLevel":0,"crewLevel":55,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Racer",
+      "desc":"Custom-built speed machine stripped of everything that isn't engine, cockpit, or fuel. She's not legal in most systems, can't carry cargo, and her life support runs out after forty-eight hours. But she's the fastest thing in the sector that doesn't have a military transponder, and her pilot knows it. Used for illegal racing, urgent courier runs, and the kind of getaways that become stories.",
+      "notes":"Extremely fast. No cargo capacity. Limited life support.",
+      "size":5,"loco":"space_ftl",
+      "toughLevel":-3,"armourLevel":-2,"speedLevel":4,"handlingLevel":3,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    },
+    {
+      "name":"Merc Gunship",
+      "desc":"Mercenary combat vessel crewed by professionals who fight for money and are very good at their job. She's well-maintained, well-armed, and carries a platoon of experienced soldiers for ground operations. Her captain negotiates contracts with the pragmatism of a businessman and executes them with the precision of a surgeon. Loyalty lasts exactly as long as the retainer.",
+      "notes":"Mercenary vessel. Ground troop capability. Professional crew.",
+      "size":12,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":1,"speedLevel":1,"handlingLevel":0,"woundsLevel":0,"crewLevel":-11,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Frontier Station",
+      "desc":"Orbital waystation anchored above a colony world, serving as trading post, fuel depot, customs checkpoint, and the closest thing to civilisation for three parsecs in any direction. She's been expanded piecemeal over decades — docking rings welded to habitat modules bolted to a reactor core that was old when the colony was founded. The bar on deck seven serves the worst whiskey in known space. Everyone drinks there anyway.",
+      "notes":"Stationary. Trading post and refuelling station. Minimal armament.",
+      "size":16,"loco":"none",
+      "toughLevel":1,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-10,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    }
+  ]
+}

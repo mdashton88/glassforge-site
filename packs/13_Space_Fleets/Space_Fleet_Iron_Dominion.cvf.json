@@ -1,0 +1,132 @@
+{
+  "id":"space-fleet-iron-dominion",
+  "name":"Space Fleets — Iron Dominion",
+  "version":"1.0",
+  "publisher":"DiceForge Studios Ltd.",
+  "description":"10 vehicles — The vast military machine of an interstellar tyranny. Expendable fighters, brutal gunships, and capital ships designed to project terror as much as firepower.",
+  "weapons":[],
+  "mods":[],
+  "specials":[],
+  "vehicles":[
+    {
+      "name":"Swarm Fighter",
+      "desc":"Mass-produced interceptor designed around a single philosophy: quantity has a quality all its own. No shields, no hyperdrive, no ejection seat. The cockpit is a coffin with a viewport and twin cannons. Pilots are cheaper than the fighters, and the admiralty treats both as ammunition.",
+      "notes":"Expendable. No FTL — must be deployed from carriers. Terrifying in large numbers.",
+      "size":4,"loco":"space_thruster",
+      "toughLevel":-2,"armourLevel":-2,"speedLevel":3,"handlingLevel":2,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_light","mount":"fixed","linked":1}
+      ]
+    },
+    {
+      "name":"Advanced Interceptor",
+      "desc":"Elite variant of the standard swarm fighter, fitted with shields and a hyperdrive for aces who've survived enough engagements to earn preferential treatment. Still a fragile single-seat craft, but she can operate independently and survive a mistake or two. Issued only to squadron leaders and political favourites.",
+      "notes":"Shield-equipped variant. Still small and fragile but self-sufficient.",
+      "size":5,"loco":"space_ftl",
+      "toughLevel":-1,"armourLevel":0,"speedLevel":3,"handlingLevel":3,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_light","mount":"fixed","linked":1},
+        {"weaponId":"missile_micro","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Tactical Bomber",
+      "desc":"Heavy two-seat strike craft designed to deliver ordnance against capital ship targets. Slow and clumsy compared to interceptors, she relies on fighter escort for survival. Her bomb bay carries enough ordinance to cripple a cruiser, and her reinforced hull can absorb punishment that would vaporise a swarm fighter.",
+      "notes":"Capital ship killer. Requires fighter escort. Devastating payload.",
+      "size":7,"loco":"space_thruster",
+      "toughLevel":0,"armourLevel":1,"speedLevel":1,"handlingLevel":0,"woundsLevel":0,"crewLevel":1,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0},
+        {"weaponId":"torpedo_med","mount":"fixed","linked":0},
+        {"weaponId":"torpedo_med","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Imperial Shuttle",
+      "desc":"Armoured command shuttle used by senior officers and political commissars. Wings fold for hangar storage, and the interior is appointed with the quiet luxury that rank demands in an authoritarian regime. Armed well enough to discourage piracy, tough enough to survive an ambush, and carrying enough encrypted communications equipment to coordinate a planetary invasion from the passenger cabin.",
+      "notes":"VIP transport. Heavily armoured for its size. Often carries elite guards.",
+      "size":8,"loco":"space_ftl",
+      "toughLevel":1,"armourLevel":1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-2,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"fixed","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Patrol Corvette",
+      "desc":"Fast pursuit vessel tasked with customs interdiction, anti-piracy patrols, and the suppression of smuggling operations. She's the smallest warship in the imperial fleet that rates a proper captain, and her crew takes a particular pride in running down blockade runners. Carries a platoon of boarding troops and enough firepower to cow most civilian vessels into compliance.",
+      "notes":"Light warship. Boarding capability. Common in occupied systems.",
+      "size":12,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":1,"handlingLevel":1,"woundsLevel":0,"crewLevel":-11,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Imperial Frigate",
+      "desc":"Workhorse warship of the imperial navy. Not glamorous enough for the propaganda holos and not powerful enough to command a sector fleet, but there are thousands of them, and they do the grinding daily work of occupation: convoy escort, orbital bombardment of insurgent positions, fighter suppression over contested worlds. Her crew of two hundred lives in conditions that would embarrass a prison transport.",
+      "notes":"Backbone of the fleet. Heavy firepower for her class.",
+      "size":15,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":1,"speedLevel":1,"handlingLevel":0,"woundsLevel":0,"crewLevel":55,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"laser_med","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Imperial Cruiser",
+      "desc":"Heavy warship and the pride of sector fleet commanders. She carries enough fighters to darken a sky, enough guns to flatten a city, and enough troops to pacify a continent. The dagger-shaped hull is designed to concentrate forward firepower into a devastating alpha strike. Crew conditions are marginally better than the frigate — the officers have windows.",
+      "notes":"Primary capital ship. Fighter complement of 24-36 craft. Orbital bombardment capable.",
+      "size":20,"loco":"space_ftl",
+      "toughLevel":1,"armourLevel":2,"speedLevel":0,"handlingLevel":-1,"woundsLevel":0,"crewLevel":180,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"torpedo_future","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Dreadnought Cruiser",
+      "desc":"Massive warship bristling with turbolaser batteries and capable of engaging multiple capital ships simultaneously. She is the instrument of imperial policy in its crudest form: arrive in orbit, demand surrender, and reduce everything to rubble if the answer is no. Crew of thousands serve in a vessel so large that some never see the hull during their entire posting.",
+      "notes":"Super-capital ship. Overwhelming firepower. Symbol of imperial dominance.",
+      "size":24,"loco":"space_ftl",
+      "toughLevel":3,"armourLevel":3,"speedLevel":-1,"handlingLevel":-3,"woundsLevel":0,"crewLevel":140,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"cannon_superheavy","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Planetary Assault Ship",
+      "desc":"Enormous vessel purpose-built for ground invasion operations. Her cavernous hangar bays carry a full armoured division: tanks, walkers, troop carriers, and close air support. She can hold orbit over a contested world for months, feeding troops and materiel into the meat grinder below while shrugging off anything short of a capital ship engagement.",
+      "notes":"Troop capacity for a full division. Extensive hangar facilities. Slow but very tough.",
+      "size":22,"loco":"space_ftl",
+      "toughLevel":2,"armourLevel":2,"speedLevel":-2,"handlingLevel":-3,"woundsLevel":0,"crewLevel":10,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"missile_med","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Orbital Weapons Platform",
+      "desc":"Fixed defence station positioned at strategic chokepoints and above conquered worlds. No engines, no crew quarters worth mentioning, and no reason to exist except the concentration of as much firepower as possible into the smallest possible target. Automated systems handle most functions; a skeleton crew manages maintenance and watches the sensors. When one of these opens fire, the sky burns.",
+      "notes":"Stationary. Devastating firepower. Vulnerable to torpedo bomber strikes.",
+      "size":16,"loco":"none",
+      "toughLevel":3,"armourLevel":3,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-10,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"cannon_superheavy","mount":"turret","linked":0},
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"missile_med","mount":"fixed","linked":0}
+      ]
+    }
+  ]
+}

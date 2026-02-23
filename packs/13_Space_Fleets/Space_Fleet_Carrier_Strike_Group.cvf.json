@@ -1,0 +1,115 @@
+{
+  "id":"space-fleet-carrier-strike-group",
+  "name":"Space Fleets — Carrier Strike Group",
+  "version":"1.0",
+  "publisher":"DiceForge Studios Ltd.",
+  "description":"10 vehicles — Carrier-based warfare: scramble fighters, launch strikes, and protect the fleet. Built for campaigns where the carrier is home, the fighters are your sword, and losing either means extinction.",
+  "weapons":[],
+  "mods":[],
+  "specials":[],
+  "vehicles":[
+    {
+      "name":"Viper (Light Interceptor)",
+      "desc":"Single-seat space superiority fighter launched from a carrier's tubes at crushing acceleration. She's designed for one thing — killing other fighters — and she does it with an elegance born of decades of iterative refinement. Thrust vectoring gives her manoeuvrability that borders on the inhuman, and her twin cannons can shred anything she can catch. Her pilots are the best in the fleet. They know it. Everyone else knows it too.",
+      "notes":"Space superiority. Carrier-launched. Exceptional manoeuvrability.",
+      "size":5,"loco":"space_thruster",
+      "toughLevel":-2,"armourLevel":-1,"speedLevel":3,"handlingLevel":3,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"ac_future","mount":"fixed","linked":1}
+      ]
+    },
+    {
+      "name":"Raptor (Electronic Warfare)",
+      "desc":"Multi-role electronic warfare craft and the fleet's eyes and ears. She carries sensor equipment, ECM suites, and communications relay gear that makes her indispensable for fleet operations. Her crew of two — pilot and electronic warfare officer — can jam enemy targeting, spoof missile locks, and coordinate fighter formations. Unarmed and relying on escort fighters for protection.",
+      "notes":"ECM/ECCM. Sensor platform. Unarmed — requires fighter escort.",
+      "size":6,"loco":"space_thruster",
+      "toughLevel":-1,"armourLevel":0,"speedLevel":2,"handlingLevel":2,"woundsLevel":0,"crewLevel":1,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    },
+    {
+      "name":"Heavy Assault Fighter",
+      "desc":"Two-seat strike fighter carrying enough ordnance to threaten capital ships. She's slower than a pure interceptor and relies on fighter cover during her attack run, but the missiles she carries can crack a cruiser's armour belt. Her weapons officer manages targeting solutions while the pilot focuses on keeping them alive long enough to fire. Post-strike survival rate: sixty percent. Nobody talks about the other forty.",
+      "notes":"Anti-ship strike role. Two crew. Heavy ordnance. Requires escort.",
+      "size":7,"loco":"space_thruster",
+      "toughLevel":0,"armourLevel":0,"speedLevel":2,"handlingLevel":1,"woundsLevel":0,"crewLevel":1,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"ac_future","mount":"fixed","linked":0},
+        {"weaponId":"missile_med","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Carrier (Battlestar)",
+      "desc":"Combined carrier-battleship and the heart of the fleet. She launches fighters from armoured flight pods, engages capital ships with broadside batteries, and absorbs punishment that would destroy lesser vessels. Her crew of thousands lives, works, and fights in a vessel designed to sustain independent operations indefinitely. When the colonies burn, she becomes the last city of a dying civilisation.",
+      "notes":"Combined carrier/battleship. Flight pods for 80+ fighters. Broadside batteries.",
+      "size":22,"loco":"space_ftl",
+      "toughLevel":3,"armourLevel":3,"speedLevel":-1,"handlingLevel":-2,"woundsLevel":0,"crewLevel":10,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"cannon_super","mount":"turret","linked":0},
+        {"weaponId":"cannon_super","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Escort Frigate (Carrier Group)",
+      "desc":"Fast warship tasked with screening the carrier from torpedo attacks and submarine-style ambushes. She carries enough point-defence to create a wall of flak around the fleet's capital ships, and her speed lets her chase down threats before they reach firing range. Her crew knows their job is to die protecting the carrier, and they've made their peace with it.",
+      "notes":"Carrier escort. Excellent point-defence. Anti-torpedo screening.",
+      "size":14,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":1,"handlingLevel":1,"woundsLevel":0,"crewLevel":-9,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"ac_future","mount":"turret","linked":1},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Fleet Tender",
+      "desc":"Support vessel carrying fuel, ammunition, food, spare parts, and everything else a fleet needs to keep fighting. She's not glamorous and she'll never make the propaganda posters, but without her the carrier's fighters run dry in three days and the fleet starves in two weeks. Her crew are logistics specialists who can perform miracles with diminishing supplies.",
+      "notes":"Fleet supply ship. Fuel and ammunition replenishment. Lightly armed.",
+      "size":16,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":-1,"handlingLevel":-2,"woundsLevel":0,"crewLevel":80,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Refugee Ship",
+      "desc":"Civilian liner pressed into service as an evacuation vessel when the homeworlds fell. She was designed for luxury cruises and now carries thousands of survivors in conditions that would shame a cattle barge. Water is rationed, food is synthetic, and the air tastes of too many people in too small a space. But she's alive, and her passengers are alive, and in a fleet of survivors that's enough.",
+      "notes":"Civilian vessel. Carries 2000+ refugees. No weapons. Must be protected.",
+      "size":18,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":-1,"speedLevel":-1,"handlingLevel":-2,"woundsLevel":0,"crewLevel":55,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    },
+    {
+      "name":"Mining Ship (Fleet)",
+      "desc":"Industrial vessel responsible for extracting the raw materials the fleet needs to manufacture ammunition, repair hull damage, and keep the lights on. She lands on asteroids, chews them apart, and refines the ore in onboard smelters. Without her, the fleet dies of attrition within months. Her crew are former civilians who've become the most strategically important people in the fleet.",
+      "notes":"Resource extraction. Critical for fleet sustainability. Unarmed.",
+      "size":14,"loco":"space_ftl",
+      "toughLevel":1,"armourLevel":0,"speedLevel":-2,"handlingLevel":-2,"woundsLevel":0,"crewLevel":-9,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    },
+    {
+      "name":"Stealth Assault Ship",
+      "desc":"Black-ops vessel designed for covert strikes behind enemy lines. She carries a company of marines, a small hangar bay for two fighters, and enough stealth technology to approach an enemy fleet undetected. Her missions are one-way until the fleet catches up — she goes in quiet, hits hard, and then holds position until relieved or destroyed.",
+      "notes":"Stealth. Marine complement. Small hangar. Behind-enemy-lines operations.",
+      "size":12,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":1,"speedLevel":1,"handlingLevel":0,"woundsLevel":0,"crewLevel":-11,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"turret","linked":0},
+        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Emergency Carrier (Converted)",
+      "desc":"Cargo hauler converted to a makeshift carrier because the fleet lost too many real ones. Her flight deck is a cargo bay with the doors welded open, her catapult is a repurposed ore launcher, and her pilots land on a deck that was never designed for the purpose. She loses a fighter to landing accidents every week. She's also the reason the fleet still has air cover, so nobody complains.",
+      "notes":"Improvised carrier. 20-30 fighters. High accident rate. Desperate times.",
+      "size":18,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":-1,"handlingLevel":-2,"woundsLevel":0,"crewLevel":160,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    }
+  ]
+}

@@ -310,5 +310,65 @@
     "name": "Wire & Chrome \u2014 Supplement Pre-Builts",
     "path": "packs/12_Wire_and_Chrome/Wire_Chrome_Supplement_PreBuilts.vfx",
     "vehicles": 3
+  },
+  {
+    "id": "space-fleet-carrier-strike-group",
+    "name": "Space Fleets \u2014 Carrier Strike Group",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Carrier_Strike_Group.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-fleet-cathedral-fleet",
+    "name": "Space Fleets \u2014 Cathedral Fleet",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Cathedral_Fleet.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-fleet-corporate-armada",
+    "name": "Space Fleets \u2014 Corporate Armada",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Corporate_Armada.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-fleet-deep-space-explorers",
+    "name": "Space Fleets \u2014 Deep Space Explorers",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Deep_Space_Explorers.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-fleet-desert-power",
+    "name": "Space Fleets \u2014 Desert Power",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Desert_Power.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-fleet-frontier-runners",
+    "name": "Space Fleets \u2014 Frontier Runners",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Frontier_Runners.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-fleet-invasion-fleet",
+    "name": "Space Fleets \u2014 Invasion Fleet",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Invasion_Fleet.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-fleet-iron-dominion",
+    "name": "Space Fleets \u2014 Iron Dominion",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Iron_Dominion.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-fleet-rebel-vanguard",
+    "name": "Space Fleets \u2014 Rebel Vanguard",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Rebel_Vanguard.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-fleet-xenos-marauders",
+    "name": "Space Fleets \u2014 Xenos Marauders",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Xenos_Marauders.vfx",
+    "vehicles": 10
   }
 ]

@@ -1,0 +1,122 @@
+{
+  "id":"space-fleet-corporate-armada",
+  "name":"Space Fleets — Corporate Armada",
+  "version":"1.0",
+  "publisher":"DiceForge Studios Ltd.",
+  "description":"10 vehicles — Corporate warfare in deep space, where mega-corporations field private navies and the line between commerce and conquest is measured in profit margins. From mining frigates to fleet-killing titans.",
+  "weapons":[],
+  "mods":[],
+  "specials":[],
+  "vehicles":[
+    {
+      "name":"Tackle Frigate",
+      "desc":"Fast, disposable frigate designed for one job: get close to enemy ships, disrupt their warp drives, and hold them in place until the fleet arrives to finish them off. Her crew knows they're bait. The corporation pays hazard bonuses and maintains a generous clone insurance policy. Both facts are cold comfort when a battleship's tracking computer locks onto your hull.",
+      "notes":"Electronic warfare. Warp disruption. Expendable but critical to fleet doctrine.",
+      "size":6,"loco":"space_ftl",
+      "toughLevel":-2,"armourLevel":-1,"speedLevel":3,"handlingLevel":3,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_light","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Combat Cruiser",
+      "desc":"Versatile warship that forms the core of corporate fleet doctrines. She's the ship accountants love — cost-effective to build, efficient to crew, and capable of engaging targets well above her weight class when properly supported. Fleet commanders stack them in formations of fifty or more, creating walls of overlapping fire that grind enemy fleets into insurance claims.",
+      "notes":"Fleet doctrine ship. Best in large numbers. Cost-effective combat platform.",
+      "size":14,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-9,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"laser_med","mount":"turret","linked":0},
+        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Battleship (Corporate)",
+      "desc":"Heavy capital ship representing serious corporate investment. She's the big stick that backs up diplomatic negotiations, protects strategic assets, and occasionally reduces rival corporation stations to debris when the board of directors authorises hostile takeover in its most literal sense. Her captain answers to shareholders, and her kill record is itemised in quarterly reports.",
+      "notes":"Corporate capital ship. Expensive but decisive. Heavy armour and weapons.",
+      "size":20,"loco":"space_ftl",
+      "toughLevel":2,"armourLevel":2,"speedLevel":-1,"handlingLevel":-2,"woundsLevel":0,"crewLevel":180,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"missile_med","mount":"fixed","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      ]
+    },
+    {
+      "name":"Dreadnought (Siege)",
+      "desc":"Dedicated structure-killer built around a siege cannon capable of reducing orbital stations to scrap. She enters siege mode by deploying stabilisation pylons and diverting all power to the main weapon, rendering her immobile but devastating. In fleet engagements she's a liability — slow, expensive, and vulnerable. Against fixed installations, she's the most cost-effective weapon ever designed.",
+      "notes":"Siege specialist. Immobile when firing main weapon. Station-killer.",
+      "size":24,"loco":"space_ftl",
+      "toughLevel":3,"armourLevel":3,"speedLevel":-3,"handlingLevel":-4,"woundsLevel":0,"crewLevel":140,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"cannon_superheavy","mount":"fixed","linked":0},
+        {"weaponId":"laser_heavy","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      ]
+    },
+    {
+      "name":"Titan",
+      "desc":"The most expensive single object ever constructed by corporate humanity. Kilometres long, crewed by thousands, and carrying a doomsday weapon capable of destroying capital ships in a single discharge. She is simultaneously a corporation's greatest asset and its greatest liability — her destruction would bankrupt most organisations, and her deployment is authorised only by CEO vote. When she jumps into a system, the war is already decided.",
+      "notes":"Supercapital. Doomsday weapon. Corporation-ending loss if destroyed.",
+      "size":30,"loco":"space_ftl",
+      "toughLevel":5,"armourLevel":5,"speedLevel":-3,"handlingLevel":-5,"woundsLevel":0,"crewLevel":-350,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"cannon_superheavy","mount":"turret","linked":0},
+        {"weaponId":"cannon_superheavy","mount":"turret","linked":0},
+        {"weaponId":"laser_heavy","mount":"turret","linked":1},
+        {"weaponId":"torpedo_heavy","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Mining Barge",
+      "desc":"Industrial vessel designed to strip-mine asteroid belts and process ore in flight. Her massive laser arrays cut through rock like butter, and her hold can swallow thousands of tonnes of raw material. She's the foundation of the corporate economy — every warship, every station, every bullet started life as rock floating in the void until a mining barge chewed it up and spat out refined materials.",
+      "notes":"Industrial. Mining lasers can be used as weapons in desperation. Slow, unarmed.",
+      "size":12,"loco":"space_ftl",
+      "toughLevel":1,"armourLevel":0,"speedLevel":-2,"handlingLevel":-2,"woundsLevel":0,"crewLevel":-13,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    },
+    {
+      "name":"Industrial Hauler",
+      "desc":"Massive cargo vessel that moves the raw materials of interstellar commerce between systems. She's the lorry of the spacelanes — unglamorous, essential, and a favourite target of pirates. Corporate hauler convoys are often escorted by combat fleets, and the cargo they carry is insured for more than most warships cost. Her crew is small, her hold is vast, and her schedule is unforgiving.",
+      "notes":"Enormous cargo capacity. Slow. High-value target.",
+      "size":18,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":0,"speedLevel":-2,"handlingLevel":-3,"woundsLevel":0,"crewLevel":55,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Logistics Cruiser",
+      "desc":"Support vessel that keeps a fleet fighting by projecting repair nanites and energy transfers to damaged allies at range. She carries no offensive weapons — her entire design is built around keeping other ships alive. In fleet doctrine she's the most valuable target on the field, and destroying the enemy's logistics chain is often the difference between victory and a war of attrition nobody can afford.",
+      "notes":"Fleet support. Remote repair capability. Priority target in fleet actions.",
+      "size":12,"loco":"space_ftl",
+      "toughLevel":0,"armourLevel":1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-11,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    },
+    {
+      "name":"Stealth Bomber (Corporate)",
+      "desc":"Cloaked torpedo delivery platform operated by corporate black ops divisions. She drops out of nothing, delivers a volley of ship-killing torpedoes, and vanishes before the target's point-defence can acquire her. Officially, she doesn't exist. Unofficially, every major corporation operates squadrons of them, and their kills are attributed to piracy, mechanical failure, or navigational error.",
+      "notes":"Cloaking device. Torpedo-focused. Glass cannon — dies instantly if caught.",
+      "size":7,"loco":"space_ftl",
+      "toughLevel":-2,"armourLevel":-1,"speedLevel":2,"handlingLevel":2,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"torpedo_med","mount":"fixed","linked":0},
+        {"weaponId":"torpedo_med","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Citadel Station",
+      "desc":"Corporate headquarters station and the strategic objective of most nullsec wars. She's a fortress, a factory, a marketplace, and a symbol of territorial control all in one. Her defences can hold off a small fleet, her markets set commodity prices for entire regions, and her destruction would reshape the economic landscape of known space. Wars are fought over these, and the wars never really end.",
+      "notes":"Stationary. Corporate HQ. Extensive defences. Strategic objective.",
+      "size":26,"loco":"none",
+      "toughLevel":4,"armourLevel":3,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-370,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"cannon_superheavy","mount":"turret","linked":0},
+        {"weaponId":"laser_heavy","mount":"turret","linked":1},
+        {"weaponId":"missile_heavy","mount":"fixed","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      ]
+    }
+  ]
+}
