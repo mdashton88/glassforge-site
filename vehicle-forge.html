@@ -13,8 +13,11 @@
 html,body{height:100%;background:var(--bg-deep);color:var(--text);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.6}
 
 .app{display:flex;height:calc(100vh - 38px);overflow:hidden}
-.sidebar{width:33.33%;min-width:280px;background:var(--bg-dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.sidebar{width:280px;min-width:240px;max-width:320px;background:var(--bg-dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.main{flex:2;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.context-panel{width:320px;min-width:280px;max-width:380px;background:var(--bg-dark);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.context-section{padding:10px 14px;border-bottom:1px solid var(--border)}
+.context-section h3{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:6px}
 .header{background:var(--bg-dark);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .header-brand{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;transition:color .2s}
 a.header-brand:hover{color:var(--accent)}
@@ -60,8 +63,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .tab{padding:8px 16px;font-size:13px;letter-spacing:1px;text-transform:uppercase;font-family:'Cinzel',serif;color:var(--text-dim);cursor:pointer;transition:all .15s;border-bottom:2px solid transparent;white-space:nowrap}
 .tab:hover{color:var(--text)}.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .panel{display:none;flex:1;overflow-y:auto;padding:16px 20px}.panel.active{display:block}
-.dnd-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;height:100%}
-.dnd-column{overflow-y:auto}
+.dnd-layout{display:flex;flex-direction:column;height:100%}
+.dnd-column{overflow-y:auto;flex:1}
 .dnd-column h3{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}
 .cat-header{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid var(--border);margin-top:8px}
 .drag-item,.weapon-drag-item{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg-deep);border:1px solid var(--border);margin:3px 0;cursor:grab;transition:all .15s;-webkit-user-select:none;user-select:none}
@@ -145,7 +148,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .io-buttons{display:flex;gap:6px;margin-top:8px}
 .io-buttons .header-btn{flex:1;text-align:center;font-size:14px}
 /* Responsive */
-@media(max-width:768px){.app{flex-direction:column;height:auto}.sidebar{width:100%;min-width:0;max-width:none;max-height:45vh}.main{min-height:50vh}.dnd-layout{grid-template-columns:1fr}}
+@media(max-width:1200px){.context-panel{display:none}}
+@media(max-width:768px){.app{flex-direction:column;height:auto}.sidebar{width:100%;min-width:0;max-width:none;max-height:45vh}}.main{min-height:50vh}.dnd-layout{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -235,11 +239,10 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="weapons" onclick="switchTab('weapons')">Weapons</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="specials" onclick="switchTab('specials')">Special</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="help" onclick="switchTab('help')">Reference Guide</div>
-      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="settings" onclick="switchTab('settings')">⚙ Settings</div>
-      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="settings" onclick="switchTab('settings')" style="margin-left:auto;font-size:11px">⚙ SETTINGS</div>
+      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="settings" onclick="switchTab('settings')" style="margin-left:auto">⚙ Settings</div>
     </div>
-    <div class="panel" id="panel-mods"><div class="dnd-layout"><div class="dnd-column"><h3>Modifications Catalogue</h3><input type="text" class="search-bar" id="modSearch" placeholder="Search modifications..." oninput="renderModCatalogue()"><div id="modCatalogue"></div></div><div class="dnd-column"><h3>Installed Modifications</h3><div class="drop-bay" id="modBay"><div class="empty-bay">Drag modifications here to install them</div></div></div></div></div>
-    <div class="panel" id="panel-weapons"><div class="dnd-layout"><div class="dnd-column"><h3>Vehicular Weapons</h3><div id="eraFilter" style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px"></div><input type="text" class="search-bar" id="weaponSearch" placeholder="Search weapons..." oninput="renderWeaponCatalogue()"><div id="weaponCatalogue"></div><div style="margin-top:12px;padding-top:8px;border-top:1px solid var(--border)"><button class="header-btn" onclick="toggleCustomForm()" style="width:100%;text-align:center">+ Add Custom Weapon</button><div id="customForm" style="display:none;margin-top:8px"></div></div></div><div class="dnd-column"><h3>Weapon Hardpoints</h3><div class="drop-bay" id="weaponBay"><div class="empty-bay">Drag weapons here to mount them</div></div></div></div></div>
+    <div class="panel" id="panel-mods"><div class="dnd-layout"><div class="dnd-column"><h3>Modifications Catalogue</h3><input type="text" class="search-bar" id="modSearch" placeholder="Search modifications..." oninput="renderModCatalogue()"><div id="modCatalogue"></div></div></div></div>
+    <div class="panel" id="panel-weapons"><div class="dnd-layout"><div class="dnd-column"><h3>Vehicular Weapons</h3><div id="eraFilter" style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px"></div><input type="text" class="search-bar" id="weaponSearch" placeholder="Search weapons..." oninput="renderWeaponCatalogue()"><div id="weaponCatalogue"></div><div style="margin-top:12px;padding-top:8px;border-top:1px solid var(--border)"><button class="header-btn" onclick="toggleCustomForm()" style="width:100%;text-align:center">+ Add Custom Weapon</button><div id="customForm" style="display:none;margin-top:8px"></div></div></div></div></div>
     <div class="panel" id="panel-specials">
       <div style="max-width:800px">
         <p style="font-size:15px;color:var(--text-dim);line-height:1.5;margin-bottom:12px">Special Abilities are narrative traits that define what a vehicle <em>is</em>, not what was engineered into it. They cost no mod slots and don't affect construction math. A DUKW is Amphibious because that's what a DUKW is. Toggle abilities on or off, and add custom abilities for anything the library doesn't cover.</p>
@@ -294,6 +297,35 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           Vehicle Forge v0.10.12 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="context-panel" id="contextPanel">
+    <div class="context-section" id="ctx-stats">
+      <h3>Live Statistics</h3>
+      <div id="statsGrid2" class="stats-grid"></div>
+      <div id="modsRemaining2" class="mods-remaining"></div>
+      <div id="costDisplay2" class="cost-display"></div>
+    </div>
+    <div class="context-section" id="ctx-mods" style="display:none">
+      <h3>Installed Modifications</h3>
+      <div class="drop-bay" id="modBay"><div class="empty-bay">Click modifications to install them</div></div>
+    </div>
+    <div class="context-section" id="ctx-weapons" style="display:none">
+      <h3>Weapon Hardpoints</h3>
+      <div class="drop-bay" id="weaponBay"><div class="empty-bay">Click weapons to mount them</div></div>
+    </div>
+    <div class="context-section" id="ctx-specials" style="display:none">
+      <h3>Active Special Abilities</h3>
+      <div id="activeSpecials"></div>
+    </div>
+    <div class="context-section" id="ctx-export" style="display:none">
+      <h3>Export</h3>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="header-btn" onclick="exportJSON()">Export .json</button>
+        <button class="header-btn" onclick="exportStatBlock()" title="Pinnacle-format stat block">Stat Block (.txt)</button>
+        <button class="header-btn" onclick="exportFGXML()" title="Fantasy Grounds XML">FG XML</button>
+        <button class="header-btn" onclick="batchExport()" title="Export all saved vehicles">Batch Export</button>
       </div>
     </div>
   </div>
@@ -988,7 +1020,10 @@ function renderStats(){var f=getFrame(S.size),used=calcModsUsed(),gained=calcMod
     +'<div class="stat-box"><div class="stat-label">Energy</div><div class="stat-value">'+calcEnergy()+' days</div></div>';
   var cls=left<0?'over':left<=2?'low':'ok';
   document.getElementById('modsRemaining').innerHTML='<div class="big-num '+cls+'">'+left+'</div><div class="sub">Mods Remaining</div>';
-  document.getElementById('costDisplay').innerHTML='<div class="cost-val">$'+fmtC(calcCost())+'</div><div class="cost-label">Total Cost</div>'}
+  document.getElementById('costDisplay').innerHTML='<div class="cost-val">$'+fmtC(calcCost())+'</div><div class="cost-label">Total Cost</div>';
+  var sg2=document.getElementById('statsGrid2');if(sg2)sg2.innerHTML=document.getElementById('statsGrid').innerHTML;
+  var mr2=document.getElementById('modsRemaining2');if(mr2)mr2.innerHTML=document.getElementById('modsRemaining').innerHTML;
+  var cd2=document.getElementById('costDisplay2');if(cd2)cd2.innerHTML=document.getElementById('costDisplay').innerHTML}
 
 function renderOutput(){var p=document.getElementById('outputContent'),f=getFrame(S.size);
   var loco=LOCOS.find(function(l){return l.id===S.loco});var spd=calcSpeed();
@@ -1201,7 +1236,16 @@ function filterHelp(){var q=(document.getElementById('helpSearch').value||'').to
     s.style.display=tags.indexOf(q)>=0?'':'none'})}
 
 // ═══ TABS, SAVE/LOAD, UTILS ═══
-function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput()}
+function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput();updateContext(tab)}
+function updateContext(tab){
+  var sections=['ctx-stats','ctx-mods','ctx-weapons','ctx-specials','ctx-export'];
+  sections.forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none'});
+  document.getElementById('ctx-stats').style.display='';
+  if(tab==='mods'){document.getElementById('ctx-mods').style.display=''}
+  else if(tab==='weapons'){document.getElementById('ctx-weapons').style.display=''}
+  else if(tab==='specials'){document.getElementById('ctx-specials').style.display=''}
+  else if(tab==='output'){document.getElementById('ctx-export').style.display=''}
+}
 document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.getAttribute('role')==='button'){e.preventDefault();e.target.click()}})
 function newVehicle(){Audio.click();S={name:'Untitled Vehicle',desc:'',notes:'',image:'',size:6,loco:'wheeled',mods:{},weapons:[],currentMount:'pintle',saved:S.saved,toughLevel:0,armourLevel:0,speedLevel:0,handlingLevel:0,woundsLevel:0,crewLevel:0,passengers:0,mphOverride:0,specials:[],customSpecial:''};document.getElementById('vName').value=S.name;document.getElementById('vDesc').value='';document.getElementById('vNotes').value='';document.getElementById('sizeSlider').value=6;var ci=document.getElementById('customSpecialInput');if(ci)ci.value='';clearImage();undoStack=[];redoStack=[];renderAll()}
 function duplicateVehicle(){S.name=(S.name||'Vehicle')+' (copy)';document.getElementById('vName').value=S.name;saveVehicle();Audio.clunk()}
@@ -1505,6 +1549,7 @@ document.getElementById('vDesc').addEventListener('input',function(e){S.desc=e.t
 document.getElementById('vNotes').addEventListener('input',function(e){S.notes=e.target.value||''});
 document.getElementById('helpContent').innerHTML=buildHelp();
 renderAll();
+updateContext('output');
 updateSettingsInfo();
 
 // ═══ FIRST-VISIT WELCOME BANNER ═══

@@ -1,0 +1,190 @@
+/* ═══════════════════════════════════════════════════
+   DiceForge Design System — Shared CSS Tokens
+   Used by: Vehicle Forge, Tribute Lands tools
+   ═══════════════════════════════════════════════════ */
+
+/* ── Colour Palette ── */
+:root {
+  --bg-deep: #0E0C0A;
+  --bg-dark: #141210;
+  --bg-card: #1A1816;
+  --bg-panel: #201E1A;
+  --border: #3A3530;
+  --border-light: #4A4540;
+  --accent: #C4A44A;
+  --accent-dim: #C4A44A40;
+  --accent-glow: #C4A44A20;
+  --accent-bright: #D4B45A;
+  --text: #E4D8B8;
+  --text-bright: #F5EDD8;
+  --text-dim: #A89868;
+  --green: #5A9A5A;
+  --red: #8C3030;
+  --red-bright: #B04040;
+  --blue: #4A7A9A;
+  --orange: #B07830;
+}
+
+/* ── Typography ── */
+html, body {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg-deep);
+}
+
+h1, h2, h3, .section-heading {
+  font-family: 'Cinzel', serif;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ── Shared Button ── */
+.df-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 6px 14px;
+  font-family: 'Crimson Pro', serif;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.df-btn:hover { border-color: var(--accent); color: var(--accent); }
+.df-btn.primary { background: var(--accent); color: var(--bg-deep); border-color: var(--accent); font-weight: 700; }
+.df-btn.primary:hover { background: var(--accent-bright); }
+
+/* ── Shared Input ── */
+.df-input, .df-textarea, .df-select {
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  color: var(--text-bright);
+  padding: 6px 10px;
+  font-family: 'Crimson Pro', serif;
+  font-size: 15px;
+  width: 100%;
+}
+.df-input:focus, .df-textarea:focus, .df-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ── Three-Column Shell ── */
+.df-app {
+  display: flex;
+  height: calc(100vh - 38px);
+  overflow: hidden;
+}
+
+.df-col-left {
+  width: 280px;
+  min-width: 240px;
+  max-width: 320px;
+  background: var(--bg-dark);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.df-col-centre {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.df-col-right {
+  width: 320px;
+  min-width: 280px;
+  max-width: 380px;
+  background: var(--bg-dark);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+/* ── Section Dividers ── */
+.df-section {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.df-section h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* ── Shared Header/Nav ── */
+.df-header {
+  background: var(--bg-dark);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.df-brand {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.df-brand:hover { color: var(--accent); }
+
+/* ── Tab Bar ── */
+.df-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-dark);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.df-tab {
+  padding: 10px 18px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+  color: var(--text-dim);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.df-tab:hover { color: var(--text); }
+.df-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ── Focus Styles ── */
+.skip-link:focus { position: fixed; left: 8px; top: 8px; width: auto; height: auto; clip: auto; outline: 2px solid var(--accent); }
+button:focus-visible, .df-btn:focus-visible, .df-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ── Responsive: collapse to 2-col then 1-col ── */
+@media (max-width: 1200px) {
+  .df-col-right { display: none; }
+  .df-col-centre { flex: 1; }
+}
+
+@media (max-width: 768px) {
+  .df-app { flex-direction: column; height: auto; }
+  .df-col-left { width: 100%; max-width: none; max-height: 45vh; }
+  .df-col-centre { flex: 1; }
+}
