@@ -243,11 +243,6 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
       <div id="woundsVal" style="display:none"></div>
       <div id="frameInfo" style="font-size:12px;color:var(--text-dim);font-style:italic;line-height:1.3;margin-top:6px"></div>
     </div>
-    <div style="display:none">
-      <div id="statsGrid" class="stats-grid"></div>
-      <div id="modsRemaining" class="mods-remaining"></div>
-      <div id="costDisplay" class="cost-display"></div>
-    </div>
     <div class="sidebar-section">
       <h3>Vehicle Hangar</h3>
       <div style="display:flex;gap:4px;margin-bottom:8px">
@@ -343,9 +338,9 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
   <div class="context-panel" id="contextPanel">
     <div class="context-section" id="ctx-stats">
       <h3>Live Statistics</h3>
-      <div id="statsGrid2" class="stats-grid"></div>
-      <div id="modsRemaining2" class="mods-remaining"></div>
-      <div id="costDisplay2" class="cost-display"></div>
+      <div id="statsGrid" class="stats-grid"></div>
+      <div id="modsRemaining" class="mods-remaining"></div>
+      <div id="costDisplay" class="cost-display"></div>
     </div>
     <div class="context-section" id="ctx-mods" style="display:none">
       <h3>Installed Modifications</h3>
@@ -1068,10 +1063,7 @@ function renderStats(){var f=getFrame(S.size),used=calcModsUsed(),gained=calcMod
     +'<div class="stat-box"><div class="stat-label">Energy</div><div class="stat-value">'+calcEnergy()+' days</div></div>';
   var cls=left<0?'over':left<=2?'low':'ok';
   document.getElementById('modsRemaining').innerHTML='<div class="big-num '+cls+'">'+left+'</div><div class="sub">Mods Remaining</div>';
-  document.getElementById('costDisplay').innerHTML='<div class="cost-val">$'+fmtC(calcCost())+'</div><div class="cost-label">Total Cost</div>';
-  var sg2=document.getElementById('statsGrid2');if(sg2)sg2.innerHTML=document.getElementById('statsGrid').innerHTML;
-  var mr2=document.getElementById('modsRemaining2');if(mr2)mr2.innerHTML=document.getElementById('modsRemaining').innerHTML;
-  var cd2=document.getElementById('costDisplay2');if(cd2)cd2.innerHTML=document.getElementById('costDisplay').innerHTML}
+  document.getElementById('costDisplay').innerHTML='<div class="cost-val">$'+fmtC(calcCost())+'</div><div class="cost-label">Total Cost</div>'}
 
 function renderOutput(){var p=document.getElementById('outputContent'),f=getFrame(S.size);
   var loco=LOCOS.find(function(l){return l.id===S.loco});var spd=calcSpeed();
