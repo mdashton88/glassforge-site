@@ -1113,161 +1113,32 @@ function escXML(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;
 // ═══ COMPREHENSIVE HELP/REFERENCE PANEL ═══
 function buildHelp(){
   var h='';
-  // SECTION: Quick Start
-  h+='<div class="help-section" data-help="quick start overview how to use"><h3>Quick Start Guide</h3>';
-  h+='<p><span class="rule-key">1. Name your vehicle</span> in the sidebar — add a description, notes, and optionally upload an image.</p>';
-  h+='<p><span class="rule-key">2. Set Size</span> using the slider (1–20). This determines your frame category, base stats, and available Mods.</p>';
-  h+='<p><span class="rule-key">3. Choose Main Locomotion</span> — wheeled, tracked, hover, VTOL, jet, turboprop, water, or walker (biped/multileg). Use Variable Form for secondary modes.</p>';
+  h+='<div class="help-section" data-help="quick start overview how to use">';
+  h+='<h3>Quick Start</h3>';
+  h+='<p><span class="rule-key">1. Name your vehicle</span> in the sidebar \u2014 add a description, notes, and optionally upload an image.</p>';
+  h+='<p><span class="rule-key">2. Set Size</span> using the slider (1\u201320). This determines your frame category, base stats, and available Mods.</p>';
+  h+='<p><span class="rule-key">3. Choose Main Locomotion</span> \u2014 wheeled, tracked, hover, VTOL, jet, turboprop, water, or walker (biped/multileg). Use Variable Form for secondary modes.</p>';
   h+='<p><span class="rule-key">4. Install Modifications</span> by dragging them from the catalogue into the Installed bay. Negative Qualities give Mods back.</p>';
-  h+='<p><span class="rule-key">5. Mount Weapons</span> — select your mount type (Pintle, Fixed, Turret), then drag weapons into the Hardpoints bay.</p>';
+  h+='<p><span class="rule-key">5. Mount Weapons</span> \u2014 select your mount type (Pintle, Fixed, Turret), then drag weapons into the Hardpoints bay.</p>';
   h+='<p><span class="rule-key">6. Review your Stat Block</span> on the output tab. Copy to clipboard or export as .json to share.</p>';
   h+='</div>';
-
-  // SECTION: Vehicle Frames
-  h+='<div class="help-section" data-help="frames size category normal large huge gargantuan toughness wounds crew energy mods cost"><h3>Vehicle Frames</h3>';
-  h+='<p>Every vehicle begins with a frame determined by its Size. The frame sets base Toughness, maximum Armor, Wounds, Crew capacity, Energy, available Mod slots, and base cost.</p>';
-  h+='<table><tr><th>Category</th><th>Size</th><th>Hand</th><th>Tough (Max)</th><th>Wounds</th><th>Crew</th><th>Energy</th><th>Mods</th><th>Cost</th></tr>';
-  h+='<tr><td>Normal</td><td>1–3</td><td>+1</td><td>5 (20)</td><td>3</td><td>1</td><td>3</td><td>Size×3</td><td>$10K×Size</td></tr>';
-  h+='<tr><td>Large</td><td>4–7</td><td>0</td><td>10 (30)</td><td>4</td><td>3</td><td>5</td><td>Size×3</td><td>$30K×Size</td></tr>';
-  h+='<tr><td>Huge</td><td>8–11</td><td>-1</td><td>15 (40)</td><td>5</td><td>5</td><td>15</td><td>Size×3</td><td>$50K×Size</td></tr>';
-  h+='<tr><td>Gargantuan</td><td>12–20</td><td>-2</td><td>20 (50)</td><td>6</td><td>50</td><td>30</td><td>Size×4</td><td>$1M×Size</td></tr>';
-  h+='</table><p><span class="rule-key">Heavy Armor:</span> Vehicles with the Heavy Armor special can only be damaged by Heavy Weapons. Add it via the Special tab for armoured military vehicles.</p>';
-  h+='<p><span class="rule-key">Unused Mods</span> represent cargo space — approximately 125 cubic feet per unused slot.</p></div>';
-
-  // SECTION: Size Reference
-  h+='<div class="help-section" data-help="size reference length weight examples dimensions"><h3>Size Reference</h3>';
-  h+='<table><tr><th>Size</th><th>Length</th><th>Weight</th><th>Examples</th></tr>';
-  for(var i=1;i<=24;i++){var r=SIZE_REF[i];h+='<tr'+(i>=21?' style="color:#997700;font-style:italic"':'')+'>'+
-    '<td>'+i+'</td><td>~'+r.len+'</td><td>~'+r.wt+'</td><td>'+r.ex+'</td></tr>'}
-  h+='<tr><td colspan="4" style="font-size:10px;color:#888;padding:6px">* Size 21+ extrapolated beyond published Savage Worlds tables. Use as guidelines. Consider mass combat rules for fleet-scale engagements.</td></tr>'
-  h+='</table></div>';
-
-  // SECTION: Locomotion
-  h+='<div class="help-section" data-help="locomotion wheeled tracked hover vtol turboprop jet water walker legs bipedal quadruped speed"><h3>Locomotion Types</h3>';
-  h+='<table><tr><th>Type</th><th>Speed</th><th>Cost</th><th>Notes</th></tr>';
-  LOCOS.forEach(function(l){h+='<tr><td>'+l.name+'</td><td>'+l.speed+'</td><td>$'+fmtN(l.costMult)+'×Size</td><td>'+l.notes+'</td></tr>'});
-  h+='</table>';
-  h+='<h4>Multiple Locomotion</h4><p>A vehicle may have more than one locomotion type. Buy the cheapest first. Additional forms require Mods equal to half Size and cost double the second form\'s locomotion price. A third form costs the same Mods but triple the price.</p>';
-  h+='<h4>Minimum Speeds</h4><p><span class="rule-key">Turboprop:</span> Minimum 60 MPH or Out of Control. <span class="rule-key">Jet:</span> Minimum 120 MPH or Out of Control. <span class="rule-key">VTOL:</span> Can hover at 0 speed.</p></div>';
-
-  // SECTION: Speed Rating Table
-  h+='<div class="help-section" data-help="speed rating mph miles per hour chase"><h3>Speed Rating Table</h3>';
-  h+='<table><tr><th>Rating</th><th>MPH</th><th>Rating</th><th>MPH</th></tr>';
-  var sr=Object.keys(SPD_TABLE);for(var i=0;i<sr.length;i+=2){h+='<tr><td>'+sr[i]+'</td><td>'+SPD_TABLE[sr[i]]+'</td>'+(sr[i+1]?'<td>'+sr[i+1]+'</td><td>'+SPD_TABLE[sr[i+1]]+'</td>':'<td></td><td></td>')+'</tr>'}
-  h+='</table></div>';
-
-  // SECTION: Modifications Reference
-  h+='<div class="help-section" data-help="modifications mods negative qualities core defensive systems locomotion power offensive personnel structural"><h3>All Modifications</h3>';
-  var mcats={};MODS.forEach(function(m){if(!mcats[m.cat])mcats[m.cat]=[];mcats[m.cat].push(m)});
-  for(var cat in mcats){h+='<h4>'+cat+'</h4><table><tr><th>Name</th><th>Mods</th><th>Max</th><th>Cost</th><th>Description</th></tr>';
-    mcats[cat].forEach(function(m){var ms=modSlots(m,6);h+='<tr><td>'+m.name+'</td><td>'+(ms>0?ms:ms<0?ms:'0')+'</td><td>'+(m.max==='U'?'∞':m.max==='frame'?'Frame':m.max)+'</td><td>'+
-      (m.costFn(6)>=0?'$'+fmtN(m.costFn(6)):'-$'+fmtN(Math.abs(m.costFn(6))))+'*</td><td>'+m.desc+'</td></tr>'});
-    h+='</table>'}
-  h+='<p class="rule-note">* Costs shown at Size 6. Most scale with Size (×Size). Some are flat costs.</p></div>';
-
-  // SECTION: Weapons Reference
-  h+='<div class="help-section" data-help="weapons catalogue ancient medieval blackpowder industrial modern future advanced damage range ap rof"><h3>All Weapons by Era</h3>';
-  ERA_ORDER.forEach(function(era){
-    var ewpns=WEAPONS.filter(function(w){return w.era===era});if(!ewpns.length)return;
-    h+='<h4>'+ERA_LABELS[era]+'</h4><table><tr><th>Name</th><th>Range</th><th>Damage</th><th>AP</th><th>RoF</th><th>Grade</th><th>Mods</th><th>Cost</th><th>Notes</th></tr>';
-    ewpns.forEach(function(w){h+='<tr><td>'+w.name+'</td><td>'+w.range+'</td><td>'+w.damage+'</td><td>'+w.ap+'</td><td>'+w.rof+'</td><td style="color:var(--accent);font-weight:700">'+weaponGradeLabel(w)+'</td><td>'+w.mods+'</td><td>$'+fmtN(w.cost)+'</td><td>'+w.notes+'</td></tr>'});
-    h+='</table>'});
+  h+='<div class="help-section" data-help="manual companion guide pdf reference">';
+  h+='<h3>Companion Guide</h3>';
+  h+='<p>The <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="color:var(--accent)">Vehicle Forge Companion Guide (PDF)</a> is the complete reference for the tool. It covers vehicle frames, all 127 weapons, 41 modifications, 34 special abilities, export formats, extension packs, walker combat rules, and one-sheet adventures.</p>';
+  h+='<div style="text-align:center;margin:20px 0"><a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="display:inline-block;padding:12px 32px;border:1px solid var(--accent);color:var(--accent);font-family:Cinzel,serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s" onmouseover="this.style.background=\'var(--accent)\';this.style.color=\'var(--bg-deep)\'" onmouseout="this.style.background=\'transparent\';this.style.color=\'var(--accent)\'">Open Companion Guide</a></div>';
   h+='</div>';
-
-  // SECTION: Weapon Mounts
-  h+='<div class="help-section" data-help="weapon mounts pintle fixed turret linked arc fire"><h3>Weapon Mounts</h3>';
-  h+='<table><tr><th>Mount</th><th>Mod Cost</th><th>Arc</th><th>Notes</th></tr>';
-  h+='<tr><td>Pintle</td><td>Standard</td><td>180°</td><td>Default mount. Requires a crew member to operate.</td></tr>';
-  h+='<tr><td>Fixed</td><td>½ (round up)</td><td>45°</td><td>Forward-facing only. Pilot fires. Cheapest option.</td></tr>';
-  h+='<tr><td>Turret</td><td>×2</td><td>360°</td><td>Full rotation. Most expensive but most versatile.</td></tr>';
-  h+='</table>';
-  h+='<h4>Linked Weapons</h4><p><span class="rule-key">Dual Linked:</span> Two identical weapons fire as one. +1 to hit, +2 damage, +1 Mod over single. <span class="rule-key">Quad Linked:</span> Four identical weapons. +2 to hit, +4 damage, +3 Mods over single.</p></div>';
-
-  // SECTION: Walker Rules
-  h+='<div class="help-section" data-help="walker mech bipedal quadruped fighting parry stomp death from above strength prone critical hit"><h3>Walker Combat Rules</h3>';
-  h+='<p>Walkers (bipedal and quadruped) use Piloting skill for movement and follow special combat rules.</p>';
-  h+='<p><span class="rule-key">Strength:</span> d12 + Size. Used for melee damage. Walkers are always considered armed (Heavy Weapon).</p>';
-  h+='<p><span class="rule-key">Fighting:</span> Use the lower of operator\'s Piloting or Fighting. Parry = 2 + half Piloting die + Handling modifier.</p>';
-  h+='<p><span class="rule-key">Running:</span> Piloting roll each round. Failure = Out of Control. Success = +1 Speed Rating. Raise = +2 Speed Ratings.</p>';
-  h+='<p><span class="rule-key">Stomp:</span> Gargantuan walkers only. Use blast template matching Scale. Opposed Athletics vs target\'s Agility. Damage = Strength. Ignores Scale penalties.</p>';
-  h+='<p><span class="rule-key">Death From Above:</span> Opposed Piloting vs target. Success = Ram damage + d6 per Scale category exceeding target. Failure = miss + Out of Control.</p>';
-  h+='<p><span class="rule-key">Prone:</span> Free action requiring Piloting roll. Standing: success = half movement, raise = full movement retained.</p>';
-  h+='<p><span class="rule-key">Multileg Advantage:</span> 3+ legs provide inherent stability. Reroll failed Piloting rolls to avoid Out of Control.</p>';
-  h+='<p><span class="rule-key">Critical Hits:</span> Called Shot to leg = Locomotion Crit (Speed -1). Called Shot to arm = System Crit. When nothing is left to destroy, reactor breach: Size × d10 damage in a 10" blast radius.</p></div>';
-
-  // SECTION: Vehicle Combat
-  h+='<div class="help-section" data-help="vehicle combat unstable platform shooting chase clash collision ram"><h3>Vehicle Combat Quick Reference</h3>';
-  h+='<p><span class="rule-key">Unstable Platform:</span> -2 to Shooting from a moving vehicle (-4 with Rough Ride). Negated by Stabilizer mod.</p>';
-  h+='<p><span class="rule-key">Evasion:</span> Handling modifier applies to avoiding attacks and maneuvers.</p>';
-  h+='<p><span class="rule-key">Scale:</span> Vehicles attacking smaller targets suffer Scale penalties (and vice versa). See Savage Worlds core rules.</p>';
-  h+='<p><span class="rule-key">Collision/Ram:</span> Damage = vehicle\'s base Toughness (plus Strength for walkers) as a melee attack. Both vehicles take damage.</p>';
-  h+='<p><span class="rule-key">Chase Rules:</span> Use Speed Ratings to determine chase positions. Piloting/Driving rolls each round to gain or lose ground.</p></div>';
-
-  // SECTION: Vehicle & Weapon Class
-  h+='<div class="help-section" data-help="class weapon class vehicle class A B C D E F G rating scale quick strike SFC compatibility"><h3>DiceForge Class System</h3>';
-  h+='<p>The <b>Class</b> system uses the same A\u2013Z scale for both vehicles and weapons. A vehicle\u2019s Class is derived from total Toughness. A weapon\u2019s Class is derived from average damage plus AP. Compare them at a glance to know what hurts what.</p>';
-  h+='<h4>Vehicle &amp; Weapon Class</h4>';
-  h+='<table><tr><th>Class</th><th>Value</th><th>SFC</th><th>Vehicle Examples</th></tr>';
-  h+='<tr><td>A</td><td>0\u201315</td><td>I</td><td>Motorcycle, car, light boat</td></tr>';
-  h+='<tr><td>B</td><td>16\u201325</td><td>II</td><td>APC, WWII medium tank, fighter</td></tr>';
-  h+='<tr><td>C</td><td>26\u201335</td><td>III</td><td>Modern MBT, heavy tank, corvette</td></tr>';
-  h+='<tr><td>D</td><td>36\u201345</td><td>IV</td><td>Frigate, destroyer, armoured cruiser</td></tr>';
-  h+='<tr><td>E</td><td>46\u201355</td><td>V</td><td>Battleship, titan, dreadnought</td></tr>';
-  h+='<tr><td>F</td><td>56\u201365</td><td>VI</td><td>Star base, mega-titan</td></tr>';
-  h+='<tr><td>G</td><td>66\u201375</td><td>VII</td><td>Orbital platform, super-dreadnought</td></tr>';
-  h+='<tr><td>H+</td><td>76+</td><td>\u2014</td><td>Beyond SFC. Space stations, colony ships...</td></tr>';
-  h+='</table>';
-  h+='<p>The +/\u2212 modifier shows position within the band. C+ is top of Class C, pushing toward D. C\u2212 is barely into C and vulnerable to strong B-class weapons.</p>';
-  h+='<p><b>SFC Compatibility:</b> Classes A\u2013G map directly to Science Fiction Companion Classes I\u2013VII. GMs using the SFC Heavy Metal rules can use Vehicle Forge classes without conversion. Classes beyond G have no SFC equivalent.</p>';
-  h+='<h4>Quick Strike Results</h4>';
-  h+='<table><tr><th>Matchup</th><th>Result</th><th>Meaning</th></tr>';
-  h+='<tr><td>Same class</td><td><b>EFFECTIVE</b></td><td>Fair fight. Standard damage rules.</td></tr>';
-  h+='<tr><td>One class below</td><td><b>OUTMATCHED</b></td><td>Disadvantaged. Hard going.</td></tr>';
-  h+='<tr><td>Two classes below</td><td><b>DESPERATE</b></td><td>Near hopeless. Only crits matter.</td></tr>';
-  h+='<tr><td>Three+ below</td><td><b>NO EFFECT</b></td><td>Find a bigger gun.</td></tr>';
-  h+='<tr><td>One class above</td><td><b>DOMINANT</b></td><td>You have the advantage.</td></tr>';
-  h+='<tr><td>Two+ above</td><td><b>OVERKILL</b></td><td>Target doesn\u2019t stand a chance.</td></tr>';
-  h+='</table>';
-  h+='<p>The class tells you what you can hurt, not what you\u2019re supposed to fight. Some vehicles carry weapons below their class \u2014 a carrier\u2019s point defence is A-class on an E-class hull. That\u2019s a design choice, not a flaw.</p></div>';
-  // SECTION: Weapon Notes
-  h+='<div class="help-section" data-help="weapon notes abbreviations SBT MBT LBT guided cauterize overcharge incendiary point defense reaction fire reload heavy weapon"><h3>Weapon Notes Glossary</h3>';
-  h+='<table><tr><th>Abbreviation</th><th>Meaning</th></tr>';
-  h+='<tr><td>HW</td><td>Heavy Weapon — can damage Heavy Armor targets</td></tr>';
-  h+='<tr><td>SBT</td><td>Small Blast Template (2" radius)</td></tr>';
-  h+='<tr><td>MBT</td><td>Medium Blast Template (4" radius)</td></tr>';
-  h+='<tr><td>LBT</td><td>Large Blast Template (6" radius)</td></tr>';
-  h+='<tr><td>Cone</td><td>Cone Template (9" default or as noted)</td></tr>';
-  h+='<tr><td>Guided</td><td>Weapon tracks target. +2 Shooting. Can be jammed by AM/ECM.</td></tr>';
-  h+='<tr><td>Cauterize</td><td>Energy weapon. Seals wounds on contact.</td></tr>';
-  h+='<tr><td>Overcharge</td><td>Spend extra shot for +1d damage. Risk of burnout on 1.</td></tr>';
-  h+='<tr><td>Incendiary</td><td>Target catches fire on hit. See Fire rules.</td></tr>';
-  h+='<tr><td>Pt Def</td><td>Point Defense — can fire at incoming missiles/torpedoes.</td></tr>';
-  h+='<tr><td>Rxn Fire</td><td>Reaction Fire — can fire during enemy movement.</td></tr>';
-  h+='<tr><td>Reload X</td><td>Requires X actions to reload between shots.</td></tr>';
-  h+='<tr><td>Indirect</td><td>Can fire over obstacles without line of sight.</td></tr>';
-  h+='<tr><td>AP X</td><td>Armor Piercing — ignores X points of Armor.</td></tr>';
-  h+='<tr><td>(I)–(VI)</td><td>Sci-fi weapon class rating for compatibility.</td></tr>';
-  h+='</table></div>';
-
-  // SECTION: Import/Export
-  h+='<div class="help-section" data-help="import export json save load file share"><h3>Saving, Loading &amp; Sharing</h3>';
-  h+='<p><span class="rule-key">Save:</span> Stores the current vehicle in your browser\'s local storage. Saved vehicles appear in the sidebar list and persist between sessions.</p>';
-  h+='<p><span class="rule-key">Export .json:</span> Downloads a .cvf.json file containing the complete vehicle build, including image, description, and notes. Share this file with other users.</p>';
-  h+='<p><span class="rule-key">Export Stat Block:</span> Downloads a Pinnacle-format text stat block (.txt). This is the universal format \u2014 paste it into Foundry VTT\'s stat block importer, print on index cards, or include in your adventures.</p>';
-  h+='<p><span class="rule-key">Export FG XML:</span> Downloads Fantasy Grounds Unity compatible XML. Paste the vehicle data into your campaign db.xml or module for direct use in FG.</p>';
-  h+='<p><span class="rule-key">\ud83d\udcd6 Full Manual:</span> Opens the Vehicle Forge Companion Guide (PDF) \u2014 the complete reference for the tool, all expansion packs, export formats, and one-sheet adventures. <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="color:var(--accent)">Open Manual</a></p>';
-  h+='<p><span class="rule-key">Import .json:</span> Load a previously exported .cvf.json file. Restores all settings, mods, weapons, image, and notes.</p>';
-  h+='<p><span class="rule-key">Custom Weapons:</span> Weapons you create via the "Add Custom Weapon" button are stored separately in your browser and appear across all vehicles.</p></div>';
-
-  // SECTION: About
-  h+='<div class="help-section" data-help="about credits diceforge studios savage worlds compatible"><h3>About Vehicle Forge</h3>';
-  h+='<p>Vehicle Forge is a universal vehicle construction toolkit fully compatible with Savage Worlds. It covers every vehicle type from ancient war chariots to far-future hover carriers \u2014 ground, air, water, and walker \u2014 in a single tool.</p>';
-  h+='<p>71 weapons across 7 historical eras (Ancient through Advanced), 40+ modifications, 10 locomotion types, and sizes from 1 (motorcycle) to 20 (mega-platform). Plus custom weapon entry for anything your setting needs.</p>';
-  h+='<p><a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="color:var(--accent)">Open the full Companion Guide (PDF)</a> for complete documentation, product catalogue, and one-sheet adventures.</p>';
-  h+='<p style="font-size:12px;color:var(--text-dim);margin-top:12px;border-top:1px solid var(--border);padding-top:12px">This game references the Savage Worlds game system, available from Pinnacle Entertainment Group at www.peginc.com. Savage Worlds and all associated logos and trademarks are copyrights of Pinnacle Entertainment Group. Used with permission. Pinnacle makes no representation or warranty as to the quality, viability, or suitability for purpose of this product.</p>';
+  h+='<div class="help-section" data-help="export formats fantasy grounds foundry json stat block">';
+  h+='<h3>Export Formats</h3>';
+  h+='<p><span class="rule-key">Export .json</span> \u2014 saves your vehicle as a portable JSON file. Share with other Vehicle Forge users, or use for backup.</p>';
+  h+='<p><span class="rule-key">Export Stat Block</span> \u2014 downloads a Pinnacle-format text stat block (.txt). Paste into Foundry VTT\u2019s stat block importer, print on index cards, or include in your adventures.</p>';
+  h+='<p><span class="rule-key">Export FG XML</span> \u2014 generates Fantasy Grounds Unity XML. Import directly into your FGU campaign as a vehicle record.</p>';
+  h+='<p><span class="rule-key">Batch Export / Print All</span> \u2014 exports or prints every saved vehicle at once.</p>';
+  h+='</div>';
+  h+='<div class="help-section" data-help="about vehicle forge diceforge version">';
+  h+='<h3>About Vehicle Forge</h3>';
+  h+='<p>Vehicle Forge is a free tool by <a href="/" style="color:var(--accent)">DiceForge Studios</a>. It references the Savage Worlds game system by <a href="https://www.peginc.com" target="_blank" style="color:var(--accent)">Pinnacle Entertainment Group</a>. Savage Worlds and all associated logos and trademarks are copyrights of Pinnacle Entertainment Group. Used with permission.</p>';
   h+='<p style="font-size:11px;color:var(--text-dim)">Fantasy Grounds is a trademark of SmiteWorks USA, LLC. Foundry Virtual Tabletop is a trademark of Foundry Gaming LLC. This product is not affiliated with or endorsed by Pinnacle Entertainment Group, SmiteWorks, or Foundry Gaming.</p>';
-  h+='<p style="font-size:11px;color:var(--text-dim)">Vehicle Forge \u00a9 2026 DiceForge Studios Ltd. All original content rights retained by the creator.</p></div>';
-
+  h+='</div>';
   return h}
 
 function filterHelp(){var q=(document.getElementById('helpSearch').value||'').toLowerCase();
