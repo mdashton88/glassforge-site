@@ -31,8 +31,8 @@
     },
     {
       "name": "Mangonel",
-      "desc": "Smaller and faster than the trebuchet, the mangonel uses torsion \u2014 twisted ropes of sinew or horsehair \u2014 to launch stones on a flatter trajectory. She's less powerful but more accurate, and a competent engineer can build one in the field from available materials in a couple of days.",
-      "notes": "The mangonel is your field artillery. Mobile enough to deploy during a battle rather than requiring a week-long siege setup. Use her against formations, gates, and light fortifications. She's also the defender's weapon of choice \u2014 a mangonel on the wall can shatter siege towers and scatter assault columns.",
+      "desc": "Smaller and faster than the counterweight siege engines, the mangonel uses torsion \u2014 twisted ropes of sinew or horsehair \u2014 to launch stones on a flatter trajectory. She's less powerful but more accurate, and a competent engineer can build one in the field from available materials in a couple of days.",
+      "notes": "The mangonel is your field artillery. Mobile enough to deploy during a battle rather than requiring a week-long siege setup. Use her against formations, gates, and light fortifications. She's also the defender's weapon of choice \u2014 a mangonel on the walls can shatter siege towers and scatter assault columns.",
       "image": "",
       "size": 6,
       "loco": "wheeled",
@@ -74,7 +74,7 @@
     {
       "name": "Springald",
       "desc": "A giant crossbow mounted on a fixed frame, firing iron bolts the size of javelins. She's an anti-personnel weapon \u2014 the bolt punches through shields, armour, and anyone standing behind them. Defenders mount springalds on towers to sweep the approaches; attackers use them to suppress the walls.",
-      "notes": "The springald is your precision weapon. She doesn't do area damage like the trebuchet \u2014 she kills one person very effectively. Use her to create sniper alley zones where the players cross open ground under aimed fire. The springald operator is a named NPC with a good Shooting die.",
+      "notes": "The springald is your precision weapon. She doesn't do area damage like heavier siege engines \u2014 she kills one person very effectively. Use her to create sniper alley zones where the players cross open ground under aimed fire. The springald operator is a named NPC with a good Shooting die.",
       "image": "",
       "size": 4,
       "loco": "wheeled",

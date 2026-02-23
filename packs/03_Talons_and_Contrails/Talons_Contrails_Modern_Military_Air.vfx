@@ -39,8 +39,8 @@
     },
     {
       "name": "AH-64D Apache",
-      "desc": "The most lethal attack helicopter ever built. Longbow radar on the mast, Hellfire missiles that kill tanks at eight kilometres, a 30mm chain gun slaved to the pilot's helmet, and the ability to hide behind a tree line and pop up just long enough to fire.",
-      "notes": "The Apache is your tank-killer. She hides behind terrain, pops up, fires Hellfires, and drops back before the return fire arrives. The Longbow radar lets her detect and engage targets without exposing herself fully. Use her as the counter to enemy armour columns.",
+      "desc": "The most lethal attack helicopter ever built. Longbow radar on the mast, anti-tank missiles that kill armour at eight kilometres, a chain gun slaved to the pilot's helmet, and the ability to hide behind a tree line and pop up just long enough to fire.",
+      "notes": "The Apache is your tank-killer. She hides behind terrain, pops up, fires ATGMs, and drops back before the return fire arrives. The Longbow radar lets her detect and engage targets without exposing herself fully. Use her as the counter to enemy armour columns.",
       "image": "",
       "size": 7,
       "loco": "vtol",
@@ -192,7 +192,7 @@
     },
     {
       "name": "A-10 Thunderbolt II",
-      "desc": "The Warthog. Built around a 30mm Gatling gun that fires depleted uranium shells at four thousand rounds per minute. She's slow, she's ugly, and she was designed for one purpose: killing Soviet tanks in central Europe. She does that job better than anything else that flies.",
+      "desc": "The Warthog. Built around a rotary autocannon that fires depleted uranium shells at four thousand rounds per minute. She's slow, she's ugly, and she was designed for one purpose: killing Soviet tanks in central Europe. She does that job better than anything else that flies.",
       "notes": "The A-10 is your close air support legend. The GAU-8 gun run is one of the most devastating attacks in modern warfare. She's slow enough to find targets in close terrain and tough enough to survive ground fire that would down a jet. Use her when the players on the ground need something dead immediately.",
       "image": "",
       "size": 8,

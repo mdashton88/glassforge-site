@@ -10,7 +10,7 @@
   "vehicles": [
     {
       "name": "T-34/76 (1942)",
-      "desc": "The tank that saved the Soviet Union. Sloped armour that bounced shells the German 37mm couldn't penetrate, wide tracks that floated over mud and snow, and a 76mm gun that killed anything the Wehrmacht fielded in 1941. She was crude, cramped, and produced in numbers that defied belief.",
+      "desc": "The tank that saved the Soviet Union. Sloped armour that bounced shells German anti-tank guns couldn't penetrate, wide tracks that floated over mud and snow, and a main gun that killed anything the Wehrmacht fielded in 1941. She was crude, cramped, and produced in numbers that defied belief.",
       "notes": "The T-34 is the Eastern Front's defining vehicle. She's individually outmatched by late-war German armour but she never fights alone. Use her in waves \u2014 the first T-34 the players destroy is a relief, the fifth is routine, the fifteenth is a nightmare. Numbers are the Soviet doctrine and the T-34 is the instrument.",
       "image": "",
       "size": 7,
@@ -39,7 +39,7 @@
     {
       "name": "KV-1",
       "desc": "The heavy tank that terrified the Wehrmacht in 1941. Her armour was so thick that German anti-tank guns bounced off at point-blank range. At Raseiniai, a single KV-1 held up an entire German division for a day. She was slow, unreliable, and for a brief window absolutely invincible.",
-      "notes": "The KV-1 is your 'nothing we have can hurt it' scenario for early-war campaigns. German 37mm and 50mm guns literally bounce off her. The players need to find 88mm flak guns, call Stukas, or manoeuvre behind her to hit thinner rear armour. By 1943 she's obsolete \u2014 use that transition to show how fast the arms race moved.",
+      "notes": "The KV-1 is your 'nothing we have can hurt it' scenario for early-war campaigns. German light anti-tank guns literally bounce off her. The players need to find heavy flak guns, call Stukas, or manoeuvre behind her to hit thinner rear armour. By 1943 she's obsolete \u2014 use that transition to show how fast the arms race moved.",
       "image": "",
       "size": 8,
       "loco": "tracked",

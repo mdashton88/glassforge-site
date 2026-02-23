@@ -197,7 +197,7 @@
     },
     {
       "name": "AC-130 Spectre",
-      "desc": "A cargo plane turned into a flying battleship. Side-firing cannons \u2014 a 20mm Vulcan, a 40mm Bofors, and a 105mm howitzer \u2014 pour fire onto a single point while the aircraft orbits overhead. She fights at night, guided by infrared sensors, and nothing on the ground survives her attention.",
+      "desc": "A cargo plane turned into a flying battleship. Side-firing cannons \u2014 a rotary cannon, an autocannon, and a howitzer \u2014 pour fire onto a single point while the aircraft orbits overhead. She fights at night, guided by infrared sensors, and nothing on the ground survives her attention.",
       "notes": "The AC-130 is your apocalyptic fire support. She orbits overhead and destroys everything in the target area with surgical precision. Use her as the ultimate support asset the players can call in \u2014 or the ultimate threat if they're on the receiving end. She's vulnerable to SAMs and fighters, which creates escort requirements.",
       "image": "",
       "size": 12,

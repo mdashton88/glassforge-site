@@ -10,8 +10,8 @@
   "vehicles": [
     {
       "name": "M4A3E8 Sherman",
-      "desc": "The 'Easy Eight' \u2014 the final combat variant of the Sherman with a high-velocity 76mm gun and horizontal volute suspension that smoothed the ride enough to shoot on the move. She's still outgunned by a Tiger, but she can now hurt a Panther frontally, which her predecessors couldn't.",
-      "notes": "The E8 is the improved Sherman for late-war scenarios. Her 76mm gun solves the 'can't penetrate' problem of earlier variants. She's still best used with infantry support and numerical advantage rather than in stand-up duels with German heavies. Use her as the player vehicle for 1944-45 campaigns.",
+      "desc": "The 'Easy Eight' \u2014 the final combat variant of the Sherman with a high-velocity gun and horizontal volute suspension that smoothed the ride enough to shoot on the move. She's still outgunned by a Tiger, but she can now hurt a Panther frontally, which her predecessors couldn't.",
+      "notes": "The E8 is the improved Sherman for late-war scenarios. Her improved gun solves the 'can't penetrate' problem of earlier variants. She's still best used with infantry support and numerical advantage rather than in stand-up duels with German heavies. Use her as the player vehicle for 1944-45 campaigns.",
       "image": "",
       "size": 8,
       "loco": "tracked",
@@ -67,7 +67,7 @@
     },
     {
       "name": "Panther",
-      "desc": "Germany's response to the T-34 \u2014 sloped armour, a long 75mm gun, and a combination of firepower and protection that made her arguably the best tank of the war. She's fast, she hits hard, and her frontal armour defeats everything short of a 90mm. Her reliability is another matter entirely.",
+      "desc": "Germany's response to the T-34 \u2014 sloped armour, a long-barrelled high-velocity gun, and a combination of firepower and protection that made her arguably the best tank of the war. She's fast, she hits hard, and her frontal armour defeats everything short of a 90mm. Her reliability is another matter entirely.",
       "notes": "The Panther is the 'better than a Tiger' surprise for players who think they know WWII tanks. She's faster, her gun is nearly as deadly, and she's more common. Mechanical reliability is her weakness \u2014 transmission failures were epidemic. Roll for breakdown after sustained high-speed movement.",
       "image": "",
       "size": 8,

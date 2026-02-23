@@ -189,8 +189,8 @@
     },
     {
       "name": "M2A3 Bradley",
-      "desc": "The upgraded Bradley with digital fire control, improved armour, and a TOW-2 missile system that can kill any tank on the battlefield. She's an infantry fighting vehicle that occasionally forgets she's not a tank \u2014 the 25mm chain gun shreds light armour and the TOW reaches out to four kilometres.",
-      "notes": "The Bradley is your modern IFV with genuine anti-tank capability. The TOW missile changes the equation \u2014 she can kill an MBT at long range, which means she's not just a taxi. Use her in combined-arms scenarios where the infantry dismount and the Bradley provides overwatch with the chain gun and TOW.",
+      "desc": "The upgraded Bradley with digital fire control, improved armour, and a TOW-2 missile system that can kill any tank on the battlefield. She's an infantry fighting vehicle that occasionally forgets she's not a tank \u2014 the chain gun shreds light armour and the ATGM reaches out to four kilometres.",
+      "notes": "The Bradley is your modern IFV with genuine anti-tank capability. The ATGM changes the equation \u2014 she can kill an MBT at long range, which means she's not just a taxi. Use her in combined-arms scenarios where the infantry dismount and the Bradley provides overwatch with the chain gun and TOW.",
       "image": "",
       "size": 7,
       "loco": "tracked",
@@ -222,7 +222,7 @@
     },
     {
       "name": "BMP-3",
-      "desc": "Russia's current IFV. A 100mm gun that fires both shells and guided missiles, a 30mm autocannon, and room for seven infantry. She's the most heavily armed IFV in the world \u2014 more firepower than some tanks \u2014 crammed into a hull that floats across rivers.",
+      "desc": "Russia's current IFV. A 100mm gun that fires both shells and guided missiles, an autocannon, and room for seven infantry. She's the most heavily armed IFV in the world \u2014 more firepower than some tanks \u2014 crammed into a hull that floats across rivers.",
       "notes": "The BMP-3 is your heavily armed Russian IFV. She outguns every Western equivalent, which makes her dangerous even to armoured targets. The trade-off is thin armour \u2014 she's built to hit hard, not take hits. Use her when the opposition needs more firepower than a BTR but you don't want to deploy tanks.",
       "image": "",
       "size": 6,
@@ -250,8 +250,8 @@
     },
     {
       "name": "Warrior IFV",
-      "desc": "Britain's tracked infantry fighting vehicle. A 30mm RARDEN cannon, room for seven dismounts, and armour that's been upgraded repeatedly since the Gulf War. She's slower than the Bradley, less armed than the BMP-3, and perfectly adequate for everything the British Army asks her to do.",
-      "notes": "The Warrior is your British IFV. She's straightforward \u2014 carries troops, provides fire support with the 30mm, and takes hits better than a wheeled vehicle. Use her for British mechanised infantry operations where the players ride in the back until contact, then dismount and fight while the Warrior covers them.",
+      "desc": "Britain's tracked infantry fighting vehicle. A RARDEN autocannon, room for seven dismounts, and armour that's been upgraded repeatedly since the Gulf War. She's slower than the Bradley, less armed than the BMP-3, and perfectly adequate for everything the British Army asks her to do.",
+      "notes": "The Warrior is your British IFV. She's straightforward \u2014 carries troops, provides fire support with the autocannon, and takes hits better than a wheeled vehicle. Use her for British mechanised infantry operations where the players ride in the back until contact, then dismount and fight while the Warrior covers them.",
       "image": "",
       "size": 6,
       "loco": "tracked",

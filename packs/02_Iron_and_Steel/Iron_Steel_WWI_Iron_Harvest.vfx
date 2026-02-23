@@ -227,8 +227,8 @@
     },
     {
       "name": "Saint-Chamond",
-      "desc": "A French assault tank built around a 75mm field gun mounted in the hull front. Electrically driven, which makes it quieter than its petrol-driven rivals but gives it a distinctive whine that experienced troops learn to dread. The hull overhangs the tracks badly, making it prone to ditching on rough ground \u2014 and the Western Front is nothing but rough ground.",
-      "notes": "The Saint-Chamond is the glass cannon of WWI. That 75mm gun hits hard but the vehicle itself gets stuck constantly. Driving rolls at -2 in shell-cratered terrain. NPC seed: the electrician who keeps the drive system running is the most important person in the crew and knows it.",
+      "desc": "A French assault tank built around a field gun mounted in the hull front. Electrically driven, which makes it quieter than its petrol-driven rivals but gives it a distinctive whine that experienced troops learn to dread. The hull overhangs the tracks badly, making it prone to ditching on rough ground \u2014 and the Western Front is nothing but rough ground.",
+      "notes": "The Saint-Chamond is the glass cannon of WWI. That gun hits hard but the vehicle itself gets stuck constantly. Driving rolls at -2 in shell-cratered terrain. NPC seed: the electrician who keeps the drive system running is the most important person in the crew and knows it.",
       "image": "",
       "size": 8,
       "loco": "tracked",
@@ -253,7 +253,7 @@
     },
     {
       "name": "Schneider CA1",
-      "desc": "The first French tank, and it shows. Essentially an armoured box bolted onto a Holt tractor chassis, with a short 75mm gun in a limited-traverse mount and two machine guns. The fuel tanks are poorly positioned and the armour is just thick enough to stop rifle rounds but not much else. Brave crews call them 'moving coffins' and mean it as a compliment.",
+      "desc": "The first French tank, and it shows. Essentially an armoured box bolted onto a Holt tractor chassis, with a short-barrelled gun in a limited-traverse mount and two machine guns. The fuel tanks are poorly positioned and the armour is just thick enough to stop rifle rounds but not much else. Brave crews call them 'moving coffins' and mean it as a compliment.",
       "notes": "The Schneider is the 'early war desperate measure' tank. Use it when the situation is bad enough that command is sending everything they have. Fire risk is the defining characteristic \u2014 any Wound has a 1-in-4 chance of igniting the fuel. NPC seed: a crew who've survived two Schneiders burning out from under them and are starting their third.",
       "image": "",
       "size": 7,
