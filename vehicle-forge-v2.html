@@ -278,6 +278,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="weapons" onclick="switchTab('weapons')">Weapons</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="specials" onclick="switchTab('specials')">Special</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="hangar" onclick="switchTab('hangar')">Hangar</div>
+      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="extensions" onclick="switchTab('extensions')">Extensions</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="help" onclick="switchTab('help')">Reference</div>
       <div style="flex:1"></div>
       <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)" style="border:none;padding:6px 12px;font-size:13px">↩ Undo</button>
@@ -315,6 +316,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <div class="hangar-grid" id="savedList" tabindex="0"></div>
       </div>
     </div>
+    <div class="panel" id="panel-extensions"><div id="extensionsContent" style="max-width:700px"></div></div>
     <div class="panel" id="panel-help"><div style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="search-bar help-search" id="helpSearch" placeholder="Search reference guide..." oninput="filterHelp()" style="flex:1;margin:0"><button class="btn" onclick="popOutHelp()" title="Open in new window" style="white-space:nowrap;padding:6px 14px">⧉ Pop Out</button></div><div id="helpContent"></div></div>
     <div class="panel" id="panel-settings">
       <div style="max-width:600px">
@@ -706,7 +708,7 @@ try{var dp=localStorage.getItem('diceforge-cvf-disabled');if(dp)disabledPacks=JS
 function saveExtensions(){localStorage.setItem('diceforge-cvf-extensions',JSON.stringify(extensions))}
 function saveDisabledPacks(){localStorage.setItem('diceforge-cvf-disabled',JSON.stringify(disabledPacks))}
 function isPackEnabled(id){return disabledPacks.indexOf(id)===-1}
-function togglePack(id){var i=disabledPacks.indexOf(id);if(i===-1)disabledPacks.push(id);else disabledPacks.splice(i,1);saveDisabledPacks();rebuildExtensionData();renderAll();showExtensionManager()}
+function togglePack(id){var i=disabledPacks.indexOf(id);if(i===-1)disabledPacks.push(id);else disabledPacks.splice(i,1);saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function installExtension(data,silent){
   if(!data||!data.id||!data.name){if(!silent)alert('Invalid .vfx file.');return}
   extensions=extensions.filter(function(e){return e.id!==data.id});
@@ -758,15 +760,18 @@ rebuildExtensionData();
 })();
 function importVFX(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){
   try{var data=JSON.parse(ev.target.result);installExtension(data)}catch(err){alert('Error reading .vfx file: '+err.message)}};reader.readAsText(file);e.target.value=''}
-function showExtensionManager(){
-  var html='<h2 style="margin-bottom:12px">Extension Manager</h2>';
+function showExtensionManager(){switchTab('extensions')}
+function renderExtensions(){
+  var el=document.getElementById('extensionsContent');if(!el)return;
+  var html='<h2 style="margin-bottom:12px">Extension Packs</h2>';
   html+='<p style="color:var(--text-dim);margin-bottom:12px;font-size:15px">Toggle packs on or off. Disabled packs hide all their content — vehicles, weapons, mods, and specials.</p>';
   var en=extensions.filter(function(e){return isPackEnabled(e.id)}).length;
-  html+='<div style="display:flex;gap:6px;margin-bottom:16px">';
+  var totalV=0;extensions.forEach(function(e){if(isPackEnabled(e.id)&&e.vehicles)totalV+=e.vehicles.length});
+  html+='<div style="display:flex;gap:6px;margin-bottom:12px">';
   html+='<button class="header-btn" onclick="enableAllPacks()" style="flex:1;text-align:center">Enable All ('+extensions.length+')</button>';
   html+='<button class="header-btn" onclick="disableAllPacks()" style="flex:1;text-align:center">Disable All</button>';
   html+='</div>';
-  html+='<div style="margin-bottom:16px;font-size:13px;color:var(--text-dim)">'+en+' of '+extensions.length+' packs enabled</div>';
+  html+='<div style="margin-bottom:16px;font-size:13px;color:var(--text-dim)">'+en+' of '+extensions.length+' packs enabled \u2014 '+totalV+' vehicles active</div>';
   html+='<div style="margin-bottom:16px"><input type="file" id="vfxImport" accept=".vfx,.json" onchange="importVFX(event)" style="display:none"><button class="header-btn primary" onclick="document.getElementById(\'vfxImport\').click()" style="width:100%;text-align:center;padding:10px">Install .vfx Extension</button></div>';
   if(extensions.length===0){html+='<p style="color:var(--text-dim);text-align:center;padding:20px;border:1px dashed var(--border)">No extensions installed.</p>'}
   else{extensions.forEach(function(ext){
@@ -783,14 +788,9 @@ function showExtensionManager(){
     html+='<div style="display:flex;gap:6px;align-items:center;flex-shrink:0">';
     html+='<button class="header-btn" onclick="togglePack(\''+ext.id+'\')" style="font-size:13px;min-width:50px;border-color:'+(on?'var(--green)':'var(--red)')+';color:'+(on?'var(--green)':'var(--red)')+'">'+(on?'ON':'OFF')+'</button>';
     html+='</div></div>'})}
-  var overlay=document.createElement('div');overlay.id='extOverlay';
-  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:flex;justify-content:center;align-items:center';
-  var box=document.createElement('div');box.style.cssText='background:var(--bg-panel);border:1px solid var(--border);padding:24px;max-width:600px;width:90%;max-height:80vh;overflow-y:auto';
-  box.innerHTML=html+'<button class="header-btn" onclick="document.getElementById(\'extOverlay\').remove()" style="width:100%;text-align:center;margin-top:16px">Close</button>';
-  overlay.appendChild(box);overlay.onclick=function(e){if(e.target===overlay)overlay.remove()};
-  document.body.appendChild(overlay)}
-function enableAllPacks(){disabledPacks=[];saveDisabledPacks();rebuildExtensionData();renderAll();showExtensionManager()}
-function disableAllPacks(){disabledPacks=extensions.map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();showExtensionManager()}
+  el.innerHTML=html}
+function enableAllPacks(){disabledPacks=[];saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
+function disableAllPacks(){disabledPacks=extensions.map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function getAllMods(){return MODS.concat(extMods)}
 function getAllSpecials(){return SPECIALS.concat(extSpecials)}
 
@@ -1426,7 +1426,7 @@ function filterHelp(){var q=(document.getElementById('helpSearch').value||'').to
     s.style.display=tags.indexOf(q)>=0?'':'none'})}
 
 // ═══ TABS, SAVE/LOAD, UTILS ═══
-function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput();if(tab==='hangar'){initHangarFilters();renderSaved()}updateContext(tab)}
+function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput();if(tab==='hangar'){initHangarFilters();renderSaved()}if(tab==='extensions')renderExtensions();updateContext(tab)}
 function switchSidebarTab(tab){document.querySelectorAll('.sidebar-tab').forEach(function(t){t.classList.toggle('active',t.dataset.stab===tab)});document.querySelectorAll('.sidebar-panel').forEach(function(p){p.classList.toggle('active',p.id==='spanel-'+tab)})}
 function updateContext(tab){
   var sections=['ctx-stats','ctx-mods','ctx-weapons','ctx-specials','ctx-export'];
