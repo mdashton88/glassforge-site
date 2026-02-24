@@ -1,124 +1,310 @@
 {
-  "id":"space-fleet-invasion-fleet",
-  "name":"Space Fleets — Invasion Fleet",
-  "version":"1.0",
-  "publisher":"DiceForge Studios Ltd.",
-  "description":"10 vehicles — The ships of planetary invasion, from both sides: alien motherships darkening the sky, human scramble fighters launching in desperation, and the dropships that carry marines into hell.",
-  "weapons":[],
-  "mods":[],
-  "specials":[],
-  "vehicles":[
+  "id": "space-fleet-invasion-fleet",
+  "name": "Space Fleets \u2014 Invasion Fleet",
+  "version": "1.0",
+  "publisher": "DiceForge Studios Ltd.",
+  "description": "10 vehicles \u2014 The ships of planetary invasion, from both sides: alien motherships darkening the sky, human scramble fighters launching in desperation, and the dropships that carry marines into hell.",
+  "weapons": [],
+  "mods": [],
+  "specials": [],
+  "vehicles": [
     {
-      "name":"Scramble Fighter",
-      "desc":"Atmospheric interceptor hastily fitted with vacuum sealing and manoeuvring thrusters. She was designed to fight other aircraft, not alien warships, and her weapons barely scratch their shields. But she's what humanity has, and her pilots are flying them into the teeth of invasion because the alternative is extinction. Cockpit instrumentation is still labelled in the language of a world that might not exist tomorrow.",
-      "notes":"Atmospheric fighter adapted for space. Outclassed but numerous. Human defender.",
-      "size":6,"loco":"space_thruster",
-      "toughLevel":-1,"armourLevel":0,"speedLevel":2,"handlingLevel":2,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"ac_future","mount":"fixed","linked":1},
-        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      "name": "Scramble Fighter",
+      "desc": "Atmospheric interceptor hastily fitted with vacuum sealing and manoeuvring thrusters. She was designed to fight other aircraft, not alien warships, and her weapons barely scratch their shields. But she's what humanity has, and her pilots are flying them into the teeth of invasion because the alternative is extinction. Cockpit instrumentation is still labelled in the language of a world that might not exist tomorrow.",
+      "notes": "Atmospheric fighter adapted for space. Outclassed but numerous. Human defender.",
+      "size": 6,
+      "loco": "space_thruster",
+      "toughLevel": -1,
+      "armourLevel": 0,
+      "speedLevel": 2,
+      "handlingLevel": 2,
+      "woundsLevel": 0,
+      "crewLevel": 0,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "ac_future",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "missile_light",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Dropship (Assault)",
-      "desc":"Armoured troop carrier designed to deliver a platoon of marines from orbit to a contested landing zone through ground fire, atmospheric turbulence, and whatever else the enemy throws at her. She's ugly, loud, and built like a brick. Her crew chief stands at the rear ramp screaming at marines to move while the pilot holds her steady through anti-aircraft fire. Everyone aboard hates her. Everyone aboard is glad she exists.",
-      "notes":"Troop transport. Atmospheric and space capable. Carries 20-30 marines.",
-      "size":8,"loco":"space_thruster",
-      "toughLevel":1,"armourLevel":1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":2,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"ac_future","mount":"turret","linked":0},
-        {"weaponId":"rocket_light","mount":"fixed","linked":0}
+      "name": "Dropship (Assault)",
+      "desc": "Armoured troop carrier designed to deliver a platoon of marines from orbit to a contested landing zone through ground fire, atmospheric turbulence, and whatever else the enemy throws at her. She's ugly, loud, and built like a brick. Her crew chief stands at the rear ramp screaming at marines to move while the pilot holds her steady through anti-aircraft fire. Everyone aboard hates her. Everyone aboard is glad she exists.",
+      "notes": "Troop transport. Atmospheric and space capable. Carries 20-30 marines.",
+      "size": 8,
+      "loco": "space_thruster",
+      "toughLevel": 1,
+      "armourLevel": 1,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": 2,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "ac_future",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "rocket_light",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Human Frigate",
-      "desc":"First-generation warship built in the desperate years after first contact revealed that humanity was not alone and not safe. She carries magnetic accelerator weapons — crude but effective against alien hull materials — and enough armour to survive a single exchange of fire. Her crew volunteers for duty knowing the casualty rates. They serve anyway, because the species needs them.",
-      "notes":"Human military. MAC gun primary weapon. Can survive one engagement.",
-      "size":14,"loco":"space_ftl",
-      "toughLevel":0,"armourLevel":0,"speedLevel":1,"handlingLevel":1,"woundsLevel":0,"crewLevel":-9,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"rail_gun","mount":"fixed","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1},
-        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      "name": "Human Frigate",
+      "desc": "First-generation warship built in the desperate years after first contact revealed that humanity was not alone and not safe. She carries magnetic accelerator weapons \u2014 crude but effective against alien hull materials \u2014 and enough armour to survive a single exchange of fire. Her crew volunteers for duty knowing the casualty rates. They serve anyway, because the species needs them.",
+      "notes": "Human military. MAC gun primary weapon. Can survive one engagement.",
+      "size": 14,
+      "loco": "space_ftl",
+      "toughLevel": 0,
+      "armourLevel": 0,
+      "speedLevel": 1,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "crewLevel": -9,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "rail_gun",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "missile_light",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Human Cruiser",
-      "desc":"Heavy warship and the largest combat vessel most human shipyards can produce. Her MAC gun can gut an alien frigate in a single shot, but the aliens have shields and humans don't, which means every engagement is a race to kill before being killed. Her captain knows the exchange rate: three human cruisers for one alien equivalent. The admiralty considers this acceptable. The crews disagree.",
-      "notes":"Human capital ship. Powerful MAC weapon. No energy shields. Outnumbered.",
-      "size":18,"loco":"space_ftl",
-      "toughLevel":1,"armourLevel":2,"speedLevel":0,"handlingLevel":-1,"woundsLevel":0,"crewLevel":160,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"rail_gun","mount":"fixed","linked":0},
-        {"weaponId":"laser_med","mount":"turret","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1},
-        {"weaponId":"missile_med","mount":"fixed","linked":0}
+      "name": "Human Cruiser",
+      "desc": "Heavy warship and the largest combat vessel most human shipyards can produce. Her MAC gun can gut an alien frigate in a single shot, but the aliens have shields and humans don't, which means every engagement is a race to kill before being killed. Her captain knows the exchange rate: three human cruisers for one alien equivalent. The admiralty considers this acceptable. The crews disagree.",
+      "notes": "Human capital ship. Powerful MAC weapon. No energy shields. Outnumbered.",
+      "size": 18,
+      "loco": "space_ftl",
+      "toughLevel": 1,
+      "armourLevel": 2,
+      "speedLevel": 0,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "crewLevel": 160,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "rail_gun",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "laser_med",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "missile_med",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Alien Scout Craft",
-      "desc":"Small, fast reconnaissance vessel that precedes the main invasion fleet by months. She maps defences, catalogues military assets, and abducts specimens for biological analysis. Her crew operates with clinical detachment — humanity is a subject of study, not a peer civilisation. Her cloaking technology makes her invisible to current human sensors. She has been watching for longer than anyone suspects.",
-      "notes":"Alien recon. Cloaked. Small crew. Precursor to invasion.",
-      "size":8,"loco":"space_ftl",
-      "toughLevel":0,"armourLevel":1,"speedLevel":2,"handlingLevel":2,"woundsLevel":0,"crewLevel":-2,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"pb_light","mount":"turret","linked":0}
+      "name": "Alien Scout Craft",
+      "desc": "Small, fast reconnaissance vessel that precedes the main invasion fleet by months. She maps defences, catalogues military assets, and abducts specimens for biological analysis. Her crew operates with clinical detachment \u2014 humanity is a subject of study, not a peer civilisation. Her cloaking technology makes her invisible to current human sensors. She has been watching for longer than anyone suspects.",
+      "notes": "Alien recon. Cloaked. Small crew. Precursor to invasion.",
+      "size": 8,
+      "loco": "space_ftl",
+      "toughLevel": 0,
+      "armourLevel": 1,
+      "speedLevel": 2,
+      "handlingLevel": 2,
+      "woundsLevel": 0,
+      "crewLevel": -2,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "ion_disruptor",
+          "mount": "turret",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Alien Destroyer",
-      "desc":"Warship of the invasion fleet, carrying weapons that operate on principles human science cannot yet explain. Her energy shields absorb kinetic impacts that would shatter human vessels, and her beam weapons cut through steel like sunlight through fog. She fights with the calm efficiency of a species that has conquered dozens of worlds and expects no meaningful resistance.",
-      "notes":"Alien warship. Energy shields. Beam weapons. Technologically superior.",
-      "size":16,"loco":"space_ftl",
-      "toughLevel":1,"armourLevel":2,"speedLevel":1,"handlingLevel":0,"woundsLevel":0,"crewLevel":80,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"pb_heavy","mount":"turret","linked":0},
-        {"weaponId":"pb_med","mount":"turret","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "Alien Destroyer",
+      "desc": "Warship of the invasion fleet, carrying weapons that operate on principles human science cannot yet explain. Her energy shields absorb kinetic impacts that would shatter human vessels, and her beam weapons cut through steel like sunlight through fog. She fights with the calm efficiency of a species that has conquered dozens of worlds and expects no meaningful resistance.",
+      "notes": "Alien warship. Energy shields. Beam weapons. Technologically superior.",
+      "size": 16,
+      "loco": "space_ftl",
+      "toughLevel": 1,
+      "armourLevel": 2,
+      "speedLevel": 1,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": 80,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "psionic_lance",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "psionic_lance",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "flak_battery",
+          "mount": "turret",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"City Destroyer",
-      "desc":"Vast alien vessel that positions herself above population centres and deploys a focused energy weapon capable of reducing a city to a crater in seconds. She's not a warship in any conventional sense — she's a terror weapon, designed to break the will of a civilisation through demonstration of overwhelming power. Her shields absorb everything a planetary defence network can throw at her. Almost everything.",
-      "notes":"Atmosphere-capable. City-killing weapon. Nearly impervious shields.",
-      "size":26,"loco":"space_ftl",
-      "toughLevel":4,"armourLevel":4,"speedLevel":-2,"handlingLevel":-4,"woundsLevel":0,"crewLevel":-370,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_mega","mount":"fixed","linked":0},
-        {"weaponId":"pb_heavy","mount":"turret","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "City Destroyer",
+      "desc": "Vast alien vessel that positions herself above population centres and deploys a focused energy weapon capable of reducing a city to a crater in seconds. She's not a warship in any conventional sense \u2014 she's a terror weapon, designed to break the will of a civilisation through demonstration of overwhelming power. Her shields absorb everything a planetary defence network can throw at her. Almost everything.",
+      "notes": "Atmosphere-capable. City-killing weapon. Nearly impervious shields.",
+      "size": 26,
+      "loco": "space_ftl",
+      "toughLevel": 4,
+      "armourLevel": 4,
+      "speedLevel": -2,
+      "handlingLevel": -4,
+      "woundsLevel": 0,
+      "crewLevel": -370,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "doomsday_cannon",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "psionic_lance",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "flak_battery",
+          "mount": "turret",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Mothership",
-      "desc":"The core of the invasion fleet: a vessel so large she distorts local gravity and blots out the sun when she enters atmosphere. She carries the entire invasion force — destroyers, city-killers, fighters, ground troops, and the command intelligence that directs them all. Destroying her ends the invasion. Reaching her requires fighting through everything she carries. Both facts are well understood by the humans planning their last stand.",
-      "notes":"Command vessel. Carries entire invasion fleet. Strategic objective. Moon-sized.",
-      "size":30,"loco":"space_ftl",
-      "toughLevel":5,"armourLevel":5,"speedLevel":-4,"handlingLevel":-5,"woundsLevel":0,"crewLevel":-350,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_mega","mount":"turret","linked":0},
-        {"weaponId":"pb_heavy","mount":"turret","linked":1},
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "Mothership",
+      "desc": "The core of the invasion fleet: a vessel so large she distorts local gravity and blots out the sun when she enters atmosphere. She carries the entire invasion force \u2014 destroyers, city-killers, fighters, ground troops, and the command intelligence that directs them all. Destroying her ends the invasion. Reaching her requires fighting through everything she carries. Both facts are well understood by the humans planning their last stand.",
+      "notes": "Command vessel. Carries entire invasion fleet. Strategic objective. Moon-sized.",
+      "size": 30,
+      "loco": "space_ftl",
+      "toughLevel": 5,
+      "armourLevel": 5,
+      "speedLevel": -4,
+      "handlingLevel": -5,
+      "woundsLevel": 0,
+      "crewLevel": -350,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "doomsday_cannon",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "psionic_lance",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "flak_battery",
+          "mount": "turret",
+          "linked": 1
+        }
       ]
     },
     {
-      "name":"Colony Ship (Human)",
-      "desc":"Sleeper vessel carrying thousands of colonists in cryogenic suspension towards a new world. She left Earth decades before the invasion and doesn't know the homeworld has fallen. Her crew — a handful of people awake at any time — maintains the ship and the dreamers in her holds, unaware that they may be carrying the last viable population of their species. Her destination is years away. The invasion is happening now.",
-      "notes":"Cryogenic sleeper ship. Unarmed. Thousands in stasis. Doesn't know about invasion.",
-      "size":20,"loco":"space_ftl",
-      "toughLevel":0,"armourLevel":0,"speedLevel":-2,"handlingLevel":-3,"woundsLevel":0,"crewLevel":180,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[]
+      "name": "Colony Ship (Human)",
+      "desc": "Sleeper vessel carrying thousands of colonists in cryogenic suspension towards a new world. She left Earth decades before the invasion and doesn't know the homeworld has fallen. Her crew \u2014 a handful of people awake at any time \u2014 maintains the ship and the dreamers in her holds, unaware that they may be carrying the last viable population of their species. Her destination is years away. The invasion is happening now.",
+      "notes": "Cryogenic sleeper ship. Unarmed. Thousands in stasis. Doesn't know about invasion.",
+      "size": 20,
+      "loco": "space_ftl",
+      "toughLevel": 0,
+      "armourLevel": 0,
+      "speedLevel": -2,
+      "handlingLevel": -3,
+      "woundsLevel": 0,
+      "crewLevel": 180,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": []
     },
     {
-      "name":"Orbital Defence Platform",
-      "desc":"Humanity's first line of defence: a weapons station in high orbit designed to engage capital ships before they reach atmosphere. She carries the most powerful magnetic accelerator cannon ever built, powered by a fusion reactor that burns through fuel at a rate that gives her hours of sustained fire, not days. Her crew of fifty knows they're the first target of any invasion fleet. The view from the observation deck is magnificent.",
-      "notes":"Stationary. Super MAC gun. Limited ammunition. First target in any invasion.",
-      "size":18,"loco":"none",
-      "toughLevel":2,"armourLevel":2,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":55,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"rail_gun","mount":"fixed","linked":0},
-        {"weaponId":"rail_gun","mount":"fixed","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "Orbital Defence Platform",
+      "desc": "Humanity's first line of defence: a weapons station in high orbit designed to engage capital ships before they reach atmosphere. She carries the most powerful magnetic accelerator cannon ever built, powered by a fusion reactor that burns through fuel at a rate that gives her hours of sustained fire, not days. Her crew of fifty knows they're the first target of any invasion fleet. The view from the observation deck is magnificent.",
+      "notes": "Stationary. Super MAC gun. Limited ammunition. First target in any invasion.",
+      "size": 18,
+      "loco": "none",
+      "toughLevel": 2,
+      "armourLevel": 2,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": 55,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "rail_gun",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "rail_gun",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 1
+        }
       ]
     }
   ]

@@ -1,129 +1,331 @@
 {
-  "id":"space-fleet-cathedral-fleet",
-  "name":"Space Fleets — Cathedral Fleet",
-  "version":"1.0",
-  "publisher":"DiceForge Studios Ltd.",
-  "description":"10 vehicles — The war fleet of a theocratic star empire, where battleships are built like cathedrals and crewed by press-ganged thousands. Lance batteries, macro cannons, and boarding torpedoes deliver righteous annihilation to the faithless.",
-  "weapons":[],
-  "mods":[],
-  "specials":[],
-  "vehicles":[
+  "id": "space-fleet-cathedral-fleet",
+  "name": "Space Fleets \u2014 Cathedral Fleet",
+  "version": "1.0",
+  "publisher": "DiceForge Studios Ltd.",
+  "description": "10 vehicles \u2014 The war fleet of a theocratic star empire, where battleships are built like cathedrals and crewed by press-ganged thousands. Lance batteries, macro cannons, and boarding torpedoes deliver righteous annihilation to the faithless.",
+  "weapons": [],
+  "mods": [],
+  "specials": [],
+  "vehicles": [
     {
-      "name":"Fury Interceptor",
-      "desc":"Brutish, over-engineered attack craft crewed by a pilot and a gunner strapped into an armoured cockpit that smells of incense and recycled air. She's not nimble — nothing built by the Ecclesiarchy's shipwrights is nimble — but she's tough enough to fly through point-defence fire that would shred lighter craft, deliver her payload, and limp home trailing smoke and prayers.",
-      "notes":"Heavy for a fighter. Twin crew. Durable but sluggish compared to xenos equivalents.",
-      "size":6,"loco":"space_thruster",
-      "toughLevel":0,"armourLevel":1,"speedLevel":2,"handlingLevel":1,"woundsLevel":0,"crewLevel":1,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_light","mount":"fixed","linked":1},
-        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      "name": "Fury Interceptor",
+      "desc": "Brutish, over-engineered attack craft crewed by a pilot and a gunner strapped into an armoured cockpit that smells of incense and recycled air. She's not nimble \u2014 nothing built by the Ecclesiarchy's shipwrights is nimble \u2014 but she's tough enough to fly through point-defence fire that would shred lighter craft, deliver her payload, and limp home trailing smoke and prayers.",
+      "notes": "Heavy for a fighter. Twin crew. Durable but sluggish compared to xenos equivalents.",
+      "size": 6,
+      "loco": "space_thruster",
+      "toughLevel": 0,
+      "armourLevel": 1,
+      "speedLevel": 2,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "crewLevel": 1,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_light",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "missile_light",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Starhawk Bomber",
-      "desc":"Dedicated torpedo bomber built around a payload bay large enough to carry ship-killing ordnance. She flies low and slow on her attack run, and her three-person crew knows that if the fighters don't cover them, they die. But if they survive the approach, a single torpedo can crack open a cruiser's spine. The Ecclesiarchy considers her crew expendable. The crew disagrees.",
-      "notes":"Torpedo bomber. Slow, tough, devastating strike capability. Three crew.",
-      "size":8,"loco":"space_thruster",
-      "toughLevel":1,"armourLevel":1,"speedLevel":0,"handlingLevel":-1,"woundsLevel":0,"crewLevel":2,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_gat","mount":"turret","linked":0},
-        {"weaponId":"torpedo_heavy","mount":"fixed","linked":0}
+      "name": "Starhawk Bomber",
+      "desc": "Dedicated torpedo bomber built around a payload bay large enough to carry ship-killing ordnance. She flies low and slow on her attack run, and her three-person crew knows that if the fighters don't cover them, they die. But if they survive the approach, a single torpedo can crack open a cruiser's spine. The Ecclesiarchy considers her crew expendable. The crew disagrees.",
+      "notes": "Torpedo bomber. Slow, tough, devastating strike capability. Three crew.",
+      "size": 8,
+      "loco": "space_thruster",
+      "toughLevel": 1,
+      "armourLevel": 1,
+      "speedLevel": 0,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "crewLevel": 2,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_heavy",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Sword-Class Frigate",
-      "desc":"Fast escort vessel and the smallest ship in the fleet that carries a proper lance battery. Her crew of hundreds lives in conditions medieval even by fleet standards — hammocks slung between gun decks, food dispensed by servitor, and discipline maintained by the lash. But she's quick, well-armed for her tonnage, and her captains tend towards the recklessly brave.",
-      "notes":"Fast escort with lance battery. Aggressive captains preferred.",
-      "size":14,"loco":"space_ftl",
-      "toughLevel":0,"armourLevel":0,"speedLevel":1,"handlingLevel":1,"woundsLevel":0,"crewLevel":-9,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_heavy","mount":"turret","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1},
-        {"weaponId":"torpedo_light","mount":"fixed","linked":0}
+      "name": "Sword-Class Frigate",
+      "desc": "Fast escort vessel and the smallest ship in the fleet that carries a proper lance battery. Her crew of hundreds lives in conditions medieval even by fleet standards \u2014 hammocks slung between gun decks, food dispensed by servitor, and discipline maintained by the lash. But she's quick, well-armed for her tonnage, and her captains tend towards the recklessly brave.",
+      "notes": "Fast escort with lance battery. Aggressive captains preferred.",
+      "size": 14,
+      "loco": "space_ftl",
+      "toughLevel": 0,
+      "armourLevel": 0,
+      "speedLevel": 1,
+      "handlingLevel": 1,
+      "woundsLevel": 0,
+      "crewLevel": -9,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "lance_light",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "flak_battery",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "torpedo_light",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Gothic-Class Cruiser",
-      "desc":"The backbone of the theocratic navy: a lance-heavy cruiser whose Gothic spires and buttressed hull plating serve both as radiation shielding and as a declaration of faith in the god-emperor. Crewed by ten thousand souls press-ganged from penal worlds, maintained by lobotomised tech-thralls, and commanded by a captain who reports to both the admiralty and the priesthood.",
-      "notes":"Lance-heavy cruiser. Cathedral architecture doubles as structural reinforcement.",
-      "size":18,"loco":"space_ftl",
-      "toughLevel":1,"armourLevel":2,"speedLevel":0,"handlingLevel":-1,"woundsLevel":0,"crewLevel":160,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_heavy","mount":"turret","linked":0},
-        {"weaponId":"laser_heavy","mount":"turret","linked":0},
-        {"weaponId":"cannon_super","mount":"turret","linked":0},
-        {"weaponId":"torpedo_future","mount":"fixed","linked":0}
+      "name": "Gothic-Class Cruiser",
+      "desc": "The backbone of the theocratic navy: a lance-heavy cruiser whose Gothic spires and buttressed hull plating serve both as radiation shielding and as a declaration of faith in the god-emperor. Crewed by ten thousand souls press-ganged from penal worlds, maintained by lobotomised tech-thralls, and commanded by a captain who reports to both the admiralty and the priesthood.",
+      "notes": "Lance-heavy cruiser. Cathedral architecture doubles as structural reinforcement.",
+      "size": 18,
+      "loco": "space_ftl",
+      "toughLevel": 1,
+      "armourLevel": 2,
+      "speedLevel": 0,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "crewLevel": 160,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "lance_heavy",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "lance_light",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "macro_cannon",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "boarding_torpedo",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Dominator-Class Cruiser",
-      "desc":"Macro-cannon variant of the standard cruiser, built around a single enormous forward battery capable of reducing a city to rubble in a single broadside. Less elegant than her lance-armed sister, she compensates with sheer devastating kinetic force. Her gun crews worship the weapon they serve, and the recoil from a full salvo makes the hull ring like a cathedral bell.",
-      "notes":"Nova cannon variant. Devastating forward arc, weaker broadsides.",
-      "size":18,"loco":"space_ftl",
-      "toughLevel":1,"armourLevel":1,"speedLevel":0,"handlingLevel":-1,"woundsLevel":0,"crewLevel":160,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"cannon_superheavy","mount":"fixed","linked":0},
-        {"weaponId":"laser_med","mount":"turret","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "Dominator-Class Cruiser",
+      "desc": "Macro-cannon variant of the standard cruiser, built around a single enormous forward battery capable of reducing a city to rubble in a single broadside. Less elegant than her lance-armed sister, she compensates with sheer devastating kinetic force. Her gun crews worship the weapon they serve, and the recoil from a full salvo makes the hull ring like a cathedral bell.",
+      "notes": "Nova cannon variant. Devastating forward arc, weaker broadsides.",
+      "size": 18,
+      "loco": "space_ftl",
+      "toughLevel": 1,
+      "armourLevel": 1,
+      "speedLevel": 0,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "crewLevel": 160,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "nova_cannon",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "macro_cannon",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "flak_battery",
+          "mount": "turret",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Overlord-Class Battlecruiser",
-      "desc":"Heavy combatant that bridges the gap between cruiser and battleship. Faster than a true capital ship but carrying weapons that would embarrass most vessels twice her tonnage. Fleet admirals use her as a troubleshooter — fast enough to respond to breakthroughs, powerful enough to hold a flank, and expendable enough that losing one won't end a campaign.",
-      "notes":"Fast capital ship. Excellent for independent operations.",
-      "size":21,"loco":"space_ftl",
-      "toughLevel":2,"armourLevel":2,"speedLevel":0,"handlingLevel":-1,"woundsLevel":0,"crewLevel":110,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_heavy","mount":"turret","linked":0},
-        {"weaponId":"laser_heavy","mount":"turret","linked":0},
-        {"weaponId":"cannon_super","mount":"turret","linked":0},
-        {"weaponId":"torpedo_future","mount":"fixed","linked":0}
+      "name": "Overlord-Class Battlecruiser",
+      "desc": "Heavy combatant that bridges the gap between cruiser and battleship. Faster than a true capital ship but carrying weapons that would embarrass most vessels twice her tonnage. Fleet admirals use her as a troubleshooter \u2014 fast enough to respond to breakthroughs, powerful enough to hold a flank, and expendable enough that losing one won't end a campaign.",
+      "notes": "Fast capital ship. Excellent for independent operations.",
+      "size": 21,
+      "loco": "space_ftl",
+      "toughLevel": 2,
+      "armourLevel": 2,
+      "speedLevel": 0,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "crewLevel": 110,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "lance_heavy",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "lance_light",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "macro_cannon",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "boarding_torpedo",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Retribution-Class Battleship",
-      "desc":"Kilometres of consecrated steel, a crew numbered in the tens of thousands, and enough firepower to crack a continent. Her construction took three centuries and consumed the industrial output of an entire star system. Cathedral spires rise from her dorsal hull like fingers reaching towards the divine, and her broadside batteries can sustain fire for hours without pause. She is war as an act of faith.",
-      "notes":"True battleship. Broadside-focused. Crew in the tens of thousands.",
-      "size":24,"loco":"space_ftl",
-      "toughLevel":3,"armourLevel":4,"speedLevel":-2,"handlingLevel":-3,"woundsLevel":0,"crewLevel":140,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"cannon_superheavy","mount":"turret","linked":0},
-        {"weaponId":"laser_heavy","mount":"turret","linked":0},
-        {"weaponId":"laser_heavy","mount":"turret","linked":0},
-        {"weaponId":"torpedo_future","mount":"fixed","linked":0}
+      "name": "Retribution-Class Battleship",
+      "desc": "Kilometres of consecrated steel, a crew numbered in the tens of thousands, and enough firepower to crack a continent. Her construction took three centuries and consumed the industrial output of an entire star system. Cathedral spires rise from her dorsal hull like fingers reaching towards the divine, and her broadside batteries can sustain fire for hours without pause. She is war as an act of faith.",
+      "notes": "True battleship. Broadside-focused. Crew in the tens of thousands.",
+      "size": 24,
+      "loco": "space_ftl",
+      "toughLevel": 3,
+      "armourLevel": 4,
+      "speedLevel": -2,
+      "handlingLevel": -3,
+      "woundsLevel": 0,
+      "crewLevel": 140,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "macro_cannon",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "macro_cannon",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "lance_heavy",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "boarding_torpedo",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Boarding Ram",
-      "desc":"Armoured assault craft built for one purpose: crossing the void between warships and punching through enemy hull plating to deliver shock troops into the corridors beyond. Her prow is a reinforced drill-ram blessed by the priesthood, and her interior is packed with fanatics in sealed armour clutching chain-weapons and screaming hymns. No one expects to survive. Most don't.",
-      "notes":"Boarding assault craft. Extremely heavy armour on approach vector. Single-use prow ram.",
-      "size":7,"loco":"space_thruster",
-      "toughLevel":2,"armourLevel":3,"speedLevel":1,"handlingLevel":-1,"woundsLevel":0,"crewLevel":1,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_gat","mount":"fixed","linked":0}
+      "name": "Boarding Ram",
+      "desc": "Armoured assault craft built for one purpose: crossing the void between warships and punching through enemy hull plating to deliver shock troops into the corridors beyond. Her prow is a reinforced drill-ram blessed by the priesthood, and her interior is packed with fanatics in sealed armour clutching chain-weapons and screaming hymns. No one expects to survive. Most don't.",
+      "notes": "Boarding assault craft. Extremely heavy armour on approach vector. Single-use prow ram.",
+      "size": 7,
+      "loco": "space_thruster",
+      "toughLevel": 2,
+      "armourLevel": 3,
+      "speedLevel": 1,
+      "handlingLevel": -1,
+      "woundsLevel": 0,
+      "crewLevel": 1,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "flak_battery",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Pilgrim Vessel",
-      "desc":"Enormous civilian transport pressed into fleet service as a troop carrier, supply ship, and mobile shrine. She carries thousands of faithful across the void between crusade waypoints, and her vast cathedral-decks echo with hymns and the clatter of pilgrims prostrating themselves before reliquaries of dubious provenance. Barely armed, barely armoured, and absolutely essential to the fleet's logistics.",
-      "notes":"Mass transport. Carries thousands. Minimal combat capability.",
-      "size":20,"loco":"space_ftl",
-      "toughLevel":0,"armourLevel":0,"speedLevel":-2,"handlingLevel":-3,"woundsLevel":0,"crewLevel":180,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      "name": "Pilgrim Vessel",
+      "desc": "Enormous civilian transport pressed into fleet service as a troop carrier, supply ship, and mobile shrine. She carries thousands of faithful across the void between crusade waypoints, and her vast cathedral-decks echo with hymns and the clatter of pilgrims prostrating themselves before reliquaries of dubious provenance. Barely armed, barely armoured, and absolutely essential to the fleet's logistics.",
+      "notes": "Mass transport. Carries thousands. Minimal combat capability.",
+      "size": 20,
+      "loco": "space_ftl",
+      "toughLevel": 0,
+      "armourLevel": 0,
+      "speedLevel": -2,
+      "handlingLevel": -3,
+      "woundsLevel": 0,
+      "crewLevel": 180,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Space Fortress",
-      "desc":"Orbital bastion the size of a small moon, bristling with weapon batteries and protected by void shields that could absorb a sustained fleet bombardment. She anchors the defence of critical systems, and her destruction would require a commitment of firepower that few enemies can sustain. Crew in the hundreds of thousands, many of whom are born, live, and die aboard without ever seeing a planet.",
-      "notes":"Stationary defence platform. Immense firepower and durability. City-sized crew.",
-      "size":28,"loco":"none",
-      "toughLevel":5,"armourLevel":5,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-360,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"cannon_superheavy","mount":"turret","linked":0},
-        {"weaponId":"cannon_superheavy","mount":"turret","linked":0},
-        {"weaponId":"laser_heavy","mount":"turret","linked":1},
-        {"weaponId":"torpedo_future","mount":"fixed","linked":0}
+      "name": "Space Fortress",
+      "desc": "Orbital bastion the size of a small moon, bristling with weapon batteries and protected by void shields that could absorb a sustained fleet bombardment. She anchors the defence of critical systems, and her destruction would require a commitment of firepower that few enemies can sustain. Crew in the hundreds of thousands, many of whom are born, live, and die aboard without ever seeing a planet.",
+      "notes": "Stationary defence platform. Immense firepower and durability. City-sized crew.",
+      "size": 28,
+      "loco": "none",
+      "toughLevel": 5,
+      "armourLevel": 5,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": -360,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "lance_heavy",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "macro_cannon",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "macro_cannon",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "boarding_torpedo",
+          "mount": "fixed",
+          "linked": 0
+        }
       ]
     }
   ]
