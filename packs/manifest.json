@@ -342,6 +342,12 @@
     "vehicles": 10
   },
   {
+    "id": "space-fleet-extension",
+    "name": "Space Fleets \u2014 Extension Pack",
+    "path": "packs/13_Space_Fleets/Space_Fleet_Extension.vfx",
+    "vehicles": 0
+  },
+  {
     "id": "space-fleet-frontier-runners",
     "name": "Space Fleets \u2014 Frontier Runners",
     "path": "packs/13_Space_Fleets/Space_Fleet_Frontier_Runners.vfx",

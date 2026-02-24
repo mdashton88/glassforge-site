@@ -1,0 +1,430 @@
+{
+  "id":"space-fleet-extension",
+  "name":"Space Fleets — Extension Pack",
+  "version":"1.0",
+  "publisher":"DiceForge Studios Ltd.",
+  "description":"Custom weapons, modifications, and special abilities for space fleet and structure packs. Adds lance batteries, bio-weapons, void shields, hangar bays, and more.",
+  "weapons":[
+    {
+      "id":"lance_light",
+      "name":"Light Lance Battery",
+      "cat":"Space (Lance)",
+      "era":"future",
+      "range":"200/400/800",
+      "damage":"4d10",
+      "ap":30,
+      "rof":1,
+      "shots":0,
+      "minSize":12,
+      "mods":2,
+      "cost":800000,
+      "notes":"HW, Focused Beam. Ignores 10 points of shield-type protection.",
+      "desc":"Focused energy beam weapon that concentrates immense power into a narrow lance. Cathedral fleet signature armament — her crews treat the weapon as a sacred relic."
+    },
+    {
+      "id":"lance_heavy",
+      "name":"Heavy Lance Battery",
+      "cat":"Space (Lance)",
+      "era":"future",
+      "range":"200/400/800",
+      "damage":"6d10",
+      "ap":40,
+      "rof":1,
+      "shots":0,
+      "minSize":18,
+      "mods":3,
+      "cost":2000000,
+      "notes":"HW, Focused Beam. Ignores 10 points of shield-type protection.",
+      "desc":"Capital-grade lance battery that can split a cruiser's spine at extreme range. The recoil makes the hull groan like a living thing."
+    },
+    {
+      "id":"macro_cannon",
+      "name":"Macro Cannon Battery",
+      "cat":"Space (Kinetic)",
+      "era":"future",
+      "range":"100/200/400",
+      "damage":"6d10+6",
+      "ap":15,
+      "rof":1,
+      "shots":0,
+      "minSize":14,
+      "mods":3,
+      "cost":1500000,
+      "notes":"HW, Reload 1. Devastating broadside weapon. Each shell masses several tonnes.",
+      "desc":"Enormous kinetic weapon that hurls building-sized shells across the void. Broadside salvoes from these batteries can flatten cities."
+    },
+    {
+      "id":"nova_cannon",
+      "name":"Nova Cannon",
+      "cat":"Space (Kinetic)",
+      "era":"future",
+      "range":"150/300/600",
+      "damage":"10d10",
+      "ap":40,
+      "rof":1,
+      "shots":0,
+      "minSize":18,
+      "mods":4,
+      "cost":5000000,
+      "notes":"HW, Reload 3. Forward arc only. MBT. Devastating single shot that can cripple capital ships.",
+      "desc":"Spinal-mounted super-weapon that fires a warhead accelerated to a significant fraction of light speed. One shot can end a battle."
+    },
+    {
+      "id":"boarding_torpedo",
+      "name":"Boarding Torpedo",
+      "cat":"Space (Ordnance)",
+      "era":"future",
+      "range":"75/150/300",
+      "damage":"3d10",
+      "ap":20,
+      "rof":1,
+      "shots":0,
+      "minSize":12,
+      "mods":2,
+      "cost":300000,
+      "notes":"HW. On a hit, delivers d6 boarding troops into the target vessel. Torpedo damage represents hull breach.",
+      "desc":"Armoured torpedo carrying shock troops sealed in crash harnesses. She punches through hull plating and disgorges fanatics into the corridors beyond."
+    },
+    {
+      "id":"bio_plasma",
+      "name":"Bio-Plasma Launcher",
+      "cat":"Space (Biological)",
+      "era":"future",
+      "range":"75/150/300",
+      "damage":"5d10",
+      "ap":15,
+      "rof":1,
+      "shots":0,
+      "minSize":10,
+      "mods":2,
+      "cost":0,
+      "notes":"HW. Organic weapon — cannot be repaired, only regrown. Corrosive: target suffers additional 2d6 damage next round.",
+      "desc":"Living weapon organ that spits superheated biological plasma across the void. The impact burns through hull plating and continues eating through internal structure."
+    },
+    {
+      "id":"acid_spray",
+      "name":"Acid Spray",
+      "cat":"Space (Biological)",
+      "era":"future",
+      "range":"Cone",
+      "damage":"4d8",
+      "ap":10,
+      "rof":1,
+      "shots":0,
+      "minSize":8,
+      "mods":1,
+      "cost":0,
+      "notes":"HW. Cone Template. Organic weapon. Corrosive: target suffers additional 2d6 damage next round.",
+      "desc":"Biological weapon that projects a spray of molecular acid across short range. Effective against fighter swarms and boarding craft."
+    },
+    {
+      "id":"spore_mine",
+      "name":"Spore Mine Launcher",
+      "cat":"Space (Biological)",
+      "era":"future",
+      "range":"50/100/200",
+      "damage":"4d6",
+      "ap":5,
+      "rof":3,
+      "shots":0,
+      "minSize":8,
+      "mods":1,
+      "cost":0,
+      "notes":"HW. Area Effect (LBT). Organic weapon — mines are living organisms. Drift toward nearest heat source.",
+      "desc":"Launches clusters of living proximity mines that drift toward engine heat signatures. They detonate on contact, spraying corrosive spores."
+    },
+    {
+      "id":"phase_weapon",
+      "name":"Phase Beam",
+      "cat":"Space (Exotic)",
+      "era":"future",
+      "range":"100/200/400",
+      "damage":"5d10",
+      "ap":60,
+      "rof":1,
+      "shots":0,
+      "minSize":14,
+      "mods":3,
+      "cost":10000000,
+      "notes":"HW. Ignores all conventional armour and shields. Ancient technology.",
+      "desc":"Weapon of a long-dead civilisation that phases projectiles through normal matter. Conventional defences are meaningless against it."
+    },
+    {
+      "id":"psionic_lance",
+      "name":"Psionic Lance",
+      "cat":"Space (Exotic)",
+      "era":"future",
+      "range":"100/200/400",
+      "damage":"4d10+4",
+      "ap":20,
+      "rof":1,
+      "shots":0,
+      "minSize":10,
+      "mods":2,
+      "cost":3000000,
+      "notes":"HW. Psychic weapon — requires psychically gifted crew. Damage is half physical, half psychic.",
+      "desc":"Crystalline focusing array that channels crew psychic energy into a coherent beam. The impact damages both hull and crew morale."
+    },
+    {
+      "id":"ion_disruptor",
+      "name":"Ion Disruptor",
+      "cat":"Space (Electronic)",
+      "era":"future",
+      "range":"75/150/300",
+      "damage":"—",
+      "ap":0,
+      "rof":1,
+      "shots":0,
+      "minSize":6,
+      "mods":1,
+      "cost":500000,
+      "notes":"Does no damage. On a hit, target rolls Vigour or one system shuts down (crew's choice: weapons, engines, or shields) for 1d6 rounds.",
+      "desc":"Electromagnetic weapon that overloads ship systems without destroying them. The weapon of choice when you want to capture, not kill."
+    },
+    {
+      "id":"flak_battery",
+      "name":"Flak Battery",
+      "cat":"Space (Point Defence)",
+      "era":"future",
+      "range":"25/50/100",
+      "damage":"3d6",
+      "ap":2,
+      "rof":6,
+      "shots":0,
+      "minSize":8,
+      "mods":1,
+      "cost":200000,
+      "notes":"HW, Point Defence, Reaction Fire. Anti-fighter and anti-torpedo screen.",
+      "desc":"Rapid-fire battery optimised for anti-fighter and anti-torpedo defence. Creates a wall of shrapnel that shreds small craft."
+    },
+    {
+      "id":"tractor_beam",
+      "name":"Tractor Beam",
+      "cat":"Space (Utility)",
+      "era":"future",
+      "range":"50/100/200",
+      "damage":"—",
+      "ap":0,
+      "rof":1,
+      "shots":0,
+      "minSize":8,
+      "mods":2,
+      "cost":400000,
+      "notes":"Does no damage. On a hit, target's speed is halved. Can hold vessels up to own Size. Opposed Piloting to break free.",
+      "desc":"Graviton projector that locks onto a target vessel and restricts its movement. Used for salvage operations, customs interdiction, and piracy."
+    },
+    {
+      "id":"doomsday_cannon",
+      "name":"Doomsday Cannon",
+      "cat":"Space (Superweapon)",
+      "era":"future",
+      "range":"200/400/800",
+      "damage":"12d10",
+      "ap":50,
+      "rof":1,
+      "shots":0,
+      "minSize":28,
+      "mods":6,
+      "cost":100000000,
+      "notes":"HW, Reload 5. Requires full round to charge. Ship cannot move while firing. Can target capital ships or planetary surfaces.",
+      "desc":"The ultimate expression of destructive capability. Charges for a full round before unleashing enough energy to crack a continent."
+    }
+  ],
+  "mods":[
+    {
+      "id":"void_shields",
+      "name":"Void Shields",
+      "cat":"Space Defence",
+      "max":3,
+      "mods":2,
+      "desc":"Energy shield that absorbs incoming damage. Each level provides +4 Toughness against energy weapons only. Shields regenerate at start of each round if not hit."
+    },
+    {
+      "id":"cloaking_device",
+      "name":"Cloaking Device",
+      "cat":"Space Systems",
+      "max":1,
+      "mods":3,
+      "desc":"Renders the vessel invisible to sensors and the naked eye. Ship cannot fire weapons while cloaked. Activating or deactivating takes one action."
+    },
+    {
+      "id":"hangar_bay",
+      "name":"Hangar Bay",
+      "cat":"Space Systems",
+      "max":4,
+      "mods":2,
+      "desc":"Internal hangar capable of launching and recovering small craft. Each level supports 12 fighters or 6 shuttles. Includes launch tubes and recovery systems."
+    },
+    {
+      "id":"boarding_ramps",
+      "name":"Boarding Ramps",
+      "cat":"Space Systems",
+      "max":2,
+      "mods":1,
+      "desc":"Armoured assault ramps and breaching equipment for boarding actions. Each level supports one boarding action per round with a squad of troops."
+    },
+    {
+      "id":"self_repair",
+      "name":"Self-Repair Systems",
+      "cat":"Space Defence",
+      "max":3,
+      "mods":2,
+      "desc":"Regenerative hull systems — biological, nanite, or automated. Makes a free natural healing roll each round. Bioship: automatic. Mechanical: requires crew action."
+    },
+    {
+      "id":"ramming_prow",
+      "name":"Ramming Prow",
+      "cat":"Space Offence",
+      "max":1,
+      "mods":2,
+      "desc":"Reinforced bow designed for ramming attacks. Ram damage: vessel's Size × d6, AP equal to half Size. Ramming vessel takes half damage."
+    },
+    {
+      "id":"sensor_suite",
+      "name":"Enhanced Sensor Suite",
+      "cat":"Space Systems",
+      "max":2,
+      "mods":1,
+      "desc":"Advanced detection equipment. Each level grants +2 to Notice rolls for detecting vessels, scanning targets, and navigating hazards."
+    },
+    {
+      "id":"ecm_suite",
+      "name":"ECM Suite",
+      "cat":"Space Systems",
+      "max":2,
+      "mods":1,
+      "desc":"Electronic countermeasures that jam targeting systems and spoof missile locks. Each level imposes −2 to enemy Shooting rolls targeting this vessel."
+    },
+    {
+      "id":"expanded_cargo",
+      "name":"Expanded Cargo Hold",
+      "cat":"Space Systems",
+      "max":4,
+      "mods":1,
+      "desc":"Enlarged cargo capacity. Each level doubles base cargo tonnage for the vessel's size. Reduces available crew space proportionally."
+    },
+    {
+      "id":"biosphere_dome",
+      "name":"Biosphere Dome",
+      "cat":"Space Habitat",
+      "max":4,
+      "mods":3,
+      "desc":"Transparent dome enclosing a self-sustaining ecosystem. Each level supports 500 residents and provides food production. Fragile — AP 0 against the dome itself."
+    },
+    {
+      "id":"rotating_section",
+      "name":"Rotating Habitat Section",
+      "cat":"Space Habitat",
+      "max":2,
+      "mods":2,
+      "desc":"Centrifugal gravity section for crew comfort and long-term habitation. Each level supports comfortable living for 200 crew. Reduces long-voyage Fatigue."
+    },
+    {
+      "id":"siege_mode",
+      "name":"Siege Mode Stabilisers",
+      "cat":"Space Offence",
+      "max":1,
+      "mods":2,
+      "desc":"Deploys stabilisation pylons and diverts power to weapons. While deployed: Speed 0, cannot move, all weapon damage increased by one die type."
+    },
+    {
+      "id":"warp_drive",
+      "name":"Warp/Jump Drive",
+      "cat":"Space Systems",
+      "max":1,
+      "mods":2,
+      "desc":"FTL drive system for interstellar travel. Narrative travel between star systems. Specific mechanics vary by setting — warp, jump, fold, or slip."
+    },
+    {
+      "id":"escape_pods",
+      "name":"Escape Pods",
+      "cat":"Space Systems",
+      "max":1,
+      "mods":1,
+      "desc":"Emergency evacuation pods for crew survival. Sufficient pods for full crew complement. Auto-launch on critical damage if systems are functional."
+    },
+    {
+      "id":"point_defence_net",
+      "name":"Point Defence Network",
+      "cat":"Space Defence",
+      "max":2,
+      "mods":2,
+      "desc":"Coordinated automated defensive fire. Each level allows one free Shooting roll per round against incoming torpedoes, missiles, or fighters at no multi-action penalty."
+    }
+  ],
+  "specials":[
+    {
+      "id":"carrier_ops",
+      "name":"Carrier Operations",
+      "cat":"Space",
+      "desc":"Vessel can launch and recover fighters. May launch or recover 6 fighters per round. Launched fighters act on the carrier's initiative card."
+    },
+    {
+      "id":"regeneration",
+      "name":"Regeneration",
+      "cat":"Space (Biological)",
+      "desc":"Living vessel heals damage naturally. Makes a Vigour roll at the start of each round — success removes one Wound. Does not apply to Critical Hits."
+    },
+    {
+      "id":"swarm_tactics",
+      "name":"Swarm Tactics",
+      "cat":"Space",
+      "desc":"When 3+ vessels of this type act together, each gains +1 to Shooting rolls. At 6+, the bonus increases to +2. Represents coordinated attack patterns."
+    },
+    {
+      "id":"expendable",
+      "name":"Expendable",
+      "cat":"Space",
+      "desc":"Vessel has no ejection system, escape pods, or self-destruct. Crew casualties on destruction are total. Reduces cost by 25%."
+    },
+    {
+      "id":"unreliable",
+      "name":"Unreliable Systems",
+      "cat":"Space",
+      "desc":"Roll d6 at the start of each encounter. On a 1, one randomly-determined system has failed: weapons (1-2), engines (3-4), or shields (5-6). Repair requires a Repair roll at −2."
+    },
+    {
+      "id":"psychic_crew",
+      "name":"Psychic Crew",
+      "cat":"Space (Exotic)",
+      "desc":"Vessel is crewed by psychically gifted beings. Can use psionic weapons. Crew can sense hostile intent at range (Notice +2 vs ambush). Vulnerable to psychic attack."
+    },
+    {
+      "id":"siege_platform",
+      "name":"Siege Platform",
+      "cat":"Space",
+      "desc":"Vessel can enter siege mode (one action). While in siege mode: Speed 0, Handling −4, but all weapon ranges doubled and damage increased by +2 per die."
+    },
+    {
+      "id":"stealth_systems",
+      "name":"Stealth Systems",
+      "cat":"Space",
+      "desc":"Low-emission design and sensor-absorbing hull. −4 to enemy Notice rolls to detect this vessel. Cannot fire weapons without breaking stealth."
+    },
+    {
+      "id":"living_ship",
+      "name":"Living Ship",
+      "cat":"Space (Biological)",
+      "desc":"Vessel is a living organism. Uses Vigour instead of Toughness for damage resistance. Heals naturally. Immune to ion/EMP weapons. Vulnerable to poison/disease."
+    },
+    {
+      "id":"atmospheric_entry",
+      "name":"Atmospheric Entry",
+      "cat":"Space",
+      "desc":"Vessel can enter and exit planetary atmospheres. Heat shielding and aerodynamic profile allow controlled descent. Can operate in atmosphere at half space speed."
+    },
+    {
+      "id":"ramshackle",
+      "name":"Ramshackle Construction",
+      "cat":"Space",
+      "desc":"Vessel is built from salvaged and improvised components. −2 Toughness, but on a Critical Hit, roll d6: on a 5-6, the damage hits a non-essential system instead."
+    },
+    {
+      "id":"ancient_tech",
+      "name":"Ancient Technology",
+      "cat":"Space (Exotic)",
+      "desc":"Vessel uses technology from a long-dead civilisation. Weapons ignore conventional armour. Self-repairing hull. However, if disabled, no living being can repair her."
+    }
+  ],
+  "vehicles":[]
+}
