@@ -144,12 +144,12 @@
       "mods": {},
       "weapons": [
         {
-          "weaponId": "nova_cannon",
+          "weaponId": "bombardment_cannon",
           "mount": "fixed",
           "linked": 0
         },
         {
-          "weaponId": "lance_heavy",
+          "weaponId": "spinal_heavy",
           "mount": "turret",
           "linked": 0
         },

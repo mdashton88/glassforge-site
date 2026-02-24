@@ -10,7 +10,7 @@
     {
       "name": "Spy Car (Classic)",
       "desc": "An Aston Martin with machine guns behind the headlights, an ejector seat, and an oil slick dispenser. She's the fantasy of every secret agent \u2014 a beautiful car that's also a weapon system disguised behind hand-stitched leather and walnut trim.",
-      "notes": "The spy car is your signature espionage vehicle. Her gadgets are the fun \u2014 each one is a single-use surprise that changes a chase or combat encounter. Machine guns, smoke screen, oil slick, ejector seat. Track them as expendable resources. Once used, they're gone until Q-Branch restocks.",
+      "notes": "The spy car is your signature espionage vehicle. Her gadgets are the fun \u2014 each one is a single-use surprise that changes a chase or combat encounter. Machine guns, smoke screen, oil slick, ejector seat. Track them as expendable resources. Once used, they're gone until Quantum Branch restocks.",
       "image": "",
       "size": 4,
       "loco": "wheeled",
@@ -197,9 +197,9 @@
       ]
     },
     {
-      "name": "Q-Branch Special",
-      "desc": "A one-of-a-kind prototype that does something no production vehicle can do. Invisibility cloaking, vertical takeoff, weaponised EMP, holographic disguise \u2014 the specific capability changes with every mission because Q-Branch never builds the same thing twice.",
-      "notes": "The Q-Branch Special is your GM wildcard. She has one unique capability that the mission requires \u2014 define it at the start of the adventure. She's also temperamental, experimental, and prone to malfunctioning at the worst possible moment. The gadget fails on a Critical Failure and may fail on a normal failure.",
+      "name": "Quantum Special",
+      "desc": "A one-of-a-kind prototype that does something no production vehicle can do. Invisibility cloaking, vertical takeoff, weaponised EMP, holographic disguise \u2014 the specific capability changes with every mission because Quantum Branch never builds the same thing twice.",
+      "notes": "The Quantum Special is your GM wildcard. She has one unique capability that the mission requires \u2014 define it at the start of the adventure. She's also temperamental, experimental, and prone to malfunctioning at the worst possible moment. The gadget fails on a Critical Failure and may fail on a normal failure.",
       "image": "",
       "size": 4,
       "loco": "wheeled",

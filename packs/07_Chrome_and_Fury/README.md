@@ -66,7 +66,7 @@ The **Chrome & Fury supplement** adds ram and sideswipe mechanics, gadget modifi
 
 **Vehicles Used:** Spy Car (Classic), Stealth Motorcycle, Gyrocopter, Armoured Limo, Armed Speedboat, Submersible Car
 
-**Variant — "Q-Branch Field Test":** The Q-Branch Special is loaded with experimental gadgets. Each one works once. Maybe. The heroes must test them all in a single pursuit through a European capital. The opposition doesn't know about the gadgets. Neither, entirely, do the heroes.
+**Variant — "Quantum Branch Field Test":** The Quantum Special is loaded with experimental gadgets. Each one works once. Maybe. The heroes must test them all in a single pursuit through a European capital. The opposition doesn't know about the gadgets. Neither, entirely, do the heroes.
 
 ---
 

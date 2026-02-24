@@ -3,7 +3,7 @@
   "name": "Space Fleets \u2014 Cathedral Fleet",
   "version": "1.0",
   "publisher": "DiceForge Studios Ltd.",
-  "description": "10 vehicles \u2014 The war fleet of a theocratic star empire, where battleships are built like cathedrals and crewed by press-ganged thousands. Lance batteries, macro cannons, and boarding torpedoes deliver righteous annihilation to the faithless.",
+  "description": "10 vehicles \u2014 The war fleet of a theocratic star empire, where battleships are built like cathedrals and crewed by press-ganged thousands. Spinal cannons, grand batteries, and boarding torpedoes deliver righteous annihilation to the faithless.",
   "weapons": [],
   "mods": [],
   "specials": [],
@@ -66,8 +66,8 @@
     },
     {
       "name": "Sword-Class Frigate",
-      "desc": "Fast escort vessel and the smallest ship in the fleet that carries a proper lance battery. Her crew of hundreds lives in conditions medieval even by fleet standards \u2014 hammocks slung between gun decks, food dispensed by servitor, and discipline maintained by the lash. But she's quick, well-armed for her tonnage, and her captains tend towards the recklessly brave.",
-      "notes": "Fast escort with lance battery. Aggressive captains preferred.",
+      "desc": "Fast escort vessel and the smallest ship in the fleet that carries a proper spinal cannon. Her crew of hundreds lives in conditions medieval even by fleet standards \u2014 hammocks slung between gun decks, food dispensed by servitor, and discipline maintained by the lash. But she's quick, well-armed for her tonnage, and her captains tend towards the recklessly brave.",
+      "notes": "Fast escort with spinal cannon. Aggressive captains preferred.",
       "size": 14,
       "loco": "space_ftl",
       "toughLevel": 0,
@@ -81,7 +81,7 @@
       "mods": {},
       "weapons": [
         {
-          "weaponId": "lance_light",
+          "weaponId": "spinal_light",
           "mount": "turret",
           "linked": 0
         },
@@ -114,17 +114,17 @@
       "mods": {},
       "weapons": [
         {
-          "weaponId": "lance_heavy",
+          "weaponId": "spinal_heavy",
           "mount": "turret",
           "linked": 0
         },
         {
-          "weaponId": "lance_light",
+          "weaponId": "spinal_light",
           "mount": "turret",
           "linked": 0
         },
         {
-          "weaponId": "macro_cannon",
+          "weaponId": "grand_battery",
           "mount": "turret",
           "linked": 0
         },
@@ -138,7 +138,7 @@
     {
       "name": "Dominator-Class Cruiser",
       "desc": "Macro-cannon variant of the standard cruiser, built around a single enormous forward battery capable of reducing a city to rubble in a single broadside. Less elegant than her lance-armed sister, she compensates with sheer devastating kinetic force. Her gun crews worship the weapon they serve, and the recoil from a full salvo makes the hull ring like a cathedral bell.",
-      "notes": "Nova cannon variant. Devastating forward arc, weaker broadsides.",
+      "notes": "Bombardment cannon variant. Devastating forward arc, weaker broadsides.",
       "size": 18,
       "loco": "space_ftl",
       "toughLevel": 1,
@@ -152,12 +152,12 @@
       "mods": {},
       "weapons": [
         {
-          "weaponId": "nova_cannon",
+          "weaponId": "bombardment_cannon",
           "mount": "fixed",
           "linked": 0
         },
         {
-          "weaponId": "macro_cannon",
+          "weaponId": "grand_battery",
           "mount": "turret",
           "linked": 0
         },
@@ -185,17 +185,17 @@
       "mods": {},
       "weapons": [
         {
-          "weaponId": "lance_heavy",
+          "weaponId": "spinal_heavy",
           "mount": "turret",
           "linked": 0
         },
         {
-          "weaponId": "lance_light",
+          "weaponId": "spinal_light",
           "mount": "turret",
           "linked": 0
         },
         {
-          "weaponId": "macro_cannon",
+          "weaponId": "grand_battery",
           "mount": "turret",
           "linked": 0
         },
@@ -223,17 +223,17 @@
       "mods": {},
       "weapons": [
         {
-          "weaponId": "macro_cannon",
+          "weaponId": "grand_battery",
           "mount": "turret",
           "linked": 0
         },
         {
-          "weaponId": "macro_cannon",
+          "weaponId": "grand_battery",
           "mount": "turret",
           "linked": 0
         },
         {
-          "weaponId": "lance_heavy",
+          "weaponId": "spinal_heavy",
           "mount": "turret",
           "linked": 0
         },
@@ -292,7 +292,7 @@
     },
     {
       "name": "Space Fortress",
-      "desc": "Orbital bastion the size of a small moon, bristling with weapon batteries and protected by void shields that could absorb a sustained fleet bombardment. She anchors the defence of critical systems, and her destruction would require a commitment of firepower that few enemies can sustain. Crew in the hundreds of thousands, many of whom are born, live, and die aboard without ever seeing a planet.",
+      "desc": "Orbital bastion the size of a small moon, bristling with weapon batteries and protected by deflector shields that could absorb a sustained fleet bombardment. She anchors the defence of critical systems, and her destruction would require a commitment of firepower that few enemies can sustain. Crew in the hundreds of thousands, many of whom are born, live, and die aboard without ever seeing a planet.",
       "notes": "Stationary defence platform. Immense firepower and durability. City-sized crew.",
       "size": 28,
       "loco": "none",
@@ -307,17 +307,17 @@
       "mods": {},
       "weapons": [
         {
-          "weaponId": "lance_heavy",
+          "weaponId": "spinal_heavy",
           "mount": "turret",
           "linked": 0
         },
         {
-          "weaponId": "macro_cannon",
+          "weaponId": "grand_battery",
           "mount": "turret",
           "linked": 0
         },
         {
-          "weaponId": "macro_cannon",
+          "weaponId": "grand_battery",
           "mount": "turret",
           "linked": 0
         },

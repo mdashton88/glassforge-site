@@ -3,7 +3,7 @@
   "name": "Space Fleets \u2014 Xenos Marauders",
   "version": "1.0",
   "publisher": "DiceForge Studios Ltd.",
-  "description": "10 vehicles \u2014 Alien war fleets of wildly different design philosophies. Ramshackle hulks held together by belief, elegant wraithbone vessels that move like living things, and bioships grown from the gene-soup of consumed worlds.",
+  "description": "10 vehicles \u2014 Alien war fleets of wildly different design philosophies. Ramshackle hulks held together by belief, elegant spirit-forged vessels that move like living things, and bioships grown from the gene-soup of consumed worlds.",
   "weapons": [],
   "mods": [],
   "specials": [],
@@ -70,7 +70,7 @@
       ]
     },
     {
-      "name": "Wraithbone Escort",
+      "name": "Spirit-Forged Escort",
       "desc": "Elegant vessel grown rather than built, her hull a single piece of psychically-shaped crystal that shifts and flexes in response to her crew's thoughts. Faster than anything in human space, more manoeuvrable than physics should allow, and armed with weapons that fire focused psychic energy. Her crew numbers in the dozens where human ships of similar firepower need thousands.",
       "notes": "Eldar archetype. Extremely fast and agile. Small crew. Fragile if hit.",
       "size": 12,
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "name": "Wraithbone Cruiser",
+      "name": "Spirit-Forged Cruiser",
       "desc": "Capital ship of the elder race, a sweeping organic form that moves through space like a hunting bird. Pulse lances reach out across impossible distances with surgical precision, and her speed lets her dictate the terms of every engagement. She never fights fair \u2014 she kills from range and vanishes before the enemy can respond. Her crew pity the younger races. That pity does not extend to mercy.",
       "notes": "Eldar archetype. Hit-and-run specialist. Cannot sustain a broadside exchange.",
       "size": 18,
@@ -213,7 +213,7 @@
           "linked": 0
         },
         {
-          "weaponId": "spore_mine",
+          "weaponId": "bio_mine",
           "mount": "turret",
           "linked": 0
         }
@@ -312,7 +312,7 @@
           "linked": 0
         },
         {
-          "weaponId": "spore_mine",
+          "weaponId": "bio_mine",
           "mount": "turret",
           "linked": 0
         }

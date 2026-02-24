@@ -3,11 +3,11 @@
   "name":"Space Fleets — Extension Pack",
   "version":"1.0",
   "publisher":"DiceForge Studios Ltd.",
-  "description":"Custom weapons, modifications, and special abilities for space fleet and structure packs. Adds lance batteries, bio-weapons, void shields, hangar bays, and more.",
+  "description":"Custom weapons, modifications, and special abilities for space fleet and structure packs. Adds spinal cannons, bio-weapons, deflector shields, hangar bays, and more.",
   "weapons":[
     {
-      "id":"lance_light",
-      "name":"Light Lance Battery",
+      "id":"spinal_light",
+      "name":"Light Spinal Cannon",
       "cat":"Space (Lance)",
       "era":"future",
       "range":"200/400/800",
@@ -22,8 +22,8 @@
       "desc":"Focused energy beam weapon that concentrates immense power into a narrow lance. Cathedral fleet signature armament — her crews treat the weapon as a sacred relic."
     },
     {
-      "id":"lance_heavy",
-      "name":"Heavy Lance Battery",
+      "id":"spinal_heavy",
+      "name":"Heavy Spinal Cannon",
       "cat":"Space (Lance)",
       "era":"future",
       "range":"200/400/800",
@@ -35,11 +35,11 @@
       "mods":3,
       "cost":2000000,
       "notes":"HW, Focused Beam. Ignores 10 points of shield-type protection.",
-      "desc":"Capital-grade lance battery that can split a cruiser's spine at extreme range. The recoil makes the hull groan like a living thing."
+      "desc":"Capital-grade spinal cannon that can split a cruiser's spine at extreme range. The recoil makes the hull groan like a living thing."
     },
     {
-      "id":"macro_cannon",
-      "name":"Macro Cannon Battery",
+      "id":"grand_battery",
+      "name":"Grand Battery",
       "cat":"Space (Kinetic)",
       "era":"future",
       "range":"100/200/400",
@@ -54,8 +54,8 @@
       "desc":"Enormous kinetic weapon that hurls building-sized shells across the void. Broadside salvoes from these batteries can flatten cities."
     },
     {
-      "id":"nova_cannon",
-      "name":"Nova Cannon",
+      "id":"bombardment_cannon",
+      "name":"Bombardment Cannon",
       "cat":"Space (Kinetic)",
       "era":"future",
       "range":"150/300/600",
@@ -118,8 +118,8 @@
       "desc":"Biological weapon that projects a spray of molecular acid across short range. Effective against fighter swarms and boarding craft."
     },
     {
-      "id":"spore_mine",
-      "name":"Spore Mine Launcher",
+      "id":"bio_mine",
+      "name":"Bio-Mine Launcher",
       "cat":"Space (Biological)",
       "era":"future",
       "range":"50/100/200",
@@ -232,8 +232,8 @@
   ],
   "mods":[
     {
-      "id":"void_shields",
-      "name":"Void Shields",
+      "id":"deflector_shields",
+      "name":"Deflector Shields",
       "cat":"Space Defence",
       "max":3,
       "mods":2,

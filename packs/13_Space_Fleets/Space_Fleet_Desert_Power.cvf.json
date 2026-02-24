@@ -32,8 +32,8 @@
       ]
     },
     {
-      "name": "Spice Harvester",
-      "desc": "Enormous industrial crawler that processes desert sand to extract the most valuable substance in the universe. She's slow, unarmed, and completely dependent on aerial spotters to warn her when the great worms approach. A harvester lost to a worm costs more than a warship, and the political consequences of losing one's spice production can topple governments. Her crew works in shifts, always watching the sand.",
+      "name": "Desert Harvester",
+      "desc": "Enormous industrial crawler that processes desert sand to extract precious minerals. She's slow, unarmed, and completely dependent on aerial spotters to warn her when the great worms approach. A harvester lost to a worm costs more than a warship, and the political consequences of losing one's mineral production can topple governments. Her crew works in shifts, always watching the sand.",
       "notes": "Industrial. Unarmed. Atmospheric. Must be extracted by carryall before worm attacks.",
       "size": 14,
       "loco": "none",
