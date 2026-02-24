@@ -1,5 +1,11 @@
 [
   {
+    "id": "core",
+    "name": "SWADE Core Rules Reference Builds",
+    "path": "packs/00_Core_Tool/Vehicle_Forge_Core_Reference_Builds.vfx",
+    "vehicles": 47
+  },
+  {
     "id": "blood-thunder-age-of-sail-fleet",
     "name": "Blood & Thunder \u2014 Age of Sail Fleet",
     "path": "packs/01_Blood_and_Thunder/Blood_Thunder_Age_of_Sail_Fleet.vfx",

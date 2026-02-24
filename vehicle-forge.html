@@ -266,7 +266,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.14</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.15</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -352,7 +352,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.14 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.15 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -670,8 +670,8 @@ var SPECIALS=[
 var extensions=[];var extMods=[];var extWeapons=[];var extSpecials=[];
 try{var ext=localStorage.getItem('diceforge-cvf-extensions');if(ext)extensions=JSON.parse(ext)}catch(e){}
 function saveExtensions(){localStorage.setItem('diceforge-cvf-extensions',JSON.stringify(extensions))}
-function installExtension(data){
-  if(!data||!data.id||!data.name){alert('Invalid .vfx file.');return}
+function installExtension(data,silent){
+  if(!data||!data.id||!data.name){if(!silent)alert('Invalid .vfx file.');return}
   extensions=extensions.filter(function(e){return e.id!==data.id});
   extensions.push(data);saveExtensions();rebuildExtensionData();
   var msg=data.name+' installed successfully!';
@@ -681,7 +681,7 @@ function installExtension(data){
       if(!exists){S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:data.id});added++}});
     if(added){localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));msg+='\n'+added+' vehicles added to your library.'}
     else{msg+='\nVehicles already in library (skipped duplicates).'}}
-  renderAll();alert(msg)}
+  if(!silent){renderAll();alert(msg)}}
 function removeExtension(id){Audio.remove();
   S.saved=S.saved.filter(function(v){return v._pack!==id});
   localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));
@@ -693,12 +693,31 @@ function rebuildExtensionData(){
     if(ext.weapons)ext.weapons.forEach(function(w){w._ext=ext.id;w._extName=ext.name;extWeapons.push(w)});
     if(ext.specials)ext.specials.forEach(function(s){s._ext=ext.id;s._extName=ext.name;extSpecials.push(s)})})}
 rebuildExtensionData();
-(function autoInstallCore(){
-  if(extensions.find(function(e){return e.id==='core'}))return;
-  fetch('packs/00_Core_Tool/Vehicle_Forge_Core_Reference_Builds.vfx')
+(function autoInstallAll(){
+  var installed=extensions.map(function(e){return e.id});
+  fetch('packs/manifest.json')
     .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
-    .then(function(data){installExtension(data);console.log('Core Reference Builds auto-installed ('+data.vehicles.length+' vehicles)')})
-    .catch(function(err){console.warn('Could not auto-install core pack:',err)})
+    .then(function(manifest){
+      var missing=manifest.filter(function(p){return installed.indexOf(p.id)===-1});
+      if(!missing.length){console.log('All '+manifest.length+' packs already installed');return}
+      console.log('Auto-installing '+missing.length+' packs...');
+      var chain=Promise.resolve();
+      missing.forEach(function(p){
+        chain=chain.then(function(){
+          return fetch(p.path).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+            .then(function(data){installExtension(data,true)})
+            .catch(function(err){console.warn('Failed to install '+p.name+':',err)})
+        })
+      });
+      chain.then(function(){rebuildExtensionData();renderAll();saveState();console.log('Auto-install complete: '+missing.length+' packs installed')})
+    })
+    .catch(function(err){console.warn('Could not load pack manifest:',err);
+      if(!extensions.find(function(e){return e.id==='core'})){
+        fetch('packs/00_Core_Tool/Vehicle_Forge_Core_Reference_Builds.vfx')
+          .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+          .then(function(data){installExtension(data);console.log('Core Reference Builds auto-installed')})
+          .catch(function(err2){console.warn('Could not auto-install core:',err2)})}
+    })
 })();
 function importVFX(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){
   try{var data=JSON.parse(ev.target.result);installExtension(data)}catch(err){alert('Error reading .vfx file: '+err.message)}};reader.readAsText(file);e.target.value=''}
