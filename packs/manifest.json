@@ -370,5 +370,23 @@
     "name": "Space Fleets \u2014 Xenos Marauders",
     "path": "packs/13_Space_Fleets/Space_Fleet_Xenos_Marauders.vfx",
     "vehicles": 10
+  },
+  {
+    "id": "space-struct-military-industrial",
+    "name": "Space Structures \u2014 Military & Industrial",
+    "path": "packs/14_Space_Structures/Space_Struct_Military_Industrial.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-struct-orbital-habitats",
+    "name": "Space Structures \u2014 Orbital Habitats",
+    "path": "packs/14_Space_Structures/Space_Struct_Orbital_Habitats.vfx",
+    "vehicles": 10
+  },
+  {
+    "id": "space-struct-outposts-oddities",
+    "name": "Space Structures \u2014 Outposts & Oddities",
+    "path": "packs/14_Space_Structures/Space_Struct_Outposts_Oddities.vfx",
+    "vehicles": 10
   }
 ]
