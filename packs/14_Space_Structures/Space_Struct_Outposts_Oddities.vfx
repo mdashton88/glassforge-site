@@ -1,0 +1,108 @@
+{
+  "id":"space-struct-outposts-oddities",
+  "name":"Space Structures — Outposts & Oddities",
+  "version":"1.0",
+  "publisher":"DiceForge Studios Ltd.",
+  "description":"10 structures — The strange, the abandoned, and the dangerous. Research stations on the edge of known space, derelict megastructures drifting in the dark, pirate havens hidden in asteroid fields, and alien constructs that defy human understanding.",
+  "weapons":[],
+  "mods":[],
+  "specials":[],
+  "vehicles":[
+    {
+      "name":"Remote Research Station",
+      "desc":"Small scientific outpost positioned at the edge of known space, studying phenomena that larger institutions don't want too close to populated systems. Crew of thirty living in cramped modules, months from the nearest help, conducting experiments that require isolation for reasons the grant applications describe as 'safety considerations.' The previous crew left in a hurry. The logs explain why, if you can find the password.",
+      "notes":"Alien/Event Horizon archetype. Isolated. Small crew. Something has gone wrong.",
+      "size":10,"loco":"none",
+      "toughLevel":-1,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Derelict Hulk",
+      "desc":"Dead megastructure drifting through the void on a trajectory that suggests she was abandoned — or killed — centuries ago. Power systems are cold. Atmosphere has leaked from a thousand micro-breaches. Her corridors are dark, frozen, and littered with the debris of whatever happened here. Salvage teams approach with caution and leave with nightmares. She's worth a fortune in recoverable materials. Nobody has successfully claimed it yet.",
+      "notes":"Space Hulk archetype. No power. No atmosphere. Dangerous to explore. Valuable salvage.",
+      "size":24,"loco":"none",
+      "toughLevel":1,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    },
+    {
+      "name":"Pirate Haven",
+      "desc":"Hidden station built into an asteroid field, invisible to casual sensor sweeps and accessible only through a navigation route known to those the pirates trust — which is nobody, but some people they distrust less than others. Docking bays accommodate stolen vessels, the marketplace trades in contraband, and the bar serves drinks that would dissolve hull plating. Law enforcement knows she exists. Finding her is another matter entirely.",
+      "notes":"Tortuga in space. Hidden location. Black market. No law. No rules. No refunds.",
+      "size":14,"loco":"none",
+      "toughLevel":1,"armourLevel":1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-9,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1},
+        {"weaponId":"missile_light","mount":"fixed","linked":0}
+      ]
+    },
+    {
+      "name":"Space Elevator Terminal",
+      "desc":"Orbital anchor point for a tether connecting a planet's surface to geostationary orbit. Cargo pods climb the tether at a fraction of the cost of rocket launch, and the terminal at the top is a bustling transfer hub where ground-to-orbit freight meets interplanetary shipping. She's the most important piece of infrastructure on the planet — the bottleneck through which everything passes. Control the elevator and you control the world below.",
+      "notes":"Ground-to-orbit infrastructure. Critical chokepoint. Massive cargo throughput. Strategic.",
+      "size":20,"loco":"none",
+      "toughLevel":1,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":180,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_med","mount":"turret","linked":0},
+        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      ]
+    },
+    {
+      "name":"Alien Megastructure",
+      "desc":"Construct of unknown origin and purpose, discovered drifting in a system with no habitable worlds. Her geometry follows no human architectural tradition — angles that seem wrong, corridors that loop back on themselves, chambers that are larger on the inside than the outside. Carbon dating suggests she's older than human civilisation by orders of magnitude. She still has power. Some of her systems still respond to input. The team that activated the first one wished they hadn't.",
+      "notes":"Forerunner/Prothean archetype. Ancient. Incomprehensible technology. Dangerous.",
+      "size":28,"loco":"none",
+      "toughLevel":5,"armourLevel":5,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"rail_gun","mount":"turret","linked":0},
+        {"weaponId":"pb_heavy","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Salvage Yard",
+      "desc":"Orbital wrecking facility surrounded by a cloud of decommissioned vessels, failed experiments, and battle damage write-offs. She buys hulks, strips them for parts, and sells the components to anyone who doesn't ask where they came from. The yard boss knows the history of every wreck in her field and has a price for everything. The workforce is a mix of skilled engineers and desperate transients willing to cut hull plating in a vacuum for minimum wage.",
+      "notes":"Ship breaking and parts trading. Surrounded by debris field. Good source of cheap equipment.",
+      "size":12,"loco":"none",
+      "toughLevel":0,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-11,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Communications Relay",
+      "desc":"Automated relay station that amplifies and retransmits faster-than-light communications across interstellar distances. She's unmanned most of the time — a maintenance crew visits quarterly to replace components and update software. Her destruction would cut communications between star systems, creating information blackouts that take months to repair. She's small, fragile, and strategically invaluable. Every intelligence agency in the sector has considered tapping her datastreams. Most have succeeded.",
+      "notes":"Automated. Unmanned. Critical communications infrastructure. Fragile but vital.",
+      "size":6,"loco":"none",
+      "toughLevel":-2,"armourLevel":-1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    },
+    {
+      "name":"Ringworld Fragment",
+      "desc":"Shattered section of a structure so vast that her original form would have encircled a star. What remains is a curved landscape hundreds of kilometres long, open to space on three sides and held together by materials that human science cannot replicate or even properly analyse. Atmosphere clings to her inner surface through mechanisms nobody understands, and ecosystems that evolved in isolation over millions of years produce species found nowhere else. She is simultaneously the greatest archaeological find in history and the most dangerous environment anyone has ever explored.",
+      "notes":"Dyson ring fragment. Alien megastructure. Unique ecosystems. Incomprehensible scale.",
+      "size":30,"loco":"none",
+      "toughLevel":5,"armourLevel":5,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":0,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    },
+    {
+      "name":"Quarantine Platform",
+      "desc":"Medical isolation facility positioned far from populated stations, where patients with unknown diseases, alien biological contamination, or suspected parasitic infection are held until they're cured or dead. The medical staff are volunteers on hazard pay. The security staff are there to ensure nothing leaves. The facility has a self-destruct system that the station commander can activate without authorisation. She has never needed to use it. She checks the system every morning anyway.",
+      "notes":"Medical isolation. Remote. Self-destruct capability. Staff rotate frequently.",
+      "size":12,"loco":"none",
+      "toughLevel":1,"armourLevel":1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-11,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[
+        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      ]
+    },
+    {
+      "name":"Listening Post",
+      "desc":"Intelligence-gathering station disguised as a civilian weather monitoring platform. Her sensor arrays are ten times more powerful than her cover story requires, and her crew of twelve includes eight intelligence analysts, two communications specialists, a cook, and a security officer whose official title is 'maintenance technician.' She monitors military communications, tracks ship movements, and compiles reports that shape the strategic decisions of governments. Officially, she doesn't exist. Unofficially, everyone knows she's there and pretends not to.",
+      "notes":"Intelligence gathering. Disguised as civilian platform. Small crew. Classified.",
+      "size":8,"loco":"none",
+      "toughLevel":-1,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-2,"passengers":0,"mphOverride":0,
+      "mods":{},"weapons":[]
+    }
+  ]
+}
