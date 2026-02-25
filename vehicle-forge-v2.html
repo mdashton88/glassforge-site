@@ -270,7 +270,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.27</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.28</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -358,7 +358,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.27 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.28 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -749,9 +749,9 @@ function installExtension(data,silent){
   extensions.push(data);saveExtensions();rebuildExtensionData();
   var added=0;
   if(data.vehicles&&data.vehicles.length){
+    S.saved=S.saved.filter(function(s){return s._pack!==data.id});
     data.vehicles.forEach(function(v){
-      var exists=S.saved.some(function(s){return s.name===v.name&&s.size===v.size&&s.loco===v.loco});
-      if(!exists){S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:data.id});added++}});
+      S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:data.id});added++});
     if(added)localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))}
   if(!silent){renderAll();alert(data.name+' installed! '+(added?added+' vehicles added.':'Vehicles already in library.'))}}
 function removeExtension(id){Audio.remove();
@@ -785,7 +785,8 @@ rebuildExtensionData();
       var toInstall=manifest.filter(function(p){
         var ext=extensions.find(function(e){return e.id===p.id});
         if(!ext)return true;
-        if(ext.vehicles&&ext.vehicles.length){var hasVehicles=savedVehicles.some(function(s){return s._pack===p.id});if(!hasVehicles)return true}
+        var hasVehicles=savedVehicles.some(function(s){return s._pack===p.id});
+        if(!hasVehicles)return true;
         return false});
       if(!toInstall.length){console.log('All '+manifest.length+' packs installed ('+S.saved.length+' vehicles)');return}
       console.log('Auto-installing '+toInstall.length+' packs...');
