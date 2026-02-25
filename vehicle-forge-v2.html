@@ -270,7 +270,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.23</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.24</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -358,7 +358,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.23 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.24 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -734,7 +734,9 @@ function rebuildExtensionData(){
     if(ext.specials)ext.specials.forEach(function(s){s._ext=ext.id;s._extName=ext.name;extSpecials.push(s)})})}
 rebuildExtensionData();
 (function autoInstallCore(){
-  if(extensions.find(function(e){return e.id==='core'}))return;
+  var hasCore=extensions.find(function(e){return e.id==='core'});
+  var hasCoreVehicles=S.saved.some(function(s){return s._pack==='core'});
+  if(hasCore&&hasCoreVehicles)return;
   fetch('packs/00_Core_Tool/Vehicle_Forge_Core_Reference_Builds.vfx')
     .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
     .then(function(data){installExtension(data,true);renderAll();console.log('Core Reference Builds auto-installed ('+data.vehicles.length+' vehicles)')})
@@ -744,8 +746,12 @@ rebuildExtensionData();
   fetch('packs/manifest.json')
     .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
     .then(function(manifest){
-      var toInstall=manifest.filter(function(p){return !extensions.find(function(e){return e.id===p.id})});
-      if(!toInstall.length){console.log('All '+manifest.length+' packs already installed ('+S.saved.length+' vehicles)');return}
+      var toInstall=manifest.filter(function(p){
+        var ext=extensions.find(function(e){return e.id===p.id});
+        if(!ext)return true;
+        if(ext.vehicles&&ext.vehicles.length){var hasVehicles=S.saved.some(function(s){return s._pack===p.id});if(!hasVehicles)return true}
+        return false});
+      if(!toInstall.length){console.log('All '+manifest.length+' packs installed ('+S.saved.length+' vehicles)');return}
       console.log('Auto-installing '+toInstall.length+' packs...');
       var loaded=0;
       toInstall.forEach(function(p){
