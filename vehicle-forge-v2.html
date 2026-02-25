@@ -270,7 +270,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.22</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.23</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -358,7 +358,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.22 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.23 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -389,7 +389,6 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <button class="header-btn" onclick="exportJSON()">Export .json</button>
         <button class="header-btn" onclick="exportStatBlock()" title="Pinnacle-format stat block">Stat Block (.txt)</button>
         <button class="header-btn" onclick="exportFGXML()" title="Fantasy Grounds XML">FG XML</button>
-        <button class="header-btn" onclick="exportFGModule()" title="Fantasy Grounds .mod module file" style="border-color:var(--green);color:var(--green)">FG Module</button>
         <button class="header-btn" onclick="batchExport()" title="Export all saved vehicles">Batch Export</button>
       </div>
     </div>
@@ -790,6 +789,16 @@ function renderExtensions(){
     html+='<div style="display:flex;gap:6px;align-items:center;flex-shrink:0">';
     html+='<button class="header-btn" onclick="togglePack(\''+ext.id+'\')" style="font-size:13px;min-width:50px;border-color:'+(on?'var(--green)':'var(--red)')+';color:'+(on?'var(--green)':'var(--red)')+'">'+(on?'ON':'OFF')+'</button>';
     html+='</div></div>'})}
+  html+='<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border)">';
+  html+='<h3 style="font-family:Cinzel,serif;font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:12px">Export Library</h3>';
+  html+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  html+='<button class="header-btn" onclick="exportFGModule()" style="border-color:var(--green);color:var(--green)">FG Module (.mod)</button>';
+  html+='<button class="header-btn" onclick="exportFGXML()">FG XML</button>';
+  html+='<button class="header-btn" onclick="batchExport()">Batch Export (.json)</button>';
+  html+='<button class="header-btn" onclick="exportStatBlock()">Stat Blocks (.txt)</button>';
+  html+='</div>';
+  html+='<p style="color:var(--text-dim);font-size:13px;margin-top:8px">Exports all '+totalV+' vehicles from enabled packs.</p>';
+  html+='</div>';
   el.innerHTML=html}
 function enableAllPacks(){disabledPacks=[];saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function disableAllPacks(){disabledPacks=extensions.map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
@@ -1157,7 +1166,7 @@ function renderOutput(){var p=document.getElementById('outputContent'),f=getFram
     h+='<div class="sb-gm-notes">'+esc(S.notes)+'</div></div>';}
   h+='</div>';
   h+='</div>';
-  h+='<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="header-btn" onclick="copyBlock()">Copy to Clipboard</button><button class="header-btn" onclick="exportJSON()">Export .json</button><button class="header-btn" onclick="exportStatBlock()">Stat Block .txt</button><button class="header-btn" onclick="exportFGXML()">FG XML</button><button class="header-btn" onclick="exportFGModule()" style="border-color:var(--green);color:var(--green)">FG Module (.mod)</button><button class="header-btn" onclick="printStatBlock()">Print</button></div>';
+  h+='<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="header-btn" onclick="copyBlock()">Copy to Clipboard</button><button class="header-btn" onclick="exportJSON()">Export .json</button><button class="header-btn" onclick="exportStatBlock()">Stat Block .txt</button><button class="header-btn" onclick="exportFGXML()">FG XML</button><button class="header-btn" onclick="printStatBlock()">Print</button></div>';
   p.innerHTML=h}
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
 
