@@ -1239,10 +1239,10 @@ function exportFGXML(){
     xml+='    <text type="formattedtext"><p>'+escXML(v.desc||'')+'</p></text>\n';
     xml+='    <size type="number">'+v.size+'</size>\n';
     xml+='    <handling type="number">'+hand+'</handling>\n';
-    xml+='    <topspeed type="number">'+spd+'</topspeed>\n';
+    xml+='    <topspeed type="string">'+spd+'</topspeed>\n';
     xml+='    <toughness type="number">'+tough+'</toughness>\n';
     xml+='    <armor type="number">'+arm+'</armor>\n';
-    xml+='    <crew type="number">'+calcCrew()+'</crew>\n';
+    xml+='    <crew type="string">'+calcCrew()+'</crew>\n';
     xml+='    <wounds type="number">'+wounds+'</wounds>\n';
     xml+='    <cost type="string">$'+fmtC(calcCostFor(v))+'</cost>\n';
     var mods=[];MODS.forEach(function(m){if(v.mods[m.id]>0)mods.push(v.mods[m.id]>1?v.mods[m.id]+'\u00d7 '+m.name:m.name)});
@@ -1342,10 +1342,10 @@ function exportFGModule(){
     db+='    <text type="formattedtext">'+notesText+'</text>\n';
     db+='    <size type="number">'+v.size+'</size>\n';
     db+='    <handling type="number">'+hand+'</handling>\n';
-    db+='    <topspeed type="number">'+spd+'</topspeed>\n';
+    db+='    <topspeed type="string">'+spd+'</topspeed>\n';
     db+='    <toughness type="number">'+tough+'</toughness>\n';
     db+='    <armor type="number">'+arm+'</armor>\n';
-    db+='    <crew type="number">'+crew+'</crew>\n';
+    db+='    <crew type="string">'+crew+'</crew>\n';
     db+='    <wounds type="number">'+wounds+'</wounds>\n';
     db+='    <cost type="string">$'+fmtC(calcCostFor(v))+'</cost>\n';
     db+='    <mods type="string">'+escXML(mods.join(', '))+'</mods>\n';
