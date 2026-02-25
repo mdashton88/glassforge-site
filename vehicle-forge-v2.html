@@ -270,7 +270,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.25</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.26</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -358,7 +358,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.25 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.26 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -1291,9 +1291,8 @@ function exportFGXML(){
     xml+='    <size type="number">'+v.size+'</size>\n';
     xml+='    <handling type="number">'+hand+'</handling>\n';
     xml+='    <topspeed type="string">'+spd+'</topspeed>\n';
-    xml+='    <toughness type="number">'+tough+'</toughness>\n';
-    xml+='    <armor type="number">'+arm+'</armor>\n';
-    xml+='    <crew type="string">'+calcCrew()+'</crew>\n';
+    xml+='    <toughness type="string">'+tough+'('+arm+')</toughness>\n';
+    xml+='    <crew type="string">'+calcCrewFor(v)+'</crew>\n';
     xml+='    <wounds type="number">'+wounds+'</wounds>\n';
     xml+='    <cost type="string">$'+fmtC(calcCostFor(v))+'</cost>\n';
     var mods=[];MODS.forEach(function(m){if(v.mods[m.id]>0)mods.push(v.mods[m.id]>1?v.mods[m.id]+'\u00d7 '+m.name:m.name)});
@@ -1394,8 +1393,7 @@ function exportFGModule(){
     db+='    <size type="number">'+v.size+'</size>\n';
     db+='    <handling type="number">'+hand+'</handling>\n';
     db+='    <topspeed type="string">'+spd+'</topspeed>\n';
-    db+='    <toughness type="number">'+tough+'</toughness>\n';
-    db+='    <armor type="number">'+arm+'</armor>\n';
+    db+='    <toughness type="string">'+tough+'('+arm+')</toughness>\n';
     db+='    <crew type="string">'+crew+'</crew>\n';
     db+='    <wounds type="number">'+wounds+'</wounds>\n';
     db+='    <cost type="string">$'+fmtC(calcCostFor(v))+'</cost>\n';
