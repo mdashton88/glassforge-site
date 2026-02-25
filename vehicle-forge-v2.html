@@ -270,7 +270,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.28</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.29</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -358,7 +358,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.28 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.29 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -1334,11 +1334,10 @@ function exportFGModule(){
   var modId='vehicle_forge_export';
 
   var def='<?xml version="1.0" encoding="utf-8"?>\n';
-  def+='<root version="4.8" dataversion="'+today+'" release="5.14|CoreRPG:7">\n';
-  def+='  <name type="string">'+escXML(modName)+'</name>\n';
-  def+='  <category>Supplement</category>\n';
-  def+='  <author>DiceForge Studios</author>\n';
-  def+='  <ruleset>SavageWorlds</ruleset>\n';
+  def+='<root version="5.1" dataversion="'+today+'" release="5.16|CoreRPG:7">\n';
+  def+='\t<n>'+escXML(modName)+'</n>\n';
+  def+='\t<author>DiceForge Studios</author>\n';
+  def+='\t<ruleset>SavageWorlds</ruleset>\n';
   def+='</root>\n';
 
   var db='<?xml version="1.0" encoding="utf-8"?>\n';
@@ -1348,7 +1347,7 @@ function exportFGModule(){
   db+='<!-- Savage Worlds and all associated logos and trademarks are copyrights -->\n';
   db+='<!-- of Pinnacle Entertainment Group. Used with permission. -->\n';
   db+='<!-- Fantasy Grounds is a trademark of SmiteWorks USA, LLC. -->\n';
-  db+='<root version="4.8" dataversion="'+today+'" release="5.14|CoreRPG:7">\n';
+  db+='<root version="5.1" dataversion="'+today+'" release="5.16|CoreRPG:7">\n';
   db+='<library>\n';
   db+='  <'+modId+' static="true">\n';
   db+='    <categoryname type="string">Vehicle Forge</categoryname>\n';
