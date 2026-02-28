@@ -324,13 +324,6 @@
     "vehicles": 10
   },
   {
-    "id": "space-fleet-cathedral-fleet",
-    "name": "Space Fleets \u2014 Cathedral Fleet [PLACEHOLDER]",
-    "path": "packs/13_Space_Fleets/Space_Fleet_Cathedral_Fleet.vfx",
-    "vehicles": 0,
-    "_status": "placeholder \u2014 pending IP-safe rewrite"
-  },
-  {
     "id": "space-fleet-corporate-armada",
     "name": "Space Fleets \u2014 Corporate Armada",
     "path": "packs/13_Space_Fleets/Space_Fleet_Corporate_Armada.vfx",
@@ -359,20 +352,6 @@
     "name": "Space Fleets \u2014 Invasion Fleet",
     "path": "packs/13_Space_Fleets/Space_Fleet_Invasion_Fleet.vfx",
     "vehicles": 10
-  },
-  {
-    "id": "space-fleet-iron-dominion",
-    "name": "Space Fleets \u2014 Iron Dominion [PLACEHOLDER]",
-    "path": "packs/13_Space_Fleets/Space_Fleet_Iron_Dominion.vfx",
-    "vehicles": 0,
-    "_status": "placeholder \u2014 pending IP-safe rewrite"
-  },
-  {
-    "id": "space-fleet-rebel-vanguard",
-    "name": "Space Fleets \u2014 Rebel Vanguard [PLACEHOLDER]",
-    "path": "packs/13_Space_Fleets/Space_Fleet_Rebel_Vanguard.vfx",
-    "vehicles": 0,
-    "_status": "placeholder \u2014 pending IP-safe rewrite"
   },
   {
     "id": "space-struct-military-industrial",
