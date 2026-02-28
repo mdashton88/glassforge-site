@@ -11,7 +11,7 @@
     {
       "name": "Remote Research Station",
       "desc": "Small scientific outpost positioned at the edge of known space, studying phenomena that larger institutions don't want too close to populated systems. Crew of thirty living in cramped modules, months from the nearest help, conducting experiments that require isolation for reasons the grant applications describe as 'safety considerations.' The previous crew left in a hurry. The logs explain why, if you can find the password.",
-      "notes": "Alien/Event Horizon archetype. Isolated. Small crew. Something has gone wrong.",
+      "notes": "Isolated horror scenario. Isolated. Small crew. Something has gone wrong.",
       "size": 10,
       "loco": "none",
       "toughLevel": -1,
@@ -34,7 +34,7 @@
     {
       "name": "Derelict Hulk",
       "desc": "Dead megastructure drifting through the void on a trajectory that suggests she was abandoned \u2014 or killed \u2014 centuries ago. Power systems are cold. Atmosphere has leaked from a thousand micro-breaches. Her corridors are dark, frozen, and littered with the debris of whatever happened here. Salvage teams approach with caution and leave with nightmares. She's worth a fortune in recoverable materials. Nobody has successfully claimed it yet.",
-      "notes": "Space Hulk archetype. No power. No atmosphere. Dangerous to explore. Valuable salvage.",
+      "notes": "Abandoned wreck. No power. No atmosphere. Dangerous to explore. Valuable salvage.",
       "size": 24,
       "loco": "none",
       "toughLevel": 1,
@@ -112,7 +112,7 @@
     {
       "name": "Alien Megastructure",
       "desc": "Construct of unknown origin and purpose, discovered drifting in a system with no habitable worlds. Her geometry follows no human architectural tradition \u2014 angles that seem wrong, corridors that loop back on themselves, chambers that are larger on the inside than the outside. Carbon dating suggests she's older than human civilisation by orders of magnitude. She still has power. Some of her systems still respond to input. The team that activated the first one wished they hadn't.",
-      "notes": "Forerunner/Prothean archetype. Ancient. Incomprehensible technology. Dangerous.",
+      "notes": "Precursor civilisation. Ancient. Incomprehensible technology. Dangerous.",
       "size": 28,
       "loco": "none",
       "toughLevel": 5,

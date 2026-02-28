@@ -1,114 +1,260 @@
 {
-  "id":"space-struct-orbital-habitats",
-  "name":"Space Structures — Orbital Habitats",
-  "version":"1.0",
-  "publisher":"DiceForge Studios Ltd.",
-  "description":"10 structures — The places humanity calls home among the stars. Rotating cylinders with artificial skies, glass-domed garden worlds, hollowed asteroids, and the vast generation ships that carry civilisations between the stars.",
-  "weapons":[],
-  "mods":[],
-  "specials":[],
-  "vehicles":[
+  "id": "space-struct-orbital-habitats",
+  "name": "Space Structures \u2014 Orbital Habitats",
+  "version": "1.0",
+  "publisher": "DiceForge Studios Ltd.",
+  "description": "10 structures \u2014 The places humanity calls home among the stars. Rotating cylinders with artificial skies, glass-domed garden worlds, hollowed asteroids, and the vast generation ships that carry civilisations between the stars.",
+  "weapons": [],
+  "mods": [],
+  "specials": [],
+  "vehicles": [
     {
-      "name":"Orbital Laboratory",
-      "desc":"Modular research station assembled from pressurised cylinders bolted together in low orbit. She looks like a collection of tin cans connected by umbilical tubes, and she handles about as well as that sounds. Solar arrays stretch out like insect wings, and the whole structure rotates slowly to provide a suggestion of gravity that the crew's bones appreciate even if their stomachs don't. Crew of six. Shower schedule strictly enforced.",
-      "notes":"ISS/Mir archetype. Microgravity. Modular construction. Small crew. Real-world analogue.",
-      "size":8,"loco":"none",
-      "toughLevel":-2,"armourLevel":-2,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-2,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[]
+      "name": "Orbital Laboratory",
+      "desc": "Modular research station assembled from pressurised cylinders bolted together in low orbit. She looks like a collection of tin cans connected by umbilical tubes, and she handles about as well as that sounds. Solar arrays stretch out like insect wings, and the whole structure rotates slowly to provide a suggestion of gravity that the crew's bones appreciate even if their stomachs don't. Crew of six. Shower schedule strictly enforced.",
+      "notes": "Real-world inspired. Microgravity. Modular construction. Small crew. Real-world analogue.",
+      "size": 8,
+      "loco": "none",
+      "toughLevel": -2,
+      "armourLevel": -2,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": -2,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": []
     },
     {
-      "name":"Torus Station",
-      "desc":"Elegant ring-shaped habitat that spins to generate centrifugal gravity along its outer rim. Residents live on the inside of the ring with their feet pointing outward, looking up at the far side of their world curving overhead. Parks and gardens line the interior, fed by mirrors that channel sunlight through the hub. From the outside she looks like a bicycle wheel floating in the void. From the inside, she looks like a small town that wrapped itself into a circle.",
-      "notes":"Stanford Torus archetype. 1,000-10,000 residents. Artificial gravity. 2001/Elysium feel.",
-      "size":22,"loco":"none",
-      "toughLevel":1,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":10,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "Torus Station",
+      "desc": "Elegant ring-shaped habitat that spins to generate centrifugal gravity along its outer rim. Residents live on the inside of the ring with their feet pointing outward, looking up at the far side of their world curving overhead. Parks and gardens line the interior, fed by mirrors that channel sunlight through the hub. From the outside she looks like a bicycle wheel floating in the void. From the inside, she looks like a small town that wrapped itself into a circle.",
+      "notes": "Stanford Torus design. 1,000-10,000 residents. Artificial gravity. Spinning ring aesthetic.",
+      "size": 22,
+      "loco": "none",
+      "toughLevel": 1,
+      "armourLevel": 0,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": 10,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 1
+        }
       ]
     },
     {
-      "name":"O'Neill Cylinder",
-      "desc":"Paired counter-rotating cylinders, each kilometres long, with vast glass windows running the length of the hull that flood the interior with natural sunlight. Step inside and the horizon curves upward in every direction — farmland, rivers, forests, and towns climbing the walls until they hang directly overhead, separated from you by nothing but air and engineered weather systems. Birds fly. Rain falls. Children grow up with sky above and sky below, never questioning that their world is a tube spinning in the void.",
-      "notes":"The iconic glass biosphere colony. Population 100,000+. Full weather systems. Gundam/Interstellar archetype.",
-      "size":28,"loco":"none",
-      "toughLevel":2,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-360,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_med","mount":"turret","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "O'Neill Cylinder",
+      "desc": "Paired counter-rotating cylinders, each kilometres long, with vast glass windows running the length of the hull that flood the interior with natural sunlight. Step inside and the horizon curves upward in every direction \u2014 farmland, rivers, forests, and towns climbing the walls until they hang directly overhead, separated from you by nothing but air and engineered weather systems. Birds fly. Rain falls. Children grow up with sky above and sky below, never questioning that their world is a tube spinning in the void.",
+      "notes": "The iconic glass biosphere colony. Population 100,000+. Full weather systems. Classic sci-fi colony cylinder.",
+      "size": 28,
+      "loco": "none",
+      "toughLevel": 2,
+      "armourLevel": 0,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": -360,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_med",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 1
+        }
       ]
     },
     {
-      "name":"Coriolis Station",
-      "desc":"Octahedral habitat with enormous glass panels set between structural ribs, creating a faceted jewel that catches starlight as she rotates. The interior is a cathedral of engineered nature — hanging gardens cascade down the inner faces, water features flow along channels that defy intuition in the station's complex gravity gradient, and the docking slot at her centre gives arriving pilots a view that makes veterans catch their breath. Commercial, residential, and agricultural sectors occupy different faces, each with its own microclimate.",
-      "notes":"Elite Dangerous archetype. Population 10,000-50,000. Stunning interior gardens. Iconic silhouette.",
-      "size":24,"loco":"none",
-      "toughLevel":1,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":140,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_med","mount":"turret","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "Coriolis Station",
+      "desc": "Octahedral habitat with enormous glass panels set between structural ribs, creating a faceted jewel that catches starlight as she rotates. The interior is a cathedral of engineered nature \u2014 hanging gardens cascade down the inner faces, water features flow along channels that defy intuition in the station's complex gravity gradient, and the docking slot at her centre gives arriving pilots a view that makes veterans catch their breath. Commercial, residential, and agricultural sectors occupy different faces, each with its own microclimate.",
+      "notes": "Rotating station. Population 10,000-50,000. Stunning interior gardens. Iconic silhouette.",
+      "size": 24,
+      "loco": "none",
+      "toughLevel": 1,
+      "armourLevel": 0,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": 140,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_med",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 1
+        }
       ]
     },
     {
-      "name":"Asteroid Colony",
-      "desc":"Hollowed-out asteroid spun up to provide centrifugal gravity along its inner walls. The exterior is raw rock — cratered, ugly, and radiation-proof. The interior is a cylindrical cavern kilometres across, with hab-modules, hydroponic farms, and industrial facilities built into the stone. Light comes from a fusion-powered artificial sun running along the central axis. She smells of recycled air, mineral dust, and the peculiar metallic tang of asteroid rock. Home to belters who've never set foot on a planet and don't intend to start.",
-      "notes":"Expanse/Ceres archetype. Population varies wildly. Natural radiation shielding. Belter culture.",
-      "size":26,"loco":"none",
-      "toughLevel":4,"armourLevel":3,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-370,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_med","mount":"turret","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "Asteroid Colony",
+      "desc": "Hollowed-out asteroid spun up to provide centrifugal gravity along its inner walls. The exterior is raw rock \u2014 cratered, ugly, and radiation-proof. The interior is a cylindrical cavern kilometres across, with hab-modules, hydroponic farms, and industrial facilities built into the stone. Light comes from a fusion-powered artificial sun running along the central axis. She smells of recycled air, mineral dust, and the peculiar metallic tang of asteroid rock. Home to belters who've never set foot on a planet and don't intend to start.",
+      "notes": "Hollowed asteroid. Population varies wildly. Natural radiation shielding. Frontier mining culture.",
+      "size": 26,
+      "loco": "none",
+      "toughLevel": 4,
+      "armourLevel": 3,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": -370,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_med",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 1
+        }
       ]
     },
     {
-      "name":"Generation Ship",
-      "desc":"Vast vessel built to carry an entire civilisation across interstellar distances at sub-light speed. Her journey takes centuries. The people who arrive will be descendants of the people who left, separated by dozens of generations from the world that built them. She carries everything a society needs: farms, factories, schools, hospitals, governments, and all the social structures that keep ten thousand people from killing each other in a metal tube for three hundred years. Some generation ships forget they're ships at all.",
-      "notes":"Rama/Pandorum archetype. Multi-generational. Self-sustaining. 10,000+ population.",
-      "size":28,"loco":"space_ftl",
-      "toughLevel":2,"armourLevel":1,"speedLevel":-5,"handlingLevel":-5,"woundsLevel":0,"crewLevel":-360,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "Generation Ship",
+      "desc": "Vast vessel built to carry an entire civilisation across interstellar distances at sub-light speed. Her journey takes centuries. The people who arrive will be descendants of the people who left, separated by dozens of generations from the world that built them. She carries everything a society needs: farms, factories, schools, hospitals, governments, and all the social structures that keep ten thousand people from killing each other in a metal tube for three hundred years. Some generation ships forget they're ships at all.",
+      "notes": "Generation ship. Multi-generational. Self-sustaining. 10,000+ population.",
+      "size": 28,
+      "loco": "space_ftl",
+      "toughLevel": 2,
+      "armourLevel": 1,
+      "speedLevel": -5,
+      "handlingLevel": -5,
+      "woundsLevel": 0,
+      "crewLevel": -360,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 1
+        }
       ]
     },
     {
-      "name":"Bernal Sphere",
-      "desc":"Spherical habitat with a non-rotating outer shell and a rotating inner chamber that provides gravity along its equatorial band. Agricultural rings encircle the sphere externally, exposed to sunlight and protected by transparent radiation shielding. She's smaller than an O'Neill cylinder but more structurally robust, and her spherical geometry makes her easier to defend. Population of a few thousand — large enough for a community, small enough that everyone knows everyone's business.",
-      "notes":"Classic space colony design. Population 5,000-20,000. Compact. Robust.",
-      "size":22,"loco":"none",
-      "toughLevel":2,"armourLevel":1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":10,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_med","mount":"turret","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      "name": "Bernal Sphere",
+      "desc": "Spherical habitat with a non-rotating outer shell and a rotating inner chamber that provides gravity along its equatorial band. Agricultural rings encircle the sphere externally, exposed to sunlight and protected by transparent radiation shielding. She's smaller than an O'Neill cylinder but more structurally robust, and her spherical geometry makes her easier to defend. Population of a few thousand \u2014 large enough for a community, small enough that everyone knows everyone's business.",
+      "notes": "Classic space colony design. Population 5,000-20,000. Compact. Robust.",
+      "size": 22,
+      "loco": "none",
+      "toughLevel": 2,
+      "armourLevel": 1,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": 10,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_med",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Luxury Resort Station",
-      "desc":"Orbital paradise catering to the obscenely wealthy. Zero-gravity swimming pools, panoramic observation lounges with views that span from horizon to horizon, and suites appointed with materials imported from a dozen worlds. Her staff outnumber her guests, and the security detail is discreet, professional, and better armed than most military installations. The champagne is excellent. The prices are criminal. The clientele prefer not to discuss how they afford either.",
-      "notes":"High-end tourism. Population 500-2,000 (mostly staff). Light security armament.",
-      "size":16,"loco":"none",
-      "toughLevel":0,"armourLevel":0,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-10,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      "name": "Luxury Resort Station",
+      "desc": "Orbital paradise catering to the obscenely wealthy. Zero-gravity swimming pools, panoramic observation lounges with views that span from horizon to horizon, and suites appointed with materials imported from a dozen worlds. Her staff outnumber her guests, and the security detail is discreet, professional, and better armed than most military installations. The champagne is excellent. The prices are criminal. The clientele prefer not to discuss how they afford either.",
+      "notes": "High-end tourism. Population 500-2,000 (mostly staff). Light security armament.",
+      "size": 16,
+      "loco": "none",
+      "toughLevel": 0,
+      "armourLevel": 0,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": -10,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Biosphere Greenhouse",
-      "desc":"Agricultural station built around enormous transparent domes that trap sunlight and create miniature ecosystems for food production. Each dome is a self-contained biome — tropical, temperate, arid — growing crops adapted to its climate while bees and insects pollinate and earthworms process soil shipped from the homeworld at enormous expense. She feeds a dozen stations and is considered critical infrastructure by every government in the system. Attacking her is the one thing that would unite every faction against you.",
-      "notes":"Food production. Multiple biome domes. Critical infrastructure. Lightly defended.",
-      "size":20,"loco":"none",
-      "toughLevel":0,"armourLevel":-1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":180,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_gat","mount":"turret","linked":0}
+      "name": "Biosphere Greenhouse",
+      "desc": "Agricultural station built around enormous transparent domes that trap sunlight and create miniature ecosystems for food production. Each dome is a self-contained biome \u2014 tropical, temperate, arid \u2014 growing crops adapted to its climate while bees and insects pollinate and earthworms process soil shipped from the homeworld at enormous expense. She feeds a dozen stations and is considered critical infrastructure by every government in the system. Attacking her is the one thing that would unite every faction against you.",
+      "notes": "Food production. Multiple biome domes. Critical infrastructure. Lightly defended.",
+      "size": 20,
+      "loco": "none",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": 180,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 0
+        }
       ]
     },
     {
-      "name":"Orbital Ring Segment",
-      "desc":"Section of a planetary ring structure — a continuous band encircling a world at orbital altitude, connected to the surface by space elevators. She's not a station so much as a piece of infrastructure, a segment of highway in the sky where cargo transfers between ground-to-orbit elevators and interplanetary vessels. Population density varies from warehouse districts where nobody lives to dense urban nodes where millions crowd into hab-blocks with views of the planet below.",
-      "notes":"Megastructure segment. Part of a planetary ring. Millions of residents in urban nodes.",
-      "size":30,"loco":"none",
-      "toughLevel":3,"armourLevel":1,"speedLevel":0,"handlingLevel":0,"woundsLevel":0,"crewLevel":-350,"passengers":0,"mphOverride":0,
-      "mods":{},"weapons":[
-        {"weaponId":"laser_heavy","mount":"turret","linked":0},
-        {"weaponId":"laser_gat","mount":"turret","linked":1}
+      "name": "Orbital Ring Segment",
+      "desc": "Section of a planetary ring structure \u2014 a continuous band encircling a world at orbital altitude, connected to the surface by space elevators. She's not a station so much as a piece of infrastructure, a segment of highway in the sky where cargo transfers between ground-to-orbit elevators and interplanetary vessels. Population density varies from warehouse districts where nobody lives to dense urban nodes where millions crowd into hab-blocks with views of the planet below.",
+      "notes": "Megastructure segment. Part of a planetary ring. Millions of residents in urban nodes.",
+      "size": 30,
+      "loco": "none",
+      "toughLevel": 3,
+      "armourLevel": 1,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "woundsLevel": 0,
+      "crewLevel": -350,
+      "passengers": 0,
+      "mphOverride": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_heavy",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "laser_gat",
+          "mount": "turret",
+          "linked": 1
+        }
       ]
     }
   ]

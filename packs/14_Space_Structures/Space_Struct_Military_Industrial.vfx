@@ -102,7 +102,7 @@
     {
       "name": "Orbital Refinery",
       "desc": "Processing facility that converts raw ore and gas into refined materials for shipbuilding, fuel production, and industrial manufacturing. She sits at the centre of a web of cargo routes, receiving raw materials from mining platforms and shipping finished products to shipyards and colonies. The refining process generates enormous heat, and her radiator arrays extend for kilometres, glowing cherry-red against the black. She smells of hot metal and chemistry even through the environmental systems.",
-      "notes": "EVE archetype. Industrial processing. Critical supply chain node. Moderate defences.",
+      "notes": "Industrial processing. Critical supply chain node. Moderate defences.",
       "size": 22,
       "loco": "none",
       "toughLevel": 1,

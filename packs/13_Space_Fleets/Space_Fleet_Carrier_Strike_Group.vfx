@@ -77,9 +77,9 @@
       ]
     },
     {
-      "name": "Carrier (Battlestar)",
-      "desc": "Combined carrier-battleship and the heart of the fleet. She launches fighters from armoured flight pods, engages capital ships with broadside batteries, and absorbs punishment that would destroy lesser vessels. Her crew of thousands lives, works, and fights in a vessel designed to sustain independent operations indefinitely. When the colonies burn, she becomes the last city of a dying civilisation.",
-      "notes": "Combined carrier/battleship. Flight pods for 80+ fighters. Broadside batteries.",
+      "name": "Fleet Carrier",
+      "desc": "Combined carrier-battleship and the heart of the fleet. She launches fighters from armoured flight pods, engages capital ships with broadside batteries, and absorbs punishment that would destroy lesser vessels. Her crew of thousands lives, works, and fights in a vessel designed to sustain independent operations indefinitely. When everything else falls, she becomes the last city her people have left.",
+      "notes": "Combined carrier/battleship. Hangar capacity for 80+ fighters. Broadside batteries.",
       "size": 22,
       "loco": "space_ftl",
       "toughLevel": 3,

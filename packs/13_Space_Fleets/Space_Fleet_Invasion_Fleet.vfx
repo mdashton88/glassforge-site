@@ -66,8 +66,8 @@
     },
     {
       "name": "Human Frigate",
-      "desc": "First-generation warship built in the desperate years after first contact revealed that humanity was not alone and not safe. She carries magnetic accelerator weapons \u2014 crude but effective against alien hull materials \u2014 and enough armour to survive a single exchange of fire. Her crew volunteers for duty knowing the casualty rates. They serve anyway, because the species needs them.",
-      "notes": "Human military. MAC gun primary weapon. Can survive one engagement.",
+      "desc": "First-generation warship built in the desperate years after first contact revealed that humanity was not alone and not safe. She carries magnetic accelerator cannon \u2014 crude but effective against alien hull materials \u2014 and enough armour to survive a single exchange of fire. Her crew volunteers for duty knowing the casualty rates. They serve anyway, because the species needs them.",
+      "notes": "Human military. Magnetic accelerator cannon. Primary weapon. Can survive one engagement.",
       "size": 14,
       "loco": "space_ftl",
       "toughLevel": 0,
@@ -99,8 +99,8 @@
     },
     {
       "name": "Human Cruiser",
-      "desc": "Heavy warship and the largest combat vessel most human shipyards can produce. Her MAC gun can gut an alien frigate in a single shot, but the aliens have shields and humans don't, which means every engagement is a race to kill before being killed. Her captain knows the exchange rate: three human cruisers for one alien equivalent. The admiralty considers this acceptable. The crews disagree.",
-      "notes": "Human capital ship. Powerful MAC weapon. No energy shields. Outnumbered.",
+      "desc": "Heavy warship and the largest combat vessel most human shipyards can produce. Her magnetic accelerator cannon can gut an alien frigate in a single shot, but the aliens have shields and humans don't, which means every engagement is a race to kill before being killed. Her captain knows the exchange rate: three human cruisers for one alien equivalent. The admiralty considers this acceptable. The crews disagree.",
+      "notes": "Human capital ship. Powerful magnetic accelerator cannon. No energy shields. Outnumbered.",
       "size": 18,
       "loco": "space_ftl",
       "toughLevel": 1,
@@ -276,8 +276,8 @@
     },
     {
       "name": "Orbital Defence Platform",
-      "desc": "Humanity's first line of defence: a weapons station in high orbit designed to engage capital ships before they reach atmosphere. She carries the most powerful magnetic accelerator cannon ever built, powered by a fusion reactor that burns through fuel at a rate that gives her hours of sustained fire, not days. Her crew of fifty knows they're the first target of any invasion fleet. The view from the observation deck is magnificent.",
-      "notes": "Stationary. Super MAC gun. Limited ammunition. First target in any invasion.",
+      "desc": "Humanity's first line of defence: a weapons station in high orbit designed to engage capital ships before they reach atmosphere. She carries the most powerful magnetic accelerator ever built, powered by a fusion reactor that burns through fuel at a rate that gives her hours of sustained fire, not days. Her crew of fifty knows they're the first target of any invasion fleet. The view from the observation deck is magnificent.",
+      "notes": "Stationary. Heavy magnetic accelerator. Limited ammunition. First target in any invasion.",
       "size": 18,
       "loco": "none",
       "toughLevel": 2,

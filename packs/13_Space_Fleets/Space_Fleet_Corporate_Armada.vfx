@@ -10,8 +10,8 @@
   "vehicles": [
     {
       "name": "Tackle Frigate",
-      "desc": "Fast, disposable frigate designed for one job: get close to enemy ships, disrupt their warp drives, and hold them in place until the fleet arrives to finish them off. Her crew knows they're bait. The corporation pays hazard bonuses and maintains a generous clone insurance policy. Both facts are cold comfort when a battleship's tracking computer locks onto your hull.",
-      "notes": "Electronic warfare. Warp disruption. Expendable but critical to fleet doctrine.",
+      "desc": "Fast, disposable frigate designed for one job: get close to enemy ships, disrupt their FTL drives, and hold them in place until the fleet arrives to finish them off. Her crew knows they're bait. The corporation pays hazard bonuses and maintains a generous life insurance policy. Both facts are cold comfort when a battleship's tracking computer locks onto your hull.",
+      "notes": "Electronic warfare. FTL disruption. Expendable but critical to fleet doctrine.",
       "size": 6,
       "loco": "space_ftl",
       "toughLevel": -2,
@@ -260,7 +260,7 @@
     },
     {
       "name": "Citadel Station",
-      "desc": "Corporate headquarters station and the strategic objective of most nullsec wars. She's a fortress, a factory, a marketplace, and a symbol of territorial control all in one. Her defences can hold off a small fleet, her markets set commodity prices for entire regions, and her destruction would reshape the economic landscape of known space. Wars are fought over these, and the wars never really end.",
+      "desc": "Corporate headquarters station and the strategic objective of most deep-space territorial wars. She's a fortress, a factory, a marketplace, and a symbol of territorial control all in one. Her defences can hold off a small fleet, her markets set commodity prices for entire regions, and her destruction would reshape the economic landscape of known space. Wars are fought over these, and the wars never really end.",
       "notes": "Stationary. Corporate HQ. Extensive defences. Strategic objective.",
       "size": 26,
       "loco": "none",
