@@ -270,7 +270,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.29</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.30</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -358,7 +358,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.29 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.30 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -778,6 +778,7 @@ rebuildExtensionData();
 })();
 (function autoInstallAllPacks(){
   var savedVehicles=[];
+  var isFirstLoad=!localStorage.getItem('diceforge-cvf-extensions');
   try{savedVehicles=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]')}catch(e){}
   fetch('packs/manifest.json')
     .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
@@ -795,9 +796,20 @@ rebuildExtensionData();
         fetch(p.path)
           .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
           .then(function(data){installExtension(data,true);loaded++;
-            if(loaded===toInstall.length){console.log('All packs installed ('+S.saved.length+' vehicles total)');renderAll()}})
+            if(loaded===toInstall.length){
+              if(isFirstLoad){
+                disabledPacks=extensions.filter(function(e){return e.id!=='core'}).map(function(e){return e.id});
+                saveDisabledPacks();rebuildExtensionData();
+                console.log('First load: all packs installed but disabled except core ('+disabledPacks.length+' disabled)')
+              }
+              console.log('All packs installed ('+S.saved.length+' vehicles total)');renderAll();if(typeof renderExtensions==='function')renderExtensions()}})
           .catch(function(err){console.warn('Failed: '+p.name,err);loaded++;
-            if(loaded===toInstall.length)renderAll()})
+            if(loaded===toInstall.length){
+              if(isFirstLoad){
+                disabledPacks=extensions.filter(function(e){return e.id!=='core'}).map(function(e){return e.id});
+                saveDisabledPacks();rebuildExtensionData()
+              }
+              renderAll();if(typeof renderExtensions==='function')renderExtensions()}})
       })
     })
     .catch(function(err){console.warn('Could not load pack manifest:',err)})
@@ -813,6 +825,7 @@ function renderExtensions(){
   var totalV=0;extensions.forEach(function(e){if(isPackEnabled(e.id)&&e.vehicles)totalV+=e.vehicles.length});
   html+='<div style="display:flex;gap:6px;margin-bottom:12px">';
   html+='<button class="header-btn" onclick="enableAllPacks()" style="flex:1;text-align:center">Enable All ('+extensions.length+')</button>';
+  html+='<button class="header-btn" onclick="coreOnlyPacks()" style="flex:1;text-align:center">Core Only</button>';
   html+='<button class="header-btn" onclick="disableAllPacks()" style="flex:1;text-align:center">Disable All</button>';
   html+='</div>';
   html+='<div style="margin-bottom:16px;font-size:13px;color:var(--text-dim)">'+en+' of '+extensions.length+' packs enabled \u2014 '+totalV+' vehicles active</div>';
@@ -844,6 +857,7 @@ function renderExtensions(){
   html+='</div>';
   el.innerHTML=html}
 function enableAllPacks(){disabledPacks=[];saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
+function coreOnlyPacks(){disabledPacks=extensions.filter(function(e){return e.id!=='core'}).map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function disableAllPacks(){disabledPacks=extensions.map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function getAllMods(){return MODS.concat(extMods)}
 function getAllSpecials(){return SPECIALS.concat(extSpecials)}
