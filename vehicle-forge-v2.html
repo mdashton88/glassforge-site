@@ -269,7 +269,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.33</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.34</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -357,7 +357,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.33 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.34 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -859,8 +859,8 @@ function renderExtensions(){
   html+='</div>';
   el.innerHTML=html}
 function enableAllPacks(){disabledPacks=[];saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
-function coreOnlyPacks(){disabledPacks=extensions.filter(function(e){return e.id.indexOf('core-')!==0}).map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
-function disableAllPacks(){disabledPacks=extensions.map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
+function coreOnlyPacks(){var ids=[];extensions.forEach(function(e){if(e.id.indexOf('core-')!==0)ids.push(e.id)});S.saved.forEach(function(v){if(v._pack&&v._pack.indexOf('core-')!==0&&ids.indexOf(v._pack)===-1)ids.push(v._pack)});disabledPacks=ids;saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
+function disableAllPacks(){var ids=extensions.map(function(e){return e.id});S.saved.forEach(function(v){if(v._pack&&ids.indexOf(v._pack)===-1)ids.push(v._pack)});disabledPacks=ids;saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function getAllMods(){return MODS.concat(extMods)}
 function getAllSpecials(){return SPECIALS.concat(extSpecials)}
 
@@ -1344,7 +1344,7 @@ function escXML(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;
 // ═══ FANTASY GROUNDS MODULE EXPORT ═══
 function exportFGModule(){
   var today=new Date().toISOString().slice(0,10).replace(/-/g,'');
-  var vehicles=S.saved.filter(function(v){if(!v._pack)return true;var ext=extensions.find(function(e){return e.id===v._pack});if(!ext)return false;return isPackEnabled(v._pack)});
+  var vehicles=S.saved.filter(function(v){if(!v._pack)return true;return isPackEnabled(v._pack)});
   if(!vehicles.length){alert('No vehicles to export. Enable at least one pack or save a custom vehicle.');return}
   var modName='Vehicle Forge Export';
   var modId='vehicle_forge_export';
@@ -1636,7 +1636,7 @@ function renderSaved(){var list=document.getElementById('savedList');
   var fClass=(document.getElementById('hangarFilterClass')||{}).value||'';
   var fLoco=(document.getElementById('hangarFilterLoco')||{}).value||'';
   var items=S.saved.map(function(s,i){return{v:s,idx:i}});
-  items=items.filter(function(o){if(!o.v._pack)return true;var ext=extensions.find(function(e){return e.id===o.v._pack});if(!ext)return false;return isPackEnabled(o.v._pack)});
+  items=items.filter(function(o){if(!o.v._pack)return true;return isPackEnabled(o.v._pack)});
   if(hangarTab==='canon')items=items.filter(function(o){return isCanon(o.v)});
   if(hangarTab==='mine')items=items.filter(function(o){return !isCanon(o.v)});
   if(q)items=items.filter(function(o){var hay=(o.v.name+' '+(o.v.desc||'')+' '+(getPackName(o.v)||'')+' '+(LOCOS.find(function(l){return l.id===o.v.loco})||{}).name).toLowerCase();return hay.indexOf(q)>=0});
