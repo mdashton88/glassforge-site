@@ -1,9 +1,27 @@
 [
   {
-    "id": "core",
-    "name": "SWADE Core Rules Reference Builds",
-    "path": "packs/00_Core_Tool/Vehicle_Forge_Core_Reference_Builds.vfx",
-    "vehicles": 47
+    "id": "core-roads-wheels",
+    "name": "Core Collection \u2014 Roads & Wheels",
+    "path": "packs/00_Core_Tool/Core_Collection_Roads_and_Wheels.vfx",
+    "vehicles": 11
+  },
+  {
+    "id": "core-armour-iron",
+    "name": "Core Collection \u2014 Armour & Iron",
+    "path": "packs/00_Core_Tool/Core_Collection_Armour_and_Iron.vfx",
+    "vehicles": 13
+  },
+  {
+    "id": "core-wings-rotors",
+    "name": "Core Collection \u2014 Wings & Rotors",
+    "path": "packs/00_Core_Tool/Core_Collection_Wings_and_Rotors.vfx",
+    "vehicles": 15
+  },
+  {
+    "id": "core-hulls-harbours",
+    "name": "Core Collection \u2014 Hulls & Harbours",
+    "path": "packs/00_Core_Tool/Core_Collection_Hulls_and_Harbours.vfx",
+    "vehicles": 8
   },
   {
     "id": "blood-thunder-age-of-sail-fleet",

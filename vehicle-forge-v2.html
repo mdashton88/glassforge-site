@@ -270,7 +270,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.30</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.31</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -358,7 +358,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.30 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.31 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -767,14 +767,17 @@ function rebuildExtensionData(){
     if(ext.specials)ext.specials.forEach(function(s){s._ext=ext.id;s._extName=ext.name;extSpecials.push(s)})})}
 rebuildExtensionData();
 (function autoInstallCore(){
-  var hasCore=extensions.find(function(e){return e.id==='core'});
-  var hasCoreVehicles=false;
-  try{var sv=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]');hasCoreVehicles=sv.some(function(s){return s._pack==='core'})}catch(e){}
-  if(hasCore&&hasCoreVehicles)return;
-  fetch('packs/00_Core_Tool/Vehicle_Forge_Core_Reference_Builds.vfx')
-    .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
-    .then(function(data){installExtension(data,true);renderAll();console.log('Core Reference Builds auto-installed ('+data.vehicles.length+' vehicles)')})
-    .catch(function(err){console.warn('Could not auto-install core pack:',err)})
+  /* Core vehicles now ship as 4 packs in the manifest (core-roads-wheels, core-armour-iron,
+     core-wings-rotors, core-hulls-harbours). They auto-install via autoInstallAllPacks below.
+     This function retained as fallback for legacy localStorage with old 'core' pack ID. */
+  var hasOldCore=extensions.find(function(e){return e.id==='core'});
+  if(hasOldCore){
+    extensions=extensions.filter(function(e){return e.id!=='core'});
+    try{var sv=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]');
+      sv=sv.filter(function(v){return v._pack!=='core'});
+      localStorage.setItem('diceforge-cvf',JSON.stringify(sv))}catch(e){}
+    saveExtensions();console.log('Migrated: removed legacy core pack, new core packs will auto-install')
+  }
 })();
 (function autoInstallAllPacks(){
   var savedVehicles=[];
@@ -798,7 +801,7 @@ rebuildExtensionData();
           .then(function(data){installExtension(data,true);loaded++;
             if(loaded===toInstall.length){
               if(isFirstLoad){
-                disabledPacks=extensions.filter(function(e){return e.id!=='core'}).map(function(e){return e.id});
+                disabledPacks=extensions.filter(function(e){return e.id.indexOf('core-')!==0}).map(function(e){return e.id});
                 saveDisabledPacks();rebuildExtensionData();
                 console.log('First load: all packs installed but disabled except core ('+disabledPacks.length+' disabled)')
               }
@@ -806,7 +809,7 @@ rebuildExtensionData();
           .catch(function(err){console.warn('Failed: '+p.name,err);loaded++;
             if(loaded===toInstall.length){
               if(isFirstLoad){
-                disabledPacks=extensions.filter(function(e){return e.id!=='core'}).map(function(e){return e.id});
+                disabledPacks=extensions.filter(function(e){return e.id.indexOf('core-')!==0}).map(function(e){return e.id});
                 saveDisabledPacks();rebuildExtensionData()
               }
               renderAll();if(typeof renderExtensions==='function')renderExtensions()}})
@@ -857,7 +860,7 @@ function renderExtensions(){
   html+='</div>';
   el.innerHTML=html}
 function enableAllPacks(){disabledPacks=[];saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
-function coreOnlyPacks(){disabledPacks=extensions.filter(function(e){return e.id!=='core'}).map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
+function coreOnlyPacks(){disabledPacks=extensions.filter(function(e){return e.id.indexOf('core-')!==0}).map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function disableAllPacks(){disabledPacks=extensions.map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function getAllMods(){return MODS.concat(extMods)}
 function getAllSpecials(){return SPECIALS.concat(extSpecials)}

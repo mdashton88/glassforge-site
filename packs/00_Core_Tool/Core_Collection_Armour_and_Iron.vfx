@@ -1,0 +1,463 @@
+{
+  "id": "core-armour-iron",
+  "name": "Core Collection \u2014 Armour & Iron",
+  "version": "1.0",
+  "publisher": "DiceForge Studios Ltd.",
+  "description": "13 vehicles \u2014 Military ground vehicles from WW2 light tanks to sci-fi hover APCs. Reference implementations from the Savage Worlds core rules spanning a century of armoured warfare.",
+  "weapons": [],
+  "mods": [],
+  "specials": [],
+  "vehicles": [
+    {
+      "name": "WW2 Light Utility Vehicle",
+      "size": 4,
+      "loco": "wheeled",
+      "desc": "Four-wheel drive workhorse. The Willys Jeep, Kubelwagen, and GAZ-67 kept armies moving.",
+      "notes": "The Willys Jeep, Ford GPW, K\u00fcbelwagen, GAZ-67, and their Commonwealth equivalents. She goes everywhere and carries everything \u2014 reconnaissance, command vehicle, ambulance, weapons platform, officer's staff car. Open-topped and lightly armoured, which means the crew is always one burst away from disaster. The most versatile vehicle of the Second World War, and the ancestor of every military SUV since. Four-wheel drive.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 0,
+      "handlingLevel": 1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "mmg",
+          "mount": "pintle",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "open_top",
+        "four_wd"
+      ],
+      "customSpecial": "",
+      "crewLevel": 1,
+      "passengers": 3,
+      "mphOverride": 65
+    },
+    {
+      "name": "WW2 Light Tank",
+      "size": 7,
+      "loco": "tracked",
+      "desc": "Fast reconnaissance armour. Stuarts, Luchs, and T-70s \u2014 light gun, light armour, big heart.",
+      "notes": "Stuarts, Luchs, T-70s, M3 Honeys, Tetrarchs, and their reconnaissance-role equivalents. Fast, undergunned, and used for scouting rather than direct engagement. She finds the enemy, reports back, and calls in the heavies. Players driving light tanks should feel the tension of bringing a small gun to a big fight \u2014 but also the advantage of speed when the shooting starts and they need to relocate. Heavy Armor, Tracked.",
+      "toughLevel": 0,
+      "armourLevel": 2,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "tank_gun_37mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "crewLevel": 3,
+      "mphOverride": 36
+    },
+    {
+      "name": "WW2 Medium Tank (Allied)",
+      "size": 8,
+      "loco": "tracked",
+      "desc": "The workhorse Allied tank. Shermans, Cromwells, and their equivalents \u2014 reliable, mass-produced, outgunned by late-war heavies.",
+      "notes": "The M4 Sherman and its variants \u2014 the M4A1 with cast hull, the M4A3E8 'Easy Eight' with improved suspension, the Firefly with its 17-pounder gun. Also covers Cromwells, Crusaders, and other mid-war Allied designs. She wasn't the best tank of the war \u2014 late-war German armour outgunned her routinely \u2014 but there were always more of them. Use her as the reliable, available option that wins through numbers and logistics rather than individual superiority. Heavy Armor, Tracked.",
+      "armourLevel": 1,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "tank_gun_75mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "pintle",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "mphOverride": 30
+    },
+    {
+      "name": "WW2 Medium Tank (Soviet)",
+      "size": 7,
+      "loco": "tracked",
+      "desc": "Sloped front armour, rugged and simple. The T-34 and its derivatives defined the Eastern Front.",
+      "notes": "The T-34 in all its variants \u2014 the T-34/76 with its original turret, the T-34/85 with the larger gun, and the countless field modifications that kept them fighting through Stalingrad and beyond. Her sloped armour was a revelation in 1941, deflecting shots that would have penetrated a flat-faced design. Simple enough to build in staggering numbers, rugged enough to operate in conditions that destroyed German machinery. Also covers the KV-1 series and other mid-war Soviet designs. Heavy Armor, Sloped Armor (front), Tracked.",
+      "toughLevel": 1,
+      "armourLevel": 2,
+      "speedLevel": 0,
+      "handlingLevel": -1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "tank_gun_76mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "turret",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "crewLevel": 3,
+      "mphOverride": 35
+    },
+    {
+      "name": "WW2 Medium Tank (Axis)",
+      "size": 7,
+      "loco": "tracked",
+      "desc": "The backbone of Axis armoured divisions. Panzer IVs, StuGs, and their upgunned variants.",
+      "notes": "The Panzer IV in its many marks \u2014 from the short-barrelled F1 to the long-gunned H and J variants. Also covers StuG III assault guns, Panzer IIIs, and Italian medium tanks like the M13/40. She's the backbone of Axis armoured divisions, not as famous as the Tiger or Panther but available in numbers and effective across the entire war. The opponent your players face most often in a European theatre campaign. Heavy Armor, Tracked.",
+      "toughLevel": 1,
+      "armourLevel": 3,
+      "speedLevel": -1,
+      "handlingLevel": -1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "tank_gun_75mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "turret",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "crewLevel": 4,
+      "mphOverride": 25
+    },
+    {
+      "name": "WW2 Heavy Tank",
+      "size": 8,
+      "loco": "tracked",
+      "desc": "Massive, over-engineered, and terrifying. Tigers, IS-2s, and Pershings \u2014 the heavyweights that broke through and broke down.",
+      "notes": "Tigers, King Tigers, IS-2s, Pershings, and Churchill heavies. The prestige vehicles of armoured warfare \u2014 slow, massively armoured, carrying the biggest guns of the war. The Tiger's 88mm could kill anything the Allies fielded at ranges they couldn't answer. Use heavies as boss encounters: the players hear one coming, plan around it, and need something clever because a frontal engagement is suicide. The King Tiger's reputation alone was a weapon. Heavy Armor, Tracked.",
+      "toughLevel": 2,
+      "armourLevel": 3,
+      "speedLevel": -1,
+      "handlingLevel": -1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "tank_gun_88mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "turret",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed",
+        "famous"
+      ],
+      "customSpecial": "",
+      "mphOverride": 25
+    },
+    {
+      "name": "Cold War Main Battle Tank",
+      "size": 9,
+      "loco": "tracked",
+      "desc": "Exported to half the world. T-72s, T-62s, and Chieftains \u2014 rugged, adequate, everywhere.",
+      "notes": "T-72s in all their export variants, T-62s, Chieftains, AMX-30s, and the dozens of national variants that armed every Cold War proxy conflict. She shows up everywhere \u2014 Africa, the Middle East, South America, Southeast Asia. Not as capable as Western top-tier designs, but available, affordable, and dangerous enough that nobody wants to face one without anti-armour support. The most likely opponent in any post-1970 regional conflict. Heavy Armor, Tracked.",
+      "toughLevel": 1,
+      "armourLevel": 6,
+      "speedLevel": 1,
+      "handlingLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "tank_gun_125mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "crewLevel": -2,
+      "mphOverride": 50
+    },
+    {
+      "name": "Cold War Wheeled APC",
+      "size": 6,
+      "loco": "wheeled",
+      "desc": "Eight wheels, amphibious, cramped. BTR-series, Strykers, and Piranhas \u2014 gets troops there alive, mostly.",
+      "notes": "BTR-60s, BTR-70s, BTR-80s, Strykers, Piranhas, Fuchs, and the dozens of eight-wheeled troop carriers that moved infantry across Cold War Europe and every conflict since. She swims rivers without preparation, which changes the tactical map entirely \u2014 obstacles that stop wheeled vehicles don't stop a BTR. Cramped, noisy, and the infantry inside can't wait to dismount. Amphibious, 4WD, Heavy Armor.",
+      "toughLevel": 2,
+      "speedLevel": 1,
+      "handlingLevel": -1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "hmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed",
+        "amphibious",
+        "four_wd"
+      ],
+      "customSpecial": "",
+      "crewLevel": 1,
+      "passengers": 8,
+      "mphOverride": 49
+    },
+    {
+      "name": "Modern Main Battle Tank",
+      "size": 9,
+      "loco": "tracked",
+      "desc": "Composite armour, thermal sights, stabilised gun. Abrams, Challenger 2, Leopard 2 \u2014 the Western benchmark.",
+      "notes": "Abrams M1A1 and M1A2 variants, Challenger 2s, Leopard 2A6s, Leclercs, and Merkava IVs. The modern benchmark \u2014 composite armour that shrugs off most anti-tank weapons, thermal sights that see through darkness and smoke, stabilised guns that fire accurately at speed. She dominates open terrain absolutely. Use her to show players what modern military hardware can do, and to remind them that even the best tank is vulnerable in cities, forests, and mountains. Heavy Armor, Night Vision, Tracked.",
+      "toughLevel": 2,
+      "armourLevel": 10,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "tank_gun_120mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed",
+        "night_ops"
+      ],
+      "customSpecial": "",
+      "crewLevel": -1,
+      "mphOverride": 40
+    },
+    {
+      "name": "Modern Main Battle Tank (Eastern)",
+      "size": 8,
+      "loco": "tracked",
+      "desc": "Advanced fire control, composite armour, improved stabiliser. T-80s, T-90s, and Merkava IVs.",
+      "notes": "T-80s, T-90s, and their upgraded variants with reactive armour, improved fire control, and autoloading 125mm guns. She represents the top tier of opposition for Cold War and modern campaigns \u2014 faster and lower-profile than Western equivalents, trading crew comfort for mechanical simplicity. The Merkava IV from Israel also fits this profile with its unique front-engine design. Heavy Armor, Night Vision, Tracked.",
+      "toughLevel": 2,
+      "armourLevel": 9,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "tank_gun_125mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg_modern",
+          "mount": "pintle",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed",
+        "night_ops"
+      ],
+      "customSpecial": "",
+      "crewLevel": -2,
+      "mphOverride": 43
+    },
+    {
+      "name": "Modern Infantry Fighting Vehicle",
+      "size": 7,
+      "loco": "tracked",
+      "desc": "Autocannon, anti-tank missiles, carries a full squad. Bradleys, Warriors, and BMPs.",
+      "notes": "Bradleys, Warriors, BMPs, Marders, CV90s, and their equivalents. Not a taxi \u2014 she fights alongside the infantry she carries. Autocannon turret shreds light vehicles, anti-tank missiles threaten heavier armour, and the squad in the back dismounts through the rear ramp when the shooting starts. Players either ride in her or face her, and both experiences should feel dangerous. Heavy Armor, Night Vision, Tracked.",
+      "toughLevel": 1,
+      "armourLevel": 1,
+      "speedLevel": 0,
+      "handlingLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "autocannon_25mm",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "mmg_modern",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "tow_missile",
+          "mount": "fixed",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed",
+        "night_ops"
+      ],
+      "customSpecial": "",
+      "crewLevel": 2,
+      "passengers": 7,
+      "mphOverride": 40
+    },
+    {
+      "name": "Hover Tank",
+      "size": 7,
+      "loco": "hover",
+      "desc": "Grav-drive heavy armour with energy weapons. No terrain penalties, no mercy.",
+      "notes": "The next generation of armoured warfare \u2014 grav-drive heavy armour that ignores terrain entirely. She crosses rivers, rubble fields, and swampland at full speed. No tracks to throw, no mines to trigger, no terrain penalties whatsoever. The trade-off is she can't dig in \u2014 a hover vehicle fights on the move or not at all. Use her in science fiction settings where ground warfare has evolved past tracks and wheels. Heavy Armor, Hover, Night Vision.",
+      "toughLevel": 1,
+      "armourLevel": 9,
+      "speedLevel": -1,
+      "handlingLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_heavy",
+          "mount": "turret",
+          "linked": 0
+        },
+        {
+          "weaponId": "laser_gat",
+          "mount": "fixed",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed",
+        "night_ops"
+      ],
+      "customSpecial": "",
+      "crewLevel": 3,
+      "mphOverride": 45
+    },
+    {
+      "name": "Hover APC",
+      "size": 7,
+      "loco": "hover",
+      "desc": "Grav-drive troop transport. Fast, sealed, carries a platoon over any surface.",
+      "notes": "Grav-drive troop transport for science fiction settings. She delivers a full platoon across any terrain at speed \u2014 rivers, rubble, sand, ice, all the same to a hover drive. The future of mechanised infantry, where the terrain between drop point and objective is no longer a factor in mission planning. Heavy Armor, Hover.",
+      "toughLevel": 1,
+      "armourLevel": 3,
+      "speedLevel": 2,
+      "handlingLevel": 0,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "laser_gat",
+          "mount": "fixed",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "crewLevel": 1,
+      "passengers": 14,
+      "mphOverride": 75
+    }
+  ]
+}

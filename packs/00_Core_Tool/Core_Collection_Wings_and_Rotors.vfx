@@ -1,0 +1,462 @@
+{
+  "id": "core-wings-rotors",
+  "name": "Core Collection \u2014 Wings & Rotors",
+  "version": "1.0",
+  "publisher": "DiceForge Studios Ltd.",
+  "description": "15 vehicles \u2014 Aircraft from canvas biplanes to modern strike fighters. Reference implementations from the Savage Worlds core rules covering propeller, jet, and rotary-wing flight.",
+  "weapons": [],
+  "mods": [],
+  "specials": [],
+  "vehicles": [
+    {
+      "name": "Civilian Biplane",
+      "size": 4,
+      "loco": "turboprop",
+      "desc": "Open cockpit, fabric wings, a romantic way to die. Barnstormers, crop dusters, and Tiger Moths.",
+      "notes": "Tiger Moths, Sopwith Pups, Stearman PT-17s, de Havilland Gipsy Moths, and every barnstormer that ever terrified a county fair. Open cockpit, fabric over wood and wire, and a top speed that lets passengers appreciate the scenery whether they want to or not. She's your inter-war and pulp adventure aircraft \u2014 slow enough for pistol fights from the cockpit, low enough to barnstorm, fragile enough that every bullet matters. Wind in your face, oil on your goggles, and the ground uncomfortably close.",
+      "toughLevel": 1,
+      "armourLevel": -2,
+      "speedLevel": -2,
+      "handlingLevel": 1,
+      "woundsLevel": -2,
+      "mods": {},
+      "weapons": [],
+      "specials": [
+        "open_top",
+        "short_range"
+      ],
+      "customSpecial": "",
+      "mphOverride": 125
+    },
+    {
+      "name": "Light Civilian Aircraft",
+      "size": 5,
+      "loco": "turboprop",
+      "desc": "Single-engine four-seater. Cessnas, Pipers, and Beechcrafts \u2014 the most common aircraft in the sky.",
+      "notes": "Cessna 172 Skyhawks, Piper Cherokees, Beechcraft Bonanzas, and their hundreds of variants. The most common aircraft type in the sky. She's the plane your players charter, steal, or escape in \u2014 simple to fly, cheap to hire, and she lands on dirt strips that would destroy anything bigger. Also covers bush planes, survey aircraft, and the small charter services that connect remote locations to civilisation.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": -2,
+      "handlingLevel": 1,
+      "woundsLevel": -2,
+      "mods": {},
+      "weapons": [],
+      "specials": [
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "passengers": 3,
+      "mphOverride": 140
+    },
+    {
+      "name": "Civilian Helicopter",
+      "size": 7,
+      "loco": "vtol",
+      "desc": "General-purpose rotorcraft. Bell 206s, Robinson R44s \u2014 news, medevac, tourism, escape.",
+      "notes": "Bell 206 JetRangers, Robinson R44s, Eurocopter EC135s, and the hundreds of civilian rotorcraft types used for news coverage, executive transport, medevac, law enforcement, and tourism. Her unique ability is hover and vertical landing \u2014 she doesn't need a runway. Use her for dramatic rooftop extractions, medical evacuations, and the moment the players realise that the villain's escape plan doesn't involve roads. VTOL.",
+      "toughLevel": -1,
+      "armourLevel": -1,
+      "speedLevel": -1,
+      "handlingLevel": 0,
+      "woundsLevel": -2,
+      "mods": {},
+      "weapons": [],
+      "specials": [
+        "enclosed",
+        "stol"
+      ],
+      "customSpecial": "",
+      "passengers": 3,
+      "mphOverride": 130
+    },
+    {
+      "name": "Executive Jet",
+      "size": 8,
+      "loco": "jet",
+      "desc": "Fast, comfortable, and proof that someone is doing well. Learjets, Gulfstreams, Citations.",
+      "notes": "Learjet 45s, Gulfstream IVs, Cessna Citations, Bombardier Challengers, and every private aircraft that costs more than most houses. She gets people across continents in hours, and her presence at an airstrip tells you everything about the owner \u2014 money, connections, urgency. She's also a beautiful target sitting unguarded on a remote runway at three in the morning.",
+      "armourLevel": -1,
+      "speedLevel": -1,
+      "handlingLevel": 3,
+      "woundsLevel": -2,
+      "mods": {},
+      "weapons": [],
+      "specials": [
+        "enclosed",
+        "spacious",
+        "long_range"
+      ],
+      "customSpecial": "",
+      "crewLevel": -3,
+      "passengers": 10,
+      "mphOverride": 540
+    },
+    {
+      "name": "Space Shuttle",
+      "size": 13,
+      "loco": "jet",
+      "desc": "Reusable orbital vehicle. Three main engines, two solid boosters, one fragile heat shield.",
+      "notes": "The NASA Space Shuttle, Buran, and their fictional successors. She demonstrates that size and Toughness don't always correlate with combat power \u2014 the shuttle is enormous but fragile, a precision instrument designed for a specific mission rather than a fight. Use her as a reference point for near-future and hard sci-fi campaigns where getting to orbit is still dangerous and expensive.",
+      "armourLevel": -1,
+      "speedLevel": 5,
+      "handlingLevel": 1,
+      "mods": {},
+      "weapons": [],
+      "specials": [
+        "enclosed",
+        "sealed",
+        "pressurised"
+      ],
+      "customSpecial": "",
+      "crewLevel": -19,
+      "passengers": 40,
+      "mphOverride": 17000
+    },
+    {
+      "name": "WW2 Fighter (Allied, Early-War)",
+      "size": 6,
+      "loco": "turboprop",
+      "desc": "Eight machine guns, elliptical wings, and the Battle of Britain. Spitfires, Hurricanes, and P-40s.",
+      "notes": "Supermarine Spitfires (Mk I through V), Hawker Hurricanes, Curtiss P-40 Warhawks, Grumman F4F Wildcats, and the other Allied fighters that held the line before the war turned. The Spitfire and Hurricane split the Battle of Britain between them \u2014 Hurricanes took the bombers, Spitfires took the escorts. The P-40 fought in every theatre from North Africa to China. These aircraft weren't always the fastest or best-armed, but they were there when it mattered and the pilots who flew them refused to lose.",
+      "toughLevel": 1,
+      "armourLevel": -2,
+      "speedLevel": -1,
+      "handlingLevel": 1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        }
+      ],
+      "specials": [
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "mphOverride": 360
+    },
+    {
+      "name": "WW2 Fighter (Allied, Late-War)",
+      "size": 7,
+      "loco": "turboprop",
+      "desc": "Long-range escort fighter. Mustangs, Thunderbolts, and Tempests \u2014 six-plus guns and the legs to use them.",
+      "notes": "P-51 Mustangs in all their marks, P-47 Thunderbolts, Hawker Tempests, Lavochkin La-7s, and Yakovlev Yak-3s. The late-war Allied fighters that turned air superiority from a contest into a foregone conclusion. The Mustang's combination of range, speed, and firepower made her the complete package \u2014 escort bombers to Berlin and back, dogfight anything the Luftwaffe sent up, strafe ground targets on the return leg. Six or more guns and the fuel to use them.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 0,
+      "handlingLevel": 1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        }
+      ],
+      "specials": [
+        "enclosed",
+        "long_range"
+      ],
+      "customSpecial": "",
+      "mphOverride": 437
+    },
+    {
+      "name": "WW2 Fighter (Axis)",
+      "size": 6,
+      "loco": "turboprop",
+      "desc": "Single-seat, single-engine interceptor. Bf-109s, Fw-190s, and Macchis dominated early-war skies.",
+      "notes": "Bf-109s from the Emil through the Gustav and Kurf\u00fcrst marks, Fw-190 W\u00fcrgers, Macchi C.202 Folgores, and Kawasaki Ki-61 Hiens. The Axis built fast, well-armed interceptors with excellent climb rates and devastating cannon armament. The Bf-109 alone fought from Spain in 1937 to Berlin in 1945 \u2014 more were built than any other fighter in history. She's the opposition your players face in every European and North African air combat scenario.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": -1,
+      "handlingLevel": 1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        }
+      ],
+      "specials": [
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "mphOverride": 380
+    },
+    {
+      "name": "WW2 Fighter (Pacific)",
+      "size": 6,
+      "loco": "turboprop",
+      "desc": "Exceptional range and manoeuvrability, paid for with zero armour protection. Zeros, Oscars, and their kin.",
+      "notes": "Mitsubishi A6M Zeros, Nakajima Ki-43 Oscars, Ki-84 Hayates, and the other Japanese fighters that traded protection for performance. Exceptional range and manoeuvrability, paid for with minimal armour and no self-sealing fuel tanks. A Zero could outmanoeuvre anything the Allies flew in 1942 \u2014 but one burst of .50 calibre could set her on fire. The ultimate glass cannon. Use her to show players that the best dogfighter in the sky can still die to a single lucky hit.",
+      "armourLevel": -1,
+      "speedLevel": -1,
+      "handlingLevel": 1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 1
+        }
+      ],
+      "specials": [
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "mphOverride": 350
+    },
+    {
+      "name": "WW2 Heavy Bomber",
+      "size": 10,
+      "loco": "turboprop",
+      "desc": "Four engines, ten crew, bristling with defensive guns. B-17s, Lancasters, and He-111s \u2014 strategic bombing incarnate.",
+      "notes": "B-17 Flying Fortresses, B-24 Liberators, Avro Lancasters, Halifax bombers, He-111s, and the other strategic bombers that brought the war to the enemy's homeland. Ten crew, defensive guns at every angle, and hours of straight-and-level flying through flak corridors and fighter screens. Every mission is a survival horror session at 25,000 feet. Use her for crew-based scenarios where every position matters and a single engine fire can kill everyone aboard.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": -4,
+      "handlingLevel": -1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "turret",
+          "linked": 1
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hmg",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "bombs_ww",
+          "mount": "fixed",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed",
+        "long_range"
+      ],
+      "customSpecial": "",
+      "crewLevel": 5,
+      "mphOverride": 115
+    },
+    {
+      "name": "Vietnam-Era Utility Helicopter",
+      "size": 7,
+      "loco": "vtol",
+      "desc": "The sound of the rotors IS the war. Hueys, Pumas, and Mi-8s \u2014 the workhorse of every conflict since.",
+      "notes": "UH-1 Hueys, UH-60 Black Hawks, SA 330 Pumas, Mi-8 Hips, and the utility helicopters that defined warfare from Vietnam to Afghanistan. The Huey's distinctive two-blade rotor beat is the soundtrack of an entire war. She carries troops, evacuates wounded, delivers supplies, provides door-gun fire support, and defines the helicopter warfare era. Every variant from medevac to gunship started with this airframe. Helicopter.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 0,
+      "handlingLevel": 2,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "mmg",
+          "mount": "fixed",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "enclosed"
+      ],
+      "customSpecial": "",
+      "crewLevel": 3,
+      "passengers": 12,
+      "mphOverride": 120
+    },
+    {
+      "name": "Modern Attack Helicopter",
+      "size": 8,
+      "loco": "vtol",
+      "desc": "Tandem cockpit, chain gun, guided missiles. Apaches, Hinds, and Tigers \u2014 the apex predators.",
+      "notes": "AH-64 Apaches in all their variants, Mi-24 Hinds, Mi-28 Havocs, Eurocopter Tigers, Mangusta A129s, and Kamov Ka-52 Alligators. Tandem cockpit, sensor suite, guided missiles, and an autocannon or chain gun that follows the gunner's helmet. She finds targets, kills them at range, and relocates before ground fire can respond. The Hind pioneered the concept, the Apache perfected it. Use her to demonstrate the terrifying capability gap between infantry and modern air power. Helicopter, Night Vision.",
+      "toughLevel": 1,
+      "armourLevel": -1,
+      "speedLevel": 0,
+      "handlingLevel": 1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "autocannon_30mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "hellfire",
+          "mount": "fixed",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "heavy_armor",
+        "enclosed",
+        "night_ops"
+      ],
+      "customSpecial": "",
+      "crewLevel": -3,
+      "mphOverride": 225
+    },
+    {
+      "name": "VTOL Strike Fighter",
+      "size": 7,
+      "loco": "vtol",
+      "desc": "Vertical takeoff, subsonic, ground attack specialist. Harriers, Yak-38s, and their successors.",
+      "notes": "AV-8B Harrier IIs, Sea Harriers, Yak-38 Forgers, and their successor concepts. She operates from roads, forest clearings, and amphibious ships too small for conventional aircraft. VTOL capability means close air support can stage from positions the enemy doesn't expect \u2014 and recover to locations they can't find. Slower than conventional jets, but she doesn't need a runway, and that changes everything. VTOL.",
+      "speedLevel": 3,
+      "handlingLevel": 1,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "autocannon_25mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "bombs_mod",
+          "mount": "fixed",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "enclosed",
+        "stol"
+      ],
+      "customSpecial": "",
+      "mphOverride": 630
+    },
+    {
+      "name": "Modern Air Superiority Fighter",
+      "size": 9,
+      "loco": "jet",
+      "desc": "Twin-engine, Mach 2.5, designed to own the sky. Eagles, Flankers, Typhoons, and Rafales.",
+      "notes": "F-15 Eagles, F-22 Raptors, Eurofighter Typhoons, Dassault Rafales, Saab Gripens, and their equivalents. Twin-engine, Mach 2+ capable, designed to own the sky from visual range to beyond-visual-range. The F-15 has never been shot down in air-to-air combat. The F-22 was built to ensure that record continues. She's the thing your players hear about but never want to see on the wrong side. Night Vision.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 3,
+      "handlingLevel": 3,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "cannon_20mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sparrow",
+          "mount": "fixed",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "enclosed",
+        "night_ops"
+      ],
+      "customSpecial": "",
+      "crewLevel": -4,
+      "mphOverride": 1875
+    },
+    {
+      "name": "Modern Multirole Fighter (Eastern)",
+      "size": 9,
+      "loco": "jet",
+      "desc": "Long-range interceptor. Flankers, Fulcrums, and their export derivatives.",
+      "notes": "Su-27 Flankers, Su-30s, Su-35s, MiG-29 Fulcrums, and their export derivatives. The Soviet and Russian answer to Western air superiority \u2014 arguably more manoeuvrable at close range, equipped with excellent missiles, and exported to dozens of air forces worldwide. The Flanker family keeps evolving and keeps being dangerous. She represents peer-level opposition for any modern air combat campaign. Night Vision.",
+      "toughLevel": 0,
+      "armourLevel": -1,
+      "speedLevel": 2,
+      "handlingLevel": 2,
+      "mods": {},
+      "weapons": [
+        {
+          "weaponId": "autocannon_30mm",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sidewinder",
+          "mount": "fixed",
+          "linked": 0
+        },
+        {
+          "weaponId": "sparrow",
+          "mount": "fixed",
+          "linked": 0
+        }
+      ],
+      "specials": [
+        "enclosed",
+        "night_ops"
+      ],
+      "customSpecial": "",
+      "crewLevel": -4,
+      "mphOverride": 1550
+    }
+  ]
+}
