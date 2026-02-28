@@ -343,13 +343,6 @@
     "vehicles": 10
   },
   {
-    "id": "space-fleet-desert-power",
-    "name": "Space Fleets \u2014 Desert Power [PLACEHOLDER]",
-    "path": "packs/13_Space_Fleets/Space_Fleet_Desert_Power.vfx",
-    "vehicles": 0,
-    "_status": "placeholder \u2014 pending IP-safe rewrite"
-  },
-  {
     "id": "space-fleet-extension",
     "name": "Space Fleets \u2014 Extension Pack",
     "path": "packs/13_Space_Fleets/Space_Fleet_Extension.vfx",
@@ -378,13 +371,6 @@
     "id": "space-fleet-rebel-vanguard",
     "name": "Space Fleets \u2014 Rebel Vanguard [PLACEHOLDER]",
     "path": "packs/13_Space_Fleets/Space_Fleet_Rebel_Vanguard.vfx",
-    "vehicles": 0,
-    "_status": "placeholder \u2014 pending IP-safe rewrite"
-  },
-  {
-    "id": "space-fleet-xenos-marauders",
-    "name": "Space Fleets \u2014 Xenos Marauders [PLACEHOLDER]",
-    "path": "packs/13_Space_Fleets/Space_Fleet_Xenos_Marauders.vfx",
     "vehicles": 0,
     "_status": "placeholder \u2014 pending IP-safe rewrite"
   },
