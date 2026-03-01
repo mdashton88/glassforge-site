@@ -2005,7 +2005,7 @@ document.addEventListener('keydown',function(e){
 function fmtN(n){return n.toLocaleString()}
 function fmtC(n){if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(n%1e6===0?0:2)+'M';if(n>=1e3)return(n/1e3).toFixed(n%1e3===0?0:1)+'K';return n.toString()}
 function renderAll(){
-  var fns=[renderFrameInfo,renderLocoGrid,renderSliders,renderEraFilter,renderModCatalogue,renderModBay,renderWeaponCatalogue,renderWeaponBay,renderSpecials,renderStats,renderOutput,renderSaved];
+  var fns=[renderFrameInfo,renderLocoGrid,renderSliders,renderEraFilter,renderModCatalogue,renderModBay,renderWeaponCatalogue,renderWeaponBay,renderSpecials,renderOutput,renderSaved];
   fns.forEach(function(fn){try{fn()}catch(e){}})}
 
 // ═══ SPECIALS RENDERING ═══
