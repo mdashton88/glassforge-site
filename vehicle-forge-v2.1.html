@@ -182,7 +182,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .si-delete:hover{color:var(--red-bright)}.si-badge{font-size:11px;padding:1px 5px;border-radius:2px;font-weight:700;letter-spacing:0.5px;white-space:nowrap}
 .si-badge.canon{background:var(--accent);color:var(--bg-deep)}.si-badge.user{background:var(--green);color:var(--bg-deep)}
 .si-lock{color:var(--accent-dim);font-size:12px;margin-left:4px}.si-pack{font-size:12px;color:var(--text-dim);font-style:italic}
-.hangar-tab{background:var(--bg-deep);border:1px solid var(--border);color:var(--text-dim);padding:4px 10px;font-size:13px;cursor:pointer;text-align:center;font-family:inherit;border-radius:3px;white-space:nowrap}
+.hangar-tab{background:var(--bg-deep);border:1px solid var(--border);color:var(--text-dim);padding:4px 2px;font-size:12px;cursor:pointer;text-align:center;font-family:inherit;border-radius:3px;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .hangar-tab:hover{border-color:var(--accent-dim);color:var(--text)}.hangar-tab.active{border-color:var(--accent);color:var(--accent);background:rgba(196,164,74,0.08)}
 .hangar-wrapper{margin:-16px -20px;padding:0}
 .hangar-toolbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:2;background:var(--bg);padding:12px 16px 8px;border-bottom:1px solid var(--border)}
@@ -1799,14 +1799,6 @@ function setPackFilter(f){
   renderExtensions();
 }
 
-function initHangarFiltersV2(){
-  var ls=document.getElementById('filterLoco');if(!ls)return;
-  ls.innerHTML='<option value="">All Types</option>';
-  LOCOS.forEach(function(l){ls.innerHTML+='<option value="'+l.id+'">'+l.name+'</option>'});
-  var cs=document.getElementById('filterClass');if(!cs)return;
-  cs.innerHTML='<option value="">All Classes</option>';
-  ['A','B','C','D','E','F','G'].forEach(function(l){cs.innerHTML+='<option value="'+l+'">Class '+l+'</option>'});
-}
 
 // Compat bridge: old switchTab calls route to new system
 function switchTab(tab){
@@ -2190,7 +2182,7 @@ document.getElementById('vName').addEventListener('input',function(e){S.name=e.t
 var vd=document.getElementById('vDesc');if(vd)vd.addEventListener('input',function(e){S.desc=e.target.value||''});
 var vn=document.getElementById('vNotes');if(vn)vn.addEventListener('input',function(e){S.notes=e.target.value||''});
 var hc=document.getElementById('helpContent');if(hc)hc.innerHTML=buildHelp();
-initHangarFiltersV2();
+
 renderAll();
 switchMode('packs');
 updateSettingsInfo();
