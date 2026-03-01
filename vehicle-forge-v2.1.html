@@ -268,14 +268,14 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
   <div class="command-strip">
     <div class="cs-section">
       <div style="display:flex;flex-direction:column;gap:4px">
+        <button class="mode-btn" id="modePacks" onclick="switchMode('packs')">
+          <span class="mode-indicator"></span><span>Packs</span>
+        </button>
         <button class="mode-btn active" id="modeLibrary" onclick="switchMode('library')">
-          <span class="mode-indicator"></span><span>Library</span>
+          <span class="mode-indicator"></span><span>Hangar</span>
         </button>
         <button class="mode-btn" id="modeWorkshop" onclick="switchMode('workshop')">
           <span class="mode-indicator"></span><span>Workshop</span>
-        </button>
-        <button class="mode-btn" id="modePacks" onclick="switchMode('packs')">
-          <span class="mode-indicator"></span><span>Packs</span>
         </button>
       </div>
     </div>
