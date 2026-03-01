@@ -1744,7 +1744,7 @@ function updateChevrons(){
 function onGlobalSearch(){
   var q=document.getElementById('globalSearch').value;
   if(currentMode==='library'){
-    renderSaved();
+    initHangarFilters();renderSaved();
   } else if(currentMode==='packs'){
     renderExtensions();
   } else if(currentMode==='workshop'){
@@ -1753,7 +1753,7 @@ function onGlobalSearch(){
   }
 }
 
-function onFilterChange(){renderSaved()}
+function onFilterChange(){initHangarFilters();renderSaved()}
 
 var packFilter='all';
 function setPackFilter(f){
@@ -1901,18 +1901,39 @@ var hangarSel=-1;var hangarItems=[];
 function setHangarTab(tab){hangarTab=tab;
   document.querySelectorAll('.hangar-tab').forEach(function(t){t.classList.remove('active')});
   document.getElementById('hangarTab'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
-  renderSaved()}
+  initHangarFilters();renderSaved()}
 function isCanon(v){return !!v._pack}
 function getPackName(v){if(!v._pack)return null;var ext=extensions.find(function(e){return e.id===v._pack});return ext?ext.name:v._pack}
 function initHangarFilters(){
   var cs=document.getElementById('filterClass');if(!cs)return;
   var letters=['A','B','C','D','E','F','G'];
+  var romanMap={A:5,B:20,C:30,D:40,E:50,F:60,G:70};
+  // Build filtered set WITHOUT the class filter to find available classes
+  var q=(document.getElementById('globalSearch')||{}).value||'';q=q.toLowerCase();
+  var fSize=(document.getElementById('filterSize')||{}).value||'';
+  var fLoco=(document.getElementById('filterLoco')||{}).value||'';
+  var base=S.saved.map(function(s,i){return{v:s,idx:i}});
+  base=base.filter(function(o){if(!o.v._pack)return true;return isPackEnabled(o.v._pack)});
+  if(hangarTab==='canon')base=base.filter(function(o){return isCanon(o.v)});
+  if(hangarTab==='mine')base=base.filter(function(o){return !isCanon(o.v)});
+  if(q)base=base.filter(function(o){var hay=(o.v.name+' '+(o.v.desc||'')+' '+(getPackName(o.v)||'')+' '+(LOCOS.find(function(l){return l.id===o.v.loco})||{}).name).toLowerCase();return hay.indexOf(q)>=0});
+  if(fSize)base=base.filter(function(o){return getFrame(o.v.size).cat===fSize});
+  if(fLoco)base=base.filter(function(o){return o.v.loco===fLoco});
+  // Count available classes
+  var avail={};base.forEach(function(o){var cl=classLetter(calcTotalToughFor(o.v));avail[cl]=true});
+  var curVal=cs.value;
   cs.innerHTML='<option value="">All Classes</option>';
-  letters.forEach(function(l){cs.innerHTML+='<option value="'+l+'">Class '+l+' ('+sfcNumeral({A:5,B:20,C:30,D:40,E:50,F:60,G:70}[l])+')</option>'});
+  letters.forEach(function(l){
+    var has=avail[l];
+    cs.innerHTML+='<option value="'+l+'"'+(has?'':' disabled style="color:#555"')+'>Class '+l+' ('+sfcNumeral(romanMap[l])+')'+(has?'':' —')+'</option>'});
+  cs.value=curVal;
+  // Loco filter
   var ls=document.getElementById('filterLoco');if(!ls)return;
+  var curLoco=ls.value;
   ls.innerHTML='<option value="">All Types</option>';
   var groups={};LOCOS.forEach(function(l){var g=l.group;if(!groups[g])groups[g]=[];groups[g].push(l)});
-  Object.keys(groups).forEach(function(g){groups[g].forEach(function(l){ls.innerHTML+='<option value="'+l.id+'">'+l.name+'</option>'})})
+  Object.keys(groups).forEach(function(g){groups[g].forEach(function(l){ls.innerHTML+='<option value="'+l.id+'">'+l.name+'</option>'})});
+  ls.value=curLoco;
 }
 function syncVehiclesFromPacks(){
   /* Ensure S.saved contains vehicles for every installed extension.
