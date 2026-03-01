@@ -3,7 +3,7 @@
 **Document:** DATA_GOVERNANCE.md  
 **Authority:** MANDATORY READ before any session that reads, writes, or audits vehicle or weapon data.  
 **Last Audit:** 2026-02-23 (commit below)  
-**Tool Version:** v0.8.22  
+**Tool Version:** v0.10.18  
 
 ---
 
@@ -257,3 +257,6 @@ Before any commit touching weapon or vehicle data:
 | 2026-02-23 | 1955993 | Downstream sync: 6 secondary files | All synced with corrected canon |
 | 2026-02-23 | (this) | sync_and_audit.py first run | T1: 19/19, Variants: 8/8, Families: 12/12, Packs: 53/53, Sync: 6/6 |
 | 2026-02-23 | (this) | 100-encounter combat proving ground | 960 attacks, 37 weapons, 5 grades, 5 AP bands. All sanity checks pass. |
+| 2026-03-01 | a55a97a | Ground/air/water armour recalibration | 530 expansion vehicles, new armour curves for all non-space locos. 37/37 Pinnacle canon pass. |
+| 2026-03-01 | 5dcf2f2 | Space toughness formula fix (v0.10.18) | Hull bonus, SFC stepped armour, reduced scaling. 29/29 SFC baseline exact (sz 4-29). |
+| 2026-03-01 | c91bedc | Canon slider recalibration | 37/47 vehicles updated. Proving ground: 45/47 pass (95.7%). T: 0.96 MAE. A: 0.19 MAE. H: 0.00 MAE. |

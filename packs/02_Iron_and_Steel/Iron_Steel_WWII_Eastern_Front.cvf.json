@@ -128,8 +128,8 @@
           "linked": 0
         }
       ],
-      "toughLevel": -1,
-      "armourLevel": -5,
+      "toughLevel": 0,
+      "armourLevel": 0,
       "speedLevel": 1,
       "handlingLevel": 2,
       "woundsLevel": 0
@@ -260,8 +260,8 @@
           "linked": 0
         }
       ],
-      "toughLevel": 0,
-      "armourLevel": -5,
+      "toughLevel": 1,
+      "armourLevel": 1,
       "speedLevel": 0,
       "handlingLevel": 1,
       "woundsLevel": 0

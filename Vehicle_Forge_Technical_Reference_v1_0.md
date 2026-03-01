@@ -21,7 +21,7 @@ The tool is designed around Savage Worlds' *Fast! Furious! Fun!* philosophy. Six
 
 Vehicle Forge is **not** a reproduction of the Science Fiction Companion's vehicle construction rules. It is an original DiceForge design system that produces Savage Worlds-compatible stat blocks. This distinction matters for IP compliance (see Section 9).
 
-### Current Version: v0.8.22
+### Current Version: v0.10.18
 
 ---
 
@@ -98,9 +98,24 @@ Cost Base = 1000 × Size²
 ### Toughness Slider (toughLevel: −5 to +5)
 
 ```
-Structural = max(1, (5 + Size) + toughLevel × toughStep)
-toughStep = max(1, round(Size / 4) + 1)
+Structural = max(1, (5 + Size + hullBonus) + toughLevel × toughStep)
 ```
+
+For ground, water, air, and walker vehicles:
+```
+toughStep = max(1, round(Size / 4) + 1)
+hullBonus = 0
+```
+
+For space vehicles (space_thruster, space_ftl, none):
+```
+toughStep: sz≤11: 2, sz≤20: 3, sz≤25: 4, sz26+: 5
+hullBonus (spaceHullBonus): sz≤7: +4, sz≤16: +5, sz17-20: lookup, sz21+: sz-13
+```
+
+Pack vehicles (calcToughFor) use category-based toughStep instead:
+Normal (sz≤3): 2, Large (sz≤7): 3, Huge (sz≤11): 4, Gargantuan (sz12+): 5.
+The hull bonus still applies for space locos.
 
 ### Armour Slider (armourLevel: −5 to +5)
 
@@ -109,7 +124,9 @@ Armour = max(0, armourBase + armourLevel × armourStep)
 Total Toughness = Structural + Armour
 ```
 
-`armourBase` and `armourStep` are lookup tables indexed by Size and locomotion group (ground/walker, water, air). These tables were hand-tuned to produce SWADE-compatible armour values across all vehicle types. The full tables are in the source code — they are too large to reproduce here but follow the pattern: larger vehicles and ground vehicles have higher base armour and larger steps.
+`armourBase` and `armourStep` are lookup tables indexed by Size and locomotion group (ground/walker, water, air, space). Each group has its own curve calibrated against Pinnacle canon stat blocks. Ground vehicles were calibrated against SWADE Core civilian baselines and the Vehicle Guide. Space vehicles were calibrated against the SFC Future Military baseline tables. The full tables are in the source code — the definitive reference is `ARMOUR_V2_DESIGN_SPEC.md`.
+
+Proving ground accuracy (v0.10.18): 45/47 Pinnacle canon vehicles pass at ±2T/±2A/±1H. Armour 100% within ±2. Handling 100% exact. Space baseline 29/29 exact against SFC (sz 4-29).
 
 ### Speed Slider (speedLevel: −5 to +5)
 

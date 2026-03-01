@@ -141,17 +141,27 @@ Updated: v0.10.18 — Space-specific toughness formulas matching SFC curves (Mar
 
 ## CANON VALIDATION
 
-94.1% accuracy within 2 points across 102 canon vehicles.
-Only 6 vehicles need overflow beyond ±5 (max overflow: +10 for SFC Battleship).
+**Proving Ground v0.10.18 (March 2026): 45/47 Pinnacle canon vehicles pass (95.7%).**
 
-Key mappings:
-- Car → Toughness Standard, Armour Modest
-- Sherman → Toughness Sturdy, Armour Standard
-- Abrams → Toughness Robust, Armour Maximum
-- SFC MBT → Toughness Robust, Armour Heavy
-- SFC Destroyer → Toughness Sturdy, Armour Maximum +3
-- SFC Battleship → Toughness Standard, Armour Maximum +5
-- Future MBT → Toughness Robust, Armour Maximum
+47 vehicles from SWADE Core Rules pp.83-85 tested at tolerances ±2 toughness, ±2 armour, ±1 handling.
+
+Results:
+- Toughness: 95.7% within ±2, mean error 0.96 points
+- Armour: 100% within ±2 (83% exact), mean error 0.19 points
+- Handling: 100% exact match
+- Space baseline: 29/29 exact against SFC Future Military (sz 4-29)
+
+Two failures: Semi-Truck (+3T, slider granularity at sz9) and M1A1 Abrams (+3T, max slider range).
+Both are rounding artifacts inherent to integer slider steps — not formula errors.
+
+Key slider mappings:
+- Mid-Sized Car → t+0 a+0 h+0 (dead-on match to Pinnacle)
+- Sherman → t+1 a+1 (T26(9) vs PIN T24(8), within tolerance)
+- Tiger II → t+1 a+2 (T32(15) vs PIN T34(16), within tolerance)
+- Abrams → t+2 a+5 (T60(38) vs PIN T57(37), +3 marginal fail)
+- P-51 Mustang → t+0 a+0 h+1 (exact T14(2))
+- F-15 Eagle → t+0 a+1 h+3 (exact T18(4))
+- PT Boat → t-1 a-1 h+3 (exact T14(2))
 
 ---
 

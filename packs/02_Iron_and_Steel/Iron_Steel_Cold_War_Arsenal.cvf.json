@@ -141,8 +141,8 @@
           "linked": 0
         }
       ],
-      "toughLevel": -1,
-      "armourLevel": -5,
+      "toughLevel": 1,
+      "armourLevel": 1,
       "speedLevel": 0,
       "handlingLevel": 0,
       "woundsLevel": 0
