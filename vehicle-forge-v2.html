@@ -101,7 +101,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .drag-item,.weapon-drag-item{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:var(--bg-deep);border:1px solid var(--border);margin:3px 0;cursor:grab;transition:all .2s;-webkit-user-select:none;user-select:none}
 .drag-item:hover,.weapon-drag-item:hover{border-color:var(--accent-dim);background:var(--bg-card);box-shadow:0 0 8px var(--accent-glow)}
 .drag-item:active,.weapon-drag-item:active{box-shadow:0 0 12px var(--accent-dim),inset 0 0 8px var(--accent-glow)}
-.drag-item.dragging,.weapon-drag-item.dragging{opacity:.3}
+.drag-item.dragging,.weapon-drag-item.dragging,.hangar-card.dragging{opacity:.3}
 .drag-handle{color:var(--text-dim);font-size:16px;opacity:.4;cursor:grab;flex-shrink:0;padding-top:2px}
 .di-info,.wdi-info{flex:1;min-width:0}
 .di-name,.wdi-name{font-size:15px;font-weight:600;color:var(--text-bright)}
@@ -280,7 +280,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.42</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.43</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -368,7 +368,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.42 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.43 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -1009,7 +1009,7 @@ function batchExport(){if(!S.saved.length){alert('No saved vehicles to export.')
 // ═══ DRAG-DROP ENGINE ═══
 function getXY(e){if(e.touches&&e.touches.length)return{x:e.touches[0].clientX,y:e.touches[0].clientY};if(e.changedTouches&&e.changedTouches.length)return{x:e.changedTouches[0].clientX,y:e.changedTouches[0].clientY};return{x:e.clientX,y:e.clientY}}
 var drag={active:false,type:null,id:null,ghost:null};
-function startDrag(e,type,id,label){e.preventDefault();Audio.init();var pt=getXY(e);drag={active:true,type:type,id:id,ghost:null};var ghost=document.createElement('div');ghost.className='drag-ghost';ghost.textContent=label;ghost.style.left=pt.x+'px';ghost.style.top=pt.y+'px';document.body.appendChild(ghost);drag.ghost=ghost;var src=e.target.closest('.drag-item')||e.target.closest('.weapon-drag-item');if(src)src.classList.add('dragging');document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);document.addEventListener('touchcancel',onEnd)}
+function startDrag(e,type,id,label){e.preventDefault();Audio.init();var pt=getXY(e);drag={active:true,type:type,id:id,ghost:null};var ghost=document.createElement('div');ghost.className='drag-ghost';ghost.textContent=label;ghost.style.left=pt.x+'px';ghost.style.top=pt.y+'px';document.body.appendChild(ghost);drag.ghost=ghost;var src=e.target.closest('.drag-item')||e.target.closest('.weapon-drag-item')||e.target.closest('.hangar-card');if(src)src.classList.add('dragging');document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);document.addEventListener('touchcancel',onEnd)}
 function onMove(e){if(!drag.active||!drag.ghost)return;if(e.cancelable)e.preventDefault();var pt=getXY(e);var bay=document.getElementById(drag.type==='mod'?'modBay':'weaponBay');if(bay){var r=bay.getBoundingClientRect();var inside=pt.x>=r.left&&pt.x<=r.right&&pt.y>=r.top&&pt.y<=r.bottom;bay.classList.toggle('drag-over',inside);drag.ghost.classList.toggle('near-target',!inside&&pt.x>=r.left-80&&pt.x<=r.right+80&&pt.y>=r.top-80&&pt.y<=r.bottom+80)}drag.ghost.style.left=pt.x+'px';drag.ghost.style.top=pt.y+'px'}
 function onEnd(e){document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);document.removeEventListener('touchcancel',onEnd);if(drag.ghost)drag.ghost.remove();document.querySelectorAll('.dragging').forEach(function(el){el.classList.remove('dragging')});var pt=getXY(e);var bay=document.getElementById(drag.type==='mod'?'modBay':'weaponBay');if(bay){var r=bay.getBoundingClientRect();if(pt.x>=r.left&&pt.x<=r.right&&pt.y>=r.top&&pt.y<=r.bottom){if(drag.type==='mod')dropMod(drag.id);else dropWeapon(drag.id);bay.classList.remove('impact');void bay.offsetWidth;bay.classList.add('impact')}bay.classList.remove('drag-over')}drag={active:false,type:null,id:null,ghost:null}}
 function dropMod(id){var m=findMod(id);var max=m.max==='U'?99:m.max;var cur=S.mods[id]||0;
@@ -1071,17 +1071,27 @@ function renderFrameInfo(){var f=getFrame(S.size);var ref=SIZE_REF[S.size]||{len
 
 function renderModCatalogue(){var el=document.getElementById('modCatalogue'),cats={};
   var q=(document.getElementById('modSearch').value||'').toLowerCase();
-  MODS.forEach(function(m){
+  var allMods=getAllMods();
+  allMods.forEach(function(m){
     if(m.id==='fwd'&&S.loco!=='wheeled')return;if(m.id==='road_vehicle'&&S.loco!=='wheeled')return;if(m.id==='jump_jets'&&!isWalker())return;if(m.id==='tandem_pilots'&&!isWalker())return;
     if(q&&m.name.toLowerCase().indexOf(q)===-1&&m.desc.toLowerCase().indexOf(q)===-1&&m.cat.toLowerCase().indexOf(q)===-1)return;
     if(!cats[m.cat])cats[m.cat]=[];cats[m.cat].push(m)});
   var h='';for(var cat in cats){h+='<div class="cat-header">'+cat+'</div>';
+    h+='<div class="hangar-grid" style="padding:0;margin-bottom:8px">';
     cats[cat].forEach(function(m){var ms=modSlots(m,S.size);var price=m.costFn(S.size);
-      h+='<div class="drag-item" onmousedown="startDrag(event,\'mod\',\''+m.id+'\',\''+m.name+'\')" ontouchstart="startDrag(event,\'mod\',\''+m.id+'\',\''+m.name+'\')">'
-        +'<span class="drag-handle">&#x2807;</span>'
-        +'<div class="di-info"><div class="di-name">'+m.name+'</div><div class="di-desc">'+m.desc+'</div></div>'
-        +'<div class="di-meta"><div class="di-mods">'+(ms>0?ms+' mod'+(ms>1?'s':''):ms<0?'+'+Math.abs(ms)+' mod'+(Math.abs(ms)>1?'s':''):'—')+'</div>'
-        +'<div class="di-price">'+(price>=0?'$'+fmtN(price):'-$'+fmtN(Math.abs(price)))+'</div></div></div>'})}
+      var installed=S.mods[m.id]||0;
+      var modCol=ms>0?'var(--blue)':ms<0?'var(--green)':'var(--text-dim)';
+      h+='<div class="hangar-card" style="cursor:grab;min-height:48px" onmousedown="startDrag(event,\'mod\',\''+m.id+'\',\''+m.name+'\')" ontouchstart="startDrag(event,\'mod\',\''+m.id+'\',\''+m.name+'\')">';
+      h+='<div class="hc-indicator" style="background:radial-gradient(circle at 38% 32%,'+(installed?'#c0ff90,#6aaa4a 50%,#4a8a3a':'#4a4038,#2a2520 70%')+');box-shadow:'+(installed?'0 0 5px 1px rgba(106,180,70,0.6),0 0 10px 3px rgba(106,180,70,0.2);animation:indicator-pulse 2s ease-in-out infinite':'inset 0 1px 2px rgba(0,0,0,0.5)')+'"></div>';
+      h+='<div class="hc-body">';
+      h+='<div class="hc-name" title="'+m.name+'">'+m.name+(installed?' <span style="color:var(--green);font-size:12px">\u00d7'+installed+'</span>':'')+'</div>';
+      h+='<div class="hc-meta">'+m.desc+'</div>';
+      h+='</div>';
+      h+='<div class="hc-right">';
+      h+='<div style="font-family:Cinzel,serif;font-size:14px;font-weight:700;color:'+modCol+';line-height:1">'+(ms>0?ms:ms<0?'+'+Math.abs(ms):'\u2014')+'</div>';
+      h+='<div style="font-size:11px;color:var(--text-dim)">'+(price>=0?'$'+fmtN(price):'-$'+fmtN(Math.abs(price)))+'</div>';
+      h+='</div></div>'});
+    h+='</div>'}
   if(!h)h='<div class="empty-state"><p>No modifications match your search.</p></div>';
   el.innerHTML=h}
 
@@ -1110,15 +1120,23 @@ function renderWeaponCatalogue(){var cats={};
   wpns.forEach(function(w){
     if(q&&w.name.toLowerCase().indexOf(q)===-1&&w.cat.toLowerCase().indexOf(q)===-1&&w.notes.toLowerCase().indexOf(q)===-1)return;
     if(!cats[w.cat])cats[w.cat]=[];cats[w.cat].push(w)});
+  var mounted={};S.weapons.forEach(function(w){mounted[w.weaponId]=(mounted[w.weaponId]||0)+1});
   var h='';for(var cat in cats){h+='<div class="cat-header">'+cat+'</div>';
+    h+='<div class="hangar-grid" style="padding:0;margin-bottom:8px">';
     cats[cat].forEach(function(w){var ok=w.minSize<=S.size;
-      h+='<div class="weapon-drag-item" style="'+(ok?'':'opacity:.4;pointer-events:none')+'" onmousedown="startDrag(event,\'weapon\',\''+w.id+'\',\''+w.name+'\')" ontouchstart="startDrag(event,\'weapon\',\''+w.id+'\',\''+w.name+'\')">'
-        +'<span class="drag-handle" style="color:var(--text-dim);font-size:16px;opacity:.4">&#x2807;</span>'
-        +'<div class="wdi-info"><div class="wdi-name">'+w.name+(ok?'':' (Min Size '+w.minSize+')')+(w.era&&currentEra==='all'?'<span style="font-size:12px;color:var(--text-dim);font-weight:400"> — '+(ERA_LABELS[w.era]||'Custom')+'</span>':'')+'</div>'
-        +'<div class="wdi-stats">'+w.range+' · '+w.damage+' · AP '+w.ap+' · RoF '+w.rof+' · <span style="color:var(--accent);font-weight:700">Grade '+weaponGradeLabel(w)+'</span></div>'
-        +'<div class="wdi-stats">'+w.notes+'</div></div>'
-        +'<div class="wdi-meta"><div class="wdi-mods">'+w.mods+' mod'+(w.mods!==1?'s':'')+'</div>'
-        +'<div class="wdi-price">$'+fmtN(w.cost)+'</div></div></div>'})}
+      var inst=mounted[w.id]||0;
+      var gradeCol={S:'var(--green)',A:'var(--blue)',B:'var(--accent)',C:'var(--orange)',D:'var(--red-bright)'}[weaponGradeLabel(w)]||'var(--text-dim)';
+      h+='<div class="hangar-card" style="cursor:'+(ok?'grab':'not-allowed')+';min-height:48px;'+(ok?'':'opacity:.4;pointer-events:none')+'" '+(ok?'onmousedown="startDrag(event,\'weapon\',\''+w.id+'\',\''+w.name+'\')" ontouchstart="startDrag(event,\'weapon\',\''+w.id+'\',\''+w.name+'\')"':'')+'">';
+      h+='<div class="hc-indicator" style="background:radial-gradient(circle at 38% 32%,'+(inst?'#c0ff90,#6aaa4a 50%,#4a8a3a':'#4a4038,#2a2520 70%')+');box-shadow:'+(inst?'0 0 5px 1px rgba(106,180,70,0.6),0 0 10px 3px rgba(106,180,70,0.2);animation:indicator-pulse 2s ease-in-out infinite':'inset 0 1px 2px rgba(0,0,0,0.5)')+'"></div>';
+      h+='<div class="hc-body">';
+      h+='<div class="hc-name" title="'+w.name+'">'+w.name+(inst?' <span style="color:var(--green);font-size:12px">\u00d7'+inst+'</span>':'')+(ok?'':' <span style="color:var(--red-bright);font-size:11px">(Min '+w.minSize+')</span>')+'</div>';
+      h+='<div class="hc-meta">'+w.range+' \u00b7 '+w.damage+' \u00b7 AP '+w.ap+' \u00b7 RoF '+w.rof+'</div>';
+      h+='</div>';
+      h+='<div class="hc-right">';
+      h+='<div style="font-family:Cinzel,serif;font-size:16px;font-weight:700;color:'+gradeCol+';line-height:1;text-shadow:0 0 6px '+gradeCol+'40">'+weaponGradeLabel(w)+'</div>';
+      h+='<div style="font-size:11px;color:var(--text-dim)">'+w.mods+' mods \u00b7 $'+fmtN(w.cost)+'</div>';
+      h+='</div></div>'});
+    h+='</div>'}
   if(!h)h='<div class="empty-state"><p>No weapons match your search.</p></div>';
   document.getElementById('weaponCatalogue').innerHTML=h}
 
@@ -1757,16 +1775,17 @@ function renderSpecials(){var grid=document.getElementById('specialsGrid');if(!g
   var allSpecials=getAllSpecials();var cats={};
   allSpecials.forEach(function(sp){if(!cats[sp.cat])cats[sp.cat]=[];cats[sp.cat].push(sp)});
   var html='';Object.keys(cats).forEach(function(cat){
-    html+='<div style="margin-bottom:12px"><h3 style="font-size:15px;color:var(--accent);margin-bottom:4px;text-shadow:0 0 8px var(--accent-glow)">'+cat+'</h3>';
+    html+='<div class="cat-header">'+cat+'</div>';
+    html+='<div class="hangar-grid" style="padding:0;margin-bottom:8px">';
     cats[cat].forEach(function(sp){
       var active=S.specials.indexOf(sp.id)>=0;
-      html+='<div class="drag-item" style="cursor:pointer;border-color:'+(active?'var(--accent)':'var(--border)')+';'+(active?'box-shadow:0 0 8px var(--accent-glow),inset 0 0 8px var(--accent-glow);background:rgba(212,180,74,0.04)':'')+'" onclick="toggleSpecial(\''+sp.id+'\')">';
-      html+='<div style="flex-shrink:0;width:12px;height:12px;border-radius:50%;margin-top:4px;transition:all .3s;'+(active?'background:radial-gradient(circle at 38% 32%,#c0ff90,#6aaa4a 50%,#4a8a3a);box-shadow:0 0 5px 1px rgba(106,180,70,0.6),0 0 10px 3px rgba(106,180,70,0.2);animation:indicator-pulse 2s ease-in-out infinite':'background:radial-gradient(circle at 38% 32%,#4a4038,#2a2520 70%);box-shadow:inset 0 1px 2px rgba(0,0,0,0.5)')+'"></div>';
-      html+='<div style="flex:1"><strong style="color:'+(active?'var(--accent)':'var(--text-bright)')+'">'+sp.name+'</strong>';
-      if(sp._extName)html+=' <span style="font-size:12px;color:var(--accent-dim)">['+sp._extName+']</span>';
-      html+='<div style="font-size:13px;color:var(--text-dim)">'+sp.desc+'</div></div></div>'});
+      html+='<div class="hangar-card" style="cursor:pointer;min-height:48px;'+(active?'border-color:var(--accent);box-shadow:0 0 8px var(--accent-glow),inset 0 0 8px var(--accent-glow);background:rgba(212,180,74,0.04)':'')+'" onclick="toggleSpecial(\''+sp.id+'\')">';
+      html+='<div class="hc-indicator" style="background:radial-gradient(circle at 38% 32%,'+(active?'#c0ff90,#6aaa4a 50%,#4a8a3a':'#4a4038,#2a2520 70%')+');box-shadow:'+(active?'0 0 5px 1px rgba(106,180,70,0.6),0 0 10px 3px rgba(106,180,70,0.2);animation:indicator-pulse 2s ease-in-out infinite':'inset 0 1px 2px rgba(0,0,0,0.5)')+'"></div>';
+      html+='<div class="hc-body">';
+      html+='<div class="hc-name" title="'+sp.name+'" style="'+(active?'color:var(--accent)':'')+'">'+sp.name+'</div>';
+      html+='<div class="hc-meta">'+sp.desc+'</div>';
+      html+='</div></div>'});
     html+='</div>'});
-  grid.innerHTML=html;
   grid.innerHTML=html;
   var list=document.getElementById('activeSpecialsList');
   if(list){var active=S.specials.map(function(id){var sp=allSpecials.find(function(x){return x.id===id});return sp?sp.name:id});
