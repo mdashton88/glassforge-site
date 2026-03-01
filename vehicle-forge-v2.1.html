@@ -1041,16 +1041,6 @@ function renderExtensions(){
       html+='</div>';
       html+='</div>'});
     html+='</div>'}
-  html+='<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border)">';
-  html+='<h3 style="font-family:Cinzel,serif;font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:12px">Export Library</h3>';
-  html+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
-  html+='<button class="header-btn" onclick="exportFGModule()" style="border-color:var(--green);color:var(--green)">FG Module (.mod)</button>';
-  html+='<button class="header-btn" onclick="exportFGXML()">FG XML</button>';
-  html+='<button class="header-btn" onclick="batchExport()">Batch Export (.json)</button>';
-  html+='<button class="header-btn" onclick="exportStatBlock()">Stat Blocks (.txt)</button>';
-  html+='</div>';
-  html+='<p style="color:var(--text-dim);font-size:13px;margin-top:8px">Exports all '+totalV+' vehicles from enabled packs.</p>';
-  html+='</div>';
   el.innerHTML=html}
 function enableAllPacks(){Audio.powerUp();disabledPacks=[];saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function coreOnlyPacks(){Audio.toggle(true);var ids=[];extensions.forEach(function(e){if(e.id.indexOf('core-')!==0)ids.push(e.id)});S.saved.forEach(function(v){if(v._pack&&v._pack.indexOf('core-')!==0&&ids.indexOf(v._pack)===-1)ids.push(v._pack)});disabledPacks=ids;saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
@@ -1437,7 +1427,6 @@ function renderOutput(){var p=document.getElementById('outputContent');if(!p)ret
     h+='<div class="sb-gm-notes">'+esc(S.notes)+'</div></div>';}
   h+='</div>';
   h+='</div>';
-  h+='<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="header-btn" onclick="copyBlock()">Copy to Clipboard</button><button class="header-btn" onclick="exportJSON()">Export .json</button><button class="header-btn" onclick="exportStatBlock()">Stat Block .txt</button><button class="header-btn" onclick="exportFGXML()">FG XML</button><button class="header-btn" onclick="printStatBlock()">Print</button></div>';
   p.innerHTML=h}
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
 
