@@ -268,10 +268,10 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
   <div class="command-strip">
     <div class="cs-section">
       <div style="display:flex;flex-direction:column;gap:4px">
-        <button class="mode-btn" id="modePacks" onclick="switchMode('packs')">
+        <button class="mode-btn active" id="modePacks" onclick="switchMode('packs')">
           <span class="mode-indicator"></span><span>Packs</span>
         </button>
-        <button class="mode-btn active" id="modeLibrary" onclick="switchMode('library')">
+        <button class="mode-btn" id="modeLibrary" onclick="switchMode('library')">
           <span class="mode-indicator"></span><span>Hangar</span>
         </button>
         <button class="mode-btn" id="modeWorkshop" onclick="switchMode('workshop')">
@@ -351,7 +351,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 
     <div class="workspace-content" id="workspaceContent">
       <!-- LIBRARY MODE: Hangar -->
-      <div class="ws-panel active" id="ws-library">
+      <div class="ws-panel" id="ws-library">
         <div class="hangar-grid" id="savedList" tabindex="0"></div>
       </div>
 
@@ -420,7 +420,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
       </div>
 
       <!-- PACKS MODE -->
-      <div class="ws-panel" id="ws-packs">
+      <div class="ws-panel active" id="ws-packs">
         <div id="extensionsContent" style="max-width:1100px"></div>
       </div>
 
@@ -1112,7 +1112,7 @@ function dropMod(id){var m=findMod(id);var max=m.max==='U'?99:m.max;var cur=S.mo
 function dropWeapon(id){var w=getAllWeapons().find(function(x){return x.id===id});if(!w||w.minSize>S.size)return;
   pushUndo();S.weapons.push({weaponId:id,mount:'pintle',linked:0});Audio.clunk();renderWeaponBay(id);renderStats();renderOutput()}
 // ═══ RENDER FUNCTIONS ═══
-function renderLocoGrid(){var el=document.getElementById('locoGrid');
+function renderLocoGrid(){var el=document.getElementById('locoGrid');if(!el)return;
   el.innerHTML=LOCOS.map(function(l){return '<div class="loco-btn'+(S.loco===l.id?' active':'')+'" onclick="setLoco(\''+l.id+'\')">'+l.name+'</div>'}).join('')}
 function setLoco(id){S.loco=id;Audio.click();renderLocoGrid();renderSliders();renderStats();renderOutput();renderModCatalogue()}
 var TOUGH_LABELS={'-5':'Fragile','-4':'Flimsy','-3':'Lightweight','-2':'Light','-1':'Slightly Light','0':'Standard','1':'Sturdy','2':'Robust','3':'Very Tough','4':'Extremely Tough','5':'Ironclad'};
@@ -1148,7 +1148,7 @@ function adjHandling(d){setHandlingLevel(S.handlingLevel+d)}
 function adjWounds(d){setWoundsLevel(S.woundsLevel+d)}
 function adjCrew(d){setCrewLevel(S.crewLevel+d)}
 function adjPax(d){setPax(S.passengers+d)}
-function renderSliders(){var ts=document.getElementById('toughSlider'),as=document.getElementById('armourSlider');if(ts){ts.value=Math.max(-5,Math.min(5,S.toughLevel));document.getElementById('toughLabel').textContent=toughLabel(S.toughLevel);document.getElementById('toughVal').textContent=(S.toughLevel>=0?'+':'')+S.toughLevel;document.getElementById('toughDesc').textContent=toughDesc(S.toughLevel)}if(as){as.value=Math.max(-5,Math.min(5,S.armourLevel));document.getElementById('armourLabel').textContent=armourLabel(S.armourLevel);document.getElementById('armourVal').textContent=(S.armourLevel>=0?'+':'')+S.armourLevel;document.getElementById('armourDesc').textContent=armourDesc(S.armourLevel);var ab=armourBase(),ast=armourStep(),bonus=ab+S.armourLevel*ast;document.getElementById('armourBonus').innerHTML='Armour: <b>'+Math.max(0,bonus)+'</b> (base '+ab+', step \u00b1'+ast+')'}
+function renderSliders(){var ts=document.getElementById('toughSlider');if(!ts)return;var as=document.getElementById('armourSlider');if(ts){ts.value=Math.max(-5,Math.min(5,S.toughLevel));document.getElementById('toughLabel').textContent=toughLabel(S.toughLevel);document.getElementById('toughVal').textContent=(S.toughLevel>=0?'+':'')+S.toughLevel;document.getElementById('toughDesc').textContent=toughDesc(S.toughLevel)}if(as){as.value=Math.max(-5,Math.min(5,S.armourLevel));document.getElementById('armourLabel').textContent=armourLabel(S.armourLevel);document.getElementById('armourVal').textContent=(S.armourLevel>=0?'+':'')+S.armourLevel;document.getElementById('armourDesc').textContent=armourDesc(S.armourLevel);var ab=armourBase(),ast=armourStep(),bonus=ab+S.armourLevel*ast;document.getElementById('armourBonus').innerHTML='Armour: <b>'+Math.max(0,bonus)+'</b> (base '+ab+', step \u00b1'+ast+')'}
   var ss=document.getElementById('speedSlider'),hs=document.getElementById('handlingSlider'),ws=document.getElementById('woundsSlider');
   if(ss){ss.value=Math.max(-5,Math.min(5,S.speedLevel));document.getElementById('speedLabel').textContent=speedLabel(S.speedLevel);document.getElementById('speedVal').textContent=(S.speedLevel>=0?'+':'')+S.speedLevel}
   if(hs){hs.value=Math.max(-5,Math.min(5,S.handlingLevel));document.getElementById('handlingLabel').textContent=handlingLabel(S.handlingLevel);document.getElementById('handlingVal').textContent=(S.handlingLevel>=0?'+':'')+S.handlingLevel}
@@ -1158,7 +1158,7 @@ function renderSliders(){var ts=document.getElementById('toughSlider'),as=docume
   var mi=document.getElementById('mphInput');if(mi){mi.value=S.mphOverride;document.getElementById('mphNote').textContent=S.mphOverride>0?S.mphOverride+' MPH':'0 = auto ('+calcMPH()+' MPH)'}}
 function adjSize(d){var v=Math.max(1,Math.min(30,S.size+d));setSize(v)}
 function setSize(sz){pushUndo();Audio.click();sz=Math.max(1,Math.min(30,sz));S.size=sz;document.getElementById('sizeVal').textContent=sz;document.getElementById('sizeClass').textContent=getFrame(sz).cat;document.getElementById('sizeSlider').value=sz;renderFrameInfo();renderLocoGrid();renderSliders();renderModCatalogue();renderModBay();renderWeaponCatalogue();renderWeaponBay();renderSpecials();renderStats();renderOutput()}
-function renderFrameInfo(){var f=getFrame(S.size);var ref=SIZE_REF[S.size]||{len:'?',ex:'—',wt:'?'};
+function renderFrameInfo(){var fi=document.getElementById('frameInfo');if(!fi)return;var f=getFrame(S.size);var ref=SIZE_REF[S.size]||{len:'?',ex:'—',wt:'?'};
   document.getElementById('sizeVal').textContent=S.size;document.getElementById('sizeClass').textContent=f.cat;
   document.getElementById('frameInfo').innerHTML='<div style="font-size:14px;color:var(--text-dim);font-style:italic;line-height:1.4">~'+ref.len+' long, ~'+ref.wt+' — <span style="color:var(--text)">'+ref.ex+'</span></div>'}
 
@@ -1403,6 +1403,7 @@ function genStatBlockText(v){
   if(sv.notes)t+='Notes: '+sv.notes+'\n';
   return t}
 
+function copyStatBlock(){var el=document.getElementById('outputContent');if(!el)return;var t=el.innerText||el.textContent;navigator.clipboard.writeText(t).then(function(){Audio.click()}).catch(function(){})}
 function exportStatBlock(){
   var t='';
   if(S.saved.length>1){
@@ -1706,7 +1707,7 @@ function initHangarFiltersV2(){
 
 // Compat bridge: old switchTab calls route to new system
 function switchTab(tab){
-  if(tab==='hangar')switchMode('packs');
+  if(tab==='hangar')switchMode('library');
   else if(tab==='extensions')switchMode('packs');
   else if(tab==='output'){switchMode('workshop');switchWorkshopStep('build')}
   else if(tab==='mods'){switchMode('workshop');switchWorkshopStep('mods')}
@@ -1936,7 +1937,9 @@ document.addEventListener('keydown',function(e){
 
 function fmtN(n){return n.toLocaleString()}
 function fmtC(n){if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(n%1e6===0?0:2)+'M';if(n>=1e3)return(n/1e3).toFixed(n%1e3===0?0:1)+'K';return n.toString()}
-function renderAll(){renderFrameInfo();renderLocoGrid();renderSliders();renderEraFilter();renderModCatalogue();renderModBay();renderWeaponCatalogue();renderWeaponBay();renderSpecials();renderStats();renderOutput();renderSaved()}
+function renderAll(){
+  var fns=[renderFrameInfo,renderLocoGrid,renderSliders,renderEraFilter,renderModCatalogue,renderModBay,renderWeaponCatalogue,renderWeaponBay,renderSpecials,renderStats,renderOutput,renderSaved];
+  fns.forEach(function(fn){try{fn()}catch(e){}})}
 
 // ═══ SPECIALS RENDERING ═══
 function renderSpecials(){var grid=document.getElementById('specialsGrid');if(!grid)return;
@@ -2053,9 +2056,9 @@ try{
   }
 }catch(e){S.saved=CANON_BUILDS.map(function(v){return JSON.parse(JSON.stringify(v))})}
 document.getElementById('vName').addEventListener('input',function(e){S.name=e.target.value||'Untitled Vehicle'});
-document.getElementById('vDesc').addEventListener('input',function(e){S.desc=e.target.value||''});
-document.getElementById('vNotes').addEventListener('input',function(e){S.notes=e.target.value||''});
-document.getElementById('helpContent').innerHTML=buildHelp();
+var vd=document.getElementById('vDesc');if(vd)vd.addEventListener('input',function(e){S.desc=e.target.value||''});
+var vn=document.getElementById('vNotes');if(vn)vn.addEventListener('input',function(e){S.notes=e.target.value||''});
+var hc=document.getElementById('helpContent');if(hc)hc.innerHTML=buildHelp();
 initHangarFiltersV2();
 renderAll();
 switchMode('packs');
