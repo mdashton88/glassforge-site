@@ -337,7 +337,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:block;border-color:var(--green);color:var(--green);font-size:13px">📖 Manual</a>
       </div>
     </div>
-    <div class="cs-version">Vehicle Forge v2.1.0</div>
+    <div class="cs-version">Vehicle Forge v2.1.1</div>
   </div>
 
   <!-- ═══ CENTRE: WORKSPACE ═══ -->
@@ -552,7 +552,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
             </div>
           </div>
           <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-            Vehicle Forge v2.1.0 — DiceForge Studios Ltd<br>
+            Vehicle Forge v2.1.1 — DiceForge Studios Ltd<br>
             Compatible with Savage Worlds
           </div>
         </div>
@@ -1055,7 +1055,9 @@ function redo(){if(!redoStack.length)return;undoStack.push(snapState());var next
 
 function modSlots(m,sz){if(m.mods==='half')return Math.ceil(sz/2);if(m.mods==='halfneg')return -Math.ceil(sz/2);if(m.mods==='size')return sz;if(m.mods==='sizehalf')return Math.ceil(sz/2);if(m.mods==='comfort'){var tk=S.mods.comfort||0;return tk<=1?2:tk===2?3:4}return m.mods}
 function weaponMountMods(w,mount){var mc=w.mods;if(mount==='fixed')mc=Math.ceil(mc/2);if(mount==='turret')mc=mc*2;return mc}
-function calcStructural(){var base=S.size+5;return Math.max(1,base+S.toughLevel*toughStep())}
+function spaceHullBonus(sz){if(sz<=7)return 4;if(sz<=16)return 5;if(sz<=20)return[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,7,6,7][sz];return sz-13}
+function isSpaceLoco(g){return g==='space'||g==='other'}
+function calcStructural(){var base=S.size+5;var g=locoGroup();if(isSpaceLoco(g))base+=spaceHullBonus(S.size);return Math.max(1,base+S.toughLevel*toughStep())}
 function calcTough(){return Math.max(1,calcStructural())}
 function calcArmourValue(){return Math.max(0,armourBase()+S.armourLevel*armourStep())}
 function calcTotalTough(){return calcTough()+calcArmourValue()}
@@ -1108,11 +1110,25 @@ function crewDisplay(){var cr=calcCrew();var px=calcPax();return px>0?cr+'+'+px:
 function calcModsUsed(){var t=0;for(var id in S.mods){var m=findMod(id);if(m){var ms=modSlots(m,S.size);if(ms>0)t+=ms*S.mods[id]}}
   S.weapons.forEach(function(w){var wp=getAllWeapons().find(function(x){return x.id===w.weaponId});if(wp){var mc=weaponMountMods(wp,w.mount);if(w.linked)mc+=w.linked;t+=mc}});return t}
 function calcModsGained(){var t=0;for(var id in S.mods){var m=findMod(id);if(m){var ms=modSlots(m,S.size);if(ms<0)t+=Math.abs(ms)*S.mods[id]}}return t}
-function calcCost(){var f=getFrame(S.size),loco=LOCOS.find(function(l){return l.id===S.loco});
-  var c=f.costBase+(loco?loco.costMult*S.size:0);
+// ═══ COST ENGINE v2 — SFC-anchored, reality-checked ═══
+var GROUND_COST=[2e3,5e3,1e4,15e3,3e4,5e4,1e5,2e5,35e4,5e5,75e4,1e6];
+var AIR_COST=[5e4,1e5,2e5,35e4,5e5,15e5,3e6,8e6,15e6,25e6,4e7,6e7,1e8];
+var WATER_COST=[500,2e3,5e3,15e3,4e4,8e4,15e4,3e5,5e5,8e5,12e5,2e6,3e6,5e6,8e6];
+var WALKER_COST=[15e4,15e4,25e4,4e5,6e5,1e6,15e5,25e5,4e6,6e6,1e7];
+function groupBaseCost(sz,g){
+if(g==='ground'){if(sz<0)return 250;if(sz<GROUND_COST.length)return GROUND_COST[sz];return Math.round(1e6*Math.pow(1.5,sz-11))}
+if(g==='air'){if(sz<0)return 5e4;if(sz<AIR_COST.length)return AIR_COST[sz];return Math.round(1e8*Math.pow(1.8,sz-13))}
+if(g==='water'){if(sz<0)return 500;if(sz<WATER_COST.length)return WATER_COST[sz];return Math.round(8e6*Math.pow(1.6,sz-14))}
+if(g==='walker'){if(sz<0)return 15e4;if(sz<WALKER_COST.length)return WALKER_COST[sz];return Math.round(1e7*Math.pow(1.5,sz-11))}
+if(g==='space'){if(sz<=0)return 5e4;if(sz<=3)return sz*1e5;if(sz<=7)return sz*3e5;if(sz<=11)return sz*1e6;if(sz<=16)return sz*5e6;if(sz<=20)return sz*2e7;if(sz<=25)return sz*1e8;if(sz<=30)return sz*5e8;return sz*2e9}
+return Math.max(5e3,2e4*Math.max(1,sz)*Math.max(1,sz))}
+function locoAdder(loco,sz){var s=Math.max(1,sz);if(loco==='tracked')return 5e3*s;if(loco==='hover')return 1e4*s;if(loco==='water_jet')return 5e3*s;if(loco==='space_ftl')return 2e5*s;return 0}
+function combatMult(tl,al){var pos=Math.max(0,tl)+Math.max(0,al);var neg=Math.abs(Math.min(0,tl))+Math.abs(Math.min(0,al));var raw=Math.pow(1.35,pos);if(pos>7)raw=Math.min(raw,8*Math.pow(1.15,pos-7));return Math.max(0.25,raw*Math.pow(0.85,neg))}
+function calcCost(){var g=locoGroup();var base=groupBaseCost(S.size,g);var add=locoAdder(S.loco,S.size);
+  var c=base+add;
   for(var id in S.mods){var m=findMod(id);if(m)c+=m.costFn(S.size)*S.mods[id]}
   S.weapons.forEach(function(w){var wp=getAllWeapons().find(function(x){return x.id===w.weaponId});if(wp){var lk=w.linked||0;c+=wp.cost*(w.mount==='turret'?2:1)*(1+lk)}});
-  var armLv=Math.abs(S.armourLevel)+Math.abs(S.toughLevel);var lvMult=armLv<=2?1:armLv<=5?1.25:armLv<=8?1.5:armLv<=10?2:3;c=Math.round(c*lvMult);return Math.max(100,c)}
+  var mult=combatMult(S.toughLevel,S.armourLevel);c=Math.round(c*mult);return Math.max(100,c)}
 function calcVehicleClass(){var sz=S.size;if(sz<=3)return 'L';if(sz<=7)return 'M';if(sz<=11)return 'H';if(sz<=20)return 'S';if(sz<=25)return 'C';return 'T'}
 function vehicleClassLabel(){var c=calcVehicleClass();var names={L:'Light',M:'Medium',H:'Heavy',S:'Super-Heavy',C:'Capital',T:'Titan'};return names[c]||c}
 // ═══ UNIFIED CLASS SYSTEM (A–Z, with +/- modifiers) ═══
@@ -1215,9 +1231,9 @@ var TOUGH_DESC={'-5':'Extremely fragile construction for this class.','-4':'Very
 var ARMOUR_LABELS={'-5':'Unprotected','-4':'Minimal','-3':'Light','-2':'Below Average','-1':'Modest','0':'Standard','1':'Reinforced','2':'Heavy','3':'Superior','4':'Extreme','5':'Maximum'};
 var ARMOUR_DESC={'-5':'Virtually no protection. Civilian bodywork, canvas, or thin hull.','-4':'Negligible protection. Light commercial construction.','-3':'Light protection. Hardened or lightly armoured.','-2':'Below average for a combat vehicle. Scout or recon class.','-1':'Modest protection. Light military or up-armoured civilian.','0':'Standard military protection for this size class.','1':'Better protected than typical military vehicles.','2':'Heavy protection. Elite or next-generation military.','3':'Superior protection. Cutting-edge or experimental.','4':'Extreme protection. Among the toughest of this size class.','5':'Maximum protection. Pushing the limits of known engineering.'};
 function locoGroup(){var l=LOCOS.find(function(x){return x.id===S.loco});return l?l.group:'ground'}
-function toughStep(){return Math.max(1,Math.round(S.size/4)+1)}
-function armourBase(){var g=locoGroup(),sz=S.size;if(g==='ground'||g==='walker'){return sz<=-1?1:2}if(g==='water'){var w={'0':1,'2':2,'4':4,'6':4,'7':4,'8':5,'11':5,'12':6,'15':7,'16':8,'17':18,'18':20,'19':28,'20':36,'21':38,'22':40,'23':42,'24':44,'25':46};return w[sz]||Math.max(2,sz)}if(g==='air'){var a={'-2':1,'-1':1,'0':1,'1':1,'2':2,'3':2,'4':3,'5':4,'6':6,'7':8,'8':10,'9':12,'10':14};return a[sz]||Math.max(1,sz)}return Math.max(2,sz*2)}
-function armourStep(){var g=locoGroup(),sz=S.size;if(g==='ground'||g==='walker'){if(sz<=2)return 1;if(sz<=5)return 2;if(sz<=7)return 3;if(sz<=9)return 4;if(sz<=11)return 5;return 6}if(g==='water'){if(sz<=11)return Math.max(1,Math.round(sz/3));return 4}if(g==='air'){return Math.max(1,Math.round(sz/4)+1)}return Math.max(1,Math.round(sz/3))}
+function toughStep(){var g=locoGroup();if(isSpaceLoco(g)){var sz=S.size;if(sz<=11)return 2;if(sz<=20)return 3;if(sz<=25)return 4;return 5}return Math.max(1,Math.round(S.size/4)+1)}
+function armourBase(){var g=locoGroup(),sz=S.size;if(g==='ground'||g==='walker'){if(sz<=3)return 1;if(sz<=7)return 2;if(sz<=11)return 3;return 4}if(g==='water'){if(sz<=3)return 1;if(sz<=11)return 2;return 3}if(g==='air'){if(sz<=0)return 0;if(sz<=4)return 1;if(sz<=8)return 2;if(sz<=10)return 2;if(sz<=12)return 3;return 4}if(sz<=16)return 2*Math.floor(sz/4)+2;if(sz===17)return 20;if(sz===18)return 24;if(sz===19)return 32;return sz*2}
+function armourStep(){var g=locoGroup(),sz=S.size;if(g==='ground'||g==='walker'){return sz<=4?1:sz<=5?2:sz<=6?3:sz<=7?4:sz<=8?6:sz<=9?7:sz<=10?8:sz<=11?9:sz<=12?10:sz<=13?11:12}if(g==='water'){return sz<=16?1:{17:5,18:6,19:8,20:11,21:12,22:12,23:13,24:14,25:14}[sz]||Math.max(1,Math.round(sz/2))}if(g==='air'){return sz<=8?1:sz<=10?2:3}return sz<=7?1:sz<=11?2:sz<=16?3:sz<=20?4:sz<=25?5:6}
 function toughLabel(v){if(v<-5)return'Fragile '+(v+5);if(v>5)return'Ironclad +'+(v-5);return TOUGH_LABELS[v]||'Standard'}
 function armourLabel(v){if(v<-5)return'Unprotected '+(v+5);if(v>5)return'Maximum +'+(v-5);return ARMOUR_LABELS[v]||'Standard'}
 function toughDesc(v){var k=Math.max(-5,Math.min(5,v));return TOUGH_DESC[k]||''}
