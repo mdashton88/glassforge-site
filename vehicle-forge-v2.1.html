@@ -1162,7 +1162,7 @@ function renderFrameInfo(){var f=getFrame(S.size);var ref=SIZE_REF[S.size]||{len
   document.getElementById('sizeVal').textContent=S.size;document.getElementById('sizeClass').textContent=f.cat;
   document.getElementById('frameInfo').innerHTML='<div style="font-size:14px;color:var(--text-dim);font-style:italic;line-height:1.4">~'+ref.len+' long, ~'+ref.wt+' — <span style="color:var(--text)">'+ref.ex+'</span></div>'}
 
-function renderModCatalogue(){var el=document.getElementById('modCatalogue'),cats={};
+function renderModCatalogue(){var el=document.getElementById('modCatalogue');if(!el)return;var cats={};
   var q=((document.getElementById('modSearch')||document.getElementById('globalSearch')||{}).value||'').toLowerCase();
   var allMods=getAllMods();
   allMods.forEach(function(m){
@@ -1188,7 +1188,7 @@ function renderModCatalogue(){var el=document.getElementById('modCatalogue'),cat
   if(!h)h='<div class="empty-state"><p>No modifications match your search.</p></div>';
   el.innerHTML=h}
 
-function renderModBay(animId){var bay=document.getElementById('modBay');
+function renderModBay(animId){var bay=document.getElementById('modBay');if(!bay)return;
   var inst=[];for(var k in S.mods){if(S.mods[k]>0)inst.push([k,S.mods[k]])}
   if(!inst.length){bay.innerHTML='<div class="empty-bay">Drag modifications here to install them</div>';return}
   bay.innerHTML=inst.map(function(p){var id=p[0],ct=p[1];var m=MODS.find(function(x){return x.id===id});if(!m)return '';var ms=modSlots(m,S.size)*ct;var tp=m.costFn(S.size)*ct;
@@ -1201,7 +1201,7 @@ function modInc(id){dropMod(id);Audio.click()}
 function modDec(id){if(S.mods[id]>0){pushUndo();S.mods[id]--;if(!S.mods[id])delete S.mods[id];Audio.click();renderModBay();renderStats();renderOutput()}}
 function modRemoveAll(id){pushUndo();delete S.mods[id];Audio.remove();renderModBay();renderStats();renderOutput()}
 
-function renderEraFilter(){var el=document.getElementById('eraFilter');
+function renderEraFilter(){var el=document.getElementById('eraFilter');if(!el)return;
   el.innerHTML='<div class="mount-tab'+(currentEra==='all'?' active':'')+'" onclick="setEra(\'all\')" style="font-size:12px;padding:4px 10px">All</div>'+
     ERA_ORDER.map(function(e){return '<div class="mount-tab'+(currentEra===e?' active':'')+'" onclick="setEra(\''+e+'\')" style="font-size:12px;padding:4px 10px">'+ERA_LABELS[e]+'</div>'}).join('')+
     (customWeapons.length?'<div class="mount-tab'+(currentEra==='custom'?' active':'')+'" onclick="setEra(\'custom\')" style="font-size:12px;padding:4px 10px">Custom</div>':'')}
@@ -1231,9 +1231,9 @@ function renderWeaponCatalogue(){var cats={};
       h+='</div></div>'});
     h+='</div>'}
   if(!h)h='<div class="empty-state"><p>No weapons match your search.</p></div>';
-  document.getElementById('weaponCatalogue').innerHTML=h}
+  var wce=document.getElementById('weaponCatalogue');if(wce)wce.innerHTML=h}
 
-function renderWeaponBay(animId){var bay=document.getElementById('weaponBay');
+function renderWeaponBay(animId){var bay=document.getElementById('weaponBay');if(!bay)return;
   if(!S.weapons.length){bay.innerHTML='<div class="empty-bay">Drag weapons here to mount them</div>';return}
   bay.innerHTML=S.weapons.map(function(w,i){var wp=getAllWeapons().find(function(x){return x.id===w.weaponId});if(!wp)return '';
     var mc=weaponMountMods(wp,w.mount);var lk=w.linked||0;if(lk>0)mc+=lk;
@@ -1298,7 +1298,7 @@ function renderStats(){var sg=document.getElementById('statsGrid');if(sg){sg.sty
   document.getElementById('modsRemaining').innerHTML='<div class="big-num '+cls+'">'+left+'</div><div class="sub">Mods Remaining</div>';
   document.getElementById('costDisplay').innerHTML='<div class="cost-val">$'+fmtC(calcCost())+'</div><div class="cost-label">Total Cost</div>'}
 
-function renderOutput(){var p=document.getElementById('outputContent'),f=getFrame(S.size);
+function renderOutput(){var p=document.getElementById('outputContent');if(!p)return;var f=getFrame(S.size);
   var loco=LOCOS.find(function(l){return l.id===S.loco});var spd=calcSpeed();
   var used=calcModsUsed(),gained=calcModsGained(),left=(f.modSlots+gained)-used;
   var notes=[];MODS.forEach(function(m){if(S.mods[m.id]>0)notes.push(S.mods[m.id]>1?S.mods[m.id]+'\u00d7 '+m.name:m.name)});
