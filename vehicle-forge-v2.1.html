@@ -189,14 +189,14 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .hangar-select{background:var(--bg-deep);border:1px solid var(--border);color:var(--text-dim);padding:4px 8px;font-size:13px;font-family:inherit;border-radius:3px;cursor:pointer;min-width:100px}
 .hangar-select:focus{border-color:var(--accent);color:var(--text);outline:none}
 .hangar-count-bar{font-size:13px;color:var(--text-dim);padding:6px 16px 8px;position:sticky;top:44px;z-index:1;background:var(--bg)}
-.hangar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;outline:none;padding:0 16px 16px}
-.hangar-card{background:var(--bg-deep);border:1px solid var(--border);padding:10px 12px 10px 12px;cursor:pointer;transition:all .2s;position:relative;min-height:60px;display:flex;align-items:center;gap:10px}
+.hangar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;outline:none;padding:0 16px 16px}
+.hangar-card{background:var(--bg-deep);border:1px solid var(--border);padding:10px 12px 10px 12px;cursor:pointer;transition:all .2s;position:relative;height:60px;display:flex;align-items:center;gap:10px;overflow:hidden}
 .hangar-card:hover{border-color:var(--accent-dim);background:rgba(212,180,74,0.05);box-shadow:0 0 10px rgba(212,180,74,0.08)}
 .hangar-card.selected{border-color:var(--accent);background:rgba(212,180,74,0.08);box-shadow:0 0 14px rgba(212,180,74,0.15),inset 0 0 14px rgba(212,180,74,0.05)}
 .hangar-card .hc-indicator{flex-shrink:0;width:12px;height:12px;border-radius:50%;transition:all .3s}
 .hangar-card .hc-body{flex:1;min-width:0;overflow:hidden}
 .hangar-card .hc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--text-bright);line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hangar-card .hc-meta{font-size:12px;color:var(--text-dim);line-height:1.4;margin-top:1px}
+.hangar-card .hc-meta{font-size:12px;color:var(--text-dim);line-height:1.4;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .hangar-card .hc-right{flex-shrink:0;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
 .hangar-card .hc-class{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--accent);line-height:1;text-shadow:0 0 8px var(--accent-glow)}
 .hangar-card .hc-badge{display:inline-block;font-size:10px;padding:1px 5px;border-radius:2px;font-weight:700;letter-spacing:.5px}
@@ -935,7 +935,7 @@ function renderExtensions(){
   html+='<div style="margin-bottom:16px"><input type="file" id="vfxImport" accept=".vfx,.json" onchange="importVFX(event)" style="display:none"><button class="header-btn primary" onclick="document.getElementById(\'vfxImport\').click()" style="width:100%;text-align:center;padding:10px">Install Vehicle Pack (.vfx)</button></div>';
   if(extensions.length===0){html+='<p style="color:var(--text-dim);text-align:center;padding:20px;border:1px dashed var(--border)">No vehicle packs installed.</p>'}
   else{
-    html+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">';
+    html+='<div class="hangar-grid" style="padding:0">';
     extensions.forEach(function(ext){
       var on=isPackEnabled(ext.id);
       var vc=ext.vehicles?ext.vehicles.length:0;
@@ -943,15 +943,11 @@ function renderExtensions(){
       if(ext.weapons&&ext.weapons.length)extras.push(ext.weapons.length+' wpns');
       if(ext.mods&&ext.mods.length)extras.push(ext.mods.length+' mods');
       if(ext.specials&&ext.specials.length)extras.push(ext.specials.length+' specials');
-      var borderCol=on?'#6a8a4a':'#3a3028';
-      var bgCol=on?'rgba(90,122,58,0.08)':'var(--bg-deep)';
-      var nameCol=on?'#F2EBE0':'#8a7e6e';
-      var metaCol=on?'#B0A490':'#6a5e50';
-      html+='<div onclick="togglePack(\''+ext.id+'\')" style="cursor:pointer;background:'+bgCol+';border:1px solid '+borderCol+';padding:10px 12px;display:flex;align-items:center;gap:10px;transition:all .2s" onmouseover="this.style.boxShadow=\'0 0 12px '+(on?'rgba(106,170,106,0.25)':'rgba(212,180,74,0.15)')+'\'" onmouseout="this.style.boxShadow=\'\'">'; 
-      html+='<div style="flex-shrink:0;width:12px;height:12px;border-radius:50%;transition:all .3s;'+(on?'background:radial-gradient(circle at 38% 32%,#c0ff90,#6aaa4a 50%,#4a8a3a);box-shadow:0 0 6px 2px rgba(106,180,70,0.6),0 0 14px 4px rgba(106,180,70,0.2);animation:indicator-pulse 2s ease-in-out infinite':'background:radial-gradient(circle at 38% 32%,#4a4038,#2a2520 70%);box-shadow:inset 0 1px 2px rgba(0,0,0,0.5)')+'"></div>';
-      html+='<div style="flex:1;min-width:0;overflow:hidden">';
-      html+='<div style="font-size:14px;font-weight:600;color:'+nameCol+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+ext.name+'">'+ext.name+'</div>';
-      html+='<div style="font-size:12px;color:'+metaCol+';margin-top:1px">'+vc+' vehicles'+(extras.length?' + '+extras.join(', '):'')+'</div>';
+      html+='<div class="hangar-card'+(on?' selected':'')+'" onclick="togglePack(\''+ext.id+'\')" style="cursor:pointer;'+(on?'border-color:#6a8a4a;background:rgba(90,122,58,0.08)':'')+'">';
+      html+='<div class="hc-indicator" style="background:radial-gradient(circle at 38% 32%,'+(on?'#c0ff90,#6aaa4a 50%,#4a8a3a':'#4a4038,#2a2520 70%')+');box-shadow:'+(on?'0 0 5px 1px rgba(106,180,70,0.6),0 0 10px 3px rgba(106,180,70,0.2);animation:indicator-pulse 2s ease-in-out infinite':'inset 0 1px 2px rgba(0,0,0,0.5)')+'"></div>';
+      html+='<div class="hc-body">';
+      html+='<div class="hc-name" title="'+ext.name+'" style="'+(on?'':'color:var(--text-dim)')+'">'+ext.name+'</div>';
+      html+='<div class="hc-meta">'+vc+' vehicles'+(extras.length?' + '+extras.join(', '):'')+'</div>';
       html+='</div>';
       html+='</div>'});
     html+='</div>'}
@@ -1172,7 +1168,7 @@ function renderModCatalogue(){var el=document.getElementById('modCatalogue'),cat
     cats[cat].forEach(function(m){var ms=modSlots(m,S.size);var price=m.costFn(S.size);
       var installed=S.mods[m.id]||0;
       var modCol=ms>0?'var(--blue)':ms<0?'var(--green)':'var(--text-dim)';
-      h+='<div class="hangar-card" style="cursor:grab;min-height:48px" onmousedown="startDrag(event,\'mod\',\''+m.id+'\',\''+m.name+'\')" ontouchstart="startDrag(event,\'mod\',\''+m.id+'\',\''+m.name+'\')">';
+      h+='<div class="hangar-card" style="cursor:grab" onmousedown="startDrag(event,\'mod\',\''+m.id+'\',\''+m.name+'\')" ontouchstart="startDrag(event,\'mod\',\''+m.id+'\',\''+m.name+'\')">';
       h+='<div class="hc-indicator" style="background:radial-gradient(circle at 38% 32%,'+(installed?'#c0ff90,#6aaa4a 50%,#4a8a3a':'#4a4038,#2a2520 70%')+');box-shadow:'+(installed?'0 0 5px 1px rgba(106,180,70,0.6),0 0 10px 3px rgba(106,180,70,0.2);animation:indicator-pulse 2s ease-in-out infinite':'inset 0 1px 2px rgba(0,0,0,0.5)')+'"></div>';
       h+='<div class="hc-body">';
       h+='<div class="hc-name" title="'+m.name+'">'+m.name+(installed?' <span style="color:var(--green);font-size:12px">\u00d7'+installed+'</span>':'')+'</div>';
@@ -1217,7 +1213,7 @@ function renderWeaponCatalogue(){var cats={};
     cats[cat].forEach(function(w){var ok=w.minSize<=S.size;
       var inst=mounted[w.id]||0;
       var gradeCol={S:'var(--green)',A:'var(--blue)',B:'var(--accent)',C:'var(--orange)',D:'var(--red-bright)'}[weaponGradeLabel(w)]||'var(--text-dim)';
-      h+='<div class="hangar-card" style="cursor:'+(ok?'grab':'not-allowed')+';min-height:48px;'+(ok?'':'opacity:.4;pointer-events:none')+'" '+(ok?'onmousedown="startDrag(event,\'weapon\',\''+w.id+'\',\''+w.name+'\')" ontouchstart="startDrag(event,\'weapon\',\''+w.id+'\',\''+w.name+'\')"':'')+'">';
+      h+='<div class="hangar-card" style="cursor:'+(ok?'grab':'not-allowed')+';'+(ok?'':'opacity:.4;pointer-events:none')+'" '+(ok?'onmousedown="startDrag(event,\'weapon\',\''+w.id+'\',\''+w.name+'\')" ontouchstart="startDrag(event,\'weapon\',\''+w.id+'\',\''+w.name+'\')"':'')+'">';
       h+='<div class="hc-indicator" style="background:radial-gradient(circle at 38% 32%,'+(inst?'#c0ff90,#6aaa4a 50%,#4a8a3a':'#4a4038,#2a2520 70%')+');box-shadow:'+(inst?'0 0 5px 1px rgba(106,180,70,0.6),0 0 10px 3px rgba(106,180,70,0.2);animation:indicator-pulse 2s ease-in-out infinite':'inset 0 1px 2px rgba(0,0,0,0.5)')+'"></div>';
       h+='<div class="hc-body">';
       h+='<div class="hc-name" title="'+w.name+'">'+w.name+(inst?' <span style="color:var(--green);font-size:12px">\u00d7'+inst+'</span>':'')+(ok?'':' <span style="color:var(--red-bright);font-size:11px">(Min '+w.minSize+')</span>')+'</div>';
@@ -1958,7 +1954,7 @@ function renderSpecials(){var grid=document.getElementById('specialsGrid');if(!g
     html+='<div class="hangar-grid" style="padding:0;margin-bottom:8px">';
     cats[cat].forEach(function(sp){
       var active=S.specials.indexOf(sp.id)>=0;
-      html+='<div class="hangar-card" style="cursor:pointer;min-height:48px;'+(active?'border-color:var(--accent);box-shadow:0 0 8px var(--accent-glow),inset 0 0 8px var(--accent-glow);background:rgba(212,180,74,0.04)':'')+'" onclick="toggleSpecial(\''+sp.id+'\')">';
+      html+='<div class="hangar-card" style="cursor:pointer;'+(active?'border-color:var(--accent);box-shadow:0 0 8px var(--accent-glow),inset 0 0 8px var(--accent-glow);background:rgba(212,180,74,0.04)':'')+'" onclick="toggleSpecial(\''+sp.id+'\')">';
       html+='<div class="hc-indicator" style="background:radial-gradient(circle at 38% 32%,'+(active?'#c0ff90,#6aaa4a 50%,#4a8a3a':'#4a4038,#2a2520 70%')+');box-shadow:'+(active?'0 0 5px 1px rgba(106,180,70,0.6),0 0 10px 3px rgba(106,180,70,0.2);animation:indicator-pulse 2s ease-in-out infinite':'inset 0 1px 2px rgba(0,0,0,0.5)')+'"></div>';
       html+='<div class="hc-body">';
       html+='<div class="hc-name" title="'+sp.name+'" style="'+(active?'color:var(--accent)':'')+'">'+sp.name+'</div>';
