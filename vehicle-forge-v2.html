@@ -269,7 +269,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.36</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.37</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -357,7 +357,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.36 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.37 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -1624,7 +1624,22 @@ function initHangarFilters(){
   var groups={};LOCOS.forEach(function(l){var g=l.group;if(!groups[g])groups[g]=[];groups[g].push(l)});
   Object.keys(groups).forEach(function(g){groups[g].forEach(function(l){ls.innerHTML+='<option value="'+l.id+'">'+l.name+'</option>'})})
 }
-function renderSaved(){var list=document.getElementById('savedList');
+function syncVehiclesFromPacks(){
+  /* Ensure S.saved contains vehicles for every installed extension.
+     Called every time the Hangar renders. Self-healing: if vehicles are
+     missing for any pack, they get re-added from the extension data. */
+  var changed=false;
+  extensions.forEach(function(ext){
+    if(!ext.vehicles||!ext.vehicles.length)return;
+    var hasAny=S.saved.some(function(s){return s._pack===ext.id});
+    if(!hasAny){
+      ext.vehicles.forEach(function(v){
+        S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:ext.id})});
+      changed=true;console.log('Synced missing vehicles for: '+ext.name)}
+  });
+  if(changed)localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))
+}
+function renderSaved(){syncVehiclesFromPacks();var list=document.getElementById('savedList');
   if(!list)return;
   var q=(document.getElementById('hangarSearch')||{}).value||'';q=q.toLowerCase();
   var fSize=(document.getElementById('hangarFilterSize')||{}).value||'';
