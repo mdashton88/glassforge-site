@@ -269,7 +269,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.39</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.40</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -317,7 +317,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <div class="hangar-grid" id="savedList" tabindex="0"></div>
       </div>
     </div>
-    <div class="panel" id="panel-extensions"><div id="extensionsContent" style="max-width:960px"></div></div>
+    <div class="panel" id="panel-extensions"><div id="extensionsContent" style="max-width:1100px"></div></div>
     <div class="panel" id="panel-help"><div style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="search-bar help-search" id="helpSearch" placeholder="Search reference guide..." oninput="filterHelp()" style="flex:1;margin:0"><button class="btn" onclick="popOutHelp()" title="Open in new window" style="white-space:nowrap;padding:6px 14px">⧉ Pop Out</button></div><div id="helpContent"></div></div>
     <div class="panel" id="panel-settings">
       <div style="max-width:600px">
@@ -357,7 +357,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.39 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.40 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -829,7 +829,7 @@ function renderExtensions(){
   html+='<div style="margin-bottom:16px"><input type="file" id="vfxImport" accept=".vfx,.json" onchange="importVFX(event)" style="display:none"><button class="header-btn primary" onclick="document.getElementById(\'vfxImport\').click()" style="width:100%;text-align:center;padding:10px">Install Vehicle Pack (.vfx)</button></div>';
   if(extensions.length===0){html+='<p style="color:var(--text-dim);text-align:center;padding:20px;border:1px dashed var(--border)">No vehicle packs installed.</p>'}
   else{
-    html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">';
     extensions.forEach(function(ext){
       var on=isPackEnabled(ext.id);
       var vc=ext.vehicles?ext.vehicles.length:0;
@@ -842,7 +842,7 @@ function renderExtensions(){
       var nameCol=on?'#F2EBE0':'#8a7e6e';
       var metaCol=on?'#B0A490':'#6a5e50';
       html+='<div onclick="togglePack(\''+ext.id+'\')" style="cursor:pointer;background:'+bgCol+';border:1px solid '+borderCol+';padding:10px 12px;display:flex;align-items:center;gap:10px;transition:all .15s">';
-      html+='<div style="flex-shrink:0;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;'+(on?'background:#6a8a4a;color:#fff':'border:2px solid #4a4038;color:transparent')+'"><span style="font-size:14px;line-height:1">'+(on?'\u2713':'')+'</span></div>';
+      html+='<div style="flex-shrink:0;width:12px;height:12px;border-radius:50%;'+(on?'background:radial-gradient(circle at 38% 32%,#b0f090,#5aaa4a 50%,#3a7a2a);box-shadow:0 0 6px 2px rgba(90,180,70,0.5),0 0 14px 4px rgba(90,180,70,0.15)':'background:radial-gradient(circle at 38% 32%,#4a4038,#2a2520 70%);box-shadow:inset 0 1px 2px rgba(0,0,0,0.4)')+'"></div>';
       html+='<div style="flex:1;min-width:0;overflow:hidden">';
       html+='<div style="font-size:14px;font-weight:600;color:'+nameCol+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+ext.name+'">'+ext.name+'</div>';
       html+='<div style="font-size:12px;color:'+metaCol+';margin-top:1px">'+vc+' vehicles'+(extras.length?' + '+extras.join(', '):'')+'</div>';
