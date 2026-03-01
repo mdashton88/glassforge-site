@@ -1163,7 +1163,7 @@ function renderFrameInfo(){var f=getFrame(S.size);var ref=SIZE_REF[S.size]||{len
   document.getElementById('frameInfo').innerHTML='<div style="font-size:14px;color:var(--text-dim);font-style:italic;line-height:1.4">~'+ref.len+' long, ~'+ref.wt+' — <span style="color:var(--text)">'+ref.ex+'</span></div>'}
 
 function renderModCatalogue(){var el=document.getElementById('modCatalogue'),cats={};
-  var q=(document.getElementById('modSearch').value||'').toLowerCase();
+  var q=((document.getElementById('modSearch')||document.getElementById('globalSearch')||{}).value||'').toLowerCase();
   var allMods=getAllMods();
   allMods.forEach(function(m){
     if(m.id==='fwd'&&S.loco!=='wheeled')return;if(m.id==='road_vehicle'&&S.loco!=='wheeled')return;if(m.id==='jump_jets'&&!isWalker())return;if(m.id==='tandem_pilots'&&!isWalker())return;
@@ -1208,7 +1208,7 @@ function renderEraFilter(){var el=document.getElementById('eraFilter');
 function setEra(e){Audio.click();currentEra=e;renderEraFilter();renderWeaponCatalogue()}
 
 function renderWeaponCatalogue(){var cats={};
-  var q=(document.getElementById('weaponSearch').value||'').toLowerCase();
+  var q=((document.getElementById('weaponSearch')||document.getElementById('globalSearch')||{}).value||'').toLowerCase();
   var wpns=currentEra==='all'?getAllWeapons():currentEra==='custom'?customWeapons:getAllWeapons().filter(function(w){return w.era===currentEra});
   wpns.forEach(function(w){
     if(q&&w.name.toLowerCase().indexOf(q)===-1&&w.cat.toLowerCase().indexOf(q)===-1&&w.notes.toLowerCase().indexOf(q)===-1)return;
@@ -1611,7 +1611,7 @@ function buildHelp(){
   h+='</div>';
   return h}
 
-function filterHelp(){var q=(document.getElementById('helpSearch').value||'').toLowerCase();
+function filterHelp(){var q=((document.getElementById('helpSearch')||{}).value||'').toLowerCase();
   document.querySelectorAll('.help-section').forEach(function(s){
     if(!q){s.style.display='';return}
     var tags=(s.dataset.help||'')+' '+s.textContent.toLowerCase();
@@ -1706,7 +1706,7 @@ function initHangarFiltersV2(){
 
 // Compat bridge: old switchTab calls route to new system
 function switchTab(tab){
-  if(tab==='hangar')switchMode('library');
+  if(tab==='hangar')switchMode('packs');
   else if(tab==='extensions')switchMode('packs');
   else if(tab==='output'){switchMode('workshop');switchWorkshopStep('build')}
   else if(tab==='mods'){switchMode('workshop');switchWorkshopStep('mods')}
@@ -2058,7 +2058,7 @@ document.getElementById('vNotes').addEventListener('input',function(e){S.notes=e
 document.getElementById('helpContent').innerHTML=buildHelp();
 initHangarFiltersV2();
 renderAll();
-switchMode('library');
+switchMode('packs');
 updateSettingsInfo();
 
 // ═══ FIRST-VISIT WELCOME BANNER ═══
