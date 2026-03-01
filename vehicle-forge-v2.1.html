@@ -337,7 +337,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:block;border-color:var(--green);color:var(--green);font-size:13px">📖 Manual</a>
       </div>
     </div>
-    <div class="cs-version">Vehicle Forge v2.1.1</div>
+    <div class="cs-version">Vehicle Forge v2.1.2</div>
   </div>
 
   <!-- ═══ CENTRE: WORKSPACE ═══ -->
@@ -552,7 +552,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
             </div>
           </div>
           <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-            Vehicle Forge v2.1.1 — DiceForge Studios Ltd<br>
+            Vehicle Forge v2.1.2 — DiceForge Studios Ltd<br>
             Compatible with Savage Worlds
           </div>
         </div>
@@ -1121,6 +1121,7 @@ if(g==='air'){if(sz<0)return 5e4;if(sz<AIR_COST.length)return AIR_COST[sz];retur
 if(g==='water'){if(sz<0)return 500;if(sz<WATER_COST.length)return WATER_COST[sz];return Math.round(8e6*Math.pow(1.6,sz-14))}
 if(g==='walker'){if(sz<0)return 15e4;if(sz<WALKER_COST.length)return WALKER_COST[sz];return Math.round(1e7*Math.pow(1.5,sz-11))}
 if(g==='space'){if(sz<=0)return 5e4;if(sz<=3)return sz*1e5;if(sz<=7)return sz*3e5;if(sz<=11)return sz*1e6;if(sz<=16)return sz*5e6;if(sz<=20)return sz*2e7;if(sz<=25)return sz*1e8;if(sz<=30)return sz*5e8;return sz*2e9}
+if(g==='other')return groupBaseCost(sz,'space');
 return Math.max(5e3,2e4*Math.max(1,sz)*Math.max(1,sz))}
 function locoAdder(loco,sz){var s=Math.max(1,sz);if(loco==='tracked')return 5e3*s;if(loco==='hover')return 1e4*s;if(loco==='water_jet')return 5e3*s;if(loco==='space_ftl')return 2e5*s;return 0}
 function combatMult(tl,al){var pos=Math.max(0,tl)+Math.max(0,al);var neg=Math.abs(Math.min(0,tl))+Math.abs(Math.min(0,al));var raw=Math.pow(1.35,pos);if(pos>7)raw=Math.min(raw,8*Math.pow(1.15,pos-7));return Math.max(0.25,raw*Math.pow(0.85,neg))}
