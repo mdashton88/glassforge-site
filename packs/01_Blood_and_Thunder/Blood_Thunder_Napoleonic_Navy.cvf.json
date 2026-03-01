@@ -43,7 +43,7 @@
         }
       ],
       "toughLevel": 3,
-      "armourLevel": 3,
+      "armourLevel": 4,
       "speedLevel": -3,
       "handlingLevel": -3,
       "woundsLevel": 0
@@ -74,7 +74,7 @@
         }
       ],
       "toughLevel": 0,
-      "armourLevel": 0,
+      "armourLevel": 10,
       "speedLevel": 1,
       "handlingLevel": 1,
       "woundsLevel": 0
@@ -100,7 +100,7 @@
         }
       ],
       "toughLevel": -1,
-      "armourLevel": -1,
+      "armourLevel": 4,
       "speedLevel": 1,
       "handlingLevel": 1,
       "woundsLevel": 0
@@ -126,7 +126,7 @@
         }
       ],
       "toughLevel": -2,
-      "armourLevel": -3,
+      "armourLevel": -5,
       "speedLevel": 2,
       "handlingLevel": 3,
       "woundsLevel": 0
@@ -147,7 +147,7 @@
         }
       ],
       "toughLevel": 0,
-      "armourLevel": -1,
+      "armourLevel": 0,
       "speedLevel": -2,
       "handlingLevel": 0,
       "woundsLevel": 0
@@ -173,7 +173,7 @@
         }
       ],
       "toughLevel": 2,
-      "armourLevel": 0,
+      "armourLevel": 8,
       "speedLevel": -2,
       "handlingLevel": -2,
       "woundsLevel": 0
@@ -204,7 +204,7 @@
         }
       ],
       "toughLevel": 1,
-      "armourLevel": 1,
+      "armourLevel": 10,
       "speedLevel": 1,
       "handlingLevel": 1,
       "woundsLevel": 0
@@ -225,7 +225,7 @@
         }
       ],
       "toughLevel": -3,
-      "armourLevel": -3,
+      "armourLevel": -5,
       "speedLevel": 3,
       "handlingLevel": 3,
       "woundsLevel": 0
@@ -251,7 +251,7 @@
         }
       ],
       "toughLevel": 1,
-      "armourLevel": 0,
+      "armourLevel": 3,
       "speedLevel": -4,
       "handlingLevel": -3,
       "woundsLevel": 0
@@ -272,7 +272,7 @@
         }
       ],
       "toughLevel": -3,
-      "armourLevel": -4,
+      "armourLevel": -5,
       "speedLevel": 0,
       "handlingLevel": 1,
       "woundsLevel": 0

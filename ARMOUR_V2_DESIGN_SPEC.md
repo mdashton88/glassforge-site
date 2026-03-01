@@ -1,5 +1,5 @@
 # Vehicle Forge Armour v2 — Design Specification
-## Frozen: v6.7 (commit 15093f7, tag v6.7)
+## Updated: v0.10.17 — Armour tables recalibrated to Pinnacle civilian baselines (March 2026)
 
 ---
 
@@ -27,7 +27,7 @@ no tech tiers. Labels describe relative protection, not construction. The fictio
 - Controls protective plating (the parenthetical value, what AP reduces)
 - Range: -5 to +5 with overflow +/- buttons
 - Base and step are DOMAIN-AWARE (keyed off locomotion group)
-- Labels: Unprotected / Minimal / Light / Below Average / Modest / **Standard** / Reinforced / Heavy / Superior / Extreme / Maximum
+- Labels: Unprotected / Minimal / Bare Frame / Light Skin / Thin Shell / **Civilian** / Light Military / Medium Military / Heavy Military / Advanced / Top-Tier
 - Overflow: "Maximum +1", "Maximum +2" etc. (like d12+X)
 
 ---
@@ -35,38 +35,45 @@ no tech tiers. Labels describe relative protection, not construction. The fictio
 ## DOMAIN-AWARE ARMOUR BASELINES
 
 ### Ground / Walker
-| Size | Base | Step | -5 | 0 | +5 |
-|------|------|------|----|---|-----|
-| 0 | 2 | 1 | -3 | 2 | 7 |
-| 3 | 3 | 1 | -2 | 3 | 8 |
-| 4 | 4 | 2 | -6 | 4 | 14 |
-| 6 | 12 | 2 | 2 | 12 | 22 |
-| 8 | 16 | 3 | 1 | 16 | 31 |
-| 10 | 20 | 4 | 0 | 20 | 40 |
-| 12 | 24 | 5 | -1 | 24 | 49 |
-| 14 | 28 | 6 | -2 | 28 | 58 |
+Base = civilian standard from Vehicle Guide. Slider 0 = civilian, +1-2 = WW2 military, +4-5 = modern MBT.
+
+| Size | Base | Step | -5 | 0 | +5 | Notes |
+|------|------|------|----|---|-----|-------|
+| ≤3 | 1 | 1 | 0 | 1 | 6 | Bikes, carriages |
+| 4 | 2 | 1 | 0 | 2 | 7 | Cars, light trucks |
+| 5 | 2 | 2 | 0 | 2 | 12 | SUVs |
+| 6 | 2 | 3 | 0 | 2 | 17 | APCs at +1 |
+| 7 | 2 | 4 | 0 | 2 | 22 | WW2 tanks at +1-2 |
+| 8 | 3 | 6 | 0 | 3 | 33 | Sherman +1, Tiger +2 |
+| 9 | 3 | 7 | 0 | 3 | 38 | Abrams at +5 |
+| 10 | 3 | 8 | 0 | 3 | 43 | |
+| 11 | 3 | 9 | 0 | 3 | 48 | |
+| 12-14 | 4 | 10-12 | 0 | 4 | 54-64 | |
 
 Full table:
 ```
-{-2:1, -1:1, 0:2, 1:2, 2:2, 3:3, 4:4, 5:5,
- 6:12, 7:14, 8:16, 9:18, 10:20, 11:22, 12:24, 13:26, 14:28}
-Step: {-2:1, -1:1, 0:1, 1:1, 2:1, 3:1, 4:2, 5:2,
-       6:2, 7:3, 8:3, 9:4, 10:4, 11:4, 12:5, 13:5, 14:6}
+Base: sz<=3: 1, sz<=7: 2, sz<=11: 3, sz>=12: 4
+Step: sz<=4: 1, sz=5: 2, sz=6: 3, sz=7: 4, sz=8: 6, sz=9: 7,
+      sz=10: 8, sz=11: 9, sz=12: 10, sz=13: 11, sz>=14: 12
 ```
 
 ### Water
-| Size | Base | Step | Notes |
-|------|------|------|-------|
-| 0-11 | 1-5 | sz/3 | Small craft, patrol boats |
-| 12-16 | 6-8 | 4 | Corvettes, frigates |
-| 17+ | 18-46 | 4 | Destroyers through carriers |
+Base = civilian standard from Vehicle Guide. Slider 0 = civilian, +1-2 = military patrol, +3 = belt-armoured warship.
+
+| Size | Base | Step | -5 | 0 | +5 | Notes |
+|------|------|------|----|---|-----|-------|
+| ≤3 | 1 | 1 | 0 | 1 | 6 | Kayaks, dinghies |
+| 4-11 | 2 | 1 | 0 | 2 | 7 | Boats, yachts |
+| 12-16 | 3 | 1 | 0 | 3 | 8 | Trawlers, frigates |
+| 17 | 3 | 5 | 0 | 3 | 28 | Belt armour ships |
+| 20 | 3 | 11 | 0 | 3 | 58 | Cruisers |
+| 25 | 3 | 14 | 0 | 3 | 73 | Super carriers |
 
 Full table:
 ```
-{0:1, 2:2, 4:4, 6:4, 7:4, 8:5, 11:5,
- 12:6, 15:7, 16:8,
- 17:18, 18:20, 19:28, 20:36, 21:38, 22:40, 23:42, 24:44, 25:46}
-Step: sz<=11: max(1,round(sz/3)), sz<=16: 4, sz>16: 4
+Base: sz<=3: 1, sz<=11: 2, sz>=12: 3
+Step: sz<=16: 1, sz=17: 5, sz=18: 6, sz=19: 8, sz=20: 11,
+      sz=21: 12, sz=22: 12, sz=23: 13, sz=24: 14, sz=25: 14
 ```
 
 ### Space

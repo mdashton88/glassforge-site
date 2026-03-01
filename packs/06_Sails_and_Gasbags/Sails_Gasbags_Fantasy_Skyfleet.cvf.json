@@ -28,7 +28,7 @@
         }
       ],
       "toughLevel": -2,
-      "armourLevel": -2,
+      "armourLevel": -5,
       "speedLevel": 1,
       "handlingLevel": 2,
       "woundsLevel": 0
@@ -59,7 +59,7 @@
         }
       ],
       "toughLevel": 1,
-      "armourLevel": 0,
+      "armourLevel": 10,
       "speedLevel": -1,
       "handlingLevel": -1,
       "woundsLevel": 0
@@ -90,7 +90,7 @@
         }
       ],
       "toughLevel": 1,
-      "armourLevel": 0,
+      "armourLevel": 4,
       "speedLevel": -2,
       "handlingLevel": -3,
       "woundsLevel": 0
@@ -105,7 +105,7 @@
       "mods": {},
       "weapons": [],
       "toughLevel": -3,
-      "armourLevel": -4,
+      "armourLevel": -5,
       "speedLevel": 2,
       "handlingLevel": 3,
       "woundsLevel": 0,
@@ -140,7 +140,7 @@
         }
       ],
       "toughLevel": 4,
-      "armourLevel": 4,
+      "armourLevel": 8,
       "speedLevel": -3,
       "handlingLevel": -3,
       "woundsLevel": 0
@@ -161,7 +161,7 @@
         }
       ],
       "toughLevel": -2,
-      "armourLevel": -2,
+      "armourLevel": 2,
       "speedLevel": 2,
       "handlingLevel": 3,
       "woundsLevel": 0
@@ -187,7 +187,7 @@
         }
       ],
       "toughLevel": 0,
-      "armourLevel": -1,
+      "armourLevel": 5,
       "speedLevel": 1,
       "handlingLevel": 1,
       "woundsLevel": 0
@@ -239,7 +239,7 @@
         }
       ],
       "toughLevel": 3,
-      "armourLevel": 2,
+      "armourLevel": 8,
       "speedLevel": -2,
       "handlingLevel": -2,
       "woundsLevel": 0
@@ -260,7 +260,7 @@
         }
       ],
       "toughLevel": -1,
-      "armourLevel": -1,
+      "armourLevel": 5,
       "speedLevel": 0,
       "handlingLevel": 1,
       "woundsLevel": 0

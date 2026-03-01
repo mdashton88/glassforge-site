@@ -19,7 +19,7 @@
       },
       "weapons": [],
       "toughLevel": 1,
-      "armourLevel": 1,
+      "armourLevel": 2,
       "speedLevel": 1,
       "handlingLevel": 1,
       "woundsLevel": 0,
@@ -45,7 +45,7 @@
         }
       ],
       "toughLevel": -2,
-      "armourLevel": -2,
+      "armourLevel": -5,
       "speedLevel": 1,
       "handlingLevel": 1,
       "woundsLevel": 0
@@ -60,7 +60,7 @@
       "mods": {},
       "weapons": [],
       "toughLevel": -1,
-      "armourLevel": -3,
+      "armourLevel": -5,
       "speedLevel": 2,
       "handlingLevel": 2,
       "woundsLevel": 0,
