@@ -1068,8 +1068,8 @@ function calcHand(){var f=getFrame(S.size);return f.hand+S.handlingLevel}
 function calcSpeed(){var loco=LOCOS.find(function(l){return l.id===S.loco});return Math.max(1,(loco?loco.speed:4)+S.speedLevel)}
 function calcHandFor(v){var f=getFrame(v.size);return f.hand+(v.handlingLevel||0)}
 function calcSpeedFor(v){var loco=LOCOS.find(function(l){return l.id===v.loco});return Math.max(1,(loco?loco.speed:4)+(v.speedLevel||0))}
-function calcArmourFor(v){var f=getFrame(v.size);var base=f.cat==='Normal'?2:f.cat==='Large'?4:f.cat==='Huge'?6:8;var step=f.cat==='Normal'?1:f.cat==='Large'?2:f.cat==='Huge'?3:4;return Math.max(0,base+(v.armourLevel||0)*step)}
-function calcToughFor(v){var f=getFrame(v.size);var base=f.baseTough;var step=f.cat==='Normal'?2:f.cat==='Large'?3:f.cat==='Huge'?4:5;return base+(v.toughLevel||0)*step}
+function calcArmourFor(v){var oldLoco=S.loco,oldSize=S.size,oldAL=S.armourLevel;S.loco=v.loco;S.size=v.size;S.armourLevel=v.armourLevel||0;var r=calcArmourValue();S.loco=oldLoco;S.size=oldSize;S.armourLevel=oldAL;return r}
+function calcToughFor(v){var base=v.size+5;var step=Math.max(1,Math.round(v.size/4)+1);return Math.max(1,base+(v.toughLevel||0)*step)}
 function calcTotalToughFor(v){return calcToughFor(v)+calcArmourFor(v)}
 function calcWoundsFor(v){var f=getFrame(v.size);return Math.max(1,f.wounds+(v.woundsLevel||0))}
 function calcCostFor(v){var f=getFrame(v.size),loco=LOCOS.find(function(l){return l.id===v.loco});var base=f.baseCost;if(loco)base+=loco.costMult*v.size*1000;return base}
