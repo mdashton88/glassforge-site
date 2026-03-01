@@ -348,7 +348,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
           <div style="margin-top:12px;padding:12px;background:var(--bg-deep);border:1px solid var(--border)">
             <div style="font-size:14px;color:var(--text-dim)">Saved vehicles: <strong id="settingSavedCount" style="color:var(--text-bright)">0</strong></div>
-            <div style="font-size:14px;color:var(--text-dim)">Extensions installed: <strong id="settingExtCount" style="color:var(--text-bright)">0</strong></div>
+            <div style="font-size:14px;color:var(--text-dim)">Vehicle Packs installed: <strong id="settingExtCount" style="color:var(--text-bright)">0</strong></div>
             <div style="font-size:14px;color:var(--text-dim)">Storage used: <strong id="settingStorageSize" style="color:var(--text-bright)">—</strong></div>
           </div>
         </div>
@@ -791,12 +791,12 @@ rebuildExtensionData();
     .then(function(data){installExtension(data,true);renderAll();console.log('Demo: 3 sample vehicles loaded')})
     .catch(function(err){console.warn('Could not load demo vehicles:',err)})
 })();
-function importVFX(e){alert('Extension packs are available in the full Vehicle Forge — free on DriveThruRPG.');e.target.value=''}
+function importVFX(e){alert('Vehicle packs are available in the full Vehicle Forge — free on DriveThruRPG.');e.target.value=''}
 function showExtensionManager(){switchTab('extensions')}
 function renderExtensions(){
   var el=document.getElementById('extensionsContent');if(!el)return;
-  var html='<h2 style="margin-bottom:12px">Extension Packs</h2>';
-  html+='<p style="color:var(--text-dim);margin-bottom:12px;font-size:15px">Toggle packs on or off. Disabled packs hide all their content — vehicles, weapons, mods, and specials.</p>';
+  var html='<h2 style="margin-bottom:12px">Vehicle Packs</h2>';
+  html+='<p style="color:var(--text-dim);margin-bottom:12px;font-size:15px">Toggle vehicle packs on or off. Disabled packs hide their vehicles, weapons, mods, and specials.</p>';
   var en=extensions.filter(function(e){return isPackEnabled(e.id)}).length;
   var totalV=0;extensions.forEach(function(e){if(isPackEnabled(e.id)&&e.vehicles)totalV+=e.vehicles.length});
   html+='<div style="display:flex;gap:6px;margin-bottom:12px">';
@@ -805,8 +805,8 @@ function renderExtensions(){
   html+='<button class="header-btn" onclick="disableAllPacks()" style="flex:1;text-align:center">Disable All</button>';
   html+='</div>';
   html+='<div style="margin-bottom:16px;font-size:13px;color:var(--text-dim)">'+en+' of '+extensions.length+' packs enabled \u2014 '+totalV+' vehicles active</div>';
-  html+='<div style="margin-bottom:16px"><input type="file" id="vfxImport" accept=".vfx,.json" onchange="importVFX(event)" style="display:none"><button class="header-btn primary" onclick="document.getElementById(\'vfxImport\').click()" style="width:100%;text-align:center;padding:10px">Install .vfx Extension</button></div>';
-  if(extensions.length===0){html+='<p style="color:var(--text-dim);text-align:center;padding:20px;border:1px dashed var(--border)">No extensions installed.</p>'}
+  html+='<div style="margin-bottom:16px"><input type="file" id="vfxImport" accept=".vfx,.json" onchange="importVFX(event)" style="display:none"><button class="header-btn primary" onclick="document.getElementById(\'vfxImport\').click()" style="width:100%;text-align:center;padding:10px">Install Vehicle Pack (.vfx)</button></div>';
+  if(extensions.length===0){html+='<p style="color:var(--text-dim);text-align:center;padding:20px;border:1px dashed var(--border)">No vehicle packs installed.</p>'}
   else{extensions.forEach(function(ext){
     var on=isPackEnabled(ext.id);
     var counts=[];
@@ -1439,7 +1439,7 @@ function buildHelp(){
   h+='</div>';
   h+='<div class="help-section" data-help="manual companion guide pdf reference">';
   h+='<h3>Companion Guide</h3>';
-  h+='<p><div style="margin:20px 0;padding:16px;background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid var(--green);text-align:center"><strong style="color:var(--green);font-size:16px">Get the Full Vehicle Forge — Free</strong><p style="color:var(--text-dim);margin:8px 0">47 reference builds, expansion packs, Fantasy Grounds export, and more.</p><a href="https://www.drivethrurpg.com" target="_blank" style="display:inline-block;padding:10px 24px;background:var(--green);color:#000;font-weight:bold;text-decoration:none;margin-top:4px">Download on DriveThruRPG</a></div><p>The <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="color:var(--accent)">Vehicle Forge Companion Guide (PDF)</a> is the complete reference for the tool. It covers vehicle frames, all 127 weapons, 41 modifications, 34 special abilities, export formats, extension packs, walker combat rules, and one-sheet adventures.</p>';
+  h+='<p><div style="margin:20px 0;padding:16px;background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid var(--green);text-align:center"><strong style="color:var(--green);font-size:16px">Get the Full Vehicle Forge — Free</strong><p style="color:var(--text-dim);margin:8px 0">47 reference builds, expansion packs, Fantasy Grounds export, and more.</p><a href="https://www.drivethrurpg.com" target="_blank" style="display:inline-block;padding:10px 24px;background:var(--green);color:#000;font-weight:bold;text-decoration:none;margin-top:4px">Download on DriveThruRPG</a></div><p>The <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="color:var(--accent)">Vehicle Forge Companion Guide (PDF)</a> is the complete reference for the tool. It covers vehicle frames, all 127 weapons, 41 modifications, 34 special abilities, export formats, vehicle packs, walker combat rules, and one-sheet adventures.</p>';
   h+='<div style="text-align:center;margin:20px 0"><a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="display:inline-block;padding:12px 32px;border:1px solid var(--accent);color:var(--accent);font-family:Cinzel,serif;font-size:15px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s" onmouseover="this.style.background=\'var(--accent)\';this.style.color=\'var(--bg-deep)\'" onmouseout="this.style.background=\'transparent\';this.style.color=\'var(--accent)\'">Open Companion Guide</a></div>';
   h+='</div>';
   h+='<div class="help-section" data-help="export formats fantasy grounds foundry json stat block">';
@@ -1585,7 +1585,7 @@ function saveVehicle(){if(S.saved.length>=3&&!S.saved.some(function(v){return v.
   if(i>=0&&isCanon(S.saved[i])){alert('Cannot overwrite DF Canon vehicle "'+S.name+'".\nUse Clone to create an editable copy in My Vehicles.');return}
   if(i>=0)S.saved[i]=d;else S.saved.push(d);save();renderSaved();Audio.click()}
 function save(){localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))}
-function deleteSaved(i){if(isCanon(S.saved[i])){alert('Cannot delete DF Canon vehicles.\nUninstall the pack via ⚙ Extensions to remove them.');return}Audio.remove();S.saved.splice(i,1);save();renderSaved()}
+function deleteSaved(i){if(isCanon(S.saved[i])){alert('Cannot delete DF Canon vehicles.\nDisable the pack in the Packs tab to hide them.');return}Audio.remove();S.saved.splice(i,1);save();renderSaved()}
 var hangarTab='all';
 var collapsedGroups={};
 var hangarSel=-1;var hangarItems=[];
@@ -1624,7 +1624,7 @@ function renderSaved(){var list=document.getElementById('savedList');
   var bar=document.getElementById('hangarCountBar');
   if(bar)bar.textContent=items.length+' vehicle'+(items.length!==1?'s':'')+' found'+(q?' for "'+q+'"':'');
   if(!items.length){
-    var msg=q?'No vehicles match "'+esc(q)+'".':(hangarTab==='canon'?'No canon vehicles. Install .vfx packs via Extensions.':(hangarTab==='mine'?'No custom vehicles yet.':'No vehicles. Build one or install a pack.'));
+    var msg=q?'No vehicles match "'+esc(q)+'".':(hangarTab==='canon'?'No canon vehicles. Install vehicle packs from the Packs tab.':(hangarTab==='mine'?'No custom vehicles yet.':'No vehicles. Build one or install a pack.'));
     list.innerHTML='<div class="empty-state">'+msg+'</div>';return}
   var html='';items.forEach(function(o,fi){
     var s=o.v;var i=o.idx;var canon=isCanon(s);var loco=LOCOS.find(function(l){return l.id===s.loco});
