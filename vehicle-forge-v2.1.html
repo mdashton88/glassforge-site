@@ -292,14 +292,16 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <select id="filterLoco" onchange="onFilterChange()" class="hangar-select" style="width:100%"><option value="">All Types</option></select>
         <select id="filterClass" onchange="onFilterChange()" class="hangar-select" style="width:100%"><option value="">All Classes</option></select>
         <div style="display:flex;gap:2px" id="filterTabsHangar">
-          <button class="hangar-tab active" id="filterTabAll" onclick="setHangarTab('all')">All</button>
-          <button class="hangar-tab" id="filterTabCanon" onclick="setHangarTab('canon')">Canon</button>
-          <button class="hangar-tab" id="filterTabMine" onclick="setHangarTab('mine')">Mine</button>
+          <button class="hangar-tab active" id="filterTabAll" onclick="setHangarTab('all')" style="flex:1">All</button>
+          <button class="hangar-tab" id="filterTabCanon" onclick="setHangarTab('canon')" style="flex:1">Canon</button>
+          <button class="hangar-tab" id="filterTabMine" onclick="setHangarTab('mine')" style="flex:1">Mine</button>
+          <button class="hangar-tab" id="filterClear" onclick="clearAllFilters()" style="flex:1">Clear</button>
         </div>
         <div style="display:flex;gap:2px;display:none" id="filterTabsPacks">
-          <button class="hangar-tab active" id="packFilterAll" onclick="setPackFilter('all')">All</button>
-          <button class="hangar-tab" id="packFilterOn" onclick="setPackFilter('on')">Enabled</button>
-          <button class="hangar-tab" id="packFilterOff" onclick="setPackFilter('off')">Disabled</button>
+          <button class="hangar-tab active" id="packFilterAll" onclick="setPackFilter('all')" style="flex:1">All</button>
+          <button class="hangar-tab" id="packFilterOn" onclick="setPackFilter('on')" style="flex:1">Enabled</button>
+          <button class="hangar-tab" id="packFilterOff" onclick="setPackFilter('off')" style="flex:1">Disabled</button>
+          <button class="hangar-tab" id="packFilterClear" onclick="clearAllFilters()" style="flex:1">Clear</button>
         </div>
       </div>
     </div>
@@ -1777,6 +1779,16 @@ function onGlobalSearch(){
 }
 
 function onFilterChange(){initHangarFilters();renderSaved()}
+function clearAllFilters(){
+  Audio.click();
+  document.getElementById('globalSearch').value='';
+  document.getElementById('filterSize').value='';
+  document.getElementById('filterLoco').value='';
+  document.getElementById('filterClass').value='';
+  if(currentMode==='library'){setHangarTab('all');return}
+  if(currentMode==='packs'){setPackFilter('all');return}
+  initHangarFilters();renderSaved();renderExtensions();
+}
 
 var packFilter='all';
 function setPackFilter(f){
@@ -1929,34 +1941,39 @@ function isCanon(v){return !!v._pack}
 function getPackName(v){if(!v._pack)return null;var ext=extensions.find(function(e){return e.id===v._pack});return ext?ext.name:v._pack}
 function initHangarFilters(){
   var cs=document.getElementById('filterClass');if(!cs)return;
+  var ss=document.getElementById('filterSize');
+  var ls=document.getElementById('filterLoco');
   var letters=['A','B','C','D','E','F','G'];
   var romanMap={A:5,B:20,C:30,D:40,E:50,F:60,G:70};
-  // Build filtered set WITHOUT the class filter to find available classes
+  var sizes=['Normal','Large','Huge','Gargantuan'];
+  var sizeLabels={Normal:'Normal (1–3)',Large:'Large (4–7)',Huge:'Huge (8–11)',Gargantuan:'Gargantuan (12+)'};
+  // Common base: enabled packs + tab + search
   var q=(document.getElementById('globalSearch')||{}).value||'';q=q.toLowerCase();
-  var fSize=(document.getElementById('filterSize')||{}).value||'';
-  var fLoco=(document.getElementById('filterLoco')||{}).value||'';
-  var base=S.saved.map(function(s,i){return{v:s,idx:i}});
-  base=base.filter(function(o){if(!o.v._pack)return true;return isPackEnabled(o.v._pack)});
-  if(hangarTab==='canon')base=base.filter(function(o){return isCanon(o.v)});
-  if(hangarTab==='mine')base=base.filter(function(o){return !isCanon(o.v)});
-  if(q)base=base.filter(function(o){var hay=(o.v.name+' '+(o.v.desc||'')+' '+(getPackName(o.v)||'')+' '+(LOCOS.find(function(l){return l.id===o.v.loco})||{}).name).toLowerCase();return hay.indexOf(q)>=0});
-  if(fSize)base=base.filter(function(o){return getFrame(o.v.size).cat===fSize});
-  if(fLoco)base=base.filter(function(o){return o.v.loco===fLoco});
-  // Count available classes
-  var avail={};base.forEach(function(o){var cl=classLetter(calcTotalToughFor(o.v));avail[cl]=true});
-  var curVal=cs.value;
+  var fSize=ss?ss.value:'';
+  var fLoco=ls?ls.value:'';
+  var fClass=cs.value;
+  var all=S.saved.map(function(s,i){return{v:s,idx:i}});
+  all=all.filter(function(o){if(!o.v._pack)return true;return isPackEnabled(o.v._pack)});
+  if(hangarTab==='canon')all=all.filter(function(o){return isCanon(o.v)});
+  if(hangarTab==='mine')all=all.filter(function(o){return !isCanon(o.v)});
+  if(q)all=all.filter(function(o){var hay=(o.v.name+' '+(o.v.desc||'')+' '+(getPackName(o.v)||'')+' '+(LOCOS.find(function(l){return l.id===o.v.loco})||{}).name).toLowerCase();return hay.indexOf(q)>=0});
+  // For each dropdown, filter by the OTHER two to find what's available
+  var forSize=all.slice();if(fLoco)forSize=forSize.filter(function(o){return o.v.loco===fLoco});if(fClass)forSize=forSize.filter(function(o){return classLetter(calcTotalToughFor(o.v))===fClass});
+  var forLoco=all.slice();if(fSize)forLoco=forLoco.filter(function(o){return getFrame(o.v.size).cat===fSize});if(fClass)forLoco=forLoco.filter(function(o){return classLetter(calcTotalToughFor(o.v))===fClass});
+  var forClass=all.slice();if(fSize)forClass=forClass.filter(function(o){return getFrame(o.v.size).cat===fSize});if(fLoco)forClass=forClass.filter(function(o){return o.v.loco===fLoco});
+  // Available sizes
+  var availSize={};forSize.forEach(function(o){availSize[getFrame(o.v.size).cat]=true});
+  if(ss){ss.innerHTML='<option value="">All Sizes</option>';
+    sizes.forEach(function(sz){var has=availSize[sz];ss.innerHTML+='<option value="'+sz+'"'+(has?'':' disabled style="color:#555"')+'>'+sizeLabels[sz]+(has?'':' \u2014')+'</option>'});ss.value=fSize}
+  // Available loco types
+  var availLoco={};forLoco.forEach(function(o){availLoco[o.v.loco]=true});
+  if(ls){var curLoco=ls.value;ls.innerHTML='<option value="">All Types</option>';
+    var groups={};LOCOS.forEach(function(l){var g=l.group;if(!groups[g])groups[g]=[];groups[g].push(l)});
+    Object.keys(groups).forEach(function(g){groups[g].forEach(function(l){var has=availLoco[l.id];ls.innerHTML+='<option value="'+l.id+'"'+(has?'':' disabled style="color:#555"')+'>'+l.name+(has?'':' \u2014')+'</option>'})});ls.value=curLoco}
+  // Available classes
+  var availClass={};forClass.forEach(function(o){availClass[classLetter(calcTotalToughFor(o.v))]=true});
   cs.innerHTML='<option value="">All Classes</option>';
-  letters.forEach(function(l){
-    var has=avail[l];
-    cs.innerHTML+='<option value="'+l+'"'+(has?'':' disabled style="color:#555"')+'>Class '+l+' ('+sfcNumeral(romanMap[l])+')'+(has?'':' —')+'</option>'});
-  cs.value=curVal;
-  // Loco filter
-  var ls=document.getElementById('filterLoco');if(!ls)return;
-  var curLoco=ls.value;
-  ls.innerHTML='<option value="">All Types</option>';
-  var groups={};LOCOS.forEach(function(l){var g=l.group;if(!groups[g])groups[g]=[];groups[g].push(l)});
-  Object.keys(groups).forEach(function(g){groups[g].forEach(function(l){ls.innerHTML+='<option value="'+l.id+'">'+l.name+'</option>'})});
-  ls.value=curLoco;
+  letters.forEach(function(l){var has=availClass[l];cs.innerHTML+='<option value="'+l+'"'+(has?'':' disabled style="color:#555"')+'>Class '+l+' ('+sfcNumeral(romanMap[l])+')'+(has?'':' \u2014')+'</option>'});cs.value=fClass;
 }
 function syncVehiclesFromPacks(){
   /* Ensure S.saved contains vehicles for every installed extension.
