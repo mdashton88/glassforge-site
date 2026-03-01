@@ -1059,26 +1059,50 @@ function calcArmourValue(){return Math.max(0,armourBase()+S.armourLevel*armourSt
 function calcTotalTough(){return calcTough()+calcArmourValue()}
 function calcWounds(){var f=getFrame(S.size);return Math.max(1,f.wounds+S.woundsLevel)}
 function calcCrew(){var f=getFrame(S.size);return Math.max(1,f.crew+S.crewLevel)}
-function calcCrewFor(v){var f=getFrame(v.size);return Math.max(1,f.crew+(v.crewLevel||0))}
 function calcPax(){return Math.max(0,S.passengers)}
-function calcPaxFor(v){return Math.max(0,v.passengers||0)}
 function calcMPH(){var m=MPH_MODEL[S.loco];if(!m)return 0;var base=Math.max(m[2],Math.round(m[0]+m[1]*S.speedLevel));return S.mphOverride>0?S.mphOverride:base}
-function calcMPHFor(v){var m=MPH_MODEL[v.loco];if(!m)return 0;var base=Math.max(m[2],Math.round(m[0]+m[1]*(v.speedLevel||0)));return(v.mphOverride||0)>0?v.mphOverride:base}
 function calcHand(){var f=getFrame(S.size);return f.hand+S.handlingLevel}
 function calcSpeed(){var loco=LOCOS.find(function(l){return l.id===S.loco});return Math.max(1,(loco?loco.speed:4)+S.speedLevel)}
-function calcHandFor(v){var f=getFrame(v.size);return f.hand+(v.handlingLevel||0)}
-function calcSpeedFor(v){var loco=LOCOS.find(function(l){return l.id===v.loco});return Math.max(1,(loco?loco.speed:4)+(v.speedLevel||0))}
-function calcArmourFor(v){var oldLoco=S.loco,oldSize=S.size,oldAL=S.armourLevel;S.loco=v.loco;S.size=v.size;S.armourLevel=v.armourLevel||0;var r=calcArmourValue();S.loco=oldLoco;S.size=oldSize;S.armourLevel=oldAL;return r}
-function calcToughFor(v){var base=v.size+5;var step=Math.max(1,Math.round(v.size/4)+1);return Math.max(1,base+(v.toughLevel||0)*step)}
-function calcTotalToughFor(v){return calcToughFor(v)+calcArmourFor(v)}
-function calcWoundsFor(v){var f=getFrame(v.size);return Math.max(1,f.wounds+(v.woundsLevel||0))}
-function calcCostFor(v){var f=getFrame(v.size),loco=LOCOS.find(function(l){return l.id===v.loco});var base=f.baseCost;if(loco)base+=loco.costMult*v.size*1000;return base}
+// ═══ CANONICAL For(v) WRAPPERS ═══
+// Single Source of Truth: every For(v) function delegates to the
+// canonical S-based function. No parallel formulas, no approximations.
+// Temporarily swap v into S, call the real function, restore S.
+function withVehicle(v,fn){
+  var snap={name:S.name,desc:S.desc,notes:S.notes,image:S.image,size:S.size,loco:S.loco,
+    mods:S.mods,weapons:S.weapons,toughLevel:S.toughLevel,armourLevel:S.armourLevel,
+    speedLevel:S.speedLevel,handlingLevel:S.handlingLevel,woundsLevel:S.woundsLevel,
+    crewLevel:S.crewLevel,passengers:S.passengers,mphOverride:S.mphOverride,
+    specials:S.specials,customSpecial:S.customSpecial};
+  S.name=v.name||'';S.desc=v.desc||'';S.notes=v.notes||'';S.image=v.image||'';
+  S.size=v.size||6;S.loco=v.loco||'wheeled';
+  S.mods=v.mods?JSON.parse(JSON.stringify(v.mods)):{};
+  S.weapons=v.weapons?JSON.parse(JSON.stringify(v.weapons)):[];
+  S.toughLevel=v.toughLevel||0;S.armourLevel=v.armourLevel||0;
+  S.speedLevel=v.speedLevel||0;S.handlingLevel=v.handlingLevel||0;
+  S.woundsLevel=v.woundsLevel||0;S.crewLevel=v.crewLevel||0;
+  S.passengers=v.passengers||0;S.mphOverride=v.mphOverride||0;
+  S.specials=v.specials||[];S.customSpecial=v.customSpecial||'';
+  var result=fn();
+  Object.keys(snap).forEach(function(k){S[k]=snap[k]});
+  return result}
+function calcToughFor(v){return withVehicle(v,calcTough)}
+function calcArmourFor(v){return withVehicle(v,calcArmourValue)}
+function calcTotalToughFor(v){return withVehicle(v,calcTotalTough)}
+function calcWoundsFor(v){return withVehicle(v,calcWounds)}
+function calcCrewFor(v){return withVehicle(v,calcCrew)}
+function calcPaxFor(v){return withVehicle(v,calcPax)}
+function calcHandFor(v){return withVehicle(v,calcHand)}
+function calcSpeedFor(v){return withVehicle(v,calcSpeed)}
+function calcCostFor(v){return withVehicle(v,calcCost)}
+function calcMPHFor(v){return withVehicle(v,calcMPH)}
+function calcEnergyFor(v){return withVehicle(v,calcEnergy)}
+function vehicleClassFor(v){return withVehicle(v,vehicleClass)}
+function crewDisplayFor(v){return withVehicle(v,function(){return crewDisplay()})}
 
 // ═══ WEAPON CLASS & THREAT CLASS (SFC-Compatible) ═══
 function calcRoadSpeed(){var s=calcSpeed();if(S.mods.road_vehicle&&S.loco==='wheeled')s+=3;return s}
 function calcEnergy(){var f=getFrame(S.size),e=f.energy;if(S.mods.fusion_core)e*=8;if(S.mods.reserve_tanks)e=Math.ceil(e*Math.pow(1.5,S.mods.reserve_tanks));return e}
-function crewDisplay(v){var cr=v?calcCrewFor(v):calcCrew();var px=v?calcPaxFor(v):calcPax();return px>0?cr+'+'+px:''+cr}
-function crewDisplayFor(v){return crewDisplay(v)}
+function crewDisplay(){var cr=calcCrew();var px=calcPax();return px>0?cr+'+'+px:''+cr}
 function calcModsUsed(){var t=0;for(var id in S.mods){var m=findMod(id);if(m){var ms=modSlots(m,S.size);if(ms>0)t+=ms*S.mods[id]}}
   S.weapons.forEach(function(w){var wp=getAllWeapons().find(function(x){return x.id===w.weaponId});if(wp){var mc=weaponMountMods(wp,w.mount);if(w.linked)mc+=w.linked;t+=mc}});return t}
 function calcModsGained(){var t=0;for(var id in S.mods){var m=findMod(id);if(m){var ms=modSlots(m,S.size);if(ms<0)t+=Math.abs(ms)*S.mods[id]}}return t}
@@ -1112,7 +1136,6 @@ function classLabel(val){
   if(pos>=0.67)return band.letter+'+';if(pos<=0.33)return band.letter+'\u2212';return band.letter}
 // Vehicle class: from total Toughness
 function vehicleClass(){return classLabel(calcTotalTough())}
-function vehicleClassFor(v){return classLabel(calcTotalToughFor(v))}
 function vehicleClassLetter(){return classLetter(calcTotalTough())}
 // Weapon class: from avg damage + AP (+ linked bonus)
 function weaponClassVal(wp,lk){
