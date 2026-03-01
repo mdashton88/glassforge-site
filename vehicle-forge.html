@@ -266,7 +266,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.19</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.20</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -352,7 +352,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.19 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.20 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -802,7 +802,7 @@ function locoAdder(loco,sz){var s=Math.max(1,sz);
 if(loco==='tracked')return 5e3*s;if(loco==='hover')return 1e4*s;
 if(loco==='water_jet')return 5e3*s;if(loco==='space_ftl')return 2e5*s;return 0}
 
-function combatMult(tl,al){var pos=Math.max(0,tl)+Math.max(0,al);var neg=Math.abs(Math.min(0,tl))+Math.abs(Math.min(0,al));return Math.max(0.25,Math.pow(1.35,pos)*Math.pow(0.85,neg))}
+function combatMult(tl,al){var pos=Math.max(0,tl)+Math.max(0,al);var neg=Math.abs(Math.min(0,tl))+Math.abs(Math.min(0,al));var raw=Math.pow(1.35,pos);if(pos>7)raw=Math.min(raw,8*Math.pow(1.15,pos-7));return Math.max(0.25,raw*Math.pow(0.85,neg))}
 
 function calcCostFor(v){var g=locoGroup(v.loco||'wheeled');var base=groupBaseCost(v.size,g);var add=locoAdder(v.loco||'wheeled',v.size);var mult=combatMult(v.toughLevel||0,v.armourLevel||0);return Math.max(100,Math.round((base+add)*mult))}
 

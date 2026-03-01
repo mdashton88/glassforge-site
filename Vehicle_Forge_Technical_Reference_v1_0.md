@@ -21,7 +21,7 @@ The tool is designed around Savage Worlds' *Fast! Furious! Fun!* philosophy. Six
 
 Vehicle Forge is **not** a reproduction of the Science Fiction Companion's vehicle construction rules. It is an original DiceForge design system that produces Savage Worlds-compatible stat blocks. This distinction matters for IP compliance (see Section 9).
 
-### Current Version: v0.10.18
+### Current Version: v0.10.20
 
 ---
 
@@ -126,7 +126,7 @@ Total Toughness = Structural + Armour
 
 `armourBase` and `armourStep` are lookup tables indexed by Size and locomotion group (ground/walker, water, air, space). Each group has its own curve calibrated against Pinnacle canon stat blocks. Ground vehicles were calibrated against SWADE Core civilian baselines and the Vehicle Guide. Space vehicles were calibrated against the SFC Future Military baseline tables. The full tables are in the source code — the definitive reference is `ARMOUR_V2_DESIGN_SPEC.md`.
 
-Proving ground accuracy (v0.10.18): 45/47 Pinnacle canon vehicles pass at ±2T/±2A/±1H. Armour 100% within ±2. Handling 100% exact. Space baseline 29/29 exact against SFC (sz 4-29).
+Proving ground accuracy (v0.10.20): 45/47 Pinnacle canon vehicles pass at ±2T/±2A/±1H. Armour 100% within ±2. Handling 100% exact. Space baseline 29/29 exact against SFC (sz 4-29).
 
 ### Speed Slider (speedLevel: −5 to +5)
 
@@ -149,6 +149,22 @@ Handling = frameBaseHandling + handlingLevel
 ```
 Wounds = max(1, frameBaseWounds + woundsLevel)
 ```
+
+### Cost Engine (v2, March 2026)
+
+```
+Cost = (groupBaseCost + locoAdder) × combatMult × modCosts × weaponCosts
+```
+
+**Group base cost** is a lookup table per locomotion group (ground, air, water, walker, space), indexed by Size. Each curve is anchored to real-world google-able prices for that group — e.g. ground: bicycle $250, car $30K, MBT $500K base. Air: Cessna $500K, business jet $8M. Water: rowboat $500, yacht $500K. Space: escape pod $50K through dreadnought $2.5B base.
+
+**Loco adder** adds SFC locomotion cost for tracked (+$5K×Size), hover (+$10K×Size), water jet (+$5K×Size), and FTL drive (+$200K×Size). Other locomotion types have their premium baked into the group base curve.
+
+**Combat multiplier** compounds at 1.35× per positive slider notch (toughLevel + armourLevel), with diminishing returns above 7 (capped at 8×1.15^(pos-7)). Negative slider notches discount at 0.85× each, floored at 0.25×. This makes heavily armoured vehicles appropriately expensive without producing astronomical values at extreme slider positions.
+
+Mod and weapon costs are added before the combat multiplier is applied.
+
+Accuracy: 76% within 3× of Pinnacle prices for modern vehicles, 92% within 5×. The remaining mismatches are WW2 and historical vehicles priced in different monetary eras. Space progression: $50K (escape pod) → $12M (frigate) → $1.3B (battlecruiser) → $15B (dreadnought).
 
 ### Design Decision: Sliders vs Slot-Buying
 
