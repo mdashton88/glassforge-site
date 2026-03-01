@@ -123,16 +123,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .sb:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 6px var(--accent-glow)}
 .sb:active{transform:scale(0.9);background:var(--accent-glow)}
 .sb:hover{border-color:var(--accent);color:var(--accent)}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.stat-box{background:var(--bg-deep);border:1px solid var(--border);padding:8px 10px;text-align:center;box-shadow:inset 0 0 12px rgba(0,0,0,0.4);transition:border-color .3s,box-shadow .3s}
-.stat-box .stat-label{font-size:13px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase;font-family:'Cinzel',serif}
-.stat-box .stat-value{font-size:18px;font-weight:700;color:var(--text-bright);margin-top:1px}
-.mods-remaining{background:var(--bg-deep);border:1px solid var(--border);padding:12px;text-align:center;margin-top:8px}
-.mods-remaining .big-num{font-size:28px;font-weight:700;font-family:'Cinzel',serif}
-.big-num.ok{color:var(--green)}.big-num.low{color:var(--orange)}.big-num.over{color:var(--red-bright)}
-.cost-display{background:var(--bg-deep);border:1px solid var(--border);padding:10px;text-align:center;margin-top:6px}
-.cost-val{font-size:20px;font-weight:700;color:var(--accent);font-family:'Cinzel',serif}
-.cost-label{font-size:13px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+
 .tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg-dark);overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{padding:10px 14px;font-size:13px;letter-spacing:0.5px;text-transform:uppercase;font-family:'Cinzel',serif;color:var(--text-dim);cursor:pointer;transition:all .2s;border-bottom:2px solid transparent;white-space:nowrap}
@@ -165,7 +156,6 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .drop-bay.drag-over{border-color:var(--accent);background:var(--accent-glow)}
 .drop-bay.impact{animation:bay-flash .3s ease}
 @keyframes bay-flash{0%{border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow)}100%{border-color:var(--border);box-shadow:none}}
-@keyframes stat-flash{0%{text-shadow:0 0 12px var(--accent)}100%{text-shadow:none}}
 @keyframes indicator-pulse{0%,100%{box-shadow:0 0 4px rgba(106,170,106,0.4)}50%{box-shadow:0 0 8px rgba(106,170,106,0.7)}}
 .empty-bay{text-align:center;color:var(--text-dim);font-style:italic;padding:40px 20px;font-size:15px;border:1px dashed var(--border)}
 .bay-item,.weapon-bay-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg-card);border:1px solid var(--accent-dim);margin:3px 0;box-shadow:inset 0 0 10px rgba(0,0,0,0.3);transition:all .2s}
@@ -587,12 +577,6 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <button class="header-btn" onclick="exportFGXML()" style="font-size:12px;padding:4px 8px;flex:1">FG XML</button>
         <button class="header-btn" onclick="printStatBlock()" style="font-size:12px;padding:4px 8px;flex:1">Print</button>
       </div>
-    </div>
-    <div class="display-section" id="ctx-stats">
-      <h3>Live Statistics</h3>
-      <div id="statsGrid" class="stats-grid"></div>
-      <div id="modsRemaining" class="mods-remaining"></div>
-      <div id="costDisplay" class="cost-display"></div>
     </div>
   </div>
 </div>
@@ -1192,13 +1176,13 @@ function onEnd(e){document.removeEventListener('mousemove',onMove);document.remo
 function dropMod(id){var m=findMod(id);var max=m.max==='U'?99:m.max;var cur=S.mods[id]||0;
   if(id==='exposed'&&S.mods.sealed)return;if(id==='sealed'&&S.mods.exposed)return;
   if(id==='fwd'&&S.loco!=='wheeled')return;if(id==='road_vehicle'&&S.loco!=='wheeled')return;if(id==='jump_jets'&&!isWalker())return;if(id==='tandem_pilots'&&!isWalker())return;
-  if(cur<max){pushUndo();S.mods[id]=cur+1;Audio.clunk();renderModBay(id);renderStats();renderOutput()}}
+  if(cur<max){pushUndo();S.mods[id]=cur+1;Audio.clunk();renderModBay(id);renderOutput()}}
 function dropWeapon(id){var w=getAllWeapons().find(function(x){return x.id===id});if(!w||w.minSize>S.size)return;
-  pushUndo();S.weapons.push({weaponId:id,mount:'pintle',linked:0});Audio.clunk();renderWeaponBay(id);renderStats();renderOutput()}
+  pushUndo();S.weapons.push({weaponId:id,mount:'pintle',linked:0});Audio.clunk();renderWeaponBay(id);renderOutput()}
 // ═══ RENDER FUNCTIONS ═══
 function renderLocoGrid(){var el=document.getElementById('locoGrid');if(!el)return;
   el.innerHTML=LOCOS.map(function(l){return '<div class="loco-btn'+(S.loco===l.id?' active':'')+'" onclick="setLoco(\''+l.id+'\')">'+l.name+'</div>'}).join('')}
-function setLoco(id){S.loco=id;Audio.click();renderLocoGrid();renderSliders();renderStats();renderOutput();renderModCatalogue()}
+function setLoco(id){S.loco=id;Audio.click();renderLocoGrid();renderSliders();renderOutput();renderModCatalogue()}
 var TOUGH_LABELS={'-5':'Fragile','-4':'Flimsy','-3':'Lightweight','-2':'Light','-1':'Slightly Light','0':'Standard','1':'Sturdy','2':'Robust','3':'Very Tough','4':'Extremely Tough','5':'Ironclad'};
 var TOUGH_DESC={'-5':'Extremely fragile construction for this class.','-4':'Very flimsy. Will not survive serious impacts.','-3':'Lightweight construction. Sacrifices durability for speed.','-2':'Lighter than average for this size class.','-1':'Slightly below standard structural strength.','0':'Standard structural strength for this size class.','1':'Sturdier than typical. Reinforced frame or heavier materials.','2':'Robust construction. Built to take punishment.','3':'Very tough. Significantly over-engineered for its class.','4':'Extremely tough. Among the most solid of this size.','5':'Ironclad. Maximum structural integrity for this class.'};
 var ARMOUR_LABELS={'-5':'Unprotected','-4':'Minimal','-3':'Light','-2':'Below Average','-1':'Modest','0':'Standard','1':'Reinforced','2':'Heavy','3':'Superior','4':'Extreme','5':'Maximum'};
@@ -1211,8 +1195,8 @@ function toughLabel(v){if(v<-5)return'Fragile '+(v+5);if(v>5)return'Ironclad +'+
 function armourLabel(v){if(v<-5)return'Unprotected '+(v+5);if(v>5)return'Maximum +'+(v-5);return ARMOUR_LABELS[v]||'Standard'}
 function toughDesc(v){var k=Math.max(-5,Math.min(5,v));return TOUGH_DESC[k]||''}
 function armourDesc(v){var k=Math.max(-5,Math.min(5,v));return ARMOUR_DESC[k]||''}
-function setToughLevel(v){pushUndo();S.toughLevel=v;Audio.click();renderSliders();renderStats();renderOutput()}
-function setArmourLevel(v){pushUndo();S.armourLevel=v;Audio.click();renderSliders();renderStats();renderOutput()}
+function setToughLevel(v){pushUndo();S.toughLevel=v;Audio.click();renderSliders();renderOutput()}
+function setArmourLevel(v){pushUndo();S.armourLevel=v;Audio.click();renderSliders();renderOutput()}
 function adjTough(d){setToughLevel(S.toughLevel+d)}
 function adjArmour(d){setArmourLevel(S.armourLevel+d)}
 var SPEED_LABELS={'-5':'Crawling','-4':'Very Slow','-3':'Slow','-2':'Below Average','-1':'Slightly Slow','0':'Standard','1':'Quick','2':'Fast','3':'Very Fast','4':'Blazing','5':'Maximum'};
@@ -1221,12 +1205,12 @@ var WOUNDS_LABELS={'-3':'Fragile','-2':'Brittle','-1':'Delicate','0':'Standard',
 function speedLabel(v){if(v<-5)return'Crawling '+(v+5);if(v>5)return'Maximum +'+(v-5);return SPEED_LABELS[v]||'Standard'}
 function handlingLabel(v){if(v<-5)return'Unwieldy '+(v+5);if(v>5)return'Razor-Sharp +'+(v-5);return HANDLING_LABELS[v]||'Standard'}
 function woundsLabel(v){if(v<-3)return'Fragile '+(v+3);if(v>2)return'Rugged +'+(v-2);return WOUNDS_LABELS[v]||'Standard'}
-function setSpeedLevel(v){pushUndo();S.speedLevel=v;Audio.click();renderSliders();renderStats();renderOutput()}
-function setHandlingLevel(v){pushUndo();S.handlingLevel=v;Audio.click();renderSliders();renderStats();renderOutput()}
-function setWoundsLevel(v){pushUndo();S.woundsLevel=v;Audio.click();renderSliders();renderStats();renderOutput()}
-function setCrewLevel(v){pushUndo();S.crewLevel=Math.max(-5,Math.min(10,v));Audio.click();renderSliders();renderStats();renderOutput()}
-function setPax(v){pushUndo();S.passengers=Math.max(0,Math.min(200,v));Audio.click();renderSliders();renderStats();renderOutput()}
-function setMphOverride(v){pushUndo();S.mphOverride=Math.max(0,v);Audio.click();renderSliders();renderStats();renderOutput()}
+function setSpeedLevel(v){pushUndo();S.speedLevel=v;Audio.click();renderSliders();renderOutput()}
+function setHandlingLevel(v){pushUndo();S.handlingLevel=v;Audio.click();renderSliders();renderOutput()}
+function setWoundsLevel(v){pushUndo();S.woundsLevel=v;Audio.click();renderSliders();renderOutput()}
+function setCrewLevel(v){pushUndo();S.crewLevel=Math.max(-5,Math.min(10,v));Audio.click();renderSliders();renderOutput()}
+function setPax(v){pushUndo();S.passengers=Math.max(0,Math.min(200,v));Audio.click();renderSliders();renderOutput()}
+function setMphOverride(v){pushUndo();S.mphOverride=Math.max(0,v);Audio.click();renderSliders();renderOutput()}
 function adjSpeed(d){setSpeedLevel(S.speedLevel+d)}
 function adjHandling(d){setHandlingLevel(S.handlingLevel+d)}
 function adjWounds(d){setWoundsLevel(S.woundsLevel+d)}
@@ -1241,7 +1225,7 @@ function renderSliders(){var ts=document.getElementById('toughSlider');if(!ts)re
   var ps=document.getElementById('paxSlider');if(ps){ps.value=S.passengers;document.getElementById('paxVal').textContent=S.passengers}
   var mi=document.getElementById('mphInput');if(mi){mi.value=S.mphOverride;document.getElementById('mphNote').textContent=S.mphOverride>0?S.mphOverride+' MPH':'0 = auto ('+calcMPH()+' MPH)'}}
 function adjSize(d){var v=Math.max(1,Math.min(30,S.size+d));setSize(v)}
-function setSize(sz){pushUndo();Audio.click();sz=Math.max(1,Math.min(30,sz));S.size=sz;document.getElementById('sizeVal').textContent=sz;document.getElementById('sizeClass').textContent=getFrame(sz).cat;document.getElementById('sizeSlider').value=sz;renderFrameInfo();renderLocoGrid();renderSliders();renderModCatalogue();renderModBay();renderWeaponCatalogue();renderWeaponBay();renderSpecials();renderStats();renderOutput()}
+function setSize(sz){pushUndo();Audio.click();sz=Math.max(1,Math.min(30,sz));S.size=sz;document.getElementById('sizeVal').textContent=sz;document.getElementById('sizeClass').textContent=getFrame(sz).cat;document.getElementById('sizeSlider').value=sz;renderFrameInfo();renderLocoGrid();renderSliders();renderModCatalogue();renderModBay();renderWeaponCatalogue();renderWeaponBay();renderSpecials();renderOutput()}
 function renderFrameInfo(){var fi=document.getElementById('frameInfo');if(!fi)return;var f=getFrame(S.size);var ref=SIZE_REF[S.size]||{len:'?',ex:'—',wt:'?'};
   document.getElementById('sizeVal').textContent=S.size;document.getElementById('sizeClass').textContent=f.cat;
   document.getElementById('frameInfo').innerHTML='<div style="font-size:14px;color:var(--text-dim);font-style:italic;line-height:1.4">~'+ref.len+' long, ~'+ref.wt+' — <span style="color:var(--text)">'+ref.ex+'</span></div>'}
@@ -1282,8 +1266,8 @@ function renderModBay(animId){var bay=document.getElementById('modBay');if(!bay)
       +'<div class="bi-controls"><button onclick="modDec(\''+id+'\')">&minus;</button><span class="bi-count">'+ct+'</span><button onclick="modInc(\''+id+'\')">+</button></div>'
       +'<span class="bi-remove" onclick="modRemoveAll(\''+id+'\')">&times;</span></div>'}).join('')}
 function modInc(id){dropMod(id);Audio.click()}
-function modDec(id){if(S.mods[id]>0){pushUndo();S.mods[id]--;if(!S.mods[id])delete S.mods[id];Audio.click();renderModBay();renderStats();renderOutput()}}
-function modRemoveAll(id){pushUndo();delete S.mods[id];Audio.remove();renderModBay();renderStats();renderOutput()}
+function modDec(id){if(S.mods[id]>0){pushUndo();S.mods[id]--;if(!S.mods[id])delete S.mods[id];Audio.click();renderModBay();renderOutput()}}
+function modRemoveAll(id){pushUndo();delete S.mods[id];Audio.remove();renderModBay();renderOutput()}
 
 function renderEraFilter(){var el=document.getElementById('eraFilter');if(!el)return;
   el.innerHTML='<div class="mount-tab'+(currentEra==='all'?' active':'')+'" onclick="setEra(\'all\')" style="font-size:12px;padding:4px 10px">All</div>'+
@@ -1337,10 +1321,10 @@ function renderWeaponBay(animId){var bay=document.getElementById('weaponBay');if
       +'</div></div>'
       +'<span class="wbi-remove" onclick="removeWeapon('+i+')">&times;</span></div>'}).join('')}
 function switchMount(m){S.currentMount=m;document.querySelectorAll('.mount-tab').forEach(function(t){t.classList.toggle('active',t.dataset.mount===m)})}
-function removeWeapon(i){pushUndo();S.weapons.splice(i,1);Audio.remove();renderWeaponBay();renderStats();renderOutput()}
-function dupeWeapon(i){pushUndo();var w=S.weapons[i];S.weapons.splice(i+1,0,{weaponId:w.weaponId,mount:w.mount,linked:0});Audio.clunk();renderWeaponBay(w.weaponId);renderStats();renderOutput()}
-function cycleLink(i){pushUndo();var w=S.weapons[i];var lk=w.linked||0;w.linked=lk===0?1:lk===1?3:0;Audio.click();renderWeaponBay();renderStats();renderOutput()}
-function cycleMount(i){pushUndo();var order=['pintle','fixed','turret'];var cur=order.indexOf(S.weapons[i].mount);S.weapons[i].mount=order[(cur+1)%3];Audio.click();renderWeaponBay();renderStats();renderOutput()}
+function removeWeapon(i){pushUndo();S.weapons.splice(i,1);Audio.remove();renderWeaponBay();renderOutput()}
+function dupeWeapon(i){pushUndo();var w=S.weapons[i];S.weapons.splice(i+1,0,{weaponId:w.weaponId,mount:w.mount,linked:0});Audio.clunk();renderWeaponBay(w.weaponId);renderOutput()}
+function cycleLink(i){pushUndo();var w=S.weapons[i];var lk=w.linked||0;w.linked=lk===0?1:lk===1?3:0;Audio.click();renderWeaponBay();renderOutput()}
+function cycleMount(i){pushUndo();var order=['pintle','fixed','turret'];var cur=order.indexOf(S.weapons[i].mount);S.weapons[i].mount=order[(cur+1)%3];Audio.click();renderWeaponBay();renderOutput()}
 function toggleCustomForm(){Audio.click();var el=document.getElementById('customForm');
   if(el.style.display==='none'){el.style.display='block';
     el.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">'
@@ -1367,21 +1351,6 @@ function addCustomWeapon(){Audio.clunk();var n=document.getElementById('cw_name'
   customWeapons.push(w);localStorage.setItem('diceforge-cvf-custom-weapons',JSON.stringify(customWeapons));
   Audio.clunk();document.getElementById('customForm').style.display='none';renderEraFilter();renderWeaponCatalogue()}
 // ═══ STATS & OUTPUT ═══
-function renderStats(){var sg=document.getElementById('statsGrid');if(sg){sg.style.animation='none';sg.offsetHeight;sg.style.animation='stat-flash 0.4s ease-out'}var f=getFrame(S.size),used=calcModsUsed(),gained=calcModsGained(),total=f.modSlots+gained,left=total-used;var spd=calcSpeed();var rspd=calcRoadSpeed();var spdLabel=rspd>spd?'Off-Road':'Top Speed';var spdExtra=rspd>spd?'<div class="stat-box"><div class="stat-label">Road Speed</div><div class="stat-value">'+rspd+' ('+speedMPH(rspd)+' MPH)</div></div>':'';
-  document.getElementById('statsGrid').innerHTML=
-    '<div class="stat-box"><div class="stat-label">Toughness</div><div class="stat-value">'+calcTotalTough()+' ('+calcArmourValue()+')</div></div>'
-    +'<div class="stat-box"><div class="stat-label">Class</div><div class="stat-value" style="color:var(--accent);font-size:20px;font-weight:700">'+vehicleClass()+' <span style="font-size:16px;font-weight:400;color:var(--text-dim)">('+sfcNumeral(calcTotalTough())+')</span></div></div>'
-    +'<div class="stat-box"><div class="stat-label">Wounds</div><div class="stat-value">'+calcWounds()+'</div></div>'
-    +'<div class="stat-box"><div class="stat-label">Handling</div><div class="stat-value">'+(calcHand()>=0?'+':'')+calcHand()+'</div></div>'
-    +'<div class="stat-box"><div class="stat-label">'+spdLabel+'</div><div class="stat-value">'+spd+' ('+calcMPH()+' MPH)</div></div>'
-    +spdExtra
-    +'<div class="stat-box"><div class="stat-label">Crew</div><div class="stat-value">'+crewDisplay()+'</div></div>'
-    +(isWalker()?'<div class="stat-box"><div class="stat-label">Strength</div><div class="stat-value" style="color:var(--accent)">'+walkerStr()+'</div></div>':'')
-    +'<div class="stat-box"><div class="stat-label">Energy</div><div class="stat-value">'+calcEnergy()+' days</div></div>';
-  var cls=left<0?'over':left<=2?'low':'ok';
-  document.getElementById('modsRemaining').innerHTML='<div class="big-num '+cls+'">'+left+'</div><div class="sub">Mods Remaining</div>';
-  document.getElementById('costDisplay').innerHTML='<div class="cost-val">$'+fmtC(calcCost())+'</div><div class="cost-label">Total Cost</div>'}
-
 function renderOutput(){var p=document.getElementById('outputContent');if(!p)return;var f=getFrame(S.size);
   var loco=LOCOS.find(function(l){return l.id===S.loco});var spd=calcSpeed();
   var used=calcModsUsed(),gained=calcModsGained(),left=(f.modSlots+gained)-used;
@@ -2009,7 +1978,7 @@ function previewVehicle(i){
   S._loadedCanon=isCanon(d);S._loadedIdx=i;
   document.getElementById('vName').value=S.name;document.getElementById('vDesc').value=S.desc;document.getElementById('vNotes').value=S.notes;
   document.getElementById('sizeSlider').value=S.size;showImage();
-  renderLocoGrid();renderSliders();renderStats();renderFrameInfo()}
+  renderLocoGrid();renderSliders();renderFrameInfo()}
 
 function loadFromHangar(i){Audio.clunk();previewVehicle(i);switchTab('output');renderAll()}
 function loadVehicle(i){Audio.clunk();previewVehicle(i);switchTab('output');renderAll()}
