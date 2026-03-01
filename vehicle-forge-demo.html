@@ -3,15 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vehicle Forge — Free Savage Worlds Vehicle Builder | DiceForge Studios</title>
+<title>Vehicle Forge Demo — Free Savage Worlds Vehicle Builder | DiceForge Studios</title>
 <meta name="description" content="Free browser-based vehicle construction tool for Savage Worlds. 127 weapons, 47 reference builds, export to Fantasy Grounds, Foundry VTT, and print. No login required.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚒</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;--bg-panel:#201E1A;--border:#2A2520;--border-light:#3A3530;--accent:#C4A44A;--accent-dim:#C4A44A40;--accent-glow:#C4A44A20;--accent-bright:#D4B45A;--text:#E4D8B8;--text-bright:#F5EDD8;--text-dim:#8A8070;--green:#5A9A5A;--red:#8C3030;--red-bright:#B04040;--blue:#4A7A9A;--orange:#B07830;--gold:#C4A44A;--gold-dim:#8A7A3A;--gold-bright:#D4B45A;--text-scale:1}
+:root{--bg:#0A0908;--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;--bg-elevated:#181513;--bg-panel:#201E1A;--border:#2A2520;--border-light:#3A3530;--gold:#C4A44A;--gold-dim:#8A7A3A;--gold-bright:#D4B45A;--gold-glow:#C4A44A30;--accent:#C4A44A;--accent-dim:#C4A44A40;--accent-glow:#C4A44A20;--accent-bright:#D4B45A;--text:#D4C9B8;--text-bright:#EAE0D0;--text-dim:#8A8070;--green:#5A9A5A;--red:#8C3030;--red-bright:#B04040;--blue:#4A7A9A;--orange:#B07830;--text-scale:1}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;background:var(--bg-deep);color:var(--text);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.6}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
 
+/* ── SHARED NAV ── */
 /* ── SHARED NAV (canonical: index.html) ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px}
 .nav-brand{font-family:'Cinzel',serif;font-weight:700;font-size:16px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:10px}
@@ -27,9 +29,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
+/* ── SHARED FOOTER ── */
+
+/* ── THREE-COLUMN APP ── */
 .app{display:flex;height:calc(100vh - 72px);margin-top:72px;overflow:hidden}
-.sidebar{width:33.33%;min-width:280px;background:var(--bg-dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.sidebar{flex:1;min-width:240px;background:var(--bg-dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;scrollbar-width:none;-ms-overflow-style:none}
+.main{flex:2;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.context-panel{flex:1;min-width:240px;background:var(--bg-dark);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;scrollbar-width:none;-ms-overflow-style:none}
+.context-section{padding:12px 16px;border-bottom:1px solid var(--border)}
+.context-section h3{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}
 .header{background:var(--bg-dark);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .header-brand{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;transition:color .2s}
 a.header-brand:hover{color:var(--accent)}
@@ -71,8 +79,9 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .cost-display{background:var(--bg-deep);border:1px solid var(--border);padding:10px;text-align:center;margin-top:6px}
 .cost-val{font-size:20px;font-weight:700;color:var(--accent);font-family:'Cinzel',serif}
 .cost-label{font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
-.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg-dark);overflow-x:auto}
-.tab{padding:10px 18px;font-size:13px;letter-spacing:1px;text-transform:uppercase;font-family:'Cinzel',serif;color:var(--text-dim);cursor:pointer;transition:all .15s;border-bottom:2px solid transparent;white-space:nowrap}
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg-dark);overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 12px;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;font-family:'Cinzel',serif;color:var(--text-dim);cursor:pointer;transition:all .15s;border-bottom:2px solid transparent;white-space:nowrap}
 .tab:hover{color:var(--text)}.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .sidebar-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--bg-dark);flex-shrink:0}
 .sidebar-tab{padding:10px 16px;font-size:12px;letter-spacing:1px;text-transform:uppercase;font-family:'Cinzel',serif;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;flex:1;text-align:center}
@@ -80,9 +89,10 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .sidebar-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .sidebar-panel{display:none;padding:12px 16px}
 .sidebar-panel.active{display:block}
-.panel{display:none;flex:1;overflow-y:auto;padding:16px 20px}.panel.active{display:block}
-.dnd-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;height:100%}
-.dnd-column{overflow-y:auto}
+.panel{display:none;flex:1;overflow-y:auto;padding:16px 20px;scrollbar-width:none;-ms-overflow-style:none}.panel.active{display:block}
+.sidebar::-webkit-scrollbar,.context-panel::-webkit-scrollbar,.panel::-webkit-scrollbar{display:none}
+.dnd-layout{display:flex;flex-direction:column;height:100%}
+.dnd-column{overflow-y:auto;flex:1}
 .dnd-column h3{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}
 .cat-header{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid var(--border);margin-top:8px}
 .drag-item,.weapon-drag-item{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg-deep);border:1px solid var(--border);margin:3px 0;cursor:grab;transition:all .15s;-webkit-user-select:none;user-select:none}
@@ -182,7 +192,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .io-buttons{display:flex;gap:6px;margin-top:8px}
 .io-buttons .header-btn{flex:1;text-align:center;font-size:14px}
 /* Responsive */
-@media(max-width:768px){.nav-title{display:none}.hamburger{display:flex}.nav-links{position:fixed;top:72px;left:0;right:0;background:#0A0908F5;backdrop-filter:blur(16px);flex-direction:column;padding:32px 40px;gap:24px;border-bottom:1px solid var(--border);transform:translateY(-100%);opacity:0;pointer-events:none;transition:all .3s}.nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}.app{flex-direction:column;height:auto}.sidebar{width:100%;min-width:0;max-width:none;max-height:45vh}.main{min-height:50vh}.dnd-layout{grid-template-columns:1fr}}
+@media(max-width:1200px){.context-panel{display:none}}
+@media(max-width:768px){.hamburger{display:flex}.nav-links{position:fixed;top:72px;left:0;right:0;background:#0A0908F5;backdrop-filter:blur(16px);flex-direction:column;padding:32px 40px;gap:24px;border-bottom:1px solid var(--border);transform:translateY(-100%);opacity:0;pointer-events:none;transition:all .3s}.nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}.app{flex-direction:column;height:auto;margin-top:64px}.sidebar{width:100%;min-width:0;max-width:none;max-height:45vh;flex:none}.main{min-height:50vh;flex:1}.dnd-layout{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -190,7 +201,6 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 
 <nav>
   <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
-  </span>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="navLinks">
     <li><a href="/">Home</a></li>
@@ -247,12 +257,6 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
       <div id="frameInfo" style="font-size:12px;color:var(--text-dim);font-style:italic;line-height:1.3;margin-top:6px"></div>
     </div>
     <div class="sidebar-section">
-      <h3>Statistics</h3>
-      <div id="statsGrid" class="stats-grid"></div>
-      <div id="modsRemaining" class="mods-remaining"></div>
-      <div id="costDisplay" class="cost-display"></div>
-    </div>
-    <div class="sidebar-section">
       <h3>Quick Actions</h3>
       <div style="display:flex;gap:4px;margin-bottom:8px">
         <button class="header-btn primary" onclick="saveVehicle()" style="flex:1;text-align:center">Save</button>
@@ -266,24 +270,27 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.16</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge Demo<div style="margin-top:8px;padding:8px 16px;background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid var(--green);font-size:13px;color:var(--green);text-align:center;letter-spacing:0.5px">
+        <strong>DEMO VERSION</strong> — The full Vehicle Forge with 47 reference builds is <strong>free</strong> on <a href="https://www.drivethrurpg.com" target="_blank" style="color:#4fc3f7;text-decoration:underline">DriveThruRPG</a>
+      </div>
     </div>
   </div>
   <div class="main" role="main">
     <div class="tabs" role="tablist" aria-label="Construction panels">
-      <div class="tab active" tabindex="0" role="tab" data-tab="output" onclick="switchTab('output')">Stat Block</div>
-      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="mods" onclick="switchTab('mods')">Modifications</div>
+      <div class="tab active" tabindex="0" role="tab" data-tab="output" onclick="switchTab('output')">Block</div>
+      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="mods" onclick="switchTab('mods')">Mods</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="weapons" onclick="switchTab('weapons')">Weapons</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="specials" onclick="switchTab('specials')">Special</div>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="hangar" onclick="switchTab('hangar')">Hangar</div>
-      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="help" onclick="switchTab('help')">Reference</div>
+      <!-- Packs tab removed in demo version -->
+      <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="help" onclick="switchTab('help')">Ref</div>
       <div style="flex:1"></div>
       <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)" style="border:none;padding:6px 12px;font-size:13px">↩ Undo</button>
       <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)" style="border:none;padding:6px 12px;font-size:13px">↪ Redo</button>
       <div class="tab" tabindex="0" role="tab" aria-selected="false" data-tab="settings" onclick="switchTab('settings')">⚙</div>
     </div>
-    <div class="panel" id="panel-mods"><div class="dnd-layout"><div class="dnd-column"><h3>Modifications Catalogue</h3><input type="text" class="search-bar" id="modSearch" placeholder="Search modifications..." oninput="renderModCatalogue()"><div id="modCatalogue"></div></div><div class="dnd-column"><h3>Installed Modifications</h3><div class="drop-bay" id="modBay"><div class="empty-bay">Drag modifications here to install them</div></div></div></div></div>
-    <div class="panel" id="panel-weapons"><div class="dnd-layout"><div class="dnd-column"><h3>Vehicular Weapons</h3><div id="eraFilter" style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px"></div><input type="text" class="search-bar" id="weaponSearch" placeholder="Search weapons..." oninput="renderWeaponCatalogue()"><div id="weaponCatalogue"></div><div style="margin-top:12px;padding-top:8px;border-top:1px solid var(--border)"><button class="header-btn" onclick="toggleCustomForm()" style="width:100%;text-align:center">+ Add Custom Weapon</button><div id="customForm" style="display:none;margin-top:8px"></div></div></div><div class="dnd-column"><h3>Weapon Hardpoints</h3><div class="drop-bay" id="weaponBay"><div class="empty-bay">Drag weapons here to mount them</div></div></div></div></div>
+    <div class="panel" id="panel-mods"><div class="dnd-layout"><div class="dnd-column"><h3>Modifications Catalogue</h3><input type="text" class="search-bar" id="modSearch" placeholder="Search modifications..." oninput="renderModCatalogue()"><div id="modCatalogue"></div></div></div></div>
+    <div class="panel" id="panel-weapons"><div class="dnd-layout"><div class="dnd-column"><h3>Vehicular Weapons</h3><div id="eraFilter" style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px"></div><input type="text" class="search-bar" id="weaponSearch" placeholder="Search weapons..." oninput="renderWeaponCatalogue()"><div id="weaponCatalogue"></div><div style="margin-top:12px;padding-top:8px;border-top:1px solid var(--border)"><button class="header-btn" onclick="toggleCustomForm()" style="width:100%;text-align:center">+ Add Custom Weapon</button><div id="customForm" style="display:none;margin-top:8px"></div></div></div></div></div>
     <div class="panel" id="panel-specials">
       <div style="max-width:800px">
         <p style="font-size:15px;color:var(--text-dim);line-height:1.5;margin-bottom:12px">Special Abilities are narrative traits that define what a vehicle <em>is</em>, not what was engineered into it. They cost no mod slots and don't affect construction math. A DUKW is Amphibious because that's what a DUKW is. Toggle abilities on or off, and add custom abilities for anything the library doesn't cover.</p>
@@ -313,6 +320,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <div class="hangar-grid" id="savedList" tabindex="0"></div>
       </div>
     </div>
+    <div class="panel" id="panel-extensions"><div id="extensionsContent" style="max-width:700px"></div></div>
     <div class="panel" id="panel-help"><div style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="search-bar help-search" id="helpSearch" placeholder="Search reference guide..." oninput="filterHelp()" style="flex:1;margin:0"><button class="btn" onclick="popOutHelp()" title="Open in new window" style="white-space:nowrap;padding:6px 14px">⧉ Pop Out</button></div><div id="helpContent"></div></div>
     <div class="panel" id="panel-settings">
       <div style="max-width:600px">
@@ -340,7 +348,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
           <div style="margin-top:12px;padding:12px;background:var(--bg-deep);border:1px solid var(--border)">
             <div style="font-size:14px;color:var(--text-dim)">Saved vehicles: <strong id="settingSavedCount" style="color:var(--text-bright)">0</strong></div>
-            <div style="font-size:14px;color:var(--text-dim)">Extensions installed: <strong id="settingExtCount" style="color:var(--text-bright)">0</strong></div>
+            <div style="font-size:14px;color:var(--text-dim)">Vehicle Packs installed: <strong id="settingExtCount" style="color:var(--text-bright)">0</strong></div>
             <div style="font-size:14px;color:var(--text-dim)">Storage used: <strong id="settingStorageSize" style="color:var(--text-bright)">—</strong></div>
           </div>
         </div>
@@ -352,13 +360,76 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.16 — DiceForge Studios Ltd<br>
+          Vehicle Forge Demo — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
     </div>
   </div>
+  <div class="context-panel" id="contextPanel">
+    <div class="context-section" id="ctx-stats">
+      <h3>Live Statistics</h3>
+      <div id="statsGrid" class="stats-grid"></div>
+      <div id="modsRemaining" class="mods-remaining"></div>
+      <div id="costDisplay" class="cost-display"></div>
+    </div>
+    <div class="context-section" id="ctx-mods" style="display:none">
+      <h3>Installed Modifications</h3>
+      <div class="drop-bay" id="modBay"><div class="empty-bay">Click modifications to install them</div></div>
+    </div>
+    <div class="context-section" id="ctx-weapons" style="display:none">
+      <h3>Weapon Hardpoints</h3>
+      <div class="drop-bay" id="weaponBay"><div class="empty-bay">Click weapons to mount them</div></div>
+    </div>
+    <div class="context-section" id="ctx-specials" style="display:none">
+      <h3>Active Special Abilities</h3>
+      <div id="activeSpecials"></div>
+    </div>
+    <div class="context-section" id="ctx-export" style="display:none">
+      <h3>Export</h3>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="header-btn" onclick="exportJSON()">Export .json</button>
+        <button class="header-btn" onclick="exportStatBlock()" title="Pinnacle-format stat block">Stat Block (.txt)</button>
+        <button class="header-btn" onclick="exportFGXML()" title="Fantasy Grounds XML">FG XML</button>
+        <button class="header-btn" onclick="batchExport()" title="Export all saved vehicles">Batch Export</button>
+      </div>
+    </div>
+  </div>
 </div>
+<script>
+// Minimal ZIP creator for FG .mod export (no external dependencies)
+var miniZip={create:function(files){
+  var entries=Object.keys(files).map(function(name){return{name:name,data:files[name]}});
+  var offset=0,centralDir=[],localHeaders=[];
+  entries.forEach(function(e){
+    var nameBytes=new TextEncoder().encode(e.name);
+    var header=new Uint8Array(30+nameBytes.length);
+    var view=new DataView(header.buffer);
+    view.setUint32(0,0x04034b50,true);view.setUint16(4,20,true);
+    view.setUint16(8,0,true);view.setUint16(10,0,true);
+    view.setUint32(18,e.data.length,true);view.setUint32(22,e.data.length,true);
+    view.setUint16(26,nameBytes.length,true);
+    header.set(nameBytes,30);
+    var cdr=new Uint8Array(46+nameBytes.length);
+    var cv=new DataView(cdr.buffer);
+    cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);
+    cv.setUint16(10,0,true);cv.setUint16(12,0,true);
+    cv.setUint32(20,e.data.length,true);cv.setUint32(24,e.data.length,true);
+    cv.setUint16(28,nameBytes.length,true);cv.setUint32(42,offset,true);
+    cdr.set(nameBytes,46);
+    localHeaders.push(header);centralDir.push(cdr);
+    offset+=header.length+e.data.length});
+  var cdSize=centralDir.reduce(function(a,b){return a+b.length},0);
+  var eocd=new Uint8Array(22);var ev=new DataView(eocd.buffer);
+  ev.setUint32(0,0x06054b50,true);ev.setUint16(8,entries.length,true);
+  ev.setUint16(10,entries.length,true);ev.setUint32(12,cdSize,true);ev.setUint32(16,offset,true);
+  var parts=[];entries.forEach(function(e,i){parts.push(localHeaders[i]);parts.push(e.data)});
+  centralDir.forEach(function(c){parts.push(c)});parts.push(eocd);
+  var total=parts.reduce(function(a,b){return a+b.length},0);
+  var out=new Uint8Array(total);var pos=0;
+  parts.forEach(function(p){out.set(p,pos);pos+=p.length});
+  return out}};
+</script>
 <script>
 function toggleMenu(){document.getElementById('navLinks').classList.toggle('open');document.querySelector('.hamburger').classList.toggle('open')}
 // ═══ AUDIO ENGINE ═══
@@ -667,21 +738,24 @@ var SPECIALS=[
   {id:'prototype',name:'Prototype',cat:'Quirks',desc:'One of a kind or experimental. Spare parts unavailable. Repair at –2 but the vehicle has capabilities nothing else does.'},
 ];
 
-var extensions=[];var extMods=[];var extWeapons=[];var extSpecials=[];
+var extensions=[];var extMods=[];var extWeapons=[];var extSpecials=[];var disabledPacks=[];
 try{var ext=localStorage.getItem('diceforge-cvf-extensions');if(ext)extensions=JSON.parse(ext)}catch(e){}
+try{var dp=localStorage.getItem('diceforge-cvf-disabled');if(dp)disabledPacks=JSON.parse(dp)}catch(e){}
 function saveExtensions(){localStorage.setItem('diceforge-cvf-extensions',JSON.stringify(extensions))}
+function saveDisabledPacks(){localStorage.setItem('diceforge-cvf-disabled',JSON.stringify(disabledPacks))}
+function isPackEnabled(id){return disabledPacks.indexOf(id)===-1}
+function togglePack(id){var i=disabledPacks.indexOf(id);if(i===-1)disabledPacks.push(id);else disabledPacks.splice(i,1);saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function installExtension(data,silent){
   if(!data||!data.id||!data.name){if(!silent)alert('Invalid .vfx file.');return}
   extensions=extensions.filter(function(e){return e.id!==data.id});
   extensions.push(data);saveExtensions();rebuildExtensionData();
-  var msg=data.name+' installed successfully!';
+  var added=0;
   if(data.vehicles&&data.vehicles.length){
-    var added=0;data.vehicles.forEach(function(v){
-      var exists=S.saved.some(function(s){return s.name===v.name&&s.size===v.size&&s.loco===v.loco});
-      if(!exists){S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:data.id});added++}});
-    if(added){localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));msg+='\n'+added+' vehicles added to your library.'}
-    else{msg+='\nVehicles already in library (skipped duplicates).'}}
-  if(!silent){renderAll();alert(msg)}}
+    S.saved=S.saved.filter(function(s){return s._pack!==data.id});
+    data.vehicles.forEach(function(v){
+      S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:data.id});added++});
+    if(added)localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))}
+  if(!silent){renderAll();alert(data.name+' installed! '+(added?added+' vehicles added.':'Vehicles already in library.'))}}
 function removeExtension(id){Audio.remove();
   S.saved=S.saved.filter(function(v){return v._pack!==id});
   localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));
@@ -689,63 +763,78 @@ function removeExtension(id){Audio.remove();
 function rebuildExtensionData(){
   extMods=[];extWeapons=[];extSpecials=[];
   extensions.forEach(function(ext){
+    if(!isPackEnabled(ext.id))return;
     if(ext.mods)ext.mods.forEach(function(m){m._ext=ext.id;m._extName=ext.name;extMods.push(m)});
     if(ext.weapons)ext.weapons.forEach(function(w){w._ext=ext.id;w._extName=ext.name;extWeapons.push(w)});
     if(ext.specials)ext.specials.forEach(function(s){s._ext=ext.id;s._extName=ext.name;extSpecials.push(s)})})}
 rebuildExtensionData();
-(function autoInstallAll(){
-  var installed=extensions.map(function(e){return e.id});
-  fetch('packs/manifest.json')
-    .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
-    .then(function(manifest){
-      var missing=manifest.filter(function(p){return installed.indexOf(p.id)===-1});
-      if(!missing.length){console.log('All '+manifest.length+' packs already installed');return}
-      console.log('Auto-installing '+missing.length+' packs...');
-      var chain=Promise.resolve();
-      missing.forEach(function(p){
-        chain=chain.then(function(){
-          return fetch(p.path).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
-            .then(function(data){installExtension(data,true)})
-            .catch(function(err){console.warn('Failed to install '+p.name+':',err)})
-        })
-      });
-      chain.then(function(){rebuildExtensionData();renderAll();saveState();console.log('Auto-install complete: '+missing.length+' packs installed')})
-    })
-    .catch(function(err){console.warn('Could not load pack manifest:',err);
-      if(!extensions.find(function(e){return e.id==='core'})){
-        fetch('packs/00_Core_Tool/Vehicle_Forge_Core_Reference_Builds.vfx')
-          .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
-          .then(function(data){installExtension(data);console.log('Core Reference Builds auto-installed')})
-          .catch(function(err2){console.warn('Could not auto-install core:',err2)})}
-    })
+(function autoInstallCore(){
+  /* Core vehicles now ship as 4 packs in the manifest (core-roads-wheels, core-armour-iron,
+     core-wings-rotors, core-hulls-harbours). They auto-install via autoInstallAllPacks below.
+     This function retained as fallback for legacy localStorage with old 'core' pack ID. */
+  var hasOldCore=extensions.find(function(e){return e.id==='core'});
+  if(hasOldCore){
+    extensions=extensions.filter(function(e){return e.id!=='core'});
+    try{var sv=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]');
+      sv=sv.filter(function(v){return v._pack!=='core'});
+      localStorage.setItem('diceforge-cvf',JSON.stringify(sv))}catch(e){}
+    saveExtensions();console.log('Migrated: removed legacy core pack, new core packs will auto-install')
+  }
 })();
-function importVFX(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){
-  try{var data=JSON.parse(ev.target.result);installExtension(data)}catch(err){alert('Error reading .vfx file: '+err.message)}};reader.readAsText(file);e.target.value=''}
-function showExtensionManager(){
-  var html='<h2 style="margin-bottom:12px">Extension Manager</h2>';
-
-function showHangar(){switchTab('hangar')}
-  html+='<p style="color:var(--text-dim);margin-bottom:16px;font-size:15px">Install .vfx files to add new weapons, modifications, specials, and vehicles.</p>';
-  html+='<div style="margin-bottom:20px"><input type="file" id="vfxImport" accept=".vfx,.json" onchange="importVFX(event)" style="display:none"><button class="header-btn primary" onclick="document.getElementById(\'vfxImport\').click()" style="width:100%;text-align:center;padding:10px">Install .vfx Extension</button></div>';
-  if(extensions.length===0){html+='<p style="color:var(--text-dim);text-align:center;padding:20px;border:1px dashed var(--border)">No extensions installed.</p>'}
+(function autoInstallDemo(){
+  /* Demo version: load only the 3 demo vehicles */
+  var hasDemoVehicles=false;
+  try{var sv=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]');hasDemoVehicles=sv.some(function(s){return s._pack==='core-demo'})}catch(e){}
+  if(hasDemoVehicles){console.log('Demo vehicles already loaded');return}
+  fetch('packs/00_Core_Tool/Vehicle_Forge_Demo_Builds.vfx')
+    .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+    .then(function(data){installExtension(data,true);renderAll();console.log('Demo: 3 sample vehicles loaded')})
+    .catch(function(err){console.warn('Could not load demo vehicles:',err)})
+})();
+function importVFX(e){alert('Vehicle packs are available in the full Vehicle Forge — free on DriveThruRPG.');e.target.value=''}
+function showExtensionManager(){switchTab('extensions')}
+function renderExtensions(){
+  var el=document.getElementById('extensionsContent');if(!el)return;
+  var html='<h2 style="margin-bottom:12px">Vehicle Packs</h2>';
+  html+='<p style="color:var(--text-dim);margin-bottom:12px;font-size:15px">Toggle vehicle packs on or off. Disabled packs hide their vehicles, weapons, mods, and specials.</p>';
+  var en=extensions.filter(function(e){return isPackEnabled(e.id)}).length;
+  var totalV=0;extensions.forEach(function(e){if(isPackEnabled(e.id)&&e.vehicles)totalV+=e.vehicles.length});
+  html+='<div style="display:flex;gap:6px;margin-bottom:12px">';
+  html+='<button class="header-btn" onclick="enableAllPacks()" style="flex:1;text-align:center">Enable All ('+extensions.length+')</button>';
+  html+='<button class="header-btn" onclick="coreOnlyPacks()" style="flex:1;text-align:center">Core Only</button>';
+  html+='<button class="header-btn" onclick="disableAllPacks()" style="flex:1;text-align:center">Disable All</button>';
+  html+='</div>';
+  html+='<div style="margin-bottom:16px;font-size:13px;color:var(--text-dim)">'+en+' of '+extensions.length+' packs enabled \u2014 '+totalV+' vehicles active</div>';
+  html+='<div style="margin-bottom:16px"><input type="file" id="vfxImport" accept=".vfx,.json" onchange="importVFX(event)" style="display:none"><button class="header-btn primary" onclick="document.getElementById(\'vfxImport\').click()" style="width:100%;text-align:center;padding:10px">Install Vehicle Pack (.vfx)</button></div>';
+  if(extensions.length===0){html+='<p style="color:var(--text-dim);text-align:center;padding:20px;border:1px dashed var(--border)">No vehicle packs installed.</p>'}
   else{extensions.forEach(function(ext){
+    var on=isPackEnabled(ext.id);
     var counts=[];
     if(ext.mods&&ext.mods.length)counts.push(ext.mods.length+' mods');
     if(ext.weapons&&ext.weapons.length)counts.push(ext.weapons.length+' weapons');
     if(ext.specials&&ext.specials.length)counts.push(ext.specials.length+' specials');
-    if(ext.vehicles&&ext.vehicles.length)counts.push(ext.vehicles.length+' vehicles');
-    html+='<div style="background:var(--bg-deep);border:1px solid var(--border);padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">';
-    html+='<div><strong style="color:var(--text-bright)">'+ext.name+'</strong>';
+    var vc=ext.vehicles?ext.vehicles.length:0;if(vc)counts.push(vc+' vehicles');
+    html+='<div style="background:var(--bg-deep);border:1px solid '+(on?'var(--border)':'var(--red)')+';padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;opacity:'+(on?'1':'0.5')+'">';
+    html+='<div style="flex:1;min-width:0"><strong style="color:'+(on?'var(--text-bright)':'var(--text-dim)')+'">'+ext.name+'</strong>';
     if(ext.version)html+=' <span style="color:var(--text-dim);font-size:13px">v'+ext.version+'</span>';
     html+='<div style="font-size:13px;color:var(--text-dim);margin-top:2px">'+counts.join(', ')+'</div></div>';
-    html+='<button class="header-btn" onclick="if(confirm(\'Remove '+ext.name+'?\')){removeExtension(\''+ext.id+'\');showExtensionManager()}" style="font-size:13px">Remove</button>';
-    html+='</div>'})}
-  var overlay=document.createElement('div');overlay.id='extOverlay';
-  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:flex;justify-content:center;align-items:center';
-  var box=document.createElement('div');box.style.cssText='background:var(--bg-panel);border:1px solid var(--border);padding:24px;max-width:600px;width:90%;max-height:80vh;overflow-y:auto';
-  box.innerHTML=html+'<button class="header-btn" onclick="document.getElementById(\'extOverlay\').remove()" style="width:100%;text-align:center;margin-top:16px">Close</button>';
-  overlay.appendChild(box);overlay.onclick=function(e){if(e.target===overlay)overlay.remove()};
-  document.body.appendChild(overlay)}
+    html+='<div style="display:flex;gap:6px;align-items:center;flex-shrink:0">';
+    html+='<button class="header-btn" onclick="togglePack(\''+ext.id+'\')" style="font-size:13px;min-width:50px;border-color:'+(on?'var(--green)':'var(--red)')+';color:'+(on?'var(--green)':'var(--red)')+'">'+(on?'ON':'OFF')+'</button>';
+    html+='</div></div>'})}
+  html+='<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border)">';
+  html+='<h3 style="font-family:Cinzel,serif;font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:12px">Export Library</h3>';
+  html+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  html+='<button class="header-btn" onclick="exportFGModule()" style="border-color:var(--green);color:var(--green)">FG Module (.mod)</button>';
+  html+='<button class="header-btn" onclick="exportFGXML()">FG XML</button>';
+  html+='<button class="header-btn" onclick="batchExport()">Batch Export (.json)</button>';
+  html+='<button class="header-btn" onclick="exportStatBlock()">Stat Blocks (.txt)</button>';
+  html+='</div>';
+  html+='<p style="color:var(--text-dim);font-size:13px;margin-top:8px">Exports all '+totalV+' vehicles from enabled packs.</p>';
+  html+='</div>';
+  el.innerHTML=html}
+function enableAllPacks(){disabledPacks=[];saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
+function coreOnlyPacks(){disabledPacks=extensions.filter(function(e){return e.id.indexOf('core-')!==0}).map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
+function disableAllPacks(){disabledPacks=extensions.map(function(e){return e.id});saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function getAllMods(){return MODS.concat(extMods)}
 function getAllSpecials(){return SPECIALS.concat(extSpecials)}
 
@@ -773,7 +862,7 @@ function calcHand(){var f=getFrame(S.size);return f.hand+S.handlingLevel}
 function calcSpeed(){var loco=LOCOS.find(function(l){return l.id===S.loco});return Math.max(1,(loco?loco.speed:4)+S.speedLevel)}
 function calcHandFor(v){var f=getFrame(v.size);return f.hand+(v.handlingLevel||0)}
 function calcSpeedFor(v){var loco=LOCOS.find(function(l){return l.id===v.loco});return Math.max(1,(loco?loco.speed:4)+(v.speedLevel||0))}
-function calcArmourFor(v){var sz=v.size,al=v.armourLevel||0,l=LOCOS.find(function(x){return x.id===v.loco}),g=l?l.group:'ground';if(g==='ground'||g==='walker'){var base=sz<=-1?1:2,step=sz<=2?1:sz<=5?2:sz<=7?3:sz<=9?4:sz<=11?5:6;return Math.max(0,base+al*step)}if(g==='water'){var w={'0':1,'2':2,'4':4,'6':4,'7':4,'8':5,'11':5,'12':6,'15':7,'16':8,'17':18,'18':20,'19':28,'20':36,'21':38,'22':40,'23':42,'24':44,'25':46};var wb=w[sz]||Math.max(2,sz);var ws=sz<=11?Math.max(1,Math.round(sz/3)):4;return Math.max(0,wb+al*ws)}if(g==='air'){var a={'-2':1,'-1':1,'0':1,'1':1,'2':2,'3':2,'4':3,'5':4,'6':6,'7':8,'8':10,'9':12,'10':14};var ab=a[sz]||Math.max(1,sz);var as=Math.max(1,Math.round(sz/4)+1);return Math.max(0,ab+al*as)}var db=Math.max(2,sz*2),ds=Math.max(1,Math.round(sz/3));return Math.max(0,db+al*ds)}
+function calcArmourFor(v){var f=getFrame(v.size);var base=f.cat==='Normal'?2:f.cat==='Large'?4:f.cat==='Huge'?6:8;var step=f.cat==='Normal'?1:f.cat==='Large'?2:f.cat==='Huge'?3:4;return Math.max(0,base+(v.armourLevel||0)*step)}
 function calcToughFor(v){var f=getFrame(v.size);var base=f.baseTough;var step=f.cat==='Normal'?2:f.cat==='Large'?3:f.cat==='Huge'?4:5;return base+(v.toughLevel||0)*step}
 function calcTotalToughFor(v){return calcToughFor(v)+calcArmourFor(v)}
 function calcWoundsFor(v){var f=getFrame(v.size);return Math.max(1,f.wounds+(v.woundsLevel||0))}
@@ -896,8 +985,8 @@ var ARMOUR_LABELS={'-5':'Unprotected','-4':'Minimal','-3':'Light','-2':'Below Av
 var ARMOUR_DESC={'-5':'Virtually no protection. Civilian bodywork, canvas, or thin hull.','-4':'Negligible protection. Light commercial construction.','-3':'Light protection. Hardened or lightly armoured.','-2':'Below average for a combat vehicle. Scout or recon class.','-1':'Modest protection. Light military or up-armoured civilian.','0':'Standard military protection for this size class.','1':'Better protected than typical military vehicles.','2':'Heavy protection. Elite or next-generation military.','3':'Superior protection. Cutting-edge or experimental.','4':'Extreme protection. Among the toughest of this size class.','5':'Maximum protection. Pushing the limits of known engineering.'};
 function locoGroup(){var l=LOCOS.find(function(x){return x.id===S.loco});return l?l.group:'ground'}
 function toughStep(){return Math.max(1,Math.round(S.size/4)+1)}
-function armourBase(){var g=locoGroup(),sz=S.size;if(g==='ground'||g==='walker'){return sz<=-1?1:2}if(g==='water'){var w={'0':1,'2':2,'4':4,'6':4,'7':4,'8':5,'11':5,'12':6,'15':7,'16':8,'17':18,'18':20,'19':28,'20':36,'21':38,'22':40,'23':42,'24':44,'25':46};return w[sz]||Math.max(2,sz)}if(g==='air'){var a={'-2':1,'-1':1,'0':1,'1':1,'2':2,'3':2,'4':3,'5':4,'6':6,'7':8,'8':10,'9':12,'10':14};return a[sz]||Math.max(1,sz)}return Math.max(2,sz*2)}
-function armourStep(){var g=locoGroup(),sz=S.size;if(g==='ground'||g==='walker'){if(sz<=2)return 1;if(sz<=5)return 2;if(sz<=7)return 3;if(sz<=9)return 4;if(sz<=11)return 5;return 6}if(g==='water'){if(sz<=11)return Math.max(1,Math.round(sz/3));return 4}if(g==='air'){return Math.max(1,Math.round(sz/4)+1)}return Math.max(1,Math.round(sz/3))}
+function armourBase(){var g=locoGroup(),sz=S.size;if(g==='ground'||g==='walker'){var t={'-2':1,'-1':1,'0':2,'1':2,'2':2,'3':3,'4':4,'5':5,'6':12,'7':14,'8':16,'9':18,'10':20,'11':22,'12':24,'13':26,'14':28};return t[sz]||Math.max(2,sz*2)}if(g==='water'){var w={'0':1,'2':2,'4':4,'6':4,'7':4,'8':5,'11':5,'12':6,'15':7,'16':8,'17':18,'18':20,'19':28,'20':36,'21':38,'22':40,'23':42,'24':44,'25':46};return w[sz]||Math.max(2,sz)}if(g==='air'){var a={'-2':1,'-1':1,'0':1,'1':1,'2':2,'3':2,'4':3,'5':4,'6':6,'7':8,'8':10,'9':12,'10':14};return a[sz]||Math.max(1,sz)}return Math.max(2,sz*2)}
+function armourStep(){var g=locoGroup(),sz=S.size;if(g==='ground'||g==='walker'){var t={'-2':1,'-1':1,'0':1,'1':1,'2':1,'3':1,'4':2,'5':2,'6':2,'7':3,'8':3,'9':4,'10':4,'11':4,'12':5,'13':5,'14':6};return t[sz]||Math.max(1,Math.round(sz/3))}if(g==='water'){if(sz<=11)return Math.max(1,Math.round(sz/3));return 4}if(g==='air'){return Math.max(1,Math.round(sz/4)+1)}return Math.max(1,Math.round(sz/3))}
 function toughLabel(v){if(v<-5)return'Fragile '+(v+5);if(v>5)return'Ironclad +'+(v-5);return TOUGH_LABELS[v]||'Standard'}
 function armourLabel(v){if(v<-5)return'Unprotected '+(v+5);if(v>5)return'Maximum +'+(v-5);return ARMOUR_LABELS[v]||'Standard'}
 function toughDesc(v){var k=Math.max(-5,Math.min(5,v));return TOUGH_DESC[k]||''}
@@ -1110,7 +1199,7 @@ function renderOutput(){var p=document.getElementById('outputContent'),f=getFram
     h+='<div class="sb-gm-notes">'+esc(S.notes)+'</div></div>';}
   h+='</div>';
   h+='</div>';
-  h+='<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="header-btn" onclick="copyBlock()">Copy to Clipboard</button><button class="header-btn" onclick="exportJSON()">Export .json</button><button class="header-btn" onclick="exportStatBlock()">Stat Block .txt</button><button class="header-btn" onclick="exportFGXML()">FG XML</button><button class="header-btn" onclick="printStatBlock()">Print</button></div>';
+  h+='<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="header-btn" onclick="copyBlock()">Copy to Clipboard</button><button class="header-btn" onclick="exportJSON()">Export .json</button><button class="header-btn" onclick="exportStatBlock()">Stat Block .txt</button><button class="header-btn" onclick="printStatBlock()">Print</button></div>';
   p.innerHTML=h}
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
 
@@ -1174,7 +1263,7 @@ function exportStatBlock(){
   var blob=new Blob([t],{type:'text/plain'});var url=URL.createObjectURL(blob);
   var a=document.createElement('a');a.href=url;a.download=(S.name||'vehicles').replace(/[^a-zA-Z0-9_-]/g,'_')+'_statblock.txt';a.click();URL.revokeObjectURL(url)}
 
-function exportFGXML(){
+function exportFGXML(){alert('Fantasy Grounds export is available in the full Vehicle Forge — free on DriveThruRPG.');return;
   var vehicles=S.saved.length?S.saved:[S];
   var xml='<?xml version="1.0" encoding="utf-8"?>\n';
   xml+='<!-- Vehicle Forge FG Export \u2014 DiceForge Studios Ltd. -->\n';
@@ -1192,11 +1281,9 @@ function exportFGXML(){
     xml+='    <text type="formattedtext"><p>'+escXML(v.desc||'')+'</p></text>\n';
     xml+='    <size type="number">'+v.size+'</size>\n';
     xml+='    <handling type="number">'+hand+'</handling>\n';
-    xml+='    <topspeed type="number">'+spd+'</topspeed>\n';
-    xml+='    <toughness type="number">'+tough+'</toughness>\n';
-    xml+='    <armor type="number">'+arm+'</armor>\n';
-    xml+='    <crew type="number">'+calcCrew()+'</crew>\n';
-    xml+='    <wounds type="number">'+wounds+'</wounds>\n';
+    xml+='    <topspeed type="string">'+speedMPH(0,v.loco,v.speedLevel,v.mphOverride)+'</topspeed>\n';
+    xml+='    <vehicletoughness type="string">'+tough+' ('+arm+')</vehicletoughness>\n';
+    xml+='    <crew type="string">'+calcCrewFor(v)+'</crew>\n';
     xml+='    <cost type="string">$'+fmtC(calcCostFor(v))+'</cost>\n';
     var mods=[];MODS.forEach(function(m){if(v.mods[m.id]>0)mods.push(v.mods[m.id]>1?v.mods[m.id]+'\u00d7 '+m.name:m.name)});
     xml+='    <mods type="string">'+escXML(mods.join(', '))+'</mods>\n';
@@ -1228,6 +1315,116 @@ function exportFGXML(){
   var a=document.createElement('a');a.href=url;a.download=(S.name||'vehicles').replace(/[^a-zA-Z0-9_-]/g,'_')+'_FG.xml';a.click();URL.revokeObjectURL(url)}
 
 function escXML(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+// ═══ FANTASY GROUNDS MODULE EXPORT ═══
+function exportFGModule(){alert('Fantasy Grounds module export is available in the full Vehicle Forge — free on DriveThruRPG.');return;
+  var today=new Date().toISOString().slice(0,10).replace(/-/g,'');
+  var vehicles=S.saved.filter(function(v){if(!v._pack)return true;return isPackEnabled(v._pack)});
+  if(!vehicles.length){alert('No vehicles to export. Enable at least one pack or save a custom vehicle.');return}
+  var modName='Vehicle Forge Export';
+  var modId='vehicle_forge_export';
+
+  var def='<?xml version="1.0" encoding="utf-8"?>\n';
+  def+='<root version="5.1" dataversion="'+today+'" release="5.16|CoreRPG:7">\n';
+  def+='\t<n>'+escXML(modName)+'</n>\n';
+  def+='\t<author>DiceForge Studios</author>\n';
+  def+='\t<ruleset>SavageWorlds</ruleset>\n';
+  def+='</root>\n';
+
+  var db='<?xml version="1.0" encoding="utf-8"?>\n';
+  db+='<!-- Generated by Vehicle Forge — DiceForge Studios Ltd. -->\n';
+  db+='<!-- This game references the Savage Worlds game system, available from -->\n';
+  db+='<!-- Pinnacle Entertainment Group at www.peginc.com. -->\n';
+  db+='<!-- Savage Worlds and all associated logos and trademarks are copyrights -->\n';
+  db+='<!-- of Pinnacle Entertainment Group. Used with permission. -->\n';
+  db+='<!-- Fantasy Grounds is a trademark of SmiteWorks USA, LLC. -->\n';
+  db+='<root version="5.1" dataversion="'+today+'" release="5.16|CoreRPG:7">\n';
+  db+='<library>\n';
+  db+='  <'+modId+' static="true">\n';
+  db+='    <categoryname type="string">Vehicle Forge</categoryname>\n';
+  db+='    <name type="string">'+escXML(modName)+'</name>\n';
+  db+='    <entries>\n';
+  db+='      <vehicles>\n';
+  db+='        <librarylink type="windowreference">\n';
+  db+='          <class>reference_list</class>\n';
+  db+='          <recordname>vehicle</recordname>\n';
+  db+='        </librarylink>\n';
+  db+='        <name type="string">Vehicles</name>\n';
+  db+='        <recordtype type="string">vehicle</recordtype>\n';
+  db+='      </vehicles>\n';
+  db+='    </entries>\n';
+  db+='  </'+modId+'>\n';
+  db+='</library>\n';
+  db+='<vehicle static="true">\n';
+
+  vehicles.forEach(function(v){
+    var f=getFrame(v.size);var loco=LOCOS.find(function(l){return l.id===v.loco});
+    var hand=calcHandFor(v);var spd=calcSpeedFor(v);var tough=calcTotalToughFor(v);
+    var arm=calcArmourFor(v);var wounds=calcWoundsFor(v);var crew=calcCrewFor(v);var pax=calcPaxFor(v);
+    var mph=calcMPHFor(v);
+    var id='vf_'+v.name.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/_+$/,'');
+
+    var mods=[];getAllMods().forEach(function(m){if(v.mods&&v.mods[m.id]>0)mods.push(v.mods[m.id]>1?v.mods[m.id]+'\u00d7 '+m.name:m.name)});
+    var specs=[];if(v.specials)v.specials.forEach(function(sid){var sp=getAllSpecials().find(function(x){return x.id===sid});if(sp)specs.push(sp.name)});
+    if(v.customSpecial)specs.push(v.customSpecial);
+
+    var notesText='<p><b>'+escXML(v.name)+'</b></p>';
+    if(v.desc)notesText+='<p>'+escXML(v.desc)+'</p>';
+    notesText+='<p><b>Size:</b> '+v.size+' ('+f.cat+') <b>Locomotion:</b> '+(loco?loco.name:'Unknown')+'</p>';
+    notesText+='<p><b>Handling:</b> '+(hand>=0?'+':'')+hand+' <b>Top Speed:</b> '+spd+' ('+mph+' MPH) <b>Toughness:</b> '+tough+'('+arm+') <b>Wounds:</b> '+wounds+'</p>';
+    notesText+='<p><b>Crew:</b> '+crew+(pax?' (+'+pax+' passengers)':'')+'</p>';
+    if(mods.length)notesText+='<p><b>Modifications:</b> '+escXML(mods.join(', '))+'</p>';
+    if(specs.length)notesText+='<p><b>Special Abilities:</b> '+escXML(specs.join(', '))+'</p>';
+    if(v.notes)notesText+='<p></p><p>'+escXML(v.notes)+'</p>';
+
+    db+='  <'+id+'>\n';
+    db+='    <name type="string">'+escXML(v.name)+'</name>\n';
+    db+='    <text type="formattedtext">'+notesText+'</text>\n';
+    db+='    <size type="number">'+v.size+'</size>\n';
+    db+='    <handling type="number">'+hand+'</handling>\n';
+    db+='    <topspeed type="string">'+mph+'</topspeed>\n';
+    db+='    <vehicletoughness type="string">'+tough+' ('+arm+')</vehicletoughness>\n';
+    db+='    <crew type="string">'+crew+(pax?'+'+pax:'')+'</crew>\n';
+    db+='    <cost type="string">$'+fmtC(calcCostFor(v))+'</cost>\n';
+    db+='    <mods type="string">'+escXML(mods.join(', '))+'</mods>\n';
+
+    if(v.weapons&&v.weapons.length){
+      db+='    <weaponlist>\n';
+      v.weapons.forEach(function(w,wi){
+        var wp=getAllWeapons().find(function(x){return x.id===w.weaponId});if(!wp)return;
+        var ml=w.mount==='fixed'?'Fixed Front':w.mount==='turret'?'Turret':'Pintle';
+        var lk=w.linked||0;var lkStr=lk?' (Linked \u00d7'+(lk+1)+')':'';
+        db+='      <id-'+String(wi+1).padStart(5,'0')+'>\n';
+        db+='        <name type="string">'+escXML(wp.name+' ('+ml+')'+lkStr)+'</name>\n';
+        db+='        <damage type="string">'+escXML(wp.damage)+'</damage>\n';
+        db+='        <damagedice type="dice">'+wp.damage.replace(/[^d0-9+]/g,'')+'</damagedice>\n';
+        db+='        <armorpiercing type="number">'+wp.ap+'</armorpiercing>\n';
+        db+='        <range type="string">'+escXML(wp.range)+'</range>\n';
+        db+='        <traittype type="string">Ranged</traittype>\n';
+        db+='        <traitcount type="number">0</traitcount>\n';
+        db+='        <fumble type="number">1</fumble>\n';
+        db+='        <damagebonus type="number">0</damagebonus>\n';
+        db+='        <reach type="number">0</reach>\n';
+        db+='        <notes type="string">'+escXML((wp.notes||'')+' RoF '+wp.rof+(wp.hw?' HW':''))+'</notes>\n';
+        db+='        <bonuslist />\n';
+        db+='        <link type="windowreference"><class>weapon</class><recordname /></link>\n';
+        db+='      </id-'+String(wi+1).padStart(5,'0')+'>\n'});
+      db+='    </weaponlist>\n'}
+
+    if(specs.length)db+='    <special type="formattedtext"><p>'+escXML(specs.join(', '))+'</p></special>\n';
+    if(v.notes)db+='    <notes type="string">'+escXML(v.notes)+'</notes>\n';
+    db+='  </'+id+'>\n'});
+
+  db+='</vehicle>\n</root>\n';
+
+  var enc=new TextEncoder();
+  var files={'definition.xml':enc.encode(def),'db.xml':enc.encode(db)};
+  var zipped=miniZip.create(files);
+  var blob=new Blob([zipped],{type:'application/octet-stream'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;
+  a.download='Vehicle_Forge_Export.mod';
+  a.click();URL.revokeObjectURL(url)}
+
 // ═══ COMPREHENSIVE HELP/REFERENCE PANEL ═══
 function buildHelp(){
   var h='';
@@ -1242,14 +1439,15 @@ function buildHelp(){
   h+='</div>';
   h+='<div class="help-section" data-help="manual companion guide pdf reference">';
   h+='<h3>Companion Guide</h3>';
-  h+='<p>The <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="color:var(--accent)">Vehicle Forge Companion Guide (PDF)</a> is the complete reference for the tool. It covers vehicle frames, all 127 weapons, 41 modifications, 34 special abilities, export formats, extension packs, walker combat rules, and one-sheet adventures.</p>';
+  h+='<p><div style="margin:20px 0;padding:16px;background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid var(--green);text-align:center"><strong style="color:var(--green);font-size:16px">Get the Full Vehicle Forge — Free</strong><p style="color:var(--text-dim);margin:8px 0">47 reference builds, expansion packs, Fantasy Grounds export, and more.</p><a href="https://www.drivethrurpg.com" target="_blank" style="display:inline-block;padding:10px 24px;background:var(--green);color:#000;font-weight:bold;text-decoration:none;margin-top:4px">Download on DriveThruRPG</a></div><p>The <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="color:var(--accent)">Vehicle Forge Companion Guide (PDF)</a> is the complete reference for the tool. It covers vehicle frames, all 127 weapons, 41 modifications, 34 special abilities, export formats, vehicle packs, walker combat rules, and one-sheet adventures.</p>';
   h+='<div style="text-align:center;margin:20px 0"><a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="display:inline-block;padding:12px 32px;border:1px solid var(--accent);color:var(--accent);font-family:Cinzel,serif;font-size:15px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s" onmouseover="this.style.background=\'var(--accent)\';this.style.color=\'var(--bg-deep)\'" onmouseout="this.style.background=\'transparent\';this.style.color=\'var(--accent)\'">Open Companion Guide</a></div>';
   h+='</div>';
   h+='<div class="help-section" data-help="export formats fantasy grounds foundry json stat block">';
   h+='<h3>Export Formats</h3>';
   h+='<p><span class="rule-key">Export .json</span> \u2014 saves your vehicle as a portable JSON file. Share with other Vehicle Forge users, or use for backup.</p>';
   h+='<p><span class="rule-key">Export Stat Block</span> \u2014 downloads a Pinnacle-format text stat block (.txt). Paste into Foundry VTT\u2019s stat block importer, print on index cards, or include in your adventures.</p>';
-  h+='<p><span class="rule-key">Export FG XML</span> \u2014 generates Fantasy Grounds Unity XML. Import directly into your FGU campaign as a vehicle record.</p>';
+  h+='<p><span class="rule-key">Export FG XML</span> \u2014 generates Fantasy Grounds Unity XML fragment. Paste into your FGU campaign db.xml.</p>';
+  h+='<p><span class="rule-key">FG Module (.mod)</span> \u2014 generates a ready-to-install Fantasy Grounds Unity module containing all enabled vehicles. Drop the .mod file into your FGU modules folder, load it in your campaign, and all vehicles appear in the sidebar. No manual XML editing required.</p>';
   h+='<p><span class="rule-key">Batch Export / Print All</span> \u2014 exports or prints every saved vehicle at once.</p>';
   h+='</div>';
   h+='<div class="help-section" data-help="about vehicle forge diceforge version">';
@@ -1266,12 +1464,21 @@ function filterHelp(){var q=(document.getElementById('helpSearch').value||'').to
     s.style.display=tags.indexOf(q)>=0?'':'none'})}
 
 // ═══ TABS, SAVE/LOAD, UTILS ═══
-function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput();if(tab==='hangar'){initHangarFilters();renderSaved()}}
+function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput();if(tab==='hangar'){initHangarFilters();renderSaved()}if(tab==='extensions')renderExtensions();updateContext(tab)}
 function switchSidebarTab(tab){document.querySelectorAll('.sidebar-tab').forEach(function(t){t.classList.toggle('active',t.dataset.stab===tab)});document.querySelectorAll('.sidebar-panel').forEach(function(p){p.classList.toggle('active',p.id==='spanel-'+tab)})}
+function updateContext(tab){
+  var sections=['ctx-stats','ctx-mods','ctx-weapons','ctx-specials','ctx-export'];
+  sections.forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none'});
+  document.getElementById('ctx-stats').style.display='';
+  if(tab==='mods'){document.getElementById('ctx-mods').style.display=''}
+  else if(tab==='weapons'){document.getElementById('ctx-weapons').style.display=''}
+  else if(tab==='specials'){document.getElementById('ctx-specials').style.display=''}
+  else if(tab==='output'){document.getElementById('ctx-export').style.display=''}
+}
 document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.getAttribute('role')==='button'){e.preventDefault();e.target.click()}})
 function newVehicle(){Audio.click();S={name:'Untitled Vehicle',desc:'',notes:'',image:'',size:6,loco:'wheeled',mods:{},weapons:[],currentMount:'pintle',saved:S.saved,toughLevel:0,armourLevel:0,speedLevel:0,handlingLevel:0,woundsLevel:0,crewLevel:0,passengers:0,mphOverride:0,specials:[],customSpecial:''};document.getElementById('vName').value=S.name;document.getElementById('vDesc').value='';document.getElementById('vNotes').value='';document.getElementById('sizeSlider').value=6;var ci=document.getElementById('customSpecialInput');if(ci)ci.value='';clearImage();undoStack=[];redoStack=[];renderAll()}
 function duplicateVehicle(){S.name=(S.name||'Vehicle')+' (copy)';document.getElementById('vName').value=S.name;saveVehicle();Audio.clunk()}
-function printStatBlock(){var f=getFrame(S.size),loco=LOCOS.find(function(l){return l.id===S.loco}),spd=calcSpeed();
+function printStatBlock(){var f=getFrame(S.size),loco=LOCOS.find(function(l){return l.id===S.loco}),spd=calcSpeed();var DEMO_WATERMARK='<div style="margin-top:24px;padding:12px;border-top:2px solid #666;text-align:center;font-size:11px;color:#666">VEHICLE FORGE DEMO — Full version with 47 reference builds free at DriveThruRPG.com</div>';
   var used=calcModsUsed(),gained=calcModsGained(),left=(f.modSlots+gained)-used;
   var notes=[];MODS.forEach(function(m){if(S.mods[m.id]>0)notes.push(S.mods[m.id]>1?S.mods[m.id]+'× '+m.name:m.name)});
   var wl=[];S.weapons.forEach(function(w){var wp=getAllWeapons().find(function(x){return x.id===w.weaponId});if(wp){var ml=w.mount==='fixed'?'Fixed Front':w.mount==='turret'?'Turret':'Pintle';wl.push(wp.name+' ('+ml+'): Range '+wp.range+', Damage '+wp.damage+', AP '+wp.ap+', RoF '+wp.rof+(wp.notes?', '+wp.notes:''))}});
@@ -1317,6 +1524,7 @@ function printStatBlock(){var f=getFrame(S.size),loco=LOCOS.find(function(l){ret
     +(special.length?'<hr><div class="special"><span class="label">Special:</span> '+special.join(' ')+'</div>':'')
     +notesLine
     +'<div class="watermark">Built with DiceForge Vehicle Forge · diceforgestudios.pages.dev</div>'
+    +DEMO_WATERMARK
     +'<script>window.onload=function(){window.print()}<\/script>'
     +'</body></html>');
   win.document.close()}
@@ -1368,26 +1576,25 @@ function printAll(){if(!S.saved.length){alert('No saved vehicles to print.');ret
     +'@media print{.card{border:1.5px solid #333}}</style></head><body>'
     +cards
     +'<div class="watermark">Built with DiceForge Vehicle Forge · diceforgestudios.pages.dev</div>'
+    +'<div style="margin-top:24px;padding:12px;border-top:2px solid #666;text-align:center;font-size:11px;color:#666">VEHICLE FORGE DEMO — Full version with 47 reference builds free at DriveThruRPG.com</div>'
     +'<script>window.onload=function(){window.print()}<\\/script>'
     +'</body></html>');
   win.document.close()}
-function saveVehicle(){var d={name:S.name,desc:S.desc,notes:S.notes,image:S.image,size:S.size,loco:S.loco,mods:JSON.parse(JSON.stringify(S.mods)),weapons:JSON.parse(JSON.stringify(S.weapons)),toughLevel:S.toughLevel,armourLevel:S.armourLevel,speedLevel:S.speedLevel,handlingLevel:S.handlingLevel,woundsLevel:S.woundsLevel,specials:S.specials.slice(),customSpecial:S.customSpecial};
+function saveVehicle(){if(S.saved.length>=3&&!S.saved.some(function(v){return v.name===S.name})){alert('Demo version: library limited to 3 vehicles.\nThe full Vehicle Forge is free on DriveThruRPG.');return}var d={name:S.name,desc:S.desc,notes:S.notes,image:S.image,size:S.size,loco:S.loco,mods:JSON.parse(JSON.stringify(S.mods)),weapons:JSON.parse(JSON.stringify(S.weapons)),toughLevel:S.toughLevel,armourLevel:S.armourLevel,speedLevel:S.speedLevel,handlingLevel:S.handlingLevel,woundsLevel:S.woundsLevel,specials:S.specials.slice(),customSpecial:S.customSpecial};
   var i=S.saved.findIndex(function(s){return s.name===S.name});
   if(i>=0&&isCanon(S.saved[i])){alert('Cannot overwrite DF Canon vehicle "'+S.name+'".\nUse Clone to create an editable copy in My Vehicles.');return}
   if(i>=0)S.saved[i]=d;else S.saved.push(d);save();renderSaved();Audio.click()}
 function save(){localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))}
-function deleteSaved(i){if(isCanon(S.saved[i])){alert('Cannot delete DF Canon vehicles.\nUninstall the pack via ⚙ Extensions to remove them.');return}Audio.remove();S.saved.splice(i,1);save();renderSaved()}
+function deleteSaved(i){if(isCanon(S.saved[i])){alert('Cannot delete DF Canon vehicles.\nDisable the pack in the Packs tab to hide them.');return}Audio.remove();S.saved.splice(i,1);save();renderSaved()}
 var hangarTab='all';
 var collapsedGroups={};
+var hangarSel=-1;var hangarItems=[];
 function setHangarTab(tab){hangarTab=tab;
   document.querySelectorAll('.hangar-tab').forEach(function(t){t.classList.remove('active')});
   document.getElementById('hangarTab'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
   renderSaved()}
 function isCanon(v){return !!v._pack}
 function getPackName(v){if(!v._pack)return null;var ext=extensions.find(function(e){return e.id===v._pack});return ext?ext.name:v._pack}
-function toggleGroup(key){collapsedGroups[key]=!collapsedGroups[key];renderSaved()}
-
-var hangarSel=-1;var hangarItems=[];
 function initHangarFilters(){
   var cs=document.getElementById('hangarFilterClass');if(!cs)return;
   var letters=['A','B','C','D','E','F','G'];
@@ -1398,13 +1605,27 @@ function initHangarFilters(){
   var groups={};LOCOS.forEach(function(l){var g=l.group;if(!groups[g])groups[g]=[];groups[g].push(l)});
   Object.keys(groups).forEach(function(g){groups[g].forEach(function(l){ls.innerHTML+='<option value="'+l.id+'">'+l.name+'</option>'})})
 }
-function renderSaved(){var list=document.getElementById('savedList');
+function syncVehiclesFromPacks(){
+  var changed=false;
+  extensions.forEach(function(ext){
+    if(!ext.vehicles||!ext.vehicles.length)return;
+    var hasAny=S.saved.some(function(s){return s._pack===ext.id});
+    if(!hasAny){
+      ext.vehicles.forEach(function(v){
+        S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:ext.id})});
+      changed=true}
+  });
+  if(changed)localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))
+}
+function renderSaved(){syncVehiclesFromPacks();var list=document.getElementById('savedList');
   if(!list)return;
+  var demoMsg=document.getElementById('demoBanner');if(!demoMsg){demoMsg=document.createElement('div');demoMsg.id='demoBanner';demoMsg.style.cssText='padding:12px;margin-bottom:12px;background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid var(--green);text-align:center;font-size:13px;color:var(--text-dim)';demoMsg.innerHTML='<strong style="color:var(--green)">Demo Library (3 vehicles)</strong><br>The full Vehicle Forge includes 47 core reference builds across 4 free packs — plus 60 expansion packs with 516 more vehicles.<br><a href="https://www.drivethrurpg.com" target="_blank" style="color:#4fc3f7">Get it free on DriveThruRPG →</a>';list.parentElement.insertBefore(demoMsg,list)}
   var q=(document.getElementById('hangarSearch')||{}).value||'';q=q.toLowerCase();
   var fSize=(document.getElementById('hangarFilterSize')||{}).value||'';
   var fClass=(document.getElementById('hangarFilterClass')||{}).value||'';
   var fLoco=(document.getElementById('hangarFilterLoco')||{}).value||'';
   var items=S.saved.map(function(s,i){return{v:s,idx:i}});
+  items=items.filter(function(o){if(!o.v._pack)return true;return isPackEnabled(o.v._pack)});
   if(hangarTab==='canon')items=items.filter(function(o){return isCanon(o.v)});
   if(hangarTab==='mine')items=items.filter(function(o){return !isCanon(o.v)});
   if(q)items=items.filter(function(o){var hay=(o.v.name+' '+(o.v.desc||'')+' '+(getPackName(o.v)||'')+' '+(LOCOS.find(function(l){return l.id===o.v.loco})||{}).name).toLowerCase();return hay.indexOf(q)>=0});
@@ -1415,7 +1636,7 @@ function renderSaved(){var list=document.getElementById('savedList');
   var bar=document.getElementById('hangarCountBar');
   if(bar)bar.textContent=items.length+' vehicle'+(items.length!==1?'s':'')+' found'+(q?' for "'+q+'"':'');
   if(!items.length){
-    var msg=q?'No vehicles match "'+esc(q)+'".':(hangarTab==='canon'?'No canon vehicles. Install .vfx packs via Extensions.':(hangarTab==='mine'?'No custom vehicles yet.':'No vehicles. Build one or install a pack.'));
+    var msg=q?'No vehicles match "'+esc(q)+'".':(hangarTab==='canon'?'No canon vehicles. Install vehicle packs from the Packs tab.':(hangarTab==='mine'?'No custom vehicles yet.':'No vehicles. Build one or install a pack.'));
     list.innerHTML='<div class="empty-state">'+msg+'</div>';return}
   var html='';items.forEach(function(o,fi){
     var s=o.v;var i=o.idx;var canon=isCanon(s);var loco=LOCOS.find(function(l){return l.id===s.loco});
@@ -1456,6 +1677,13 @@ function previewVehicle(i){
   renderLocoGrid();renderSliders();renderStats();renderFrameInfo()}
 
 function loadFromHangar(i){Audio.clunk();previewVehicle(i);switchTab('output');renderAll()}
+function loadVehicle(i){Audio.clunk();previewVehicle(i);switchTab('output');renderAll()}
+
+function cloneCanon(i){Audio.click();var src=S.saved[i];if(!src)return;
+  var clone=JSON.parse(JSON.stringify(src));
+  delete clone._pack;clone.name=src.name+' (Custom)';
+  S.saved.push(clone);save();renderSaved();
+  alert('Cloned "'+src.name+'" to My Vehicles.\nThe clone is fully editable.')}
 
 document.addEventListener('keydown',function(e){
   var list=document.getElementById('savedList');
@@ -1469,14 +1697,6 @@ document.addEventListener('keydown',function(e){
   else if(e.key==='ArrowUp'){cur=Math.max(0,cur-cols);moved=true}
   else if(e.key==='Enter'&&cur>=0){var item=hangarItems[cur];if(item)loadFromHangar(item.idx);e.preventDefault();return}
   if(moved){e.preventDefault();selectHangarCard(cur)}})
-
-function cloneCanon(i){Audio.click();var src=S.saved[i];if(!src)return;
-  var clone=JSON.parse(JSON.stringify(src));
-  delete clone._pack;clone.name=src.name+' (Custom)';
-  S.saved.push(clone);save();renderSaved();
-  alert('Cloned "'+src.name+'" to My Vehicles.\nThe clone is fully editable.')}
-
-function loadVehicle(i){Audio.clunk();previewVehicle(i);switchTab('output');renderAll()}
 
 function fmtN(n){return n.toLocaleString()}
 function fmtC(n){if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(n%1e6===0?0:2)+'M';if(n>=1e3)return(n/1e3).toFixed(n%1e3===0?0:1)+'K';return n.toString()}
@@ -1506,7 +1726,7 @@ function toggleSpecial(id){var idx=S.specials.indexOf(id);if(idx>=0)S.specials.s
 function handleImageDrop(e){var files=e.dataTransfer.files;if(files.length>0){var fakeEvent={target:{files:files}};handleImage(fakeEvent)}}
 
 // ═══ POP-OUT HELP ═══
-function popOutHelp(){var w=window.open('','Vehicle Forge Reference','width=800,height=600');var content=document.getElementById('helpContent');if(w&&content){w.document.write('<html lang="en"><head><title>Vehicle Forge Reference</title><style>body{background:#141210;color:#D4C8B0;font-family:Crimson Pro,serif;padding:20px;line-height:1.6}h3{color:#C4A44A}code{background:#1A1816;padding:2px 6px}</style></head><body>'+content.innerHTML+'</body></html>');w.document.close()}}
+function popOutHelp(){var w=window.open('','Vehicle Forge Reference','width=800,height=600');var content=document.getElementById('helpContent');if(w&&content){w.document.write('<html lang="en"><head><title>Vehicle Forge Demo Reference</title><style>body{background:#141210;color:#D4C8B0;font-family:Crimson Pro,serif;padding:20px;line-height:1.6}h3{color:#C4A44A}code{background:#1A1816;padding:2px 6px}</style></head><body>'+content.innerHTML+'</body></html>');w.document.close()}}
 
 // ═══ SETTINGS ═══
 var audioEnabled=true;
@@ -1531,25 +1751,25 @@ Audio.clunk=function(){if(audioEnabled)_origClunk()};Audio.click=function(){if(a
 // ═══ CANON REFERENCE BUILDS (47 core vehicles) ═══
 var CANON_BUILDS=[
 {name:"Bicycle",size:-1,loco:"wheeled",armourLevel:-2,speedLevel:-3,woundsLevel:-2,mphOverride:16,desc:"Two wheels, no motor, no armour, no dignity. Half of all shots hit the rider instead.",notes:"The bicycle is invisible. Nobody notices one more cyclist on a city street, which makes it the perfect surveillance and courier vehicle for low-tech campaigns. In chase scenes, she squeezes through gaps no car can follow — alleys, stairwells, crowded markets. 50% of shots hit the rider rather than the vehicle.",weapons:[],mods:{},specials:["open_top"],_pack:"core"},
-{name:"Horse-Drawn Carriage",size:3,loco:"wheeled",toughLevel:-1,armourLevel:-1,handlingLevel:-3,speedLevel:-3,passengers:3,woundsLevel:-1,mphOverride:16,desc:"Four wheels, one horse, variable passenger comfort. Stagecoaches, hansoms, and broughams all fall here.",notes:"The carriage covers everything from open farm carts to enclosed broughams and four-horse stagecoaches. She's your chase vehicle for historical and fantasy campaigns — highway robberies, runaway horses, rooftop leaps onto the luggage rack. Variants include the fast but fragile hansom cab, the armoured prison wagon, and the heavy freight coach. Horse-drawn, so she stops when the horses do.",weapons:[],mods:{},specials:["open_top", "towing"],_pack:"core"},
-{name:"Early Automobile",size:3,loco:"wheeled",armourLevel:-1,handlingLevel:-2,speedLevel:-2,passengers:3,woundsLevel:-1,mphOverride:40,desc:"Crank-start, top-heavy, and terrifying at speed. Model Ts, Tin Lizzies, and their ilk.",notes:"This covers the first generation of motor cars — Model Ts, Austin Sevens, Citroën Type As, and their contemporaries. Slow, temperamental, and revolutionary. She puts your campaign on wheels for the first time: Prohibition rum-runners, early pulp adventures, the first getaway cars. Unreliable enough that a failed Repair roll at the worst possible moment is practically a genre convention.",weapons:[],mods:{},specials:["enclosed", "temperamental"],_pack:"core"},
+{name:"Horse-Drawn Carriage",size:3,loco:"wheeled",toughLevel:-1,armourLevel:-2,handlingLevel:-3,speedLevel:-3,passengers:3,woundsLevel:-1,mphOverride:16,desc:"Four wheels, one horse, variable passenger comfort. Stagecoaches, hansoms, and broughams all fall here.",notes:"The carriage covers everything from open farm carts to enclosed broughams and four-horse stagecoaches. She's your chase vehicle for historical and fantasy campaigns — highway robberies, runaway horses, rooftop leaps onto the luggage rack. Variants include the fast but fragile hansom cab, the armoured prison wagon, and the heavy freight coach. Horse-drawn, so she stops when the horses do.",weapons:[],mods:{},specials:["open_top", "towing"],_pack:"core"},
+{name:"Early Automobile",size:3,loco:"wheeled",armourLevel:-2,handlingLevel:-2,speedLevel:-2,passengers:3,woundsLevel:-1,mphOverride:40,desc:"Crank-start, top-heavy, and terrifying at speed. Model Ts, Tin Lizzies, and their ilk.",notes:"This covers the first generation of motor cars — Model Ts, Austin Sevens, Citroën Type As, and their contemporaries. Slow, temperamental, and revolutionary. She puts your campaign on wheels for the first time: Prohibition rum-runners, early pulp adventures, the first getaway cars. Unreliable enough that a failed Repair roll at the worst possible moment is practically a genre convention.",weapons:[],mods:{},specials:["enclosed", "temperamental"],_pack:"core"},
 {name:"Street Motorcycle",size:1,loco:"wheeled",toughLevel:1,armourLevel:-2,speedLevel:1,passengers:1,woundsLevel:-1,mphOverride:120,desc:"Stock road bike — Harleys, Ducatis, or the local equivalent. Fast, exposed, and half the shots hit the rider.",notes:"Stock road bikes from any era — Harley-Davidsons, Triumphs, Ducatis, BMWs, or Honda CBs depending on your setting. She splits lanes, threads traffic, and fits where cars can't follow. The rider is fully exposed — 50% of shots hit them rather than the bike. That vulnerability is the price of agility. Consider whether your setting's bikers ride in gangs, because a pack of motorcycles in a chase changes the dynamic entirely.",weapons:[],mods:{},specials:["open_top"],_pack:"core"},
 {name:"Off-Road Motorcycle",size:0,loco:"wheeled",toughLevel:1,armourLevel:-2,woundsLevel:-2,mphOverride:80,desc:"Knobby tyres, excellent suspension, questionable life choices. Trail bikes, enduros, and motocross machines.",notes:"Trail bikes, enduros, motocross machines, and military despatch riders' mounts. She goes where roads don't — jungle recon, desert patrol, mountain courier runs. Think of everything from Steve McQueen's fence jump to modern special forces insertion by dirt bike. Treats each inch of Difficult Ground as 1.5 inches instead of 2 inches, same as four-wheel drive.",weapons:[],mods:{"offroad": 1},specials:["open_top", "all_terrain"],_pack:"core"},
-{name:"Compact Car",size:4,loco:"wheeled",armourLevel:0,handlingLevel:1,speedLevel:1,passengers:3,woundsLevel:-2,mphOverride:120,desc:"Economy hatchback. Honda Civics, Ford Fiestas, and a thousand forgettable commuter boxes.",notes:"Every economy hatchback ever made — Honda Civics, Ford Fiestas, VW Golfs, Toyota Corollas. She's the default civilian vehicle. Every NPC drives one, every car park is full of them, every car chase starts or ends with one crumpled against a lamppost. Mechanically unremarkable, which is exactly the point — she's the baseline everything else is measured against.",weapons:[],mods:{},specials:["enclosed"],_pack:"core"},
-{name:"Mid-Size Sedan",size:4,loco:"wheeled",armourLevel:0,speedLevel:1,passengers:4,mphOverride:120,desc:"Four doors, air bags, reasonable legroom. Your Camrys, Accords, and fleet rental staples.",notes:"Your Camrys, Accords, Passats, and fleet rental staples. She carries more passengers and gear than the compact, handles roughly the same, and blends into traffic just as easily. Also covers unmarked police cars, taxi cabs, and the anonymous saloon your players steal when they need to move without attracting attention. The world's most forgettable getaway car.",weapons:[],mods:{},specials:["enclosed", "cargo_bay"],_pack:"core"},
-{name:"Family Minivan",size:4,loco:"wheeled",armourLevel:0,passengers:7,mphOverride:90,desc:"Sliding doors, cup holders, existential surrender. The vehicle of parenthood.",notes:"Chrysler Voyagers, Toyota Previas, VW Transporters, and their kin. She carries a full party plus gear — the team vehicle for modern campaigns, the thing everyone piles into when the job goes sideways. Not fast, not tough, but she holds everyone and their equipment in one vehicle. Sliding side doors make boarding and exiting faster than a four-door sedan.",weapons:[],mods:{},specials:["enclosed", "cargo_bay"],_pack:"core"},
-{name:"Sport Utility Vehicle",size:5,loco:"wheeled",armourLevel:0,speedLevel:1,passengers:7,toughLevel:1,mphOverride:120,desc:"Four-wheel drive, luxury features, poor fuel economy. Range Rovers to Cherokees.",notes:"Range Rovers, Jeep Cherokees, Toyota Land Cruisers, Ford Explorers. She bridges civilian comfort and rough terrain capability. Four-wheel drive gets her off-road where sedans can't follow. The vehicle of choice for private military contractors, safari guides, rural law enforcement, and players who expect trouble outside city limits. Treats Difficult Ground as 1.5 inches per inch.",weapons:[],mods:{"offroad": 1},specials:["enclosed", "four_wd", "all_terrain"],_pack:"core"},
-{name:"Sports Car",size:4,loco:"wheeled",armourLevel:0,handlingLevel:2,speedLevel:3,passengers:3,woundsLevel:-2,mphOverride:160,desc:"Two doors, low profile, speed over practicality. Mustangs, Camaros, and mid-life crises.",notes:"Mustangs, Camaros, Porsches, Ferraris, Corvettes, and every mid-life crisis on four wheels. She wins chases through raw speed and sharp handling. Fast on straights, nimble in corners, and utterly useless off-road or in bad weather. The vehicle your players covet and the one that gets them into trouble. Two doors means getting into the back seat takes an action.",weapons:[],mods:{},specials:["enclosed"],_pack:"core"},
-{name:"Semi-Truck",size:9,loco:"wheeled",toughLevel:-1,armourLevel:0,handlingLevel:1,crewLevel:-4,passengers:1,mphOverride:75,desc:"Cab and trailer. Peterbilts, Kenworths, Scanias — the kings of the motorway.",notes:"Peterbilts, Kenworths, Scanias, Volvos, and every long-haul cab that's ever jackknifed across a motorway. She can't manoeuvre, she can't hide, and she takes a long time to stop. But she carries anything, tows anything, and at highway speed she's an unstoppable battering ram. The trailer itself is roughly Size 7, Toughness 14(2) — big enough to serve as a mobile base or improvised roadblock.",weapons:[],mods:{},specials:["enclosed", "cargo_bay", "towing", "loud"],_pack:"core"},
-{name:"WW2 Light Utility Vehicle",size:4,loco:"wheeled",armourLevel:0,handlingLevel:1,crewLevel:1,passengers:3,mphOverride:65,desc:"Four-wheel drive workhorse. The Willys Jeep, Kubelwagen, and GAZ-67 kept armies moving.",notes:"The Willys Jeep, Ford GPW, Kübelwagen, GAZ-67, and their Commonwealth equivalents. She goes everywhere and carries everything — reconnaissance, command vehicle, ambulance, weapons platform, officer's staff car. Open-topped and lightly armoured, which means the crew is always one burst away from disaster. The most versatile vehicle of the Second World War, and the ancestor of every military SUV since. Four-wheel drive.",weapons:[{"weaponId":"mmg","mount":"pintle","linked":0}],mods:{"offroad": 1},specials:["heavy_armor", "open_top", "four_wd"],_pack:"core"},
-{name:"WW2 Medium Tank (Allied)",size:8,loco:"tracked",toughLevel:0,armourLevel:2,mphOverride:30,desc:"The workhorse Allied tank. Shermans, Cromwells, and their equivalents — reliable, mass-produced, outgunned by late-war heavies.",notes:"The M4 Sherman and its variants — the M4A1 with cast hull, the M4A3E8 'Easy Eight' with improved suspension, the Firefly with its 17-pounder gun. Also covers Cromwells, Crusaders, and other mid-war Allied designs. She wasn't the best tank of the war — late-war German armour outgunned her routinely — but there were always more of them. Use her as the reliable, available option that wins through numbers and logistics rather than individual superiority. Heavy Armor, Tracked.",weapons:[{"weaponId":"tank_gun_75mm","mount":"turret","linked":0},{"weaponId":"mmg","mount":"fixed","linked":0},{"weaponId":"hmg","mount":"pintle","linked":0}],mods:{},specials:["heavy_armor", "enclosed"],_pack:"core"},
+{name:"Compact Car",size:4,loco:"wheeled",armourLevel:-1,handlingLevel:1,speedLevel:1,passengers:3,woundsLevel:-2,mphOverride:120,desc:"Economy hatchback. Honda Civics, Ford Fiestas, and a thousand forgettable commuter boxes.",notes:"Every economy hatchback ever made — Honda Civics, Ford Fiestas, VW Golfs, Toyota Corollas. She's the default civilian vehicle. Every NPC drives one, every car park is full of them, every car chase starts or ends with one crumpled against a lamppost. Mechanically unremarkable, which is exactly the point — she's the baseline everything else is measured against.",weapons:[],mods:{},specials:["enclosed"],_pack:"core"},
+{name:"Mid-Size Sedan",size:4,loco:"wheeled",armourLevel:-1,speedLevel:1,passengers:4,mphOverride:120,desc:"Four doors, air bags, reasonable legroom. Your Camrys, Accords, and fleet rental staples.",notes:"Your Camrys, Accords, Passats, and fleet rental staples. She carries more passengers and gear than the compact, handles roughly the same, and blends into traffic just as easily. Also covers unmarked police cars, taxi cabs, and the anonymous saloon your players steal when they need to move without attracting attention. The world's most forgettable getaway car.",weapons:[],mods:{},specials:["enclosed", "cargo_bay"],_pack:"core"},
+{name:"Family Minivan",size:4,loco:"wheeled",armourLevel:-1,passengers:7,mphOverride:90,desc:"Sliding doors, cup holders, existential surrender. The vehicle of parenthood.",notes:"Chrysler Voyagers, Toyota Previas, VW Transporters, and their kin. She carries a full party plus gear — the team vehicle for modern campaigns, the thing everyone piles into when the job goes sideways. Not fast, not tough, but she holds everyone and their equipment in one vehicle. Sliding side doors make boarding and exiting faster than a four-door sedan.",weapons:[],mods:{},specials:["enclosed", "cargo_bay"],_pack:"core"},
+{name:"Sport Utility Vehicle",size:5,loco:"wheeled",armourLevel:-1,speedLevel:1,passengers:7,toughLevel:1,mphOverride:120,desc:"Four-wheel drive, luxury features, poor fuel economy. Range Rovers to Cherokees.",notes:"Range Rovers, Jeep Cherokees, Toyota Land Cruisers, Ford Explorers. She bridges civilian comfort and rough terrain capability. Four-wheel drive gets her off-road where sedans can't follow. The vehicle of choice for private military contractors, safari guides, rural law enforcement, and players who expect trouble outside city limits. Treats Difficult Ground as 1.5 inches per inch.",weapons:[],mods:{"offroad": 1},specials:["enclosed", "four_wd", "all_terrain"],_pack:"core"},
+{name:"Sports Car",size:4,loco:"wheeled",armourLevel:-1,handlingLevel:2,speedLevel:3,passengers:3,woundsLevel:-2,mphOverride:160,desc:"Two doors, low profile, speed over practicality. Mustangs, Camaros, and mid-life crises.",notes:"Mustangs, Camaros, Porsches, Ferraris, Corvettes, and every mid-life crisis on four wheels. She wins chases through raw speed and sharp handling. Fast on straights, nimble in corners, and utterly useless off-road or in bad weather. The vehicle your players covet and the one that gets them into trouble. Two doors means getting into the back seat takes an action.",weapons:[],mods:{},specials:["enclosed"],_pack:"core"},
+{name:"Semi-Truck",size:9,loco:"wheeled",toughLevel:-1,armourLevel:-1,handlingLevel:1,crewLevel:-4,passengers:1,mphOverride:75,desc:"Cab and trailer. Peterbilts, Kenworths, Scanias — the kings of the motorway.",notes:"Peterbilts, Kenworths, Scanias, Volvos, and every long-haul cab that's ever jackknifed across a motorway. She can't manoeuvre, she can't hide, and she takes a long time to stop. But she carries anything, tows anything, and at highway speed she's an unstoppable battering ram. The trailer itself is roughly Size 7, Toughness 14(2) — big enough to serve as a mobile base or improvised roadblock.",weapons:[],mods:{},specials:["enclosed", "cargo_bay", "towing", "loud"],_pack:"core"},
+{name:"WW2 Light Utility Vehicle",size:4,loco:"wheeled",armourLevel:-1,handlingLevel:1,crewLevel:1,passengers:3,mphOverride:65,desc:"Four-wheel drive workhorse. The Willys Jeep, Kubelwagen, and GAZ-67 kept armies moving.",notes:"The Willys Jeep, Ford GPW, Kübelwagen, GAZ-67, and their Commonwealth equivalents. She goes everywhere and carries everything — reconnaissance, command vehicle, ambulance, weapons platform, officer's staff car. Open-topped and lightly armoured, which means the crew is always one burst away from disaster. The most versatile vehicle of the Second World War, and the ancestor of every military SUV since. Four-wheel drive.",weapons:[{"weaponId":"mmg","mount":"pintle","linked":0}],mods:{"offroad": 1},specials:["heavy_armor", "open_top", "four_wd"],_pack:"core"},
+{name:"WW2 Medium Tank (Allied)",size:8,loco:"tracked",toughLevel:0,armourLevel:1,mphOverride:30,desc:"The workhorse Allied tank. Shermans, Cromwells, and their equivalents — reliable, mass-produced, outgunned by late-war heavies.",notes:"The M4 Sherman and its variants — the M4A1 with cast hull, the M4A3E8 'Easy Eight' with improved suspension, the Firefly with its 17-pounder gun. Also covers Cromwells, Crusaders, and other mid-war Allied designs. She wasn't the best tank of the war — late-war German armour outgunned her routinely — but there were always more of them. Use her as the reliable, available option that wins through numbers and logistics rather than individual superiority. Heavy Armor, Tracked.",weapons:[{"weaponId":"tank_gun_75mm","mount":"turret","linked":0},{"weaponId":"mmg","mount":"fixed","linked":0},{"weaponId":"hmg","mount":"pintle","linked":0}],mods:{},specials:["heavy_armor", "enclosed"],_pack:"core"},
 {name:"WW2 Medium Tank (Soviet)",size:7,loco:"tracked",toughLevel:1,armourLevel:2,handlingLevel:-1,crewLevel:3,mphOverride:35,desc:"Sloped front armour, rugged and simple. The T-34 and its derivatives defined the Eastern Front.",notes:"The T-34 in all its variants — the T-34/76 with its original turret, the T-34/85 with the larger gun, and the countless field modifications that kept them fighting through Stalingrad and beyond. Her sloped armour was a revelation in 1941, deflecting shots that would have penetrated a flat-faced design. Simple enough to build in staggering numbers, rugged enough to operate in conditions that destroyed German machinery. Also covers the KV-1 series and other mid-war Soviet designs. Heavy Armor, Sloped Armor (front), Tracked.",weapons:[{"weaponId":"tank_gun_76mm","mount":"turret","linked":0},{"weaponId":"mmg","mount":"fixed","linked":0},{"weaponId":"mmg","mount":"turret","linked":0}],mods:{"sloped_armour": 1},specials:["heavy_armor", "enclosed"],_pack:"core"},
 {name:"WW2 Medium Tank (Axis)",size:7,loco:"tracked",toughLevel:1,armourLevel:3,handlingLevel:-1,speedLevel:-1,crewLevel:4,mphOverride:25,desc:"The backbone of Axis armoured divisions. Panzer IVs, StuGs, and their upgunned variants.",notes:"The Panzer IV in its many marks — from the short-barrelled F1 to the long-gunned H and J variants. Also covers StuG III assault guns, Panzer IIIs, and Italian medium tanks like the M13/40. She's the backbone of Axis armoured divisions, not as famous as the Tiger or Panther but available in numbers and effective across the entire war. The opponent your players face most often in a European theatre campaign. Heavy Armor, Tracked.",weapons:[{"weaponId":"tank_gun_75mm","mount":"turret","linked":0},{"weaponId":"mmg","mount":"fixed","linked":0},{"weaponId":"mmg","mount":"turret","linked":0}],mods:{},specials:["heavy_armor", "enclosed"],_pack:"core"},
 {name:"WW2 Heavy Tank",size:8,loco:"tracked",toughLevel:2,handlingLevel:-1,speedLevel:-1,armourLevel:3,mphOverride:25,desc:"Massive, over-engineered, and terrifying. Tigers, IS-2s, and Pershings — the heavyweights that broke through and broke down.",notes:"Tigers, King Tigers, IS-2s, Pershings, and Churchill heavies. The prestige vehicles of armoured warfare — slow, massively armoured, carrying the biggest guns of the war. The Tiger's 88mm could kill anything the Allies fielded at ranges they couldn't answer. Use heavies as boss encounters: the players hear one coming, plan around it, and need something clever because a frontal engagement is suicide. The King Tiger's reputation alone was a weapon. Heavy Armor, Tracked.",weapons:[{"weaponId":"tank_gun_88mm","mount":"turret","linked":0},{"weaponId":"mmg","mount":"fixed","linked":0},{"weaponId":"mmg","mount":"turret","linked":0}],mods:{},specials:["heavy_armor", "enclosed", "famous"],_pack:"core"},
 {name:"Cold War Main Battle Tank",size:9,loco:"tracked",toughLevel:1,armourLevel:6,speedLevel:1,crewLevel:-2,mphOverride:50,desc:"Exported to half the world. T-72s, T-62s, and Chieftains — rugged, adequate, everywhere.",notes:"T-72s in all their export variants, T-62s, Chieftains, AMX-30s, and the dozens of national variants that armed every Cold War proxy conflict. She shows up everywhere — Africa, the Middle East, South America, Southeast Asia. Not as capable as Western top-tier designs, but available, affordable, and dangerous enough that nobody wants to face one without anti-armour support. The most likely opponent in any post-1970 regional conflict. Heavy Armor, Tracked.",weapons:[{"weaponId":"tank_gun_125mm","mount":"turret","linked":0},{"weaponId":"mmg_modern","mount":"turret","linked":0},{"weaponId":"hmg_modern","mount":"pintle","linked":0}],mods:{},specials:["heavy_armor", "enclosed"],_pack:"core"},
-{name:"Modern Main Battle Tank (Eastern)",size:8,loco:"tracked",toughLevel:2,armourLevel:8,crewLevel:-2,mphOverride:43,desc:"Advanced fire control, composite armour, improved stabiliser. T-80s, T-90s, and Merkava IVs.",notes:"T-80s, T-90s, and their upgraded variants with reactive armour, improved fire control, and autoloading 125mm guns. She represents the top tier of opposition for Cold War and modern campaigns — faster and lower-profile than Western equivalents, trading crew comfort for mechanical simplicity. The Merkava IV from Israel also fits this profile with its unique front-engine design. Heavy Armor, Night Vision, Tracked.",weapons:[{"weaponId":"tank_gun_125mm","mount":"turret","linked":0},{"weaponId":"mmg_modern","mount":"turret","linked":0},{"weaponId":"hmg_modern","mount":"pintle","linked":0}],mods:{"enhanced_sensors": 1},specials:["heavy_armor", "enclosed", "night_ops"],_pack:"core"},
-{name:"Cold War Wheeled APC",size:6,loco:"wheeled",toughLevel:2,armourLevel:1,handlingLevel:-1,speedLevel:1,crewLevel:1,passengers:8,mphOverride:49,desc:"Eight wheels, amphibious, cramped. BTR-series, Strykers, and Piranhas — gets troops there alive, mostly.",notes:"BTR-60s, BTR-70s, BTR-80s, Strykers, Piranhas, Fuchs, and the dozens of eight-wheeled troop carriers that moved infantry across Cold War Europe and every conflict since. She swims rivers without preparation, which changes the tactical map entirely — obstacles that stop wheeled vehicles don't stop a BTR. Cramped, noisy, and the infantry inside can't wait to dismount. Amphibious, 4WD, Heavy Armor.",weapons:[{"weaponId":"hmg_modern","mount":"turret","linked":0},{"weaponId":"mmg_modern","mount":"turret","linked":0}],mods:{"amphibious": 1, "offroad": 1},specials:["heavy_armor", "enclosed", "amphibious", "four_wd"],_pack:"core"},
-{name:"Hover Tank",size:7,loco:"hover",toughLevel:1,armourLevel:7,speedLevel:-1,crewLevel:3,mphOverride:45,desc:"Grav-drive heavy armour with energy weapons. No terrain penalties, no mercy.",notes:"The next generation of armoured warfare — grav-drive heavy armour that ignores terrain entirely. She crosses rivers, rubble fields, and swampland at full speed. No tracks to throw, no mines to trigger, no terrain penalties whatsoever. The trade-off is she can't dig in — a hover vehicle fights on the move or not at all. Use her in science fiction settings where ground warfare has evolved past tracks and wheels. Heavy Armor, Hover, Night Vision.",weapons:[{"weaponId": "laser_heavy", "mount": "turret", "linked": 0}, {"weaponId": "laser_gat", "mount": "fixed", "linked": 0}],mods:{"enhanced_sensors": 1},specials:["heavy_armor", "enclosed", "night_ops"],_pack:"core"},
+{name:"Modern Main Battle Tank (Eastern)",size:8,loco:"tracked",toughLevel:2,armourLevel:9,crewLevel:-2,mphOverride:43,desc:"Advanced fire control, composite armour, improved stabiliser. T-80s, T-90s, and Merkava IVs.",notes:"T-80s, T-90s, and their upgraded variants with reactive armour, improved fire control, and autoloading 125mm guns. She represents the top tier of opposition for Cold War and modern campaigns — faster and lower-profile than Western equivalents, trading crew comfort for mechanical simplicity. The Merkava IV from Israel also fits this profile with its unique front-engine design. Heavy Armor, Night Vision, Tracked.",weapons:[{"weaponId":"tank_gun_125mm","mount":"turret","linked":0},{"weaponId":"mmg_modern","mount":"turret","linked":0},{"weaponId":"hmg_modern","mount":"pintle","linked":0}],mods:{"enhanced_sensors": 1},specials:["heavy_armor", "enclosed", "night_ops"],_pack:"core"},
+{name:"Cold War Wheeled APC",size:6,loco:"wheeled",toughLevel:2,armourLevel:0,handlingLevel:-1,speedLevel:1,crewLevel:1,passengers:8,mphOverride:49,desc:"Eight wheels, amphibious, cramped. BTR-series, Strykers, and Piranhas — gets troops there alive, mostly.",notes:"BTR-60s, BTR-70s, BTR-80s, Strykers, Piranhas, Fuchs, and the dozens of eight-wheeled troop carriers that moved infantry across Cold War Europe and every conflict since. She swims rivers without preparation, which changes the tactical map entirely — obstacles that stop wheeled vehicles don't stop a BTR. Cramped, noisy, and the infantry inside can't wait to dismount. Amphibious, 4WD, Heavy Armor.",weapons:[{"weaponId":"hmg_modern","mount":"turret","linked":0},{"weaponId":"mmg_modern","mount":"turret","linked":0}],mods:{"amphibious": 1, "offroad": 1},specials:["heavy_armor", "enclosed", "amphibious", "four_wd"],_pack:"core"},
+{name:"Hover Tank",size:7,loco:"hover",toughLevel:1,armourLevel:9,speedLevel:-1,crewLevel:3,mphOverride:45,desc:"Grav-drive heavy armour with energy weapons. No terrain penalties, no mercy.",notes:"The next generation of armoured warfare — grav-drive heavy armour that ignores terrain entirely. She crosses rivers, rubble fields, and swampland at full speed. No tracks to throw, no mines to trigger, no terrain penalties whatsoever. The trade-off is she can't dig in — a hover vehicle fights on the move or not at all. Use her in science fiction settings where ground warfare has evolved past tracks and wheels. Heavy Armor, Hover, Night Vision.",weapons:[{"weaponId": "laser_heavy", "mount": "turret", "linked": 0}, {"weaponId": "laser_gat", "mount": "fixed", "linked": 0}],mods:{"enhanced_sensors": 1},specials:["heavy_armor", "enclosed", "night_ops"],_pack:"core"},
 {name:"Hover APC",size:7,loco:"hover",toughLevel:1,armourLevel:3,speedLevel:2,crewLevel:1,passengers:14,mphOverride:75,desc:"Grav-drive troop transport. Fast, sealed, carries a platoon over any surface.",notes:"Grav-drive troop transport for science fiction settings. She delivers a full platoon across any terrain at speed — rivers, rubble, sand, ice, all the same to a hover drive. The future of mechanised infantry, where the terrain between drop point and objective is no longer a factor in mission planning. Heavy Armor, Hover.",weapons:[{"weaponId": "laser_gat", "mount": "fixed", "linked": 0}],mods:{},specials:["heavy_armor", "enclosed"],_pack:"core"},
 {name:"Civilian Biplane",size:4,loco:"turboprop",toughLevel:1,armourLevel:-2,handlingLevel:1,speedLevel:-2,passengers:0,mphOverride:125,woundsLevel:-2,desc:"Open cockpit, fabric wings, a romantic way to die. Barnstormers, crop dusters, and Tiger Moths.",notes:"Tiger Moths, Sopwith Pups, Stearman PT-17s, de Havilland Gipsy Moths, and every barnstormer that ever terrified a county fair. Open cockpit, fabric over wood and wire, and a top speed that lets passengers appreciate the scenery whether they want to or not. She's your inter-war and pulp adventure aircraft — slow enough for pistol fights from the cockpit, low enough to barnstorm, fragile enough that every bullet matters. Wind in your face, oil on your goggles, and the ground uncomfortably close.",weapons:[],mods:{},specials:["open_top", "short_range"],_pack:"core"},
 {name:"Light Civilian Aircraft",size:5,loco:"turboprop",armourLevel:-1,handlingLevel:1,speedLevel:-2,passengers:3,mphOverride:140,woundsLevel:-2,desc:"Single-engine four-seater. Cessnas, Pipers, and Beechcrafts — the most common aircraft in the sky.",notes:"Cessna 172 Skyhawks, Piper Cherokees, Beechcraft Bonanzas, and their hundreds of variants. The most common aircraft type in the sky. She's the plane your players charter, steal, or escape in — simple to fly, cheap to hire, and she lands on dirt strips that would destroy anything bigger. Also covers bush planes, survey aircraft, and the small charter services that connect remote locations to civilisation.",weapons:[],mods:{},specials:["enclosed"],_pack:"core"},
@@ -1575,7 +1795,7 @@ var CANON_BUILDS=[
 {name:"Speed Boat",size:4,loco:"water_turbo",armourLevel:-2,handlingLevel:1,speedLevel:2,passengers:3,mphOverride:90,woundsLevel:-2,desc:"Outboard motor, fibreglass hull, weekend fun. Ski boats, bass boats, and cigarette racers.",notes:"Ski boats, bass boats, cigarette racers, RIBs (Rigid Inflatable Boats), and every fibreglass hull with an outboard motor. She's the sports car of the water — fast, agile, and fragile. Drug runners, coast guard pursuit, waterfront chases, and players who need to be somewhere coastal in a hurry. The cigarette boat variant is practically a genre requirement for any 1980s Miami campaign.",weapons:[],mods:{},specials:["open_top"],_pack:"core"},
 {name:"Small Yacht",size:8,loco:"water_turbo",armourLevel:-1,handlingLevel:1,crewLevel:-4,passengers:9,mphOverride:35,desc:"Comfortable coastal cruiser. Forty feet of fibreglass, teak, and someone else paying the marina fees.",notes:"Beneteau Oceanis, Jeanneau Sun Odyssey, Bavaria Cruiser, and the dozens of 35-45 foot coastal cruisers that fill every marina. She's a location, not a chase vehicle. The party happens here, the deal goes down here, the villain entertains guests on the upper deck while your players infiltrate from the waterline. Comfortable, expensive, and conspicuous — nobody sails a yacht anonymously.",weapons:[],mods:{},specials:["enclosed", "spacious", "long_range"],_pack:"core"},
 {name:"WW2 Light Tank",size:7,loco:"tracked",armourLevel:2,crewLevel:3,mphOverride:36,desc:"Fast reconnaissance armour. Stuarts, Luchs, and T-70s — light gun, light armour, big heart.",notes:"Stuarts, Luchs, T-70s, M3 Honeys, Tetrarchs, and their reconnaissance-role equivalents. Fast, undergunned, and used for scouting rather than direct engagement. She finds the enemy, reports back, and calls in the heavies. Players driving light tanks should feel the tension of bringing a small gun to a big fight — but also the advantage of speed when the shooting starts and they need to relocate. Heavy Armor, Tracked.",weapons:[{"weaponId":"tank_gun_37mm","mount":"turret","linked":0},{"weaponId":"mmg","mount":"fixed","linked":0},{"weaponId":"hmg","mount":"pintle","linked":0}],mods:{},specials:["heavy_armor", "enclosed"],_pack:"core"},
-{name:"Modern Main Battle Tank",size:9,loco:"tracked",toughLevel:2,armourLevel:8,crewLevel:-1,mphOverride:40,desc:"Composite armour, thermal sights, stabilised gun. Abrams, Challenger 2, Leopard 2 — the Western benchmark.",notes:"Abrams M1A1 and M1A2 variants, Challenger 2s, Leopard 2A6s, Leclercs, and Merkava IVs. The modern benchmark — composite armour that shrugs off most anti-tank weapons, thermal sights that see through darkness and smoke, stabilised guns that fire accurately at speed. She dominates open terrain absolutely. Use her to show players what modern military hardware can do, and to remind them that even the best tank is vulnerable in cities, forests, and mountains. Heavy Armor, Night Vision, Tracked.",weapons:[{"weaponId":"tank_gun_120mm","mount":"turret","linked":0},{"weaponId":"mmg_modern","mount":"fixed","linked":0},{"weaponId":"mmg_modern","mount":"turret","linked":0},{"weaponId":"hmg_modern","mount":"pintle","linked":0}],mods:{"enhanced_sensors": 1},specials:["heavy_armor", "enclosed", "night_ops"],_pack:"core"},
+{name:"Modern Main Battle Tank",size:9,loco:"tracked",toughLevel:2,armourLevel:10,crewLevel:-1,mphOverride:40,desc:"Composite armour, thermal sights, stabilised gun. Abrams, Challenger 2, Leopard 2 — the Western benchmark.",notes:"Abrams M1A1 and M1A2 variants, Challenger 2s, Leopard 2A6s, Leclercs, and Merkava IVs. The modern benchmark — composite armour that shrugs off most anti-tank weapons, thermal sights that see through darkness and smoke, stabilised guns that fire accurately at speed. She dominates open terrain absolutely. Use her to show players what modern military hardware can do, and to remind them that even the best tank is vulnerable in cities, forests, and mountains. Heavy Armor, Night Vision, Tracked.",weapons:[{"weaponId":"tank_gun_120mm","mount":"turret","linked":0},{"weaponId":"mmg_modern","mount":"fixed","linked":0},{"weaponId":"mmg_modern","mount":"turret","linked":0},{"weaponId":"hmg_modern","mount":"pintle","linked":0}],mods:{"enhanced_sensors": 1},specials:["heavy_armor", "enclosed", "night_ops"],_pack:"core"},
 {name:"Modern Infantry Fighting Vehicle",size:7,loco:"tracked",toughLevel:1,armourLevel:1,crewLevel:2,passengers:7,mphOverride:40,desc:"Autocannon, anti-tank missiles, carries a full squad. Bradleys, Warriors, and BMPs.",notes:"Bradleys, Warriors, BMPs, Marders, CV90s, and their equivalents. Not a taxi — she fights alongside the infantry she carries. Autocannon turret shreds light vehicles, anti-tank missiles threaten heavier armour, and the squad in the back dismounts through the rear ramp when the shooting starts. Players either ride in her or face her, and both experiences should feel dangerous. Heavy Armor, Night Vision, Tracked.",weapons:[{"weaponId":"autocannon_25mm","mount":"turret","linked":0},{"weaponId":"mmg_modern","mount":"turret","linked":0},{"weaponId":"tow_missile","mount":"fixed","linked":0}],mods:{"enhanced_sensors": 1},specials:["heavy_armor", "enclosed", "night_ops"],_pack:"core"}
 ];
 
@@ -1599,6 +1819,7 @@ document.getElementById('vDesc').addEventListener('input',function(e){S.desc=e.t
 document.getElementById('vNotes').addEventListener('input',function(e){S.notes=e.target.value||''});
 document.getElementById('helpContent').innerHTML=buildHelp();
 renderAll();
+updateContext('output');
 updateSettingsInfo();
 
 // ═══ FIRST-VISIT WELCOME BANNER ═══
