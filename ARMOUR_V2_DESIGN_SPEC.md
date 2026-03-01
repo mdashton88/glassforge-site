@@ -1,5 +1,5 @@
 # Vehicle Forge Armour v2 — Design Specification
-## Updated: v0.10.17 — Armour tables recalibrated to Pinnacle civilian baselines (March 2026)
+## Updated: v0.10.18 — Space toughness + armour recalibrated to SFC Future Military baselines (March 2026)
 
 ---
 
@@ -77,16 +77,52 @@ Step: sz<=16: 1, sz=17: 5, sz=18: 6, sz=19: 8, sz=20: 11,
 ```
 
 ### Space
-| Size | Base | Step |
-|------|------|------|
-| 16 | 10 | 2 |
-| 17-25 | 20-50 | 4 |
 
-Full table:
+Space vehicles use a fundamentally different toughness model from ground, air, and water.
+The SFC "Future Military" baseline has a non-linear armour curve (stepped for sz ≤ 16,
+then transitioning to linear at sz 20+) and a structural hull bonus that represents
+pressure hulls, radiation shielding, and capital-ship structural frames.
+
+**Space Hull Bonus** (added to structural toughness):
 ```
-{16:10, 17:20, 18:24, 19:32, 20:40, 21:42, 22:44, 23:46, 24:48, 25:50}
-Step: sz<=16: 2, sz>16: 4
+sz ≤  7: +4 (fighter/shuttle hulls)
+sz ≤ 16: +5 (corvette to frigate hulls)
+sz 17-20: {17:6, 18:7, 19:6, 20:7} (destroyer/cruiser transition)
+sz  21+: sz - 13 (capital ship scaling)
 ```
+Applied via `spaceHullBonus(sz)` in `calcStructural()` and `calcToughFor()`.
+
+**Armour Base** (slider 0 = SFC Future Military baseline):
+```
+sz ≤ 16: 2 * floor(sz/4) + 2  → stepped: 4,4,4,4 / 6,6,6,6 / 8,8,8,8 / 10
+sz  17: 20, sz 18: 24, sz 19: 32  → transition zone
+sz 20+: sz × 2  → linear (same as old formula)
+```
+
+**Armour Step** (per slider level):
+```
+sz ≤  7: 1
+sz ≤ 11: 2
+sz ≤ 16: 3
+sz ≤ 20: 4
+sz ≤ 25: 5
+sz 26+ : 6
+```
+(Old default was max(1, round(sz/3)) → gave 8 at sz25, far too aggressive.)
+
+**Toughness Step** (per slider level, builder only — packs use category step):
+```
+sz ≤ 11: 2
+sz ≤ 20: 3
+sz ≤ 25: 4
+sz 26+ : 5
+```
+(Old default was max(1, round(sz/4)+1) → gave 7 at sz25.)
+
+**Validation**: Slider 0 matches SFC baseline to 0.0% at sizes 4-29,
++1.8% at sz 30-31, +2.7% at sz 40. All SFC combat ships reachable within ±5.
+
+Updated: v0.10.18 — Space-specific toughness formulas matching SFC curves (March 2026)
 
 ---
 
