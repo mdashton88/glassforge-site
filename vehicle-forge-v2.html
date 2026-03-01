@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚒</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0A0908;--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;--bg-elevated:#181513;--bg-panel:#201E1A;--border:#2A2520;--border-light:#3A3530;--gold:#C4A44A;--gold-dim:#8A7A3A;--gold-bright:#D4B45A;--gold-glow:#C4A44A30;--accent:#C4A44A;--accent-dim:#C4A44A40;--accent-glow:#C4A44A20;--accent-bright:#D4B45A;--text:#D4C9B8;--text-bright:#EAE0D0;--text-dim:#8A8070;--green:#5A9A5A;--red:#8C3030;--red-bright:#B04040;--blue:#4A7A9A;--orange:#B07830;--text-scale:1}
+:root{--bg:#0A0908;--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;--bg-elevated:#181513;--bg-panel:#201E1A;--border:#332E28;--border-light:#443E36;--gold:#D4B44A;--gold-dim:#9A8A3A;--gold-bright:#E8C85A;--gold-glow:#D4B44A30;--accent:#D4B44A;--accent-dim:#D4B44A40;--accent-glow:#D4B44A20;--accent-bright:#E8C85A;--text:#E0D6C6;--text-bright:#F2EBE0;--text-dim:#A89A88;--green:#6AAA6A;--red:#8C3030;--red-bright:#B04040;--blue:#5A8AAA;--orange:#C08838;--text-scale:1}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.6}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
@@ -19,7 +19,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
 .nav-brand{font-family:'Cinzel',serif;font-weight:700;font-size:16px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:10px}
 .nav-brand .anvil{font-size:22px;color:var(--gold-bright)}
 .nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.3s;position:relative}
+.nav-links a{font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.3s;position:relative}
 .nav-links a:hover,.nav-links a.active{color:var(--gold)}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.3s}
 .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
@@ -37,18 +37,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
 .main{flex:2;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 .context-panel{flex:1;min-width:240px;background:var(--bg-dark);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;scrollbar-width:none;-ms-overflow-style:none}
 .context-section{padding:12px 16px;border-bottom:1px solid var(--border)}
-.context-section h3{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}
+.context-section h3{font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}
 .header{background:var(--bg-dark);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.header-brand{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;transition:color .2s}
+.header-brand{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;transition:color .2s}
 a.header-brand:hover{color:var(--accent)}
 .header-title{font-family:'Cinzel',serif;font-size:18px;color:var(--accent);letter-spacing:2px}
 .header-spacer{flex:1}
-.header-btn{background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:6px 14px;font-family:'Crimson Pro',serif;font-size:15px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.header-btn{background:transparent;border:1px solid var(--border);color:var(--text);padding:6px 14px;font-family:'Crimson Pro',serif;font-size:15px;cursor:pointer;transition:all .15s;white-space:nowrap}
 .header-btn:hover{border-color:var(--accent);color:var(--accent)}
 .header-btn.primary{background:var(--accent);color:var(--bg-deep);border-color:var(--accent);font-weight:700}
 .header-btn.primary:hover{background:#D4B45A}
 .sidebar-section{padding:12px 16px;border-bottom:1px solid var(--border)}
-.sidebar-section h3{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}
+.sidebar-section h3{font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}
 .field-row{margin-bottom:8px}
 .field-row input[type="text"],.field-row textarea,.field-row select{background:var(--bg-deep);border:1px solid var(--border);color:var(--text-bright);padding:6px 10px;font-family:'Crimson Pro',serif;font-size:15px;width:100%}
 .field-row input:focus,.field-row textarea:focus,.field-row select:focus{outline:none;border-color:var(--accent)}
@@ -56,35 +56,35 @@ a.header-brand:hover{color:var(--accent)}
 button:focus-visible,.header-btn:focus-visible,.tab:focus-visible,.loco-btn:focus-visible,.mount-tab:focus-visible,.hangar-tab:focus-visible,.sb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .field-row textarea{resize:vertical;min-height:40px;line-height:1.4}
-.field-row label{font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-family:'Cinzel',serif;display:block;margin-bottom:4px}
+.field-row label{font-size:13px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-family:'Cinzel',serif;display:block;margin-bottom:4px}
 .loco-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.loco-btn{background:var(--bg-deep);border:1px solid var(--border);color:var(--text);padding:5px 8px;cursor:pointer;font-family:'Crimson Pro',serif;font-size:12px;text-align:left;transition:all .15s;display:flex;justify-content:space-between;align-items:center}
+.loco-btn{background:var(--bg-deep);border:1px solid var(--border);color:var(--text);padding:6px 10px;cursor:pointer;font-family:'Crimson Pro',serif;font-size:13px;text-align:left;transition:all .15s;display:flex;justify-content:space-between;align-items:center}
 .loco-btn:hover{border-color:var(--accent);color:var(--accent)}
 .loco-btn.active{background:var(--accent-glow);border-color:var(--accent);color:var(--accent)}
-.loco-btn .loco-speed{font-size:12px;color:var(--text-dim)}.loco-btn.active .loco-speed{color:var(--accent);opacity:.7}
+.loco-btn .loco-speed{font-size:13px;color:var(--text-dim)}.loco-btn.active .loco-speed{color:var(--accent);opacity:.7}
 .slider-grid{display:flex;flex-direction:column;gap:6px}
 .slider-row{display:grid;grid-template-columns:58px 22px 1fr 22px 80px;align-items:center;gap:3px}
 .slider-row input[type=range]{width:100%;accent-color:var(--accent);height:16px}
-.slider-name{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase}
+.slider-name{font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase}
 .slider-lbl{font-size:12px;font-weight:700;color:var(--accent);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sb{width:24px;height:24px;padding:0;font-size:15px;background:var(--bg-deep);border:1px solid var(--border);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center}
 .sb:hover{border-color:var(--accent);color:var(--accent)}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .stat-box{background:var(--bg-deep);border:1px solid var(--border);padding:8px 10px;text-align:center}
-.stat-box .stat-label{font-size:12px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase;font-family:'Cinzel',serif}
-.stat-box .stat-value{font-size:16px;font-weight:700;color:var(--text-bright);margin-top:1px}
+.stat-box .stat-label{font-size:13px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase;font-family:'Cinzel',serif}
+.stat-box .stat-value{font-size:18px;font-weight:700;color:var(--text-bright);margin-top:1px}
 .mods-remaining{background:var(--bg-deep);border:1px solid var(--border);padding:12px;text-align:center;margin-top:8px}
 .mods-remaining .big-num{font-size:28px;font-weight:700;font-family:'Cinzel',serif}
 .big-num.ok{color:var(--green)}.big-num.low{color:var(--orange)}.big-num.over{color:var(--red-bright)}
 .cost-display{background:var(--bg-deep);border:1px solid var(--border);padding:10px;text-align:center;margin-top:6px}
 .cost-val{font-size:20px;font-weight:700;color:var(--accent);font-family:'Cinzel',serif}
-.cost-label{font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+.cost-label{font-size:13px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
 .tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg-dark);overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{padding:10px 12px;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;font-family:'Cinzel',serif;color:var(--text-dim);cursor:pointer;transition:all .15s;border-bottom:2px solid transparent;white-space:nowrap}
+.tab{padding:10px 14px;font-size:13px;letter-spacing:0.5px;text-transform:uppercase;font-family:'Cinzel',serif;color:var(--text-dim);cursor:pointer;transition:all .15s;border-bottom:2px solid transparent;white-space:nowrap}
 .tab:hover{color:var(--text)}.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .sidebar-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--bg-dark);flex-shrink:0}
-.sidebar-tab{padding:10px 16px;font-size:12px;letter-spacing:1px;text-transform:uppercase;font-family:'Cinzel',serif;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;flex:1;text-align:center}
+.sidebar-tab{padding:10px 16px;font-size:13px;letter-spacing:1px;text-transform:uppercase;font-family:'Cinzel',serif;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;flex:1;text-align:center}
 .sidebar-tab:hover{color:var(--text)}
 .sidebar-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .sidebar-panel{display:none;padding:12px 16px}
@@ -269,7 +269,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.38</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.39</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -357,7 +357,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.38 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.39 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -837,12 +837,12 @@ function renderExtensions(){
       if(ext.weapons&&ext.weapons.length)extras.push(ext.weapons.length+' wpns');
       if(ext.mods&&ext.mods.length)extras.push(ext.mods.length+' mods');
       if(ext.specials&&ext.specials.length)extras.push(ext.specials.length+' specials');
-      var borderCol=on?'#5a7a3a':'#3a3028';
+      var borderCol=on?'#6a8a4a':'#3a3028';
       var bgCol=on?'rgba(90,122,58,0.08)':'var(--bg-deep)';
-      var nameCol=on?'#D4C8B0':'#6a5e50';
-      var metaCol=on?'#9a8e7a':'#4a4038';
+      var nameCol=on?'#F2EBE0':'#8a7e6e';
+      var metaCol=on?'#B0A490':'#6a5e50';
       html+='<div onclick="togglePack(\''+ext.id+'\')" style="cursor:pointer;background:'+bgCol+';border:1px solid '+borderCol+';padding:10px 12px;display:flex;align-items:center;gap:10px;transition:all .15s">';
-      html+='<div style="flex-shrink:0;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;'+(on?'background:#5a7a3a;color:#fff':'border:2px solid #4a4038;color:transparent')+'"><span style="font-size:14px;line-height:1">'+(on?'\u2713':'')+'</span></div>';
+      html+='<div style="flex-shrink:0;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;'+(on?'background:#6a8a4a;color:#fff':'border:2px solid #4a4038;color:transparent')+'"><span style="font-size:14px;line-height:1">'+(on?'\u2713':'')+'</span></div>';
       html+='<div style="flex:1;min-width:0;overflow:hidden">';
       html+='<div style="font-size:14px;font-weight:600;color:'+nameCol+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+ext.name+'">'+ext.name+'</div>';
       html+='<div style="font-size:12px;color:'+metaCol+';margin-top:1px">'+vc+' vehicles'+(extras.length?' + '+extras.join(', '):'')+'</div>';
