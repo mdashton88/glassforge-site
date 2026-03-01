@@ -269,7 +269,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.37</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.38</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -317,7 +317,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <div class="hangar-grid" id="savedList" tabindex="0"></div>
       </div>
     </div>
-    <div class="panel" id="panel-extensions"><div id="extensionsContent" style="max-width:700px"></div></div>
+    <div class="panel" id="panel-extensions"><div id="extensionsContent" style="max-width:960px"></div></div>
     <div class="panel" id="panel-help"><div style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="search-bar help-search" id="helpSearch" placeholder="Search reference guide..." oninput="filterHelp()" style="flex:1;margin:0"><button class="btn" onclick="popOutHelp()" title="Open in new window" style="white-space:nowrap;padding:6px 14px">⧉ Pop Out</button></div><div id="helpContent"></div></div>
     <div class="panel" id="panel-settings">
       <div style="max-width:600px">
@@ -357,7 +357,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.37 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.38 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -828,20 +828,27 @@ function renderExtensions(){
   html+='<div style="margin-bottom:16px;font-size:13px;color:var(--text-dim)">'+en+' of '+extensions.length+' packs enabled \u2014 '+totalV+' vehicles active</div>';
   html+='<div style="margin-bottom:16px"><input type="file" id="vfxImport" accept=".vfx,.json" onchange="importVFX(event)" style="display:none"><button class="header-btn primary" onclick="document.getElementById(\'vfxImport\').click()" style="width:100%;text-align:center;padding:10px">Install Vehicle Pack (.vfx)</button></div>';
   if(extensions.length===0){html+='<p style="color:var(--text-dim);text-align:center;padding:20px;border:1px dashed var(--border)">No vehicle packs installed.</p>'}
-  else{extensions.forEach(function(ext){
-    var on=isPackEnabled(ext.id);
-    var counts=[];
-    if(ext.mods&&ext.mods.length)counts.push(ext.mods.length+' mods');
-    if(ext.weapons&&ext.weapons.length)counts.push(ext.weapons.length+' weapons');
-    if(ext.specials&&ext.specials.length)counts.push(ext.specials.length+' specials');
-    var vc=ext.vehicles?ext.vehicles.length:0;if(vc)counts.push(vc+' vehicles');
-    html+='<div style="background:var(--bg-deep);border:1px solid '+(on?'var(--border)':'var(--red)')+';padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;opacity:'+(on?'1':'0.5')+'">';
-    html+='<div style="flex:1;min-width:0"><strong style="color:'+(on?'var(--text-bright)':'var(--text-dim)')+'">'+ext.name+'</strong>';
-    if(ext.version)html+=' <span style="color:var(--text-dim);font-size:13px">v'+ext.version+'</span>';
-    html+='<div style="font-size:13px;color:var(--text-dim);margin-top:2px">'+counts.join(', ')+'</div></div>';
-    html+='<div style="display:flex;gap:6px;align-items:center;flex-shrink:0">';
-    html+='<button class="header-btn" onclick="togglePack(\''+ext.id+'\')" style="font-size:13px;min-width:50px;border-color:'+(on?'var(--green)':'var(--red)')+';color:'+(on?'var(--green)':'var(--red)')+'">'+(on?'ON':'OFF')+'</button>';
-    html+='</div></div>'})}
+  else{
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+    extensions.forEach(function(ext){
+      var on=isPackEnabled(ext.id);
+      var vc=ext.vehicles?ext.vehicles.length:0;
+      var extras=[];
+      if(ext.weapons&&ext.weapons.length)extras.push(ext.weapons.length+' wpns');
+      if(ext.mods&&ext.mods.length)extras.push(ext.mods.length+' mods');
+      if(ext.specials&&ext.specials.length)extras.push(ext.specials.length+' specials');
+      var borderCol=on?'#5a7a3a':'#3a3028';
+      var bgCol=on?'rgba(90,122,58,0.08)':'var(--bg-deep)';
+      var nameCol=on?'#D4C8B0':'#6a5e50';
+      var metaCol=on?'#9a8e7a':'#4a4038';
+      html+='<div onclick="togglePack(\''+ext.id+'\')" style="cursor:pointer;background:'+bgCol+';border:1px solid '+borderCol+';padding:10px 12px;display:flex;align-items:center;gap:10px;transition:all .15s">';
+      html+='<div style="flex-shrink:0;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;'+(on?'background:#5a7a3a;color:#fff':'border:2px solid #4a4038;color:transparent')+'"><span style="font-size:14px;line-height:1">'+(on?'\u2713':'')+'</span></div>';
+      html+='<div style="flex:1;min-width:0;overflow:hidden">';
+      html+='<div style="font-size:14px;font-weight:600;color:'+nameCol+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+ext.name+'">'+ext.name+'</div>';
+      html+='<div style="font-size:12px;color:'+metaCol+';margin-top:1px">'+vc+' vehicles'+(extras.length?' + '+extras.join(', '):'')+'</div>';
+      html+='</div>';
+      html+='</div>'});
+    html+='</div>'}
   html+='<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border)">';
   html+='<h3 style="font-family:Cinzel,serif;font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:12px">Export Library</h3>';
   html+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
