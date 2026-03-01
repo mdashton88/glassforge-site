@@ -97,9 +97,10 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .dnd-layout{display:flex;flex-direction:column;height:100%}
 .dnd-column{overflow-y:auto;flex:1}
 .dnd-column h3{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}
-.cat-header{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid var(--border);margin-top:8px}
-.drag-item,.weapon-drag-item{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg-deep);border:1px solid var(--border);margin:3px 0;cursor:grab;transition:all .15s;-webkit-user-select:none;user-select:none}
-.drag-item:hover,.weapon-drag-item:hover{border-color:var(--accent-dim);background:var(--bg-card)}
+.cat-header{font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid var(--border);margin-top:8px;text-shadow:0 0 8px var(--accent-glow)}
+.drag-item,.weapon-drag-item{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:var(--bg-deep);border:1px solid var(--border);margin:3px 0;cursor:grab;transition:all .2s;-webkit-user-select:none;user-select:none}
+.drag-item:hover,.weapon-drag-item:hover{border-color:var(--accent-dim);background:var(--bg-card);box-shadow:0 0 8px var(--accent-glow)}
+.drag-item:active,.weapon-drag-item:active{box-shadow:0 0 12px var(--accent-dim),inset 0 0 8px var(--accent-glow)}
 .drag-item.dragging,.weapon-drag-item.dragging{opacity:.3}
 .drag-handle{color:var(--text-dim);font-size:16px;opacity:.4;cursor:grab;flex-shrink:0;padding-top:2px}
 .di-info,.wdi-info{flex:1;min-width:0}
@@ -107,7 +108,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .di-desc{font-size:13px;color:var(--text-dim);line-height:1.3}
 .wdi-stats{font-size:13px;color:var(--text-dim);line-height:1.3}
 .di-meta,.wdi-meta{text-align:right;flex-shrink:0}
-.di-mods,.wdi-mods{font-size:13px;color:var(--blue);font-weight:600}
+.di-mods,.wdi-mods{font-size:13px;color:var(--blue);font-weight:600;text-shadow:0 0 6px rgba(90,138,170,0.3)}
 .di-price,.wdi-price{font-size:13px;color:var(--text-dim)}
 .drop-bay{min-height:120px;border:2px dashed var(--border);padding:8px;transition:all .3s}
 .drop-bay.drag-over{border-color:var(--accent);background:var(--accent-glow)}
@@ -115,17 +116,19 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 @keyframes bay-flash{0%{border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow)}100%{border-color:var(--border);box-shadow:none}}
 @keyframes stat-flash{0%{text-shadow:0 0 12px var(--accent)}100%{text-shadow:none}}
 @keyframes indicator-pulse{0%,100%{box-shadow:0 0 4px rgba(106,170,106,0.4)}50%{box-shadow:0 0 8px rgba(106,170,106,0.7)}}
-.empty-bay{text-align:center;color:var(--text-dim);font-style:italic;padding:40px 20px;font-size:15px}
-.bay-item,.weapon-bay-item{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--bg-card);border:1px solid var(--border);margin:3px 0}
+.empty-bay{text-align:center;color:var(--text-dim);font-style:italic;padding:40px 20px;font-size:15px;border:1px dashed var(--border)}
+.bay-item,.weapon-bay-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg-card);border:1px solid var(--accent-dim);margin:3px 0;box-shadow:inset 0 0 10px rgba(0,0,0,0.3);transition:all .2s}
+.bay-item:hover,.weapon-bay-item:hover{border-color:var(--accent);box-shadow:inset 0 0 10px rgba(0,0,0,0.3),0 0 8px var(--accent-glow)}
 .bay-item.snap-in,.weapon-bay-item.snap-in{animation:snap .2s ease}
 @keyframes snap{0%{transform:translateY(-6px);opacity:.5}100%{transform:translateY(0);opacity:1}}
 .bi-info,.wbi-info{flex:1}.bi-name,.wbi-name{font-size:15px;font-weight:600;color:var(--text-bright)}
 .bi-detail,.wbi-stats,.wbi-mount{font-size:13px;color:var(--text-dim)}
 .bi-controls{display:flex;align-items:center;gap:6px}
-.bi-controls button{background:var(--bg-deep);border:1px solid var(--border);color:var(--text);width:24px;height:24px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
-.bi-controls button:hover{border-color:var(--accent);color:var(--accent)}
-.bi-count{font-weight:700;color:var(--accent);min-width:16px;text-align:center}
-.bi-remove,.wbi-remove{cursor:pointer;color:var(--text-dim);font-size:16px;opacity:.5}.bi-remove:hover,.wbi-remove:hover{color:var(--red-bright);opacity:1}
+.bi-controls button{background:var(--bg-deep);border:1px solid var(--border);color:var(--text);width:24px;height:24px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.bi-controls button:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 6px var(--accent-glow)}
+.bi-controls button:active{transform:scale(0.9);background:var(--accent-glow)}
+.bi-count{font-weight:700;color:var(--accent);min-width:16px;text-align:center;text-shadow:0 0 6px var(--accent-glow)}
+.bi-remove,.wbi-remove{cursor:pointer;color:var(--text-dim);font-size:16px;opacity:.5;transition:all .15s}.bi-remove:hover,.wbi-remove:hover{color:var(--red-bright);opacity:1;text-shadow:0 0 8px rgba(176,64,64,0.5)}
 .mount-tabs{display:flex;gap:4px;margin-bottom:8px}
 .mount-tab{padding:5px 12px;font-size:13px;background:var(--bg-deep);border:1px solid var(--border);color:var(--text-dim);cursor:pointer;font-family:'Crimson Pro',serif}
 .mount-tab:hover{border-color:var(--accent-dim)}.mount-tab.active{background:var(--accent-glow);border-color:var(--accent);color:var(--accent)}
@@ -277,7 +280,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.41</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge v0.10.42</div>
     </div>
   </div>
   <div class="main" role="main">
@@ -365,7 +368,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge v0.10.41 — DiceForge Studios Ltd<br>
+          Vehicle Forge v0.10.42 — DiceForge Studios Ltd<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -1754,15 +1757,16 @@ function renderSpecials(){var grid=document.getElementById('specialsGrid');if(!g
   var allSpecials=getAllSpecials();var cats={};
   allSpecials.forEach(function(sp){if(!cats[sp.cat])cats[sp.cat]=[];cats[sp.cat].push(sp)});
   var html='';Object.keys(cats).forEach(function(cat){
-    html+='<div style="margin-bottom:12px"><h3 style="font-size:15px;color:var(--accent);margin-bottom:4px">'+cat+'</h3>';
+    html+='<div style="margin-bottom:12px"><h3 style="font-size:15px;color:var(--accent);margin-bottom:4px;text-shadow:0 0 8px var(--accent-glow)">'+cat+'</h3>';
     cats[cat].forEach(function(sp){
       var active=S.specials.indexOf(sp.id)>=0;
-      html+='<div class="drag-item" style="cursor:pointer;border-color:'+(active?'var(--accent)':'var(--border)')+'" onclick="toggleSpecial(\''+sp.id+'\')">';
-      html+='<span style="color:'+(active?'var(--accent)':'var(--text-dim)')+'">['+(active?'✓':' ')+']</span> ';
-      html+='<div><strong style="color:var(--text-bright)">'+sp.name+'</strong>';
+      html+='<div class="drag-item" style="cursor:pointer;border-color:'+(active?'var(--accent)':'var(--border)')+';'+(active?'box-shadow:0 0 8px var(--accent-glow),inset 0 0 8px var(--accent-glow);background:rgba(212,180,74,0.04)':'')+'" onclick="toggleSpecial(\''+sp.id+'\')">';
+      html+='<div style="flex-shrink:0;width:12px;height:12px;border-radius:50%;margin-top:4px;transition:all .3s;'+(active?'background:radial-gradient(circle at 38% 32%,#c0ff90,#6aaa4a 50%,#4a8a3a);box-shadow:0 0 5px 1px rgba(106,180,70,0.6),0 0 10px 3px rgba(106,180,70,0.2);animation:indicator-pulse 2s ease-in-out infinite':'background:radial-gradient(circle at 38% 32%,#4a4038,#2a2520 70%);box-shadow:inset 0 1px 2px rgba(0,0,0,0.5)')+'"></div>';
+      html+='<div style="flex:1"><strong style="color:'+(active?'var(--accent)':'var(--text-bright)')+'">'+sp.name+'</strong>';
       if(sp._extName)html+=' <span style="font-size:12px;color:var(--accent-dim)">['+sp._extName+']</span>';
       html+='<div style="font-size:13px;color:var(--text-dim)">'+sp.desc+'</div></div></div>'});
     html+='</div>'});
+  grid.innerHTML=html;
   grid.innerHTML=html;
   var list=document.getElementById('activeSpecialsList');
   if(list){var active=S.specials.map(function(id){var sp=allSpecials.find(function(x){return x.id===id});return sp?sp.name:id});
