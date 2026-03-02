@@ -781,8 +781,8 @@ function resolveAttacks(attSide,defSide){
   var defVulnerable=battle['status'+defSide].vulnerable;
 
   wpns.forEach(function(w){
-    var shots=Math.max(1,w.def.rof);
-    for(var shot=0;shot<shots;shot++){
+    var rof=Math.max(1,w.def.rof);
+    for(var shot=0;shot<rof;shot++){
       if(battle.over)return;
       // Roll Shooting + Wild Die
       var roll=rollTraitWithWild(crewDie);
@@ -798,7 +798,7 @@ function resolveAttacks(attSide,defSide){
         // Miss
         addLog(attSide==='A'?'left':'right',attV.name,
           '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+(mod?' '+mod:'')+' = '+finalRoll+'</span> vs TN 4. <span class="log-miss">Miss.</span>');
-        return}
+        continue}
 
       var raises=Math.floor((finalRoll-4)/4);
       var hitText=raises>0?'<span class="log-hit">Hit with '+(raises===1?'a Raise':raises+' Raises')+'!</span>':'<span class="log-hit">Hit!</span>';
@@ -809,35 +809,30 @@ function resolveAttacks(attSide,defSide){
       var toughness=battle['tough'+defSide];
       var armour=battle['armour'+defSide];
       var effectiveArmour=Math.max(0,armour-ap);
-      var effectiveTough=toughness-armour+effectiveArmour; // Toughness with reduced armour
+      var effectiveTough=toughness-armour+effectiveArmour;
 
       var dmgDice=dmg.dice.map(function(d){return formatDice(d)}).join(', ');
       var dmgStr='<span class="log-dice">'+dmg.total+(dmg.bonus?' ('+dmg.bonus+' bonus)':'')+' ['+dmgDice+']</span>';
       var tStr='vs Toughness '+toughness+'('+armour+')'+(ap?' AP '+ap+' → effective '+effectiveTough:'');
 
       if(dmg.total<effectiveTough){
-        // No effect
         addLog(attSide==='A'?'left':'right',attV.name,
           '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+' = '+finalRoll+'</span> '+hitText+' Damage: '+dmgStr+' '+tStr+'. <span class="log-miss">No effect.</span>');
-        return}
+        continue}
 
-      // Equals or exceeds = potential OOC check
       var damageRaises=Math.floor((dmg.total-effectiveTough)/4);
-      var woundsDealt=damageRaises; // Each raise = 1 wound
+      var woundsDealt=damageRaises;
 
       var resultParts=[];
       if(woundsDealt>0){
         battle['wounds'+defSide]+=woundsDealt;
         resultParts.push('<span class="log-wound">'+woundsDealt+' Wound'+(woundsDealt>1?'s':'')+'!</span>');
-        // Critical hit per wound-causing hit (not per wound)
         var crit=rollCrit();
         resultParts.push('<span class="log-crit">Critical Hit ('+crit.roll+'): '+crit.result+'</span>');
       }
 
-      // OOC check if damage >= toughness
       resultParts.push('Out of Control check required.');
 
-      // Check if wrecked
       if(battle['wounds'+defSide]>=battle['maxWounds'+defSide]){
         battle.over=true;
         resultParts.push('<span class="log-wound" style="font-size:17px">'+esc(defV.name)+' is WRECKED!</span>');
