@@ -896,8 +896,6 @@ function autoFight(){
     if(battle.over||rounds>=10){clearInterval(interval);return}
     nextRound();rounds++},300)}
 
-function resetBattle(){
-
 function copyLog(){
   var log=document.getElementById('combatLog');
   var text=log.innerText||log.textContent;
