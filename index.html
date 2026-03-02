@@ -715,11 +715,10 @@ footer a:hover { color: var(--gold); }
     <span></span><span></span><span></span>
   </button>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
-    <li><a href="/vehicle-forge-landing" id="nav-vehicle">Vehicle Forge</a></li>
+    <li><a href="#" onclick="showPage('home');return false" id="nav-home" class="active">Home</a></li>
+    <li><a href="/vehicle-forge-v2.1.html" id="nav-vehicle">Vehicle Forge</a></li>
     <li><a href="/battle-forge.html" id="nav-battle">Battle Forge</a></li>
-    <li><a href="#" onclick="showPage('arrath')" id="nav-arrath">World of Arr'ath</a></li>
-    <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a href="#" onclick="showPage('arrath');return false" id="nav-arrath">World of Arr'ath</a></li>
   </ul>
 </nav>
 
@@ -925,6 +924,14 @@ function toggleMenu() {
   document.getElementById('navLinks').classList.toggle('open');
   document.querySelector('.hamburger').classList.toggle('open');
 }
+
+// Handle /#arrath and /#about from external links
+(function() {
+  var hash = window.location.hash.replace('#','');
+  if (hash && document.getElementById('page-' + hash)) {
+    showPage(hash);
+  }
+})();
 </script>
 </body>
 </html>

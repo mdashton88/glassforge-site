@@ -26,14 +26,17 @@ a:hover{color:#E8C85A}
 .logo-block img{height:80px;opacity:0.9}
 .legal-text{font-size:14px;color:#8A8070;line-height:1.8;padding:20px;background:#0E0C0A;border:1px solid #332E28;border-radius:2px;margin:16px 0}
 .rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,#C4A44A,transparent);margin:32px auto}
-@media(max-width:768px){nav{padding:0 16px}.content{padding:96px 16px 60px}}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:10001}
+.hamburger span{display:block;width:24px;height:2px;background:#C4A44A;transition:all .3s}
+@media(max-width:768px){nav{padding:0 16px}.nav-links{display:none;position:fixed;top:72px;left:0;right:0;background:#0A0908F5;backdrop-filter:blur(16px);flex-direction:column;padding:32px 40px;gap:24px;border-bottom:1px solid #3A3530;transform:translateY(-100%);opacity:0;pointer-events:none;transition:all .3s}.nav-links.open{display:flex;transform:translateY(0);opacity:1;pointer-events:auto}.hamburger{display:flex}.content{padding:96px 16px 60px}}
 </style>
 </head>
 <body>
 
 <nav>
   <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
-  <ul class="nav-links">
+  <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open');this.classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="/">Home</a></li>
     <li><a href="/vehicle-forge-v2.1.html">Vehicle Forge</a></li>
     <li><a href="/battle-forge.html">Battle Forge</a></li>
