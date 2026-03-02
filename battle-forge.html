@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Battle Forge — DiceForge Studios</title>
+<meta name="description" content="Vehicle combat simulator for Savage Worlds. Drag two vehicles into the arena and watch them fight.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#0A0908;--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;
+--bg-elevated:#181513;--bg-panel:#201E1A;
+--border:#332E28;--border-light:#443E36;
+--gold:#D4B44A;--gold-dim:#9A8A3A;--gold-bright:#E8C85A;--gold-glow:#D4B44A30;
+--accent:#D4B44A;--accent-dim:#D4B44A40;--accent-glow:#D4B44A20;--accent-bright:#E8C85A;
+--text:#E0D6C6;--text-bright:#F2EBE0;--text-dim:#A89A88;
+--green:#6AAA6A;--red:#8C3030;--red-bright:#B04040;--blue:#5A8AAA;--orange:#C08838;
+--crimson:#C04040;--crimson-glow:#C0404030
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.6}
+
+/* ── NAV (pixel-perfect from VF) ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-brand{font-family:'Cinzel',serif;font-weight:700;font-size:16px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:10px}
+.nav-brand .anvil{font-size:22px;color:var(--gold-bright)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.3s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.3s}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:1001}
+.hamburger span{display:block;width:24px;height:2px;background:var(--gold);transition:all .3s}
+
+/* ── MAIN LAYOUT ── */
+.app{display:flex;height:calc(100vh - 72px);margin-top:72px;overflow:hidden}
+
+/* ── LEFT: VEHICLE A ── */
+.combatant-panel{width:320px;min-width:280px;background:var(--bg-dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.combatant-panel.right{border-right:none;border-left:1px solid var(--border)}
+.combatant-header{padding:12px 16px;border-bottom:1px solid var(--border);text-align:center}
+.combatant-header h2{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim)}
+.combatant-header .side-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+
+/* Drop zone */
+.drop-zone{min-height:100px;border:2px dashed var(--border);margin:12px;padding:16px;text-align:center;cursor:pointer;transition:all .3s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.drop-zone:hover{border-color:var(--accent-dim);background:rgba(212,180,74,0.03)}
+.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-glow);box-shadow:0 0 20px var(--accent-glow)}
+.drop-zone.has-vehicle{border-style:solid;border-color:var(--border);padding:0;min-height:auto}
+.drop-zone .placeholder{color:var(--text-dim);font-style:italic;font-size:15px}
+.drop-zone .placeholder .icon{font-size:28px;display:block;margin-bottom:4px;opacity:.4}
+
+/* Vehicle card in panel */
+.loaded-vehicle{padding:12px}
+.lv-name{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--accent);letter-spacing:1px}
+.lv-meta{font-size:13px;color:var(--text-dim);margin-top:2px}
+.lv-stats{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-top:10px;font-size:14px}
+.lv-stat-label{color:var(--text-dim);font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.lv-stat-value{color:var(--text-bright);font-weight:700}
+.lv-weapons{margin-top:10px;border-top:1px solid var(--border);padding-top:8px}
+.lv-weapons h4{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:6px}
+.lv-weapon{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px;border-bottom:1px solid var(--bg-deep)}
+.lv-weapon .wname{color:var(--text-bright);font-weight:600}
+.lv-weapon .wdmg{color:var(--accent);font-size:12px}
+.fire-btn{background:var(--crimson);color:var(--text-bright);border:none;padding:3px 10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.fire-btn:hover{background:var(--red-bright);box-shadow:0 0 10px var(--crimson-glow)}
+
+/* Wound track */
+.wound-track{margin:12px;padding:10px;background:var(--bg-deep);border:1px solid var(--border)}
+.wound-track h4{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:6px}
+.wound-pips{display:flex;gap:6px;margin-bottom:6px}
+.wound-pip{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);background:var(--bg-deep);transition:all .3s}
+.wound-pip.filled{background:var(--crimson);border-color:var(--red-bright);box-shadow:0 0 6px var(--crimson-glow)}
+.status-badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.status-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;padding:2px 8px;text-transform:uppercase;font-weight:700}
+.badge-shaken{background:rgba(192,136,56,0.2);color:var(--orange);border:1px solid var(--orange)}
+.badge-distracted{background:rgba(90,138,170,0.2);color:var(--blue);border:1px solid var(--blue)}
+.badge-vulnerable{background:rgba(192,64,64,0.2);color:var(--red-bright);border:1px solid var(--red-bright)}
+.badge-wrecked{background:var(--crimson);color:var(--text-bright);border:1px solid var(--red-bright);animation:wreck-pulse 1s infinite}
+@keyframes wreck-pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* Vehicle picker overlay */
+.picker-overlay{position:fixed;top:72px;left:0;right:0;bottom:0;background:rgba(10,9,8,0.92);backdrop-filter:blur(8px);z-index:500;display:none;flex-direction:column;padding:24px 48px}
+.picker-overlay.open{display:flex}
+.picker-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.picker-header h2{font-family:'Cinzel',serif;font-size:18px;color:var(--accent);letter-spacing:2px}
+.picker-search{background:var(--bg-deep);border:1px solid var(--border);color:var(--text);padding:8px 14px;font-family:'Crimson Pro',serif;font-size:16px;width:300px}
+.picker-search:focus{outline:none;border-color:var(--accent)}
+.picker-search::placeholder{color:var(--text-dim);font-style:italic}
+.picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;overflow-y:auto;flex:1;padding-bottom:24px}
+/* Hangar cards in picker — identical to VF */
+.hangar-card{background:var(--bg-deep);border:1px solid var(--border);padding:10px 12px;cursor:pointer;transition:all .2s;position:relative;height:60px;display:flex;align-items:center;gap:10px;overflow:hidden}
+.hangar-card:hover{border-color:var(--accent-dim);background:rgba(212,180,74,0.05);box-shadow:0 0 10px rgba(212,180,74,0.08)}
+.hangar-card.selected{border-color:var(--green);background:rgba(90,122,58,0.08);box-shadow:0 0 12px rgba(106,170,106,0.2)}
+.hangar-card .hc-indicator{flex-shrink:0;width:12px;height:12px;border-radius:50%;transition:all .3s}
+.hangar-card .hc-body{flex:1;min-width:0;overflow:hidden}
+.hangar-card .hc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--text-bright);line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hangar-card .hc-class{position:absolute;top:6px;right:8px;font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:var(--accent);letter-spacing:0.5px;line-height:1;opacity:0.55}
+.hangar-card .hc-meta{font-size:12px;color:var(--text-dim);line-height:1.4;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hangar-card .hc-badge{display:inline-block;font-size:10px;padding:1px 5px;border-radius:2px;font-weight:700;letter-spacing:.5px}
+.hc-badge.canon{background:rgba(212,180,74,0.15);color:var(--accent)}
+
+/* Dragging */
+.hangar-card[draggable=true]{cursor:grab}
+.hangar-card[draggable=true]:active{cursor:grabbing}
+.drag-ghost{position:fixed;z-index:9999;pointer-events:none;background:var(--accent);color:var(--bg-deep);padding:4px 12px;font-size:14px;font-weight:700;font-family:'Crimson Pro',serif;transform:translate(-50%,-50%);opacity:.9;box-shadow:0 4px 16px rgba(0,0,0,.5)}
+
+/* ── CENTRE: COMBAT LOG ── */
+.combat-centre{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.combat-header{background:var(--bg-dark);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.combat-title{font-family:'Cinzel',serif;font-size:16px;color:var(--accent);letter-spacing:2px}
+.round-badge{font-family:'Cinzel',serif;font-size:13px;color:var(--text-dim);letter-spacing:1px}
+.combat-controls{display:flex;gap:8px;align-items:center}
+.combat-log{flex:1;overflow-y:auto;padding:16px 24px;scrollbar-width:none;-ms-overflow-style:none}
+.combat-log::-webkit-scrollbar{display:none}
+
+/* Log entries */
+.log-entry{margin-bottom:16px;padding:12px 16px;background:var(--bg-deep);border-left:3px solid var(--border);line-height:1.6;font-size:15px;animation:log-slide .3s ease}
+.log-entry.left{border-left-color:var(--blue)}
+.log-entry.right{border-left-color:var(--crimson)}
+.log-entry.system{border-left-color:var(--accent);font-style:italic;color:var(--text-dim);text-align:center}
+.log-entry .log-actor{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.log-entry .log-dice{font-family:monospace;font-size:13px;color:var(--text-dim);background:var(--bg-card);padding:2px 8px;display:inline-block;margin:2px 0}
+.log-entry .log-hit{color:var(--gold-bright);font-weight:700}
+.log-entry .log-miss{color:var(--text-dim)}
+.log-entry .log-wound{color:var(--crimson);font-weight:700}
+.log-entry .log-crit{color:var(--orange);font-weight:700}
+@keyframes log-slide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Bottom controls */
+.combat-bar{background:var(--bg-dark);border-top:1px solid var(--border);padding:12px 24px;display:flex;gap:12px;align-items:center;justify-content:center}
+.header-btn{background:transparent;border:1px solid var(--border);color:var(--text);padding:8px 18px;font-family:'Crimson Pro',serif;font-size:15px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.header-btn:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 8px var(--accent-glow),inset 0 0 8px var(--accent-glow)}
+.header-btn.primary{background:var(--crimson);color:var(--text-bright);border-color:var(--crimson);font-weight:700;box-shadow:0 0 10px var(--crimson-glow)}
+.header-btn.primary:hover{background:var(--red-bright);box-shadow:0 0 16px var(--crimson-glow)}
+.header-btn:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
+
+/* Crew selector */
+.crew-select{background:var(--bg-deep);border:1px solid var(--border);color:var(--text);padding:4px 8px;font-size:13px;font-family:inherit;cursor:pointer;margin:0 12px}
+.crew-select:focus{border-color:var(--accent);outline:none}
+
+/* Footer */
+.bf-footer{font-size:11px;color:var(--text-dim);text-align:center;padding:8px;letter-spacing:1px;font-family:'Cinzel',serif;border-top:1px solid var(--border);background:var(--bg-dark)}
+
+/* Responsive */
+@media(max-width:1100px){.combatant-panel{width:260px;min-width:240px}}
+@media(max-width:900px){.combatant-panel{width:220px;min-width:200px}}
+@media(max-width:768px){
+.hamburger{display:flex}
+.nav-links{position:fixed;top:72px;left:0;right:0;background:#0A0908F5;backdrop-filter:blur(16px);flex-direction:column;padding:32px 40px;gap:24px;border-bottom:1px solid var(--border);transform:translateY(-100%);opacity:0;pointer-events:none;transition:all .3s}
+.nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}
+.app{flex-direction:column}.combatant-panel{width:100%;min-width:auto;border:none;border-bottom:1px solid var(--border);max-height:200px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/">Home</a></li>
+    <li><a href="/vehicle-forge-v2.1.html">Vehicle Forge</a></li>
+    <li><a href="/battle-forge.html" class="active">Battle Forge</a></li>
+    <li><a href="/#arrath">World of Arr'ath</a></li>
+  </ul>
+</nav>
+
+<div class="app">
+  <!-- ═══ LEFT: COMBATANT A ═══ -->
+  <div class="combatant-panel" id="panelA">
+    <div class="combatant-header">
+      <div class="side-label">⚔ Attacker</div>
+      <h2 id="nameA">Select Vehicle</h2>
+    </div>
+    <div class="drop-zone" id="dropA" onclick="openPicker('A')" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event,'A')">
+      <div class="placeholder" id="placeholderA"><span class="icon">⚙</span>Click or drag a vehicle here</div>
+      <div class="loaded-vehicle" id="loadedA" style="display:none"></div>
+    </div>
+    <div class="wound-track" id="woundTrackA" style="display:none">
+      <h4>Damage</h4>
+      <div class="wound-pips" id="woundPipsA"></div>
+      <div class="status-badges" id="statusA"></div>
+    </div>
+    <div style="padding:8px 12px;display:none" id="crewRowA">
+      <span style="font-family:Cinzel,serif;font-size:11px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase">Crew Quality</span>
+      <select class="crew-select" id="crewA" onchange="setCrew('A',this.value)" style="width:100%;margin:4px 0 0">
+        <option value="4">Untrained (d4)</option>
+        <option value="6" selected>Average (d6)</option>
+        <option value="8">Veteran (d8)</option>
+        <option value="10">Elite (d10)</option>
+        <option value="12">Legendary (d12)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ═══ CENTRE: COMBAT LOG ═══ -->
+  <div class="combat-centre">
+    <div class="combat-header">
+      <div class="combat-title">⚔ Battle Forge</div>
+      <div class="round-badge" id="roundBadge">Awaiting Combatants</div>
+      <div class="combat-controls">
+        <span style="font-size:12px;color:var(--text-dim);font-family:Cinzel,serif;letter-spacing:1px">RANGE</span>
+        <select class="crew-select" id="rangeSelect" style="margin:0">
+          <option value="0">Short</option>
+          <option value="-2">Medium (-2)</option>
+          <option value="-4">Long (-4)</option>
+        </select>
+      </div>
+    </div>
+    <div class="combat-log" id="combatLog">
+      <div class="log-entry system">
+        <em>Drag or click to load vehicles into each slot, then press <strong>FIGHT</strong> to begin.</em>
+      </div>
+    </div>
+    <div class="combat-bar">
+      <button class="header-btn primary" id="btnFight" onclick="nextRound()" disabled>⚔ Fight</button>
+      <button class="header-btn" id="btnAuto" onclick="autoFight()" disabled>▶ Auto (10 rounds)</button>
+      <button class="header-btn" onclick="resetBattle()">↺ Reset</button>
+    </div>
+    <div class="bf-footer">
+      Battle Forge v0.1.0 — DiceForge Studios Ltd · Compatible with Savage Worlds
+    </div>
+  </div>
+
+  <!-- ═══ RIGHT: COMBATANT B ═══ -->
+  <div class="combatant-panel right" id="panelB">
+    <div class="combatant-header">
+      <div class="side-label">⚔ Defender</div>
+      <h2 id="nameB">Select Vehicle</h2>
+    </div>
+    <div class="drop-zone" id="dropB" onclick="openPicker('B')" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event,'B')">
+      <div class="placeholder" id="placeholderB"><span class="icon">⚙</span>Click or drag a vehicle here</div>
+      <div class="loaded-vehicle" id="loadedB" style="display:none"></div>
+    </div>
+    <div class="wound-track" id="woundTrackB" style="display:none">
+      <h4>Damage</h4>
+      <div class="wound-pips" id="woundPipsB"></div>
+      <div class="status-badges" id="statusB"></div>
+    </div>
+    <div style="padding:8px 12px;display:none" id="crewRowB">
+      <span style="font-family:Cinzel,serif;font-size:11px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase">Crew Quality</span>
+      <select class="crew-select" id="crewB" onchange="setCrew('B',this.value)" style="width:100%;margin:4px 0 0">
+        <option value="4">Untrained (d4)</option>
+        <option value="6" selected>Average (d6)</option>
+        <option value="8">Veteran (d8)</option>
+        <option value="10">Elite (d10)</option>
+        <option value="12">Legendary (d12)</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ VEHICLE PICKER OVERLAY ═══ -->
+<div class="picker-overlay" id="pickerOverlay">
+  <div class="picker-header">
+    <h2 id="pickerTitle">Select Vehicle</h2>
+    <div style="display:flex;gap:12px;align-items:center">
+      <input type="text" class="picker-search" id="pickerSearch" placeholder="Search vehicles..." oninput="filterPicker()">
+      <button class="header-btn" onclick="closePicker()">✕ Close</button>
+    </div>
+  </div>
+  <div class="picker-grid" id="pickerGrid"></div>
+</div>
+
+<script>
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('open')}
+
+// ═══════════════════════════════════════════
+// DATA ENGINE (from Vehicle Forge v2.1.2)
+// ═══════════════════════════════════════════
+var LOCOS=[
+{id:'none',name:'None',speed:0,group:'other'},{id:'wheeled',name:'Wheeled',speed:4,group:'ground'},
+{id:'tracked',name:'Tracked',speed:3,group:'ground'},{id:'hover',name:'Hover',speed:5,group:'ground'},
+{id:'vtol',name:'VTOL',speed:7,group:'air'},{id:'turboprop',name:'Turboprop',speed:10,group:'air'},
+{id:'jet',name:'Jet',speed:12,group:'air'},{id:'water_sail',name:'Sail',speed:2,group:'water'},
+{id:'water_turbo',name:'Propeller',speed:3,group:'water'},{id:'water_jet',name:'Water Jet',speed:4,group:'water'},
+{id:'legs_biped',name:'Bipedal',speed:6,group:'walker'},{id:'legs_quad',name:'Multileg',speed:5,group:'walker'},
+{id:'space_thruster',name:'Thruster',speed:8,group:'space'},{id:'space_ftl',name:'FTL',speed:15,group:'space'}];
+
+// Shared state for withVehicle pattern
+var S={name:'',desc:'',notes:'',image:'',size:6,loco:'wheeled',mods:{},weapons:[],specials:[],customSpecial:'',
+toughLevel:0,armourLevel:0,speedLevel:0,handlingLevel:0,woundsLevel:0,crewLevel:0,passengers:0,mphOverride:0};
+
+function getFrame(sz){
+var cat,hand,wounds,crew;
+if(sz<=3){cat='Normal';hand=1;wounds=3;crew=1}
+else if(sz<=7){cat='Large';hand=0;wounds=4;crew=1}
+else if(sz<=11){cat='Huge';hand=-1;wounds=5;crew=5}
+else if(sz<=20){cat='Gargantuan';hand=-2;wounds=6;crew=20}
+else if(sz<=25){cat='Gargantuan';hand=-3;wounds=7;crew=100}
+else{cat='Gargantuan';hand=-4;wounds=8;crew=500}
+return{cat:cat,hand:hand,wounds:wounds,crew:crew}}
+
+function locoGroup(){var l=LOCOS.find(function(x){return x.id===S.loco});return l?l.group:'ground'}
+function locoName(id){var l=LOCOS.find(function(x){return x.id===id});return l?l.name:id}
+function isSpaceLoco(g){return g==='space'||g==='other'}
+function spaceHullBonus(sz){if(sz<=7)return 4;if(sz<=16)return 5;if(sz<=20)return[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,7,6,7][sz];return sz-13}
+function toughStep(){var g=locoGroup();if(isSpaceLoco(g)){var sz=S.size;if(sz<=11)return 2;if(sz<=20)return 3;if(sz<=25)return 4;return 5}return Math.max(1,Math.round(S.size/4)+1)}
+function calcStructural(){var base=S.size+5;var g=locoGroup();if(isSpaceLoco(g))base+=spaceHullBonus(S.size);return Math.max(1,base+S.toughLevel*toughStep())}
+function armourBase(){var g=locoGroup(),sz=S.size;if(g==='ground'||g==='walker'){if(sz<=3)return 1;if(sz<=7)return 2;if(sz<=11)return 3;return 4}if(g==='water'){if(sz<=3)return 1;if(sz<=11)return 2;return 3}if(g==='air'){if(sz<=0)return 0;if(sz<=4)return 1;if(sz<=8)return 2;if(sz<=10)return 2;if(sz<=12)return 3;return 4}if(sz<=16)return 2*Math.floor(sz/4)+2;if(sz===17)return 20;if(sz===18)return 24;if(sz===19)return 32;return sz*2}
+function armourStep(){var g=locoGroup(),sz=S.size;if(g==='ground'||g==='walker'){return sz<=4?1:sz<=5?2:sz<=6?3:sz<=7?4:sz<=8?6:sz<=9?7:sz<=10?8:sz<=11?9:sz<=12?10:sz<=13?11:12}if(g==='water'){return sz<=16?1:{17:5,18:6,19:8,20:11,21:12,22:12,23:13,24:14,25:14}[sz]||Math.max(1,Math.round(sz/2))}if(g==='air'){return sz<=8?1:sz<=10?2:3}return sz<=7?1:sz<=11?2:sz<=16?3:sz<=20?4:sz<=25?5:6}
+function calcArmourValue(){return Math.max(0,armourBase()+S.armourLevel*armourStep())}
+function calcTough(){return Math.max(1,calcStructural())}
+function calcTotalTough(){return calcTough()+calcArmourValue()}
+function calcHandling(){return getFrame(S.size).hand+S.handlingLevel}
+function calcWounds(){return Math.max(1,getFrame(S.size).wounds+S.woundsLevel)}
+function withVehicle(v,fn){
+var snap={name:S.name,desc:S.desc,notes:S.notes,image:S.image,size:S.size,loco:S.loco,
+mods:S.mods,weapons:S.weapons,toughLevel:S.toughLevel,armourLevel:S.armourLevel,
+speedLevel:S.speedLevel,handlingLevel:S.handlingLevel,woundsLevel:S.woundsLevel,
+crewLevel:S.crewLevel,passengers:S.passengers,mphOverride:S.mphOverride,
+specials:S.specials||[],customSpecial:S.customSpecial||''};
+S.name=v.name||'';S.desc=v.desc||'';S.notes=v.notes||'';S.image=v.image||'';
+S.size=v.size||6;S.loco=v.loco||'wheeled';
+S.mods=v.mods?JSON.parse(JSON.stringify(v.mods)):{};
+S.weapons=v.weapons?JSON.parse(JSON.stringify(v.weapons)):[];
+S.toughLevel=v.toughLevel||0;S.armourLevel=v.armourLevel||0;
+S.speedLevel=v.speedLevel||0;S.handlingLevel=v.handlingLevel||0;
+S.woundsLevel=v.woundsLevel||0;S.crewLevel=v.crewLevel||0;
+S.passengers=v.passengers||0;S.mphOverride=v.mphOverride||0;
+S.specials=v.specials||[];S.customSpecial=v.customSpecial||'';
+var result=fn();
+S.name=snap.name;S.desc=snap.desc;S.notes=snap.notes;S.image=snap.image;
+S.size=snap.size;S.loco=snap.loco;S.mods=snap.mods;S.weapons=snap.weapons;
+S.toughLevel=snap.toughLevel;S.armourLevel=snap.armourLevel;
+S.speedLevel=snap.speedLevel;S.handlingLevel=snap.handlingLevel;
+S.woundsLevel=snap.woundsLevel;S.crewLevel=snap.crewLevel;
+S.passengers=snap.passengers;S.mphOverride=snap.mphOverride;
+S.specials=snap.specials;S.customSpecial=snap.customSpecial;
+return result}
+
+// ═══════════════════════════════════════════
+// VEHICLE LIBRARY (loaded from VF localStorage + packs)
+// ═══════════════════════════════════════════
+var allVehicles=[];
+var allWeapons=[];
+
+function loadVehicles(){
+  allVehicles=[];allWeapons=[];
+  // Try loading from Vehicle Forge localStorage
+  try{var sv=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]');
+    sv.forEach(function(v){if(v.name)allVehicles.push(v)})}catch(e){}
+  // Load weapon definitions from VF extensions
+  try{var ext=JSON.parse(localStorage.getItem('diceforge-cvf-extensions')||'[]');
+    var disabled=JSON.parse(localStorage.getItem('diceforge-cvf-disabled')||'[]');
+    ext.forEach(function(e){
+      if(disabled.indexOf(e.id)!==-1)return;
+      if(e.weapons)e.weapons.forEach(function(w){allWeapons.push(w)})})}catch(e){}
+}
+
+function findWeapon(id){return allWeapons.find(function(w){return w.id===id})}
+function vehicleWeapons(v){
+  if(!v.weapons||!v.weapons.length)return[];
+  return v.weapons.map(function(w){
+    var wp=findWeapon(w.weaponId);
+    if(!wp)return null;
+    return{def:wp,mount:w.mount||'fixed',linked:w.linked||0}
+  }).filter(Boolean)}
+
+// ═══════════════════════════════════════════
+// SAVAGE WORLDS DICE ENGINE
+// ═══════════════════════════════════════════
+function rollDie(sides){
+  var total=0,roll;
+  do{roll=Math.floor(Math.random()*sides)+1;total+=roll}while(roll===sides); // Aces!
+  return total}
+
+function rollDieDetailed(sides){
+  var rolls=[],roll;
+  do{roll=Math.floor(Math.random()*sides)+1;rolls.push(roll)}while(roll===sides);
+  return{total:rolls.reduce(function(a,b){return a+b},0),rolls:rolls,aced:rolls.length>1}}
+
+function rollTraitWithWild(traitDie){
+  var trait=rollDieDetailed(traitDie);
+  var wild=rollDieDetailed(6);
+  var best=Math.max(trait.total,wild.total);
+  var usedWild=wild.total>=trait.total;
+  return{total:best,trait:trait,wild:wild,usedWild:usedWild}}
+
+function parseDamage(str){
+  // Parse "2d8+1", "4d10", "Str+2d6" etc
+  var m=str.match(/(\d+)d(\d+)([+-]\d+)?/);
+  if(!m)return{count:1,sides:6,bonus:0};
+  return{count:parseInt(m[1]),sides:parseInt(m[2]),bonus:m[3]?parseInt(m[3]):0}}
+
+function rollDamage(wpn,raised){
+  var d=parseDamage(wpn.damage);
+  var dice=[];var total=0;
+  for(var i=0;i<d.count;i++){var r=rollDieDetailed(d.sides);dice.push(r);total+=r.total}
+  if(raised){var bonus=rollDieDetailed(6);dice.push(bonus);total+=bonus.total}
+  total+=d.bonus;
+  return{total:total,dice:dice,bonus:d.bonus,raised:raised}}
+
+function formatDice(detailed){
+  return detailed.rolls.map(function(r,i){
+    return i>0?'→'+r:''+r
+  }).join('')+(detailed.aced?'!':'')}
+
+// ═══════════════════════════════════════════
+// COMBAT TABLES
+// ═══════════════════════════════════════════
+var OOC_TABLE=[
+  'Major Collision — Everyone Distracted. Vehicle takes d4 Wounds and a Critical Hit.',
+  'Major Collision — Everyone Distracted. Vehicle takes d4 Wounds and a Critical Hit.',
+  'Minor Collision — Vehicle takes a Wound and a Critical Hit.',
+  'Minor Collision — Vehicle takes a Wound and a Critical Hit.',
+  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',
+  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',
+  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',
+  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',
+  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',
+  'Vulnerable — Vehicle and everyone aboard Vulnerable until next turn.',
+  'Vulnerable — Vehicle and everyone aboard Vulnerable until next turn.',
+  'Glitch — Something jars loose. Vehicle suffers a Critical Hit.'];
+
+var CRIT_TABLE=[
+  'Scratch and Dent — No permanent damage. Paint job ruined.',
+  'Scratch and Dent — No permanent damage. Paint job ruined.',
+  'Guidance Hit — Handling reduced by 1.',
+  'Locomotion Hit — Top Speed reduced by 10%.',
+  'Locomotion Hit — Top Speed reduced by 10%.',
+  'Chassis — Hull hit, no special effect.',
+  'Chassis — Hull hit, no special effect.',
+  'Chassis — Hull hit, no special effect.',
+  'Crew Hit — Random crew member takes damage.',
+  'Crew Hit — Random crew member takes damage.',
+  'Weapon Destroyed — Random weapon lost.',
+  'System Destroyed — Random system lost.'];
+
+function rollOOC(){var r=rollDie(6)+rollDie(6);return{roll:r,result:OOC_TABLE[Math.min(r-1,11)]}}
+function rollCrit(){var r=rollDie(6)+rollDie(6);return{roll:r,result:CRIT_TABLE[Math.min(r-1,11)]}}
+
+// ═══════════════════════════════════════════
+// BATTLE STATE
+// ═══════════════════════════════════════════
+var battle={
+  vehicleA:null,vehicleB:null,
+  woundsA:0,woundsB:0,
+  maxWoundsA:3,maxWoundsB:3,
+  toughA:0,toughB:0,
+  armourA:0,armourB:0,
+  handlingA:0,handlingB:0,
+  crewDieA:6,crewDieB:6,
+  statusA:{},statusB:{},
+  round:0,over:false};
+
+function setCrew(side,val){battle['crewDie'+side]=parseInt(val)}
+
+// ═══════════════════════════════════════════
+// VEHICLE PICKER
+// ═══════════════════════════════════════════
+var pickerSide=null;
+var dragData=null;
+
+function openPicker(side){
+  pickerSide=side;
+  document.getElementById('pickerTitle').textContent='Select Vehicle — '+(side==='A'?'Attacker':'Defender');
+  document.getElementById('pickerSearch').value='';
+  renderPicker();
+  document.getElementById('pickerOverlay').classList.add('open');
+  document.getElementById('pickerSearch').focus()}
+
+function closePicker(){document.getElementById('pickerOverlay').classList.remove('open');pickerSide=null}
+
+function renderPicker(filter){
+  var grid=document.getElementById('pickerGrid');
+  var q=(filter||'').toLowerCase();
+  var html='';
+  allVehicles.forEach(function(v,i){
+    if(q&&v.name.toLowerCase().indexOf(q)<0)return;
+    var f=getFrame(v.size);
+    var lname=locoName(v.loco);
+    html+='<div class="hangar-card" draggable="true" ondragstart="startDrag(event,'+i+')" onclick="pickVehicle('+i+')">';
+    html+='<div class="hc-body">';
+    html+='<div class="hc-name">'+esc(v.name)+'</div>';
+    html+='<div class="hc-meta">Size '+v.size+' '+f.cat+' · '+lname+'</div>';
+    html+='</div>';
+    if(v._pack)html+='<span class="hc-badge canon">PACK</span>';
+    html+='</div>'});
+  if(!html)html='<div style="grid-column:1/-1;text-align:center;color:var(--text-dim);padding:40px;font-style:italic">No vehicles found. Install packs in the Vehicle Forge first.</div>';
+  grid.innerHTML=html}
+
+function filterPicker(){renderPicker(document.getElementById('pickerSearch').value)}
+
+function pickVehicle(idx){
+  loadCombatant(pickerSide,allVehicles[idx]);
+  closePicker()}
+
+function startDrag(e,idx){
+  dragData=idx;
+  e.dataTransfer.setData('text/plain',idx);
+  e.dataTransfer.effectAllowed='copy'}
+
+function handleDrop(e,side){
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  var idx=parseInt(e.dataTransfer.getData('text/plain'));
+  if(!isNaN(idx)&&allVehicles[idx])loadCombatant(side,allVehicles[idx])}
+
+// ═══════════════════════════════════════════
+// LOAD COMBATANT
+// ═══════════════════════════════════════════
+function loadCombatant(side,v){
+  battle['vehicle'+side]=JSON.parse(JSON.stringify(v));
+  var tough=withVehicle(v,calcTotalTough);
+  var arm=withVehicle(v,calcArmourValue);
+  var hand=withVehicle(v,calcHandling);
+  var maxW=withVehicle(v,calcWounds);
+  var wpns=vehicleWeapons(v);
+  battle['tough'+side]=tough;
+  battle['armour'+side]=arm;
+  battle['handling'+side]=hand;
+  battle['maxWounds'+side]=maxW;
+  battle['wounds'+side]=0;
+  battle['status'+side]={};
+
+  // Update header
+  document.getElementById('name'+side).textContent=v.name;
+
+  // Build loaded vehicle display
+  var lname=locoName(v.loco);
+  var f=getFrame(v.size);
+  var html='<div class="lv-name">'+esc(v.name)+'</div>';
+  html+='<div class="lv-meta">Size '+v.size+' '+f.cat+' · '+lname+'</div>';
+  html+='<div class="lv-stats">';
+  html+='<div><span class="lv-stat-label">Toughness</span><div class="lv-stat-value">'+tough+'('+arm+')</div></div>';
+  html+='<div><span class="lv-stat-label">Handling</span><div class="lv-stat-value">'+(hand>=0?'+':'')+hand+'</div></div>';
+  html+='<div><span class="lv-stat-label">Wounds</span><div class="lv-stat-value">'+maxW+'</div></div>';
+  html+='<div><span class="lv-stat-label">Class</span><div class="lv-stat-value">'+f.cat+'</div></div>';
+  html+='</div>';
+
+  if(wpns.length){
+    html+='<div class="lv-weapons"><h4>Weapons</h4>';
+    wpns.forEach(function(w){
+      html+='<div class="lv-weapon"><span class="wname">'+esc(w.def.name)+'</span><span class="wdmg">'+w.def.damage+' AP'+w.def.ap+'</span></div>'});
+    html+='</div>'}
+
+  document.getElementById('placeholder'+side).style.display='none';
+  var lv=document.getElementById('loaded'+side);
+  lv.innerHTML=html;lv.style.display='block';
+  document.getElementById('dropA').classList.add('has-vehicle');
+
+  // Show wound track
+  document.getElementById('woundTrack'+side).style.display='block';
+  document.getElementById('crewRow'+side).style.display='block';
+  renderWounds(side);
+
+  // Enable fight button?
+  if(battle.vehicleA&&battle.vehicleB){
+    document.getElementById('btnFight').disabled=false;
+    document.getElementById('btnAuto').disabled=false;
+    document.getElementById('roundBadge').textContent='Ready — Round 0'}
+}
+
+function renderWounds(side){
+  var max=battle['maxWounds'+side];
+  var cur=battle['wounds'+side];
+  var html='';
+  for(var i=0;i<max;i++)html+='<div class="wound-pip'+(i<cur?' filled':'')+'"></div>';
+  document.getElementById('woundPips'+side).innerHTML=html;
+  // Status badges
+  var st=battle['status'+side];
+  var badges='';
+  if(st.distracted)badges+='<span class="status-badge badge-distracted">Distracted</span>';
+  if(st.vulnerable)badges+='<span class="status-badge badge-vulnerable">Vulnerable</span>';
+  if(cur>=max)badges+='<span class="status-badge badge-wrecked">Wrecked</span>';
+  document.getElementById('status'+side).innerHTML=badges}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+// ═══════════════════════════════════════════
+// COMBAT RESOLUTION
+// ═══════════════════════════════════════════
+function nextRound(){
+  if(battle.over)return;
+  battle.round++;
+  document.getElementById('roundBadge').textContent='Round '+battle.round;
+
+  // Clear round statuses
+  battle.statusA={};battle.statusB={};
+
+  addLog('system','','— Round '+battle.round+' —');
+
+  // Initiative: both roll d6, higher goes first
+  var initA=rollDie(6),initB=rollDie(6);
+  var firstSide=initA>=initB?'A':'B';
+  var secondSide=firstSide==='A'?'B':'A';
+
+  addLog('system','','Initiative: '+(firstSide==='A'?battle.vehicleA.name:battle.vehicleB.name)+' acts first.');
+
+  resolveAttacks(firstSide,secondSide);
+  if(!battle.over)resolveAttacks(secondSide,firstSide);
+
+  renderWounds('A');renderWounds('B');
+  if(battle.over){
+    document.getElementById('btnFight').disabled=true;
+    document.getElementById('btnAuto').disabled=true}}
+
+function resolveAttacks(attSide,defSide){
+  var attV=battle['vehicle'+attSide];
+  var defV=battle['vehicle'+defSide];
+  if(!attV||!defV)return;
+  if(battle['wounds'+attSide]>=battle['maxWounds'+attSide])return; // Wrecked
+
+  var wpns=vehicleWeapons(attV);
+  if(!wpns.length){addLog(attSide==='A'?'left':'right',attV.name,'No weapons mounted. The crew watches helplessly.');return}
+
+  var crewDie=battle['crewDie'+attSide];
+  var rangePen=parseInt(document.getElementById('rangeSelect').value)||0;
+  var woundPen=battle['wounds'+attSide]; // -1 Handling per wound
+  var defVulnerable=battle['status'+defSide].vulnerable;
+
+  wpns.forEach(function(w){
+    var shots=Math.max(1,w.def.rof);
+    for(var shot=0;shot<shots;shot++){
+      if(battle.over)return;
+      // Roll Shooting + Wild Die
+      var roll=rollTraitWithWild(crewDie);
+      var mod=rangePen-Math.min(woundPen,4); // Handling penalty capped at -4
+      if(defVulnerable)mod+=2;
+      var finalRoll=roll.total+mod;
+
+      var traitStr='['+formatDice(roll.trait)+']';
+      var wildStr='[W:'+formatDice(roll.wild)+']';
+      var diceStr=traitStr+' '+wildStr+(roll.usedWild?' ←':'');
+
+      if(finalRoll<4){
+        // Miss
+        addLog(attSide==='A'?'left':'right',attV.name,
+          '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+(mod?' '+mod:'')+' = '+finalRoll+'</span> vs TN 4. <span class="log-miss">Miss.</span>');
+        return}
+
+      var raises=Math.floor((finalRoll-4)/4);
+      var hitText=raises>0?'<span class="log-hit">Hit with '+(raises===1?'a Raise':raises+' Raises')+'!</span>':'<span class="log-hit">Hit!</span>';
+
+      // Roll damage
+      var dmg=rollDamage(w.def,raises>0);
+      var ap=w.def.ap||0;
+      var toughness=battle['tough'+defSide];
+      var armour=battle['armour'+defSide];
+      var effectiveArmour=Math.max(0,armour-ap);
+      var effectiveTough=toughness-armour+effectiveArmour; // Toughness with reduced armour
+
+      var dmgDice=dmg.dice.map(function(d){return formatDice(d)}).join(', ');
+      var dmgStr='<span class="log-dice">'+dmg.total+(dmg.bonus?' ('+dmg.bonus+' bonus)':'')+' ['+dmgDice+']</span>';
+      var tStr='vs Toughness '+toughness+'('+armour+')'+(ap?' AP '+ap+' → effective '+effectiveTough:'');
+
+      if(dmg.total<effectiveTough){
+        // No effect
+        addLog(attSide==='A'?'left':'right',attV.name,
+          '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+' = '+finalRoll+'</span> '+hitText+' Damage: '+dmgStr+' '+tStr+'. <span class="log-miss">No effect.</span>');
+        return}
+
+      // Equals or exceeds = potential OOC check
+      var damageRaises=Math.floor((dmg.total-effectiveTough)/4);
+      var woundsDealt=damageRaises; // Each raise = 1 wound
+
+      var resultParts=[];
+      if(woundsDealt>0){
+        battle['wounds'+defSide]+=woundsDealt;
+        resultParts.push('<span class="log-wound">'+woundsDealt+' Wound'+(woundsDealt>1?'s':'')+'!</span>');
+        // Critical hit per wound-causing hit (not per wound)
+        var crit=rollCrit();
+        resultParts.push('<span class="log-crit">Critical Hit ('+crit.roll+'): '+crit.result+'</span>');
+      }
+
+      // OOC check if damage >= toughness
+      resultParts.push('Out of Control check required.');
+
+      // Check if wrecked
+      if(battle['wounds'+defSide]>=battle['maxWounds'+defSide]){
+        battle.over=true;
+        resultParts.push('<span class="log-wound" style="font-size:17px">'+esc(defV.name)+' is WRECKED!</span>');
+      }
+
+      addLog(attSide==='A'?'left':'right',attV.name,
+        '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+' = '+finalRoll+'</span> '+hitText+
+        ' Damage: '+dmgStr+' '+tStr+'. '+resultParts.join(' '));
+    }
+  })}
+
+function addLog(side,actor,text){
+  var log=document.getElementById('combatLog');
+  var div=document.createElement('div');
+  div.className='log-entry '+side;
+  div.innerHTML=(actor?'<div class="log-actor">'+esc(actor)+'</div>':'')+text;
+  log.appendChild(div);
+  log.scrollTop=log.scrollHeight}
+
+function autoFight(){
+  var rounds=0;
+  var interval=setInterval(function(){
+    if(battle.over||rounds>=10){clearInterval(interval);return}
+    nextRound();rounds++},300)}
+
+function resetBattle(){
+  battle={vehicleA:null,vehicleB:null,woundsA:0,woundsB:0,maxWoundsA:3,maxWoundsB:3,
+    toughA:0,toughB:0,armourA:0,armourB:0,handlingA:0,handlingB:0,
+    crewDieA:6,crewDieB:6,statusA:{},statusB:{},round:0,over:false};
+  ['A','B'].forEach(function(side){
+    document.getElementById('name'+side).textContent='Select Vehicle';
+    document.getElementById('placeholder'+side).style.display='';
+    document.getElementById('loaded'+side).style.display='none';
+    document.getElementById('loaded'+side).innerHTML='';
+    document.getElementById('woundTrack'+side).style.display='none';
+    document.getElementById('crewRow'+side).style.display='none';
+    document.getElementById('dropA').classList.remove('has-vehicle')});
+  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>Drag or click to load vehicles into each slot, then press <strong>FIGHT</strong> to begin.</em></div>';
+  document.getElementById('roundBadge').textContent='Awaiting Combatants';
+  document.getElementById('btnFight').disabled=true;
+  document.getElementById('btnAuto').disabled=true}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+loadVehicles();
+if(!allVehicles.length){
+  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>No vehicles found. Open the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a> first to install vehicle packs, then return here.</em></div>'}
+</script>
+</body>
+</html>
