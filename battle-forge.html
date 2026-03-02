@@ -218,6 +218,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
       <button class="header-btn primary" id="btnFight" onclick="nextRound()" disabled>⚔ Fight</button>
       <button class="header-btn" id="btnAuto" onclick="autoFight()" disabled>▶ Auto (10 rounds)</button>
       <button class="header-btn" onclick="resetBattle()">↺ Reset</button>
+      <button class="header-btn" onclick="copyLog()">📋 Copy Log</button>
     </div>
     <div class="bf-footer">
       Battle Forge v0.1.0 — DiceForge Studios Ltd · Compatible with Savage Worlds
@@ -894,6 +895,23 @@ function autoFight(){
   var interval=setInterval(function(){
     if(battle.over||rounds>=10){clearInterval(interval);return}
     nextRound();rounds++},300)}
+
+function resetBattle(){
+
+function copyLog(){
+  var log=document.getElementById('combatLog');
+  var text=log.innerText||log.textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn=event.target;btn.textContent='✓ Copied!';
+    setTimeout(function(){btn.textContent='📋 Copy Log'},1500)
+  }).catch(function(){
+    // Fallback for older browsers
+    var ta=document.createElement('textarea');ta.value=text;
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');
+    document.body.removeChild(ta);
+    var btn=event.target;btn.textContent='✓ Copied!';
+    setTimeout(function(){btn.textContent='📋 Copy Log'},1500)
+  })}
 
 function resetBattle(){
   battle={vehicleA:null,vehicleB:null,woundsA:0,woundsB:0,maxWoundsA:3,maxWoundsB:3,
