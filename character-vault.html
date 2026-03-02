@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tribute Lands — Character Vault</title>
 <script src="vault-integration.js"></script>
+<script src="tool-navigation.js"></script>
 <style>
 :root {
   --bg-dark: #1a1a1a;
@@ -3652,6 +3653,7 @@ async function unlockApp(){
 
 window.addEventListener('beforeunload',(e)=>{if(saveTimer){clearTimeout(saveTimer);saveTimer=null;pushToGist();e.returnValue='Save in progress...';}});
 document.addEventListener('DOMContentLoaded',()=>{
+  addToolNavigation('character-vault');
   document.getElementById('sidebarInner').style.display=DICEFORGE_AUTH?'':'none';
   if(DICEFORGE_AUTH){
     const check=setInterval(()=>{if(window.CharacterForge){clearInterval(check);unlockApp();}},50);

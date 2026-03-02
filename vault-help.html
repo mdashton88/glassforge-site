@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Character Vault — User Manual</title>
+<script src="tool-navigation.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0F0F0F;--bg-sidebar:#131313;--bg-card:#1C1C1C;--bg-search:#1E1E1E;--border:#333;--text:#E8E2D6;--text-dim:#B0A890;--text-bright:#F8F4EC;--gold:#C4A44A;--gold-dim:#9A8A3A;--green:#6AB06A;--red:#C05050;--blue:#6AAAD0;--link:#90C8E8;--code-bg:#1A1A1A}
@@ -1022,6 +1023,7 @@ document.addEventListener('keydown', function(e) {
   if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); searchInput.focus(); searchInput.select(); }
   if (e.key === 'Escape') searchInput.blur();
 });
+addToolNavigation('vault-help');
 </script>
 </body>
 </html>

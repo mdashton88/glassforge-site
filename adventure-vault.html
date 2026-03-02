@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tribute Lands — Adventure Vault</title>
 <script src="vault-integration.js"></script>
+<script src="tool-navigation.js"></script>
 <style>
 :root {
   --bg-dark: #1a1a1a;
@@ -1784,8 +1785,9 @@ updateBreadcrumb();
 
 // Initialize: Load adventures when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', loadAdventures);
+  document.addEventListener('DOMContentLoaded', function() { addToolNavigation('adventure-vault'); loadAdventures(); });
 } else {
+  addToolNavigation('adventure-vault');
   loadAdventures();
 }
 
