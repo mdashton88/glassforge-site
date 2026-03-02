@@ -61,14 +61,9 @@ function addToolNavigation(currentTool) {
   /* ── FAN LICENCE FOOTER ── */
   var footer = document.createElement('div');
   footer.className = 'dfs-fan-footer';
-  footer.innerHTML = '<a href="https://www.peginc.com/licensing/" title="Savage Worlds Fan Product">'
-    + '<img src="/sw_fan_logo.png" alt="Savage Worlds Fan Product" style="height:40px;vertical-align:middle;margin-right:8px;opacity:0.85"></a><br>'
-    + '<span style="font-size:10px;display:inline-block;max-width:600px;margin-top:4px;line-height:1.4">'
-    + 'This game references the Savage Worlds game system, available from Pinnacle Entertainment Group at '
-    + '<a href="https://www.peginc.com" style="color:#8A7A60">www.peginc.com</a>. '
-    + 'Savage Worlds and all associated logos and trademarks are copyrights of Pinnacle Entertainment Group. '
-    + 'Used with permission. Pinnacle makes no representation or warranty as to the quality, viability, or suitability for purpose of this product.</span><br>'
-    + '<span style="font-size:10px;margin-top:4px;display:inline-block">&copy; 2026 DiceForge Studios Ltd.</span>';
+  footer.innerHTML = '<a href="/legal.html" title="Savage Worlds Fan Product">'
+    + '<img src="/sw_fan_logo.png" alt="Savage Worlds Fan Product" style="height:36px;vertical-align:middle;margin-right:8px;opacity:0.85"></a> '
+    + '<span style="font-size:10px">&copy; 2026 DiceForge Studios Ltd. <a href="/legal.html" style="color:#8A7A60">Legal & Licensing</a></span>';
   document.body.appendChild(footer);
 }
 
