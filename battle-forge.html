@@ -497,12 +497,21 @@ var extWeapons=[];
 
 function loadVehicles(){
   allVehicles=[];extWeapons=[];
-  // Try loading from Vehicle Forge localStorage
+  var disabled=[];
+  try{disabled=JSON.parse(localStorage.getItem('diceforge-cvf-disabled')||'[]')}catch(e){}
+  // Load vehicles — only from enabled packs (or user-created with no pack)
   try{var sv=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]');
-    sv.forEach(function(v){if(v.name)allVehicles.push(v)})}catch(e){}
+    sv.forEach(function(v){
+      if(!v.name)return;
+      // Filter: skip vehicles from disabled packs
+      if(v._pack&&disabled.indexOf(v._pack)!==-1)return;
+      // Skip vehicles with no weapons (nothing to fight with)
+      if(!v.weapons||!v.weapons.length)return;
+      allVehicles.push(v)})}catch(e){}
+  // Sort alphabetically
+  allVehicles.sort(function(a,b){return a.name.localeCompare(b.name)});
   // Load extension weapon definitions (on top of core WEAPONS)
   try{var ext=JSON.parse(localStorage.getItem('diceforge-cvf-extensions')||'[]');
-    var disabled=JSON.parse(localStorage.getItem('diceforge-cvf-disabled')||'[]');
     ext.forEach(function(e){
       if(disabled.indexOf(e.id)!==-1)return;
       if(e.weapons)e.weapons.forEach(function(w){extWeapons.push(w)})})}catch(e){}
@@ -876,7 +885,29 @@ function resetBattle(){
 // ═══════════════════════════════════════════
 loadVehicles();
 if(!allVehicles.length){
-  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>No vehicles found. Open the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a> first to install vehicle packs, then return here.</em></div>'}
+  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>No armed vehicles found. Open the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a> first to install vehicle packs, then return here.</em></div>'}
+else{
+  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>'+allVehicles.length+' armed vehicles ready. Click a drop zone to select, or send vehicles from the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a>.</em></div>'}
+
+// URL parameter loading: ?a=VehicleName&b=VehicleName
+(function loadFromURL(){
+  var params=new URLSearchParams(window.location.search);
+  var nameA=params.get('a'),nameB=params.get('b');
+  if(nameA){var va=allVehicles.find(function(v){return v.name===nameA});if(va)loadCombatant('A',va)}
+  if(nameB){var vb=allVehicles.find(function(v){return v.name===nameB});if(vb)loadCombatant('B',vb)}
+})();
+
+// Cross-tab messaging: Vehicle Forge can send vehicles via postMessage
+window.addEventListener('message',function(e){
+  if(!e.data||e.data.type!=='diceforge-battle')return;
+  var v=e.data.vehicle;
+  var side=e.data.side||'A';
+  if(v&&v.name){
+    // Reload vehicles in case packs changed
+    loadVehicles();
+    loadCombatant(side,v);
+    addLog('system','','Vehicle received from Vehicle Forge: <strong>'+esc(v.name)+'</strong> loaded into '+(side==='A'?'Attacker':'Defender')+' slot.')}
+});
 </script>
 </body>
 </html>

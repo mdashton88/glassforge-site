@@ -204,6 +204,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .hc-badge.canon{background:rgba(212,180,74,0.15);color:var(--accent)}.hc-badge.user{background:rgba(106,170,106,0.15);color:var(--green)}
 .hangar-card .hc-actions{display:none;gap:4px}
 .hangar-card:hover .hc-actions{display:flex}
+.hangar-card:hover .hc-act{display:inline-block!important}
 .hc-act{background:none;border:1px solid var(--border);color:var(--text-dim);padding:2px 8px;font-size:11px;cursor:pointer;font-family:inherit;border-radius:2px;transition:all .15s}
 .hc-act:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 6px var(--accent-glow)}
 .empty-state{text-align:center;color:var(--text-dim);padding:20px;font-style:italic}
@@ -337,7 +338,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:block;border-color:var(--green);color:var(--green);font-size:13px">📖 Manual</a>
       </div>
     </div>
-    <div class="cs-version">Vehicle Forge v2.1.2</div>
+    <div class="cs-version">Vehicle Forge v2.1.3</div>
   </div>
 
   <!-- ═══ CENTRE: WORKSPACE ═══ -->
@@ -552,7 +553,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
             </div>
           </div>
           <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-            Vehicle Forge v2.1.2 — DiceForge Studios Ltd<br>
+            Vehicle Forge v2.1.3 — DiceForge Studios Ltd<br>
             Compatible with Savage Worlds
           </div>
         </div>
@@ -2032,6 +2033,7 @@ function renderSaved(){syncVehiclesFromPacks();var list=document.getElementById(
     html+='<div class="hc-name" title="'+esc(s.name)+'">'+esc(s.name)+'</div>';
     html+='<div class="hc-meta">'+(loco?loco.name:'')+' \u00b7 Size '+s.size+' '+cat+(wpnCount?' \u00b7 '+wpnCount+' wpns':'')+'</div>';
     html+='</div>';
+    if(wpnCount)html+='<button class="hc-act" onclick="event.stopPropagation();sendToBattle('+i+')" title="Send to Battle Forge" style="position:absolute;bottom:4px;right:6px;display:none;font-size:10px;padding:1px 6px">⚔</button>';
     html+='</div>'});
   list.innerHTML=html}
 
@@ -2055,6 +2057,22 @@ function previewVehicle(i){
 
 function loadFromHangar(i){Audio.clunk();previewVehicle(i);switchTab('output');renderAll()}
 function loadVehicle(i){Audio.clunk();previewVehicle(i);switchTab('output');renderAll()}
+
+// ═══ BATTLE FORGE INTEGRATION ═══
+var battleForgeWindow=null;
+function sendToBattle(i){
+  var v=S.saved[i];if(!v)return;
+  Audio.click();
+  // Try postMessage to an existing Battle Forge window
+  if(battleForgeWindow&&!battleForgeWindow.closed){
+    var side=battleForgeWindow._nextSide||'A';
+    battleForgeWindow.postMessage({type:'diceforge-battle',vehicle:v,side:side},'*');
+    battleForgeWindow._nextSide=(side==='A'?'B':'A');
+    battleForgeWindow.focus();return}
+  // Open Battle Forge with this vehicle pre-loaded
+  var url='/battle-forge.html?a='+encodeURIComponent(v.name);
+  battleForgeWindow=window.open(url,'battleforge');
+  if(battleForgeWindow)battleForgeWindow._nextSide='B'}
 
 function cloneCanon(i){Audio.click();var src=S.saved[i];if(!src)return;
   var clone=JSON.parse(JSON.stringify(src));
