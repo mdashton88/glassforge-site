@@ -598,35 +598,34 @@ function formatDice(detailed){
 // COMBAT TABLES
 // ═══════════════════════════════════════════
 var OOC_TABLE=[
-  'Major Collision — Everyone Distracted. Vehicle takes d4 Wounds and a Critical Hit.',
-  'Major Collision — Everyone Distracted. Vehicle takes d4 Wounds and a Critical Hit.',
-  'Minor Collision — Vehicle takes a Wound and a Critical Hit.',
-  'Minor Collision — Vehicle takes a Wound and a Critical Hit.',
-  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',
-  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',
-  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',
-  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',
-  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',
-  'Vulnerable — Vehicle and everyone aboard Vulnerable until next turn.',
-  'Vulnerable — Vehicle and everyone aboard Vulnerable until next turn.',
-  'Glitch — Something jars loose. Vehicle suffers a Critical Hit.'];
+  'Major Collision — Everyone Distracted. Vehicle takes 2d6 damage and a Critical Hit.',   // 2
+  'Minor Collision — Vehicle takes a Wound and a Critical Hit.',                             // 3
+  'Minor Collision — Vehicle takes a Wound and a Critical Hit.',                             // 4
+  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',             // 5
+  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',             // 6
+  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',             // 7
+  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',             // 8
+  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',             // 9
+  'Vulnerable — Vehicle and everyone aboard Vulnerable until next turn.',                    // 10
+  'Vulnerable — Vehicle and everyone aboard Vulnerable until next turn.',                    // 11
+  'Glitch — Something jars loose. Vehicle suffers a Critical Hit.'];                         // 12
 
 var CRIT_TABLE=[
-  'Scratch and Dent — No permanent damage. Paint job ruined.',
-  'Scratch and Dent — No permanent damage. Paint job ruined.',
-  'Guidance Hit — Handling reduced by 1.',
-  'Locomotion Hit — Top Speed reduced by 10%.',
-  'Locomotion Hit — Top Speed reduced by 10%.',
-  'Chassis — Hull hit, no special effect.',
-  'Chassis — Hull hit, no special effect.',
-  'Chassis — Hull hit, no special effect.',
-  'Crew Hit — Random crew member takes damage.',
-  'Crew Hit — Random crew member takes damage.',
-  'Weapon Destroyed — Random weapon lost.',
-  'System Destroyed — Random system lost.'];
+  'Scratch and Dent — No permanent damage. Paint job ruined.',   // 2
+  'Guidance Hit — Handling reduced by 1.',                        // 3
+  'Locomotion Hit — Top Speed reduced by 10%.',                   // 4
+  'Locomotion Hit — Top Speed reduced by 10%.',                   // 5
+  'Chassis — Hull hit, no special effect.',                       // 6
+  'Chassis — Hull hit, no special effect.',                       // 7
+  'Chassis — Hull hit, no special effect.',                       // 8
+  'Crew Hit — Random crew member takes damage.',                  // 9
+  'Crew Hit — Random crew member takes damage.',                  // 10
+  'Weapon Destroyed — Random weapon lost.',                       // 11
+  'System Destroyed — Random system lost.'];                      // 12
 
-function rollOOC(){var r=rollDie(6)+rollDie(6);return{roll:r,result:OOC_TABLE[Math.min(r-1,11)]}}
-function rollCrit(){var r=rollDie(6)+rollDie(6);return{roll:r,result:CRIT_TABLE[Math.min(r-1,11)]}}
+function rollFlat(sides){return Math.floor(Math.random()*sides)+1}
+function rollOOC(){var r=rollFlat(6)+rollFlat(6);return{roll:r,result:OOC_TABLE[r-2]}}
+function rollCrit(){var r=rollFlat(6)+rollFlat(6);return{roll:r,result:CRIT_TABLE[r-2]}}
 
 // ═══════════════════════════════════════════
 // BATTLE STATE
@@ -880,18 +879,20 @@ function resolveAttacks(attSide,defSide){
         var ooc=rollOOC();
         resultParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — <span class="log-crit">Out of Control! ('+ooc.roll+'): '+ooc.result+'</span>');
         // Apply OOC effects
-        if(ooc.roll<=3){
-          // Major collision (2) or Minor collision (3-4)
-          var collisionWounds=ooc.roll<=2?(rollDie(4)):1;
-          battle['wounds'+defSide]+=collisionWounds;
-          if(ooc.roll<=2)battle['status'+defSide].distracted=true;
+        if(ooc.roll===2){
+          // Major collision: 2d6 damage + crit + distracted
+          var collDmg=rollFlat(6)+rollFlat(6);
+          var collWounds=Math.max(0,Math.floor((collDmg-4)/4)); // Rough wound estimate
+          if(collDmg>=effectiveTough)collWounds=Math.max(1,collWounds);
+          battle['wounds'+defSide]+=Math.max(1,collWounds);
+          battle['status'+defSide].distracted=true;
           var collCrit=rollCrit();
-          resultParts.push('<span class="log-wound">Collision: +'+collisionWounds+' Wound'+(collisionWounds>1?'s':'')+'!</span> <span class="log-crit">Critical Hit ('+collCrit.roll+'): '+collCrit.result+'</span>');
+          resultParts.push('<span class="log-wound">Major Collision! +'+Math.max(1,collWounds)+' Wound(s)!</span> <span class="log-crit">Critical Hit ('+collCrit.roll+'): '+collCrit.result+'</span>');
         }else if(ooc.roll<=4){
-          // Minor collision
+          // Minor collision: 1 wound + crit
           battle['wounds'+defSide]+=1;
           var collCrit2=rollCrit();
-          resultParts.push('<span class="log-wound">Collision: +1 Wound!</span> <span class="log-crit">Critical Hit ('+collCrit2.roll+'): '+collCrit2.result+'</span>');
+          resultParts.push('<span class="log-wound">Minor Collision! +1 Wound!</span> <span class="log-crit">Critical Hit ('+collCrit2.roll+'): '+collCrit2.result+'</span>');
         }else if(ooc.roll<=9){
           battle['status'+defSide].distracted=true;
         }else if(ooc.roll<=11){
