@@ -540,7 +540,7 @@ function loadCombatant(side,v){
   document.getElementById('placeholder'+side).style.display='none';
   var lv=document.getElementById('loaded'+side);
   lv.innerHTML=html;lv.style.display='block';
-  document.getElementById('dropA').classList.add('has-vehicle');
+  document.getElementById('drop'+side).classList.add('has-vehicle');
 
   // Show wound track
   document.getElementById('woundTrack'+side).style.display='block';
@@ -706,7 +706,7 @@ function resetBattle(){
     document.getElementById('loaded'+side).innerHTML='';
     document.getElementById('woundTrack'+side).style.display='none';
     document.getElementById('crewRow'+side).style.display='none';
-    document.getElementById('dropA').classList.remove('has-vehicle')});
+    document.getElementById('drop'+side).classList.remove('has-vehicle')});
   document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>Drag or click to load vehicles into each slot, then press <strong>FIGHT</strong> to begin.</em></div>';
   document.getElementById('roundBadge').textContent='Awaiting Combatants';
   document.getElementById('btnFight').disabled=true;
