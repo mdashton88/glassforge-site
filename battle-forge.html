@@ -651,30 +651,30 @@ function cardText(card){
 // COMBAT TABLES
 // ═══════════════════════════════════════════
 var OOC_TABLE=[
-  'Major Collision — Everyone Distracted. Vehicle takes 2d6 damage and a Critical Hit.',   // 2
-  'Minor Collision — Vehicle takes a Wound and a Critical Hit.',                             // 3
-  'Minor Collision — Vehicle takes a Wound and a Critical Hit.',                             // 4
-  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',             // 5
-  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',             // 6
-  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',             // 7
-  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',             // 8
-  'Distracted — Vehicle spins out. Everyone aboard Distracted until next turn.',             // 9
-  'Vulnerable — Vehicle and everyone aboard Vulnerable until next turn.',                    // 10
-  'Vulnerable — Vehicle and everyone aboard Vulnerable until next turn.',                    // 11
-  'Glitch — Something jars loose. Vehicle suffers a Critical Hit.'];                         // 12
+  'Catastrophic Impact — The vehicle ploughs into something solid. Crew rattled, hull buckled. Deals d4 Wounds and triggers a Critical Hit.',   // 2
+  'Glancing Impact — Metal screams as the vehicle clips an obstacle. Suffers a Wound and triggers a Critical Hit.',   // 3
+  'Glancing Impact — Metal screams as the vehicle clips an obstacle. Suffers a Wound and triggers a Critical Hit.',   // 4
+  'Loss of Control — The vehicle lurches violently. Crew thrown about, unable to focus until they recover.',           // 5
+  'Loss of Control — The vehicle lurches violently. Crew thrown about, unable to focus until they recover.',           // 6
+  'Loss of Control — The vehicle lurches violently. Crew thrown about, unable to focus until they recover.',           // 7
+  'Loss of Control — The vehicle lurches violently. Crew thrown about, unable to focus until they recover.',           // 8
+  'Loss of Control — The vehicle lurches violently. Crew thrown about, unable to focus until they recover.',           // 9
+  'Exposed — The vehicle slews sideways, presenting its flank. Easier to hit until the crew corrects.',               // 10
+  'Exposed — The vehicle slews sideways, presenting its flank. Easier to hit until the crew corrects.',               // 11
+  'Mechanical Fault — A component fails under the strain. Triggers a Critical Hit.'];                             // 12
 
 var CRIT_TABLE=[
-  'Scratch and Dent — No permanent damage. Paint job ruined.',   // 2
-  'Guidance Hit — Handling reduced by 1.',                        // 3
-  'Locomotion Hit — Top Speed reduced by 10%.',                   // 4
-  'Locomotion Hit — Top Speed reduced by 10%.',                   // 5
-  'Chassis — Hull hit, no special effect.',                       // 6
-  'Chassis — Hull hit, no special effect.',                       // 7
-  'Chassis — Hull hit, no special effect.',                       // 8
-  'Crew Hit — Random crew member takes damage.',                  // 9
-  'Crew Hit — Random crew member takes damage.',                  // 10
-  'Weapon Destroyed — Random weapon lost.',                       // 11
-  'System Destroyed — Random system lost.'];                      // 12
+  'Superficial — Sparks fly and paint peels, but nothing vital is touched. Cosmetic damage only.',                     // 2
+  'Steering Damaged — Controls are sluggish. Handling worsens by 1.',                                                  // 3
+  'Drive System Hit — Power train, engine, or propulsion takes a hit. Top Speed drops by 10%.',                        // 4
+  'Drive System Hit — Power train, engine, or propulsion takes a hit. Top Speed drops by 10%.',                        // 5
+  'Structural Hit — A solid blow to the frame. The hull absorbs it with no special effect.',                           // 6
+  'Structural Hit — A solid blow to the frame. The hull absorbs it with no special effect.',                           // 7
+  'Structural Hit — A solid blow to the frame. The hull absorbs it with no special effect.',                           // 8
+  'Crew Casualty — Shrapnel or impact injures a crew member.',                                                         // 9
+  'Crew Casualty — Shrapnel or impact injures a crew member.',                                                         // 10
+  'Armament Wrecked — A weapon mount is shattered beyond use. One weapon out of action.',                                  // 11
+  'Systems Failure — An onboard system is knocked offline.'];                                                           // 12
 
 function rollFlat(sides){return Math.floor(Math.random()*sides)+1}
 function rollOOC(){var r=rollFlat(6)+rollFlat(6);return{roll:r,result:OOC_TABLE[r-2]}}
@@ -962,19 +962,19 @@ function resolveAttacks(attSide,defSide){
           battle['wounds'+defSide]+=Math.max(1,collWounds);
           battle['status'+defSide].distracted=true;
           var collCrit=rollCrit();
-          resultParts.push('<span class="log-wound">Major Collision! +'+Math.max(1,collWounds)+' Wound(s)!</span> <span class="log-crit">Critical Hit ('+collCrit.roll+'): '+collCrit.result+'</span>');
+          resultParts.push('<span class="log-wound">Catastrophic Impact! +'+Math.max(1,collWounds)+' Wound(s)!</span> <span class="log-crit">Critical Hit ('+collCrit.roll+'): '+collCrit.result+'</span>');
         }else if(ooc.roll<=4){
           // Minor collision: 1 wound + crit
           battle['wounds'+defSide]+=1;
           var collCrit2=rollCrit();
-          resultParts.push('<span class="log-wound">Minor Collision! +1 Wound!</span> <span class="log-crit">Critical Hit ('+collCrit2.roll+'): '+collCrit2.result+'</span>');
+          resultParts.push('<span class="log-wound">Glancing Impact! +1 Wound!</span> <span class="log-crit">Critical Hit ('+collCrit2.roll+'): '+collCrit2.result+'</span>');
         }else if(ooc.roll<=9){
           battle['status'+defSide].distracted=true;
         }else if(ooc.roll<=11){
           battle['status'+defSide].vulnerable=true;
         }else{
           var glitchCrit=rollCrit();
-          resultParts.push('<span class="log-crit">Glitch Critical Hit ('+glitchCrit.roll+'): '+glitchCrit.result+'</span>');
+          resultParts.push('<span class="log-crit">Mechanical Fault — Critical Hit ('+glitchCrit.roll+'): '+glitchCrit.result+'</span>');
         }
         } // end else (failed OOC check)
       } // end OOC guard (not already wrecked)
