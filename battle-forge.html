@@ -307,7 +307,6 @@ function calcTough(){return Math.max(1,calcStructural())}
 function calcTotalTough(){return calcTough()+calcArmourValue()}
 function calcHandling(){return getFrame(S.size).hand+S.handlingLevel}
 function calcWounds(){return Math.max(1,getFrame(S.size).wounds+S.woundsLevel)}
-function withVehicle(v,fn){
 
 // ═══ UNIFIED CLASS SYSTEM (A–Z from Vehicle Forge) ═══
 var CLASS_BANDS=[
