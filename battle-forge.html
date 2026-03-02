@@ -868,17 +868,18 @@ function resolveAttacks(attSide,defSide){
         resultParts.push('<span class="log-crit">Critical Hit ('+crit.roll+'): '+crit.result+'</span>');
       }
 
-      // Out of Control check — driver rolls maneuvering skill
-      var oocRoll=rollTraitWithWild(crewDie);
-      var oocMod=-Math.min(battle['wounds'+defSide],4);
-      var oocTotal=oocRoll.total+oocMod;
-      var oocDice='['+formatDice(oocRoll.trait)+'] [W:'+formatDice(oocRoll.wild)+']'+(oocRoll.usedWild?' ←':'')+(oocMod?' '+oocMod:'');
-      if(oocTotal>=4){
-        resultParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — driver keeps control.');
-      }else{
-        var ooc=rollOOC();
-        resultParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — <span class="log-crit">Out of Control! ('+ooc.roll+'): '+ooc.result+'</span>');
-        // Apply OOC effects
+      // Out of Control check — but only if not already wrecked
+      if(battle['wounds'+defSide]<battle['maxWounds'+defSide]){
+        var oocRoll=rollTraitWithWild(crewDie);
+        var oocMod=-Math.min(battle['wounds'+defSide],4);
+        var oocTotal=oocRoll.total+oocMod;
+        var oocDice='['+formatDice(oocRoll.trait)+'] [W:'+formatDice(oocRoll.wild)+']'+(oocRoll.usedWild?' ←':'')+(oocMod?' '+oocMod:'');
+        if(oocTotal>=4){
+          resultParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — driver keeps control.');
+        }else{
+          var ooc=rollOOC();
+          resultParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — <span class="log-crit">Out of Control! ('+ooc.roll+'): '+ooc.result+'</span>');
+          // Apply OOC effects
         if(ooc.roll===2){
           // Major collision: 2d6 damage + crit + distracted
           var collDmg=rollFlat(6)+rollFlat(6);
@@ -901,7 +902,8 @@ function resolveAttacks(attSide,defSide){
           var glitchCrit=rollCrit();
           resultParts.push('<span class="log-crit">Glitch Critical Hit ('+glitchCrit.roll+'): '+glitchCrit.result+'</span>');
         }
-      }
+        } // end else (failed OOC check)
+      } // end OOC guard (not already wrecked)
 
       if(battle['wounds'+defSide]>=battle['maxWounds'+defSide]){
         battle.over=true;
