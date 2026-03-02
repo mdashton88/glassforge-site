@@ -308,6 +308,34 @@ function calcTotalTough(){return calcTough()+calcArmourValue()}
 function calcHandling(){return getFrame(S.size).hand+S.handlingLevel}
 function calcWounds(){return Math.max(1,getFrame(S.size).wounds+S.woundsLevel)}
 function withVehicle(v,fn){
+
+// ═══ UNIFIED CLASS SYSTEM (A–Z from Vehicle Forge) ═══
+var CLASS_BANDS=[
+  {letter:'A',min:0,max:15},{letter:'B',min:16,max:25},{letter:'C',min:26,max:35},
+  {letter:'D',min:36,max:45},{letter:'E',min:46,max:55},{letter:'F',min:56,max:65},
+  {letter:'G',min:66,max:75},{letter:'H',min:76,max:85},{letter:'I',min:86,max:95},
+  {letter:'J',min:96,max:105},{letter:'K',min:106,max:115},{letter:'L',min:116,max:125},
+  {letter:'M',min:126,max:135},{letter:'N',min:136,max:145},{letter:'O',min:146,max:155},
+  {letter:'P',min:156,max:165},{letter:'Q',min:166,max:175},{letter:'R',min:176,max:185},
+  {letter:'S',min:186,max:195},{letter:'T',min:196,max:205},{letter:'U',min:206,max:215},
+  {letter:'V',min:216,max:225},{letter:'W',min:226,max:235},{letter:'X',min:236,max:245},
+  {letter:'Y',min:246,max:255},{letter:'Z',min:256,max:99999}];
+function classFromValue(val){
+  for(var i=CLASS_BANDS.length-1;i>=0;i--){if(val>=CLASS_BANDS[i].min)return CLASS_BANDS[i]}
+  return CLASS_BANDS[0]}
+function classLetter(val){return classFromValue(val).letter}
+function classLabel(val){
+  var band=classFromValue(val);var range=band.max-band.min+1;
+  var pos=(val-band.min)/range;
+  if(pos>=0.67)return band.letter+'+';if(pos<=0.33)return band.letter+'\u2212';return band.letter}
+function vehicleClassFor(v){return withVehicle(v,function(){return classLabel(calcTotalTough())})}
+function weaponClassVal(wp,lk){
+  var m=wp.damage.match(/(\d+)d(\d+)([+-]\d+)?/);if(!m)return 0;
+  var n=+m[1],d=+m[2],mod=m[3]?+m[3]:0;var dmgBonus=lk===1?2:lk>=3?4:0;
+  return Math.ceil(n*(d+1)/2+mod+dmgBonus)+(wp.ap||0)}
+function weaponClassLabel(wp,lk){return classLabel(weaponClassVal(wp,lk))}
+
+function withVehicle(v,fn){
 var snap={name:S.name,desc:S.desc,notes:S.notes,image:S.image,size:S.size,loco:S.loco,
 mods:S.mods,weapons:S.weapons,toughLevel:S.toughLevel,armourLevel:S.armourLevel,
 speedLevel:S.speedLevel,handlingLevel:S.handlingLevel,woundsLevel:S.woundsLevel,
@@ -641,12 +669,14 @@ function renderPicker(filter){
     if(q&&v.name.toLowerCase().indexOf(q)<0)return;
     var f=getFrame(v.size);
     var lname=locoName(v.loco);
+    var vClass=vehicleClassFor(v);
     html+='<div class="hangar-card" draggable="true" ondragstart="startDrag(event,'+i+')" onclick="pickVehicle('+i+')">';
     html+='<div class="hc-body">';
     html+='<div class="hc-name">'+esc(v.name)+'</div>';
     html+='<div class="hc-meta">Size '+v.size+' '+f.cat+' · '+lname+'</div>';
     html+='</div>';
-    if(v._pack)html+='<span class="hc-badge canon">PACK</span>';
+    html+='<span class="hc-class">'+vClass+'</span>';
+    if(v._pack)html+='<span class="hc-badge canon" style="position:absolute;bottom:4px;right:8px">PACK</span>';
     html+='</div>'});
   if(!html)html='<div style="grid-column:1/-1;text-align:center;color:var(--text-dim);padding:40px;font-style:italic">No vehicles found. Install packs in the Vehicle Forge first.</div>';
   grid.innerHTML=html}
@@ -691,19 +721,21 @@ function loadCombatant(side,v){
   // Build loaded vehicle display
   var lname=locoName(v.loco);
   var f=getFrame(v.size);
-  var html='<div class="lv-name">'+esc(v.name)+'</div>';
+  var vClass=vehicleClassFor(v);
+  var html='<div class="lv-name">'+esc(v.name)+' <span style="opacity:0.6;font-size:14px">['+vClass+']</span></div>';
   html+='<div class="lv-meta">Size '+v.size+' '+f.cat+' · '+lname+'</div>';
   html+='<div class="lv-stats">';
   html+='<div><span class="lv-stat-label">Toughness</span><div class="lv-stat-value">'+tough+'('+arm+')</div></div>';
   html+='<div><span class="lv-stat-label">Handling</span><div class="lv-stat-value">'+(hand>=0?'+':'')+hand+'</div></div>';
   html+='<div><span class="lv-stat-label">Wounds</span><div class="lv-stat-value">'+maxW+'</div></div>';
-  html+='<div><span class="lv-stat-label">Class</span><div class="lv-stat-value">'+f.cat+'</div></div>';
+  html+='<div><span class="lv-stat-label">Class</span><div class="lv-stat-value">'+vClass+'</div></div>';
   html+='</div>';
 
   if(wpns.length){
     html+='<div class="lv-weapons"><h4>Weapons</h4>';
     wpns.forEach(function(w){
-      html+='<div class="lv-weapon"><span class="wname">'+esc(w.def.name)+'</span><span class="wdmg">'+w.def.damage+' AP'+w.def.ap+'</span></div>'});
+      var wClass=weaponClassLabel(w.def,w.linked);
+      html+='<div class="lv-weapon"><span class="wname">'+esc(w.def.name)+' <span style="opacity:0.5;font-size:11px">['+wClass+']</span></span><span class="wdmg">'+w.def.damage+' AP'+w.def.ap+' RoF'+w.def.rof+'</span></div>'});
     html+='</div>'}
 
   document.getElementById('placeholder'+side).style.display='none';
