@@ -332,29 +332,188 @@ S.specials=snap.specials;S.customSpecial=snap.customSpecial;
 return result}
 
 // ═══════════════════════════════════════════
+// MASTER WEAPONS TABLE (from Vehicle Forge v2.1.2)
+// ═══════════════════════════════════════════
+var WEAPONS=[
+  // ANCIENT
+  {id:'scorpion',name:'Scorpion',cat:'Siege Engines',era:'ancient',range:'15/30/60',damage:'2d6',ap:2,rof:1,shots:0,minSize:1,mods:1,cost:200,notes:'Reload 1, HW',desc:'Torsion-powered bolt thrower. Roman scorpiones, Greek oxybeles — the sniper rifles of the ancient world.'},
+  {id:'onager',name:'Onager',cat:'Siege Engines',era:'ancient',range:'24/48/96',damage:'3d6',ap:0,rof:1,shots:0,minSize:3,mods:2,cost:500,notes:'Reload 4, Indirect, MBT',desc:'Torsion catapult hurling stones or burning pitch. Onagers, mangonels, and their variants levelled walls and morale alike.'},
+  {id:'polybolos',name:'Polybolos',cat:'Siege Engines',era:'ancient',range:'15/30/60',damage:'2d6',ap:2,rof:2,shots:0,minSize:2,mods:1,cost:400,notes:'Reload 1, Repeating ballista, HW',desc:'Repeating bolt thrower — an engineering marvel of the ancient world. Faster than a standard ballista at the cost of accuracy.'},
+  {id:'greek_fire_s',name:'Greek Fire Siphon',cat:'Incendiaries',era:'ancient',range:'Cone',damage:'2d8',ap:0,rof:1,shots:10,minSize:2,mods:1,cost:300,notes:'Cone 12", Incendiary, Clean Burn',desc:'Pressurised incendiary siphon. Greek fire, naphtha projectors, and their terrifying equivalents.'},
+  {id:'bow_battery',name:'Bow Battery',cat:'Ranged',era:'ancient',range:'12/24/48',damage:'2d6',ap:1,rof:2,shots:0,minSize:2,mods:1,cost:100,notes:'Crew of archers, Reload 1',desc:'Organised volley fire from massed archers. Longbowmen, composite bow crews, or crossbow teams on a fighting platform.'},
+  {id:'javelin_rack',name:'Javelin Rack',cat:'Ranged',era:'ancient',range:'4/8/16',damage:'2d4',ap:0,rof:3,shots:20,minSize:1,mods:1,cost:50,notes:'Thrown, limited range',desc:'Rack-mounted throwing spears for close-range harassment. Cheap, disposable, effective from a moving chariot.'},
+  {id:'scythed_wheels',name:'Scythed Wheels',cat:'Melee Systems',era:'ancient',range:'—',damage:'Str+2d6',ap:2,rof:0,shots:0,minSize:2,mods:1,cost:100,notes:'Melee, damages adjacent on pass, HW',desc:'Bladed wheel hubs that shred anything alongside the vehicle. Persian scythed chariots made these infamous.'},
+  {id:'ram_ancient',name:'Bronze Ram',cat:'Melee Systems',era:'ancient',range:'—',damage:'Str+2d8',ap:4,rof:0,shots:0,minSize:4,mods:1,cost:300,notes:'Ship ram, melee only, HW',desc:'Reinforced bronze ram at the waterline. Triremes drove these through enemy hulls at ramming speed.'},
+  // MEDIEVAL
+  {id:'ballista',name:'Ballista',cat:'Siege Engines',era:'medieval',range:'15/30/60',damage:'3d6',ap:2,rof:1,shots:0,minSize:2,mods:1,cost:500,notes:'Reload 2, HW',desc:'Heavy torsion crossbow on a frame mount. Fires bolts that punch through shields, armour, and gate timbers.'},
+  {id:'catapult',name:'Catapult',cat:'Siege Engines',era:'medieval',range:'24/48/96',damage:'3d8',ap:0,rof:1,shots:0,minSize:4,mods:2,cost:1000,notes:'Reload 4, Indirect, MBT',desc:'Arm-sling siege engine. Hurls stones, corpses, or incendiaries over walls. Reload time is the price of devastation.'},
+  {id:'trebuchet',name:'Trebuchet',cat:'Siege Engines',era:'medieval',range:'24/48/96',damage:'4d8',ap:4,rof:1,shots:0,minSize:6,mods:3,cost:2000,notes:'Reload 6, Indirect, LBT',desc:'Counterweight siege engine — the king of medieval artillery. Hundred-pound stones at three hundred yards.'},
+  {id:'mangonel',name:'Mangonel',cat:'Siege Engines',era:'medieval',range:'18/36/72',damage:'3d6',ap:0,rof:1,shots:0,minSize:3,mods:2,cost:700,notes:'Reload 3, Indirect, MBT',desc:'Traction-powered throwing engine. Lighter and faster than a trebuchet, but less range and punch.'},
+  {id:'springald',name:'Springald',cat:'Siege Engines',era:'medieval',range:'20/40/80',damage:'2d8',ap:4,rof:1,shots:0,minSize:2,mods:1,cost:400,notes:'Reload 2, AP bolt, HW',desc:'Frame-mounted bolt thrower with armour-piercing capability. The medieval anti-materiel rifle.'},
+  {id:'ram',name:'Battering Ram',cat:'Melee Systems',era:'medieval',range:'—',damage:'Str+2d8',ap:4,rof:0,shots:0,minSize:2,mods:1,cost:200,notes:'Melee only, HW',desc:'Log or ironbound beam on wheels. Simple, brutal, effective against gates and walls.'},
+  {id:'boiling_oil',name:'Boiling Oil/Pitch',cat:'Defensive Weapons',era:'medieval',range:'Cone',damage:'2d10',ap:0,rof:1,shots:5,minSize:2,mods:1,cost:100,notes:'Cone, Incendiary',desc:'Heated oil, pitch, or water poured from murder holes and battlements. Defensive only, devastatingly effective.'},
+  {id:'fire_arrows',name:'Fire Arrows',cat:'Incendiaries',era:'medieval',range:'12/24/48',damage:'2d6',ap:0,rof:2,shots:0,minSize:1,mods:1,cost:80,notes:'Incendiary, Reload 1',desc:'Incendiary-tipped arrows fired in volleys. Sets sails, thatch, and siege equipment alight.'},
+  // BLACKPOWDER
+  {id:'swivel_gun',name:'Swivel Gun',cat:'Blackpowder Guns',era:'blackpowder',range:'12/24/48',damage:'2d8',ap:2,rof:1,shots:0,minSize:1,mods:1,cost:300,notes:'Reload 2, Grapeshot (Cone)',desc:'Small pivot-mounted cannon. Grapeshot for personnel, ball for precision. Deck-mounted or wall-mounted.'},
+  {id:'light_cannon_bp',name:'Light Cannon',cat:'Blackpowder Guns',era:'blackpowder',range:'20/40/80',damage:'3d6+1',ap:4,rof:1,shots:0,minSize:2,mods:1,cost:600,notes:'Reload 3, SBT, HW',desc:'Four-to-six pounder smoothbore. Field guns, horse artillery, and light naval chasers.'},
+  {id:'med_cannon_bp',name:'Medium Cannon',cat:'Blackpowder Guns',era:'blackpowder',range:'25/50/100',damage:'4d6+1',ap:4,rof:1,shots:0,minSize:4,mods:2,cost:1500,notes:'Reload 3, SBT, HW',desc:'Twelve-to-eighteen pounder smoothbore. Broadside guns, fortress batteries, and siege trains.'},
+  {id:'heavy_cannon_bp',name:'Heavy Cannon',cat:'Blackpowder Guns',era:'blackpowder',range:'30/60/120',damage:'5d6',ap:6,rof:1,shots:0,minSize:6,mods:3,cost:3000,notes:'Reload 4, SBT, HW',desc:'Twenty-four pounder and above. The heaviest naval guns and siege pieces.'},
+  {id:'carronade',name:'Carronade',cat:'Blackpowder Guns',era:'blackpowder',range:'10/20/40',damage:'4d6+2',ap:2,rof:1,shots:0,minSize:3,mods:1,cost:800,notes:'Reload 2, Grapeshot (Cone), HW',desc:'Short-barrelled naval gun for devastating close-range broadsides. Smashers, they called them.'},
+  {id:'mortar_bp',name:'Mortar',cat:'Blackpowder Guns',era:'blackpowder',range:'24/48/96',damage:'3d8',ap:0,rof:1,shots:0,minSize:2,mods:1,cost:500,notes:'Reload 3, Indirect, MBT, HW',desc:'High-angle bombardment piece. Lobs explosive shells over walls and into fortifications.'},
+  {id:'congreve',name:'Congreve Rocket',cat:'Rockets',era:'blackpowder',range:'18/36/72',damage:'3d6',ap:0,rof:1,shots:6,minSize:1,mods:1,cost:400,notes:'Inaccurate (-1 Shooting), Incendiary, MBT',desc:'Fin-stabilised incendiary rocket. Wildly inaccurate, psychologically devastating.'},
+  {id:'chain_shot',name:'Chain Shot',cat:'Blackpowder Guns',era:'blackpowder',range:'15/30/60',damage:'3d6',ap:0,rof:1,shots:0,minSize:3,mods:0,cost:200,notes:'Anti-rigging. Reload 3. Targets mast/locomotion only',desc:'Two balls connected by chain, fired to shred rigging and masts. Anti-sail specialist.'},
+  // INDUSTRIAL (WWI/WWII era)
+  {id:'mmg',name:'Medium Machine Gun',cat:'Machine Guns',era:'industrial',range:'30/60/120',damage:'2d8+1',ap:2,rof:3,shots:200,minSize:1,mods:1,cost:750,notes:'Pt Def, Rxn Fire',desc:'Belt-fed rifle-calibre machine gun. Browning M1919s, MG 34s, Besas — the standard co-axial and hull weapon.'},
+  {id:'hmg',name:'Heavy Machine Gun',cat:'Machine Guns',era:'industrial',range:'50/100/200',damage:'2d10',ap:4,rof:3,shots:200,minSize:1,mods:1,cost:1000,notes:'Pt Def, Rxn Fire, HW',desc:'Heavy .50 calibre machine gun. M2 Brownings, DShKs, and equivalents. Shreds light vehicles and infantry.'},
+  {id:'cannon_20mm',name:'20mm Cannon',cat:'Cannons',era:'industrial',range:'50/100/200',damage:'2d12',ap:4,rof:4,shots:100,minSize:2,mods:1,cost:50000,notes:'HW',desc:'Light automatic cannon. Oerlikons, Hispano-Suizas, MG 151s — standard WW2 aircraft armament.'},
+  {id:'autocannon_ww',name:'20mm Cannon',cat:'Cannons',era:'industrial',range:'50/100/200',damage:'2d12',ap:4,rof:4,shots:100,minSize:2,mods:1,cost:50000,notes:'HW',desc:'Light automatic cannon. Oerlikons, Hispano-Suizas, MG 151s — standard WW2 aircraft armament.'},
+  {id:'tank_gun_37mm',name:'37mm Tank Gun',cat:'Cannons',era:'industrial',range:'50/100/200',damage:'4d8',ap:3,rof:1,shots:60,minSize:3,mods:2,cost:100000,notes:'SBT, HW',desc:'Light tank gun. 37mm class weapons on Stuarts and early-war light tanks. Adequate against infantry, marginal against armour.'},
+  {id:'tank_gun_light',name:'37mm Tank Gun',cat:'Cannons',era:'industrial',range:'50/100/200',damage:'4d8',ap:3,rof:1,shots:60,minSize:3,mods:2,cost:100000,notes:'SBT, HW',desc:'Light tank gun. 37mm class weapons on Stuarts and early-war light tanks. Adequate against infantry, marginal against armour.'},
+  {id:'tank_gun_75mm',name:'75mm Tank Gun',cat:'Cannons',era:'industrial',range:'75/150/300',damage:'4d10',ap:6,rof:1,shots:40,minSize:5,mods:3,cost:250000,notes:'SBT, HW',desc:'Medium tank gun. 75mm class weapons on medium tanks — the standard of mid-war armoured warfare.'},
+  {id:'tank_gun_med',name:'75mm Tank Gun',cat:'Cannons',era:'industrial',range:'75/150/300',damage:'4d10',ap:6,rof:1,shots:40,minSize:5,mods:3,cost:250000,notes:'SBT, HW',desc:'Medium tank gun. 75mm class weapons on medium tanks — the standard of mid-war armoured warfare.'},
+  {id:'tank_gun_76mm',name:'76mm Tank Gun',cat:'Cannons',era:'industrial',range:'75/150/300',damage:'4d10',ap:10,rof:1,shots:40,minSize:5,mods:3,cost:300000,notes:'SBT, HW',desc:'Upgunned medium tank weapon. 76mm and 17-pounder class — enough to threaten heavy tanks from the flank.'},
+  {id:'tank_gun_88mm',name:'88mm Tank Gun',cat:'Cannons',era:'industrial',range:'100/200/400',damage:'4d10+1',ap:16,rof:1,shots:30,minSize:7,mods:4,cost:500000,notes:'SBT, HW',desc:'Heavy tank gun. The dreaded 88mm and equivalents on heavy tanks and tank destroyers.'},
+  {id:'tank_gun_heavy',name:'88mm Tank Gun',cat:'Cannons',era:'industrial',range:'100/200/400',damage:'4d10+1',ap:16,rof:1,shots:30,minSize:7,mods:4,cost:500000,notes:'SBT, HW',desc:'Heavy tank gun. The dreaded 88mm and equivalents on heavy tanks and tank destroyers.'},
+  {id:'flamethrower_ww',name:'Heavy Flamethrower',cat:'Flamethrowers',era:'industrial',range:'Cone',damage:'3d8',ap:0,rof:1,shots:10,minSize:1,mods:1,cost:1000,notes:'Cone or MBT 18", Incendiary',desc:'Vehicle-mounted flamethrower. Specially adapted tanks for bunker clearance. Horrifying.'},
+  {id:'torpedo_ww',name:'Torpedo',cat:'Torpedoes',era:'industrial',range:'300/600/1200',damage:'8d10',ap:22,rof:1,shots:2,minSize:4,mods:1,cost:500000,notes:'LBT, Aquatic only, HW',desc:'Self-propelled underwater explosive from submarines, destroyers, and torpedo boats. One hit can kill a capital ship.'},
+  {id:'bombs_ww',name:'Bomb Bay',cat:'Ordnance',era:'industrial',range:'—',damage:'4d8',ap:4,rof:1,shots:10,minSize:4,mods:2,cost:3000,notes:'Aircraft only. Drop, MBT. Bombing run rules.',desc:'Internally carried or wing-mounted aerial bombs. Unguided iron from altitude.'},
+  {id:'depth_charge_ww',name:'Depth Charges',cat:'Anti-Submarine',era:'industrial',range:'—',damage:'4d8',ap:4,rof:1,shots:8,minSize:4,mods:1,cost:2000,notes:'Drop, MBT. Anti-sub only.',desc:'Anti-submarine explosive dropped from surface vessels. Set to detonate at a specific depth.'},
+  {id:'naval_gun_ww',name:'Naval Gun',cat:'Naval Guns',era:'industrial',range:'100/200/400',damage:'5d10',ap:12,rof:1,shots:60,minSize:8,mods:4,cost:35000,notes:'SBT, HW. Deck-mounted.',desc:'Deck-mounted naval cannon. Five-inch and six-inch guns on destroyers, cruisers, and escorts.'},
+  {id:'mine_ww',name:'Naval Mine Layer',cat:'Mines',era:'industrial',range:'—',damage:'5d10',ap:8,rof:0,shots:20,minSize:4,mods:2,cost:4000,notes:'Deploy mine per round. 3d6 trigger radius.',desc:'Moored or contact naval mine deployed in shipping lanes. Silent, patient, lethal.'},
+  // MODERN
+  {id:'hmg_modern',name:'Heavy Machine Gun',cat:'Machine Guns',era:'modern',range:'50/100/200',damage:'2d10',ap:4,rof:3,shots:200,minSize:1,mods:1,cost:2000,notes:'Pt Def, Rxn Fire, HW',desc:'Modern heavy machine gun. M2 Browning, NSV, KORD — roof-mounted on everything from jeeps to main battle tanks.'},
+  {id:'mmg_modern',name:'Medium Machine Gun',cat:'Machine Guns',era:'modern',range:'30/60/120',damage:'2d8+1',ap:2,rof:3,shots:200,minSize:1,mods:1,cost:1500,notes:'Pt Def, Rxn Fire',desc:'Modern medium machine gun. M240s, PKMs, MAG 58s — co-axial and pintle mounts across NATO and Eastern Bloc.'},
+  {id:'minigun_modern',name:'Minigun',cat:'Machine Guns',era:'modern',range:'50/100/200',damage:'2d8+1',ap:2,rof:5,shots:2000,minSize:3,mods:1,cost:10000,notes:'Min RoF 3, Pt Def, Rxn Fire, HW',desc:'Electrically driven rotary machine gun. M134 Minigun on helicopters and gunships. Six thousand rounds per minute.'},
+  {id:'autocannon_25mm',name:'25mm Cannon',cat:'Autocannons',era:'modern',range:'50/100/200',damage:'3d8',ap:4,rof:3,shots:100,minSize:2,mods:1,cost:75000,notes:'Min RoF 2, HW',desc:'Light autocannon. M242 Bushmaster on IFVs, Mk 38 on patrol boats. Anti-light-armour and suppression.'},
+  {id:'autocannon_30mm',name:'30mm Cannon',cat:'Autocannons',era:'modern',range:'50/100/200',damage:'3d8',ap:6,rof:3,shots:100,minSize:2,mods:1,cost:200000,notes:'Min RoF 2, HW',desc:'Medium autocannon. GAU-8 on A-10s, 2A42 on BMPs. Serious anti-armour capability.'},
+  {id:'autocannon_40mm',name:'40mm Cannon',cat:'Autocannons',era:'modern',range:'75/150/300',damage:'4d8',ap:5,rof:4,shots:80,minSize:3,mods:2,cost:200000,notes:'Min RoF 2, HW',desc:'Heavy autocannon. Bofors 40mm and descendants. Anti-aircraft and anti-patrol-boat standard.'},
+  {id:'autocannon_mod',name:'Light Autocannon',cat:'Autocannons',era:'modern',range:'50/100/200',damage:'3d8',ap:4,rof:4,shots:100,minSize:2,mods:1,cost:10000,notes:'Min RoF 2, Pt Def, Rxn Fire, HW',desc:'General-purpose light autocannon. 20-25mm class weapons on IFVs and light vehicles.'},
+  {id:'tank_gun_120mm',name:'120mm Tank Gun',cat:'Cannons',era:'modern',range:'100/200/400',damage:'5d10',ap:31,rof:1,shots:40,minSize:7,mods:4,cost:800000,notes:'SBT, HW',desc:'Western main battle tank gun. L44 and M256 smoothbore on Abrams and Leopard 2 class.'},
+  {id:'tank_gun_125mm',name:'125mm Tank Gun',cat:'Cannons',era:'modern',range:'100/200/400',damage:'5d10',ap:30,rof:1,shots:40,minSize:7,mods:4,cost:1000000,notes:'SBT, HW',desc:'Eastern main battle tank gun. 2A46 smoothbore on T-72, T-80, and T-90 class. Also fires guided missiles.'},
+  {id:'cannon_mod',name:'125mm Tank Gun',cat:'Cannons',era:'modern',range:'100/200/400',damage:'5d10',ap:30,rof:1,shots:40,minSize:4,mods:4,cost:1000000,notes:'SBT, HW',desc:'Main battle tank gun. 120-125mm class smoothbore. The primary anti-armour weapon of modern ground warfare.'},
+  {id:'tow_missile',name:'TOW Launcher',cat:'Missiles',era:'modern',range:'75/150/300',damage:'5d10',ap:34,rof:1,shots:4,minSize:1,mods:1,cost:60000,notes:'Guided (wire), SBT, HW. Cannot be jammed.',desc:'Wire-guided anti-tank missile. TOW, Milan, Konkurs class. Cannot be jammed.'},
+  {id:'hellfire',name:'Hellfire Missile',cat:'Missiles',era:'modern',range:'150/300/600',damage:'5d10',ap:40,rof:1,shots:4,minSize:2,mods:1,cost:115000,notes:'Guided (laser), MBT, HW',desc:'Laser-guided anti-tank missile. AGM-114 class. Precision tank-killing from helicopters and drones.'},
+  {id:'sidewinder',name:'Sidewinder Missile',cat:'Missiles',era:'modern',range:'100/200/400',damage:'4d8',ap:6,rof:1,shots:4,minSize:2,mods:1,cost:600000,notes:'Guided (heat), SBT, HW',desc:'Heat-seeking air-to-air missile. AIM-9 class and equivalents. The dogfight closer.'},
+  {id:'sparrow',name:'Sparrow Missile',cat:'Missiles',era:'modern',range:'150/300/600',damage:'5d8',ap:6,rof:1,shots:4,minSize:2,mods:1,cost:125000,notes:'Guided (radar), SBT, HW',desc:'Radar-guided air-to-air missile. AIM-7 class. Beyond-visual-range engagement.'},
+  {id:'atgm',name:'ATGM Launcher',cat:'Missiles',era:'modern',range:'75/150/300',damage:'5d10',ap:34,rof:1,shots:4,minSize:1,mods:1,cost:8000,notes:'Guided (wire), SBT, HW',desc:'Wire or laser-guided anti-tank missile. Lighter than Hellfires. Vehicle-mounted or infantry portable.'},
+  {id:'sam',name:'SAM Launcher',cat:'Missiles',era:'modern',range:'100/200/400',damage:'5d6',ap:10,rof:1,shots:4,minSize:2,mods:1,cost:12000,notes:'Guided, SBT, HW',desc:'Surface-to-air missile. Stinger, Igla, and Roland class. Ground-based air defence.'},
+  {id:'rocket_pod',name:'Rocket Pod',cat:'Missiles',era:'modern',range:'50/100/200',damage:'4d8',ap:6,rof:3,shots:19,minSize:2,mods:1,cost:6000,notes:'SBT, HW',desc:'Unguided rocket pod. Hydra 70s, S-8s — area suppression from helicopters and ground-attack aircraft.'},
+  {id:'grenade_mod',name:'Grenade Launcher',cat:'Launchers',era:'modern',range:'24/48/96',damage:'3d6',ap:0,rof:1,shots:12,minSize:0,mods:1,cost:2600,notes:'MBT',desc:'Automatic grenade launcher. Mk 19, AGS-17 class. High-explosive fragmentation at medium range.'},
+  {id:'torpedo_mod',name:'Modern Torpedo',cat:'Torpedoes',era:'modern',range:'100/200/400',damage:'6d10',ap:16,rof:1,shots:4,minSize:4,mods:2,cost:15000,notes:'Guided, LBT, Aquatic only',desc:'Modern guided torpedo. Mk 48, Spearfish class. Wire or acoustic homing.'},
+  {id:'ciws',name:'CIWS / Phalanx',cat:'Point Defense',era:'modern',range:'30/60/120',damage:'2d10',ap:4,rof:6,shots:1000,minSize:4,mods:2,cost:20000,notes:'Pt Def only. Auto-fire vs missiles/aircraft.',desc:'Close-in weapon system. Phalanx, Goalkeeper class. Automated point defence against missiles and aircraft.'},
+  {id:'naval_gun_mod',name:'Naval Gun (5-inch)',cat:'Naval Guns',era:'modern',range:'150/300/600',damage:'5d10+2',ap:14,rof:1,shots:80,minSize:8,mods:4,cost:60000,notes:'SBT, HW. Deck-mounted.',desc:'Modern naval gun. 5-inch/127mm class. Surface fire, shore bombardment, and air defence.'},
+  {id:'cruise_missile',name:'Cruise Missile',cat:'Missiles',era:'modern',range:'500/1K/2K',damage:'8d6',ap:24,rof:1,shots:2,minSize:6,mods:2,cost:50000,notes:'Guided, LBT, HW. Extreme range.',desc:'Long-range guided missile. Tomahawk, Kalibr class. Precision strike at extreme range.'},
+  {id:'bombs_mod',name:'Bomb Bay / Hardpoint',cat:'Ordnance',era:'modern',range:'—',damage:'5d8',ap:8,rof:1,shots:8,minSize:4,mods:2,cost:5000,notes:'Aircraft only. Drop, MBT. Precision guided.',desc:'Precision-guided munitions. JDAM, Paveway class. Smart bombs from modern strike aircraft.'},
+  {id:'depth_charge_mod',name:'Depth Charges',cat:'Anti-Submarine',era:'modern',range:'—',damage:'5d8',ap:6,rof:1,shots:6,minSize:4,mods:1,cost:5000,notes:'Drop, MBT. Anti-sub only.',desc:'Modern anti-submarine weapon. Updated depth charges and anti-submarine rockets.'},
+  // FUTURE (Sci-fi standard)
+  {id:'slug_future',name:'Heavy Slugthrower',cat:'Slugthrowers',era:'future',range:'50/100/200',damage:'2d10',ap:4,rof:3,shots:50,minSize:3,mods:1,cost:2000,notes:'Pt Def, Rxn Fire',desc:'Heavy-calibre slugthrower for vehicle mounts. Gauss-assisted or caseless ammunition.'},
+  {id:'ac_future',name:'Medium Autocannon',cat:'Autocannons',era:'future',range:'50/100/200',damage:'4d8',ap:6,rof:4,shots:80,minSize:8,mods:2,cost:20000,notes:'Min RoF 2',desc:'Rapid-fire autocannon with explosive-tipped rounds. Suppression and light anti-armour.'},
+  {id:'laser_gat',name:'Gatling Laser',cat:'Lasers',era:'future',range:'50/100/200',damage:'3d6+4',ap:4,rof:4,shots:80,minSize:1,mods:1,cost:3000,notes:'Clean Burn, Pt Def, Rxn Fire',desc:'Multi-barrel rotary laser. High rate of fire, excellent point defence. The energy minigun.'},
+  {id:'laser_light',name:'Light Laser',cat:'Lasers',era:'future',range:'150/300/600',damage:'2d10',ap:10,rof:3,shots:80,minSize:2,mods:1,cost:20000,notes:'Clean Burn, Rxn Fire',desc:'Focused coherent light weapon. Light vehicle mount for anti-personnel and light anti-armour.'},
+  {id:'laser_med',name:'Medium Laser',cat:'Lasers',era:'future',range:'150/300/600',damage:'3d10',ap:20,rof:2,shots:60,minSize:4,mods:3,cost:50000,notes:'Clean Burn',desc:'Medium laser cannon. The standard energy weapon of armoured vehicles and strike craft.'},
+  {id:'laser_heavy',name:'Heavy Laser',cat:'Lasers',era:'future',range:'150/300/600',damage:'4d10',ap:30,rof:1,shots:40,minSize:8,mods:5,cost:200000,notes:'Clean Burn',desc:'Heavy laser cannon. Capital-grade directed energy. Cuts through heavy armour at range.'},
+  {id:'cannon_future',name:'Heavy Cannon',cat:'Cannons',era:'future',range:'100/200/400',damage:'5d10',ap:20,rof:1,shots:40,minSize:4,mods:5,cost:60000,notes:'SBT',desc:'High-velocity kinetic cannon. Electromagnetically boosted projectiles.'},
+  {id:'cannon_super',name:'Super Cannon',cat:'Cannons',era:'future',range:'150/300/600',damage:'6d10',ap:30,rof:1,shots:20,minSize:10,mods:6,cost:100000,notes:'MBT',desc:'Super-heavy kinetic cannon. Capital ship and heavy installation weapon. Area effect.'},
+  {id:'flamer_future',name:'Heavy Flamethrower',cat:'Flamethrowers',era:'future',range:'Cone',damage:'3d12',ap:0,rof:1,shots:30,minSize:1,mods:1,cost:5000,notes:'Clean Burn, Incendiary, Cone 18"',desc:'Plasma-stream projector. The flamethrower\'s far-future descendant. Same nightmares, longer range.'},
+  {id:'missile_light',name:'Light Missiles (×8)',cat:'Missiles',era:'future',range:'100/200/400',damage:'6d6',ap:16,rof:4,shots:8,minSize:2,mods:0,cost:4000,notes:'Guided, SBT',desc:'Light guided missile pod. Eight fast-cycling missiles for saturation attacks.'},
+  {id:'missile_med',name:'Medium Missiles (×4)',cat:'Missiles',era:'future',range:'150/300/600',damage:'7d6',ap:24,rof:2,shots:4,minSize:2,mods:0,cost:10000,notes:'Guided, MBT',desc:'Medium guided missile. Four warheads with smart tracking. Standard anti-armour ordnance.'},
+  {id:'missile_heavy',name:'Heavy Missiles (×2)',cat:'Missiles',era:'future',range:'200/400/800',damage:'8d6',ap:32,rof:1,shots:2,minSize:2,mods:0,cost:20000,notes:'Guided, LBT',desc:'Heavy guided missile. Two high-yield warheads for capital-grade targets.'},
+  {id:'missile_rack',name:'Missile Launcher',cat:'Missiles',era:'future',range:'—',damage:'—',ap:0,rof:0,shots:0,minSize:2,mods:1,cost:1000,notes:'Rack only. Load missiles separately.',desc:'Hardpoint or internal bay for mounting missile types. Load ordnance separately.'},
+  {id:'torpedo_future',name:'Plasma Torpedo',cat:'Torpedoes',era:'future',range:'100/200/400',damage:'6d10',ap:20,rof:1,shots:4,minSize:4,mods:2,cost:20000,notes:'Guided, LBT, Aquatic/Space',desc:'Plasma-warhead torpedo for aquatic or vacuum combat. Guided, devastating, expensive.'},
+  // ADVANCED (far-future / energy weapons)
+  {id:'md_light',name:'Light Mass Driver',cat:'Mass Drivers',era:'advanced',range:'100/200/400',damage:'2d12+2',ap:5,rof:3,shots:100,minSize:2,mods:2,cost:10000,notes:'Pt Def, Rxn Fire, SBT',desc:'Light mass driver. Magnetically accelerated projectiles. Point defence and anti-fighter.'},
+  {id:'md_med',name:'Medium Mass Driver',cat:'Mass Drivers',era:'advanced',range:'100/200/400',damage:'3d12+3',ap:5,rof:2,shots:80,minSize:4,mods:3,cost:20000,notes:'MBT',desc:'Medium mass driver. Ship-to-ship kinetic weapon. No ammo concerns beyond raw mass.'},
+  {id:'pc_light',name:'Light Particle Cannon',cat:'Particle Cannons',era:'advanced',range:'100/200/400',damage:'4d6+4',ap:5,rof:3,shots:90,minSize:2,mods:2,cost:25000,notes:'Pt Def, Rxn Fire',desc:'Light particle cannon. Accelerated charged particles effective against shields and armour alike.'},
+  {id:'pc_med',name:'Medium Particle Cannon',cat:'Particle Cannons',era:'advanced',range:'100/200/400',damage:'6d6+6',ap:10,rof:3,shots:60,minSize:8,mods:4,cost:50000,notes:'',desc:'Medium particle cannon. The workhorse energy weapon of capital ship engagements.'},
+  {id:'laser_super',name:'Super Laser',cat:'Lasers',era:'advanced',range:'150/300/600',damage:'5d10',ap:30,rof:1,shots:20,minSize:12,mods:8,cost:300000,notes:'Clean Burn',desc:'Super laser. Capital-grade directed energy. Cuts through anything given enough dwell time.'},
+  {id:'plasma_cannon',name:'Plasma Cannon',cat:'Energy Weapons',era:'advanced',range:'75/150/300',damage:'5d10',ap:20,rof:1,shots:30,minSize:6,mods:4,cost:150000,notes:'Clean Burn, Incendiary, SBT',desc:'Contained plasma bolt launcher. Short range, devastating impact. Sets targets alight.'},
+  {id:'rail_gun',name:'Railgun',cat:'Mass Drivers',era:'advanced',range:'200/400/800',damage:'5d12',ap:40,rof:1,shots:20,minSize:8,mods:6,cost:250000,notes:'SBT, Ignores Shields',desc:'Electromagnetic railgun. Hypersonic projectile that ignores energy shielding entirely.'},
+  // ═══ EXPANDED FUTURE WEAPONS ═══
+  // AUTOCANNONS (future) — explosive-tipped rounds, high RoF suppression
+  {id:'ac_light',name:'Light Autocannon',cat:'Autocannons',era:'future',range:'50/100/200',damage:'3d8',ap:4,rof:4,shots:100,minSize:2,mods:1,cost:10000,notes:'Min RoF 2, Pt Def, Rxn Fire',desc:'Light autocannon. Explosive-tipped rounds for anti-fighter and point defence suppression.'},
+  {id:'ac_heavy',name:'Heavy Autocannon',cat:'Autocannons',era:'future',range:'75/150/300',damage:'5d8',ap:8,rof:4,shots:60,minSize:12,mods:3,cost:50000,notes:'Min RoF 2',desc:'Heavy autocannon. Capital-rated rapid-fire kinetic weapon for broadside batteries.'},
+  // BOMBS — dropped from air/space
+  {id:'bomb_micro',name:'Micro Bombs',cat:'Ordnance',era:'future',range:'25/50/100',damage:'3d6',ap:4,rof:1,shots:2,minSize:1,mods:0,cost:500,notes:'Bomblet swarm, LBT',desc:'Cluster bomblet swarm. Released at low altitude for area denial. Cheap, nasty, effective.'},
+  {id:'bomb_light',name:'Light Bomb',cat:'Ordnance',era:'future',range:'—',damage:'6d10',ap:5,rof:4,shots:8,minSize:4,mods:0,cost:1000,notes:'Drop only, LBT. Requires Bomb Rack.',desc:'Light aerial bomb. Standard ground-attack ordnance for tactical strikes.'},
+  {id:'bomb_med',name:'Medium Bomb',cat:'Ordnance',era:'future',range:'—',damage:'8d10',ap:10,rof:2,shots:4,minSize:4,mods:0,cost:4000,notes:'Drop only, 10" radius. Requires Bomb Rack.',desc:'Medium aerial bomb. Significant blast radius. Structural damage guaranteed.'},
+  {id:'bomb_heavy',name:'Heavy Bomb',cat:'Ordnance',era:'future',range:'—',damage:'10d10',ap:10,rof:1,shots:2,minSize:4,mods:0,cost:10000,notes:'Drop only, 25" radius. Requires Bomb Rack.',desc:'Heavy aerial bomb. Strategic-grade ordnance. Levels city blocks.'},
+  {id:'bomb_rack',name:'Bomb Rack',cat:'Ordnance',era:'future',range:'—',damage:'—',ap:0,rof:0,shots:0,minSize:4,mods:1,cost:50000,notes:'Rack only. Holds one bomb type. Load bombs separately.',desc:'Internal bay or external hardpoint for bombs. Load ordnance separately.'},
+  // CANNONS (future) — AP or HE rounds, backbone of armoured warfare
+  {id:'cannon_light',name:'Light Cannon',cat:'Cannons',era:'future',range:'50/100/200',damage:'3d10',ap:5,rof:1,shots:80,minSize:1,mods:1,cost:15000,notes:'SBT, Rxn Fire. HE: 3d8 LBT AP 0',desc:'Light cannon with dual-mode AP/HE ammunition. Vehicle main gun or turret weapon.'},
+  {id:'cannon_med',name:'Medium Cannon',cat:'Cannons',era:'future',range:'75/150/300',damage:'4d10',ap:10,rof:1,shots:60,minSize:2,mods:3,cost:30000,notes:'SBT. HE: 4d8 LBT AP 5',desc:'Medium cannon. Dual-mode AP/HE. Standard main gun of armoured vehicles.'},
+  {id:'cannon_superheavy',name:'Super Heavy Cannon',cat:'Cannons',era:'future',range:'150/300/600',damage:'8d10',ap:40,rof:1,shots:10,minSize:16,mods:8,cost:500000,notes:'MBT. HE: 8d8 LBT AP 20',desc:'Super heavy cannon. Planetary defence or siege grade installation weapon.'},
+  // ION CANNONS — EMP weapons, disrupt electronics without direct damage
+  {id:'ion_light',name:'Light Ion Cannon',cat:'Ion Cannons',era:'future',range:'75/150/300',damage:'5d8',ap:0,rof:1,shots:10,minSize:4,mods:3,cost:20000,notes:'EMP. No actual Wounds — knocks out electronics if damage >= Toughness.',desc:'Light ion cannon. EMP weapon that disables electronics without structural damage.'},
+  {id:'ion_med',name:'Medium Ion Cannon',cat:'Ion Cannons',era:'future',range:'75/150/300',damage:'7d8',ap:0,rof:1,shots:10,minSize:8,mods:4,cost:50000,notes:'EMP. No actual Wounds — knocks out electronics if damage >= Toughness.',desc:'Medium ion cannon. EMP weapon for disabling capital systems and shields.'},
+  {id:'ion_heavy',name:'Heavy Ion Cannon',cat:'Ion Cannons',era:'future',range:'75/150/300',damage:'9d8',ap:0,rof:1,shots:10,minSize:20,mods:5,cost:100000,notes:'EMP. No actual Wounds — knocks out electronics if damage >= Toughness.',desc:'Heavy ion cannon. Strategic EMP weapon. Blacks out entire ship sections.'},
+  // LASERS — Super Heavy and Mega tiers
+  {id:'laser_superheavy',name:'Super Heavy Laser',cat:'Lasers',era:'advanced',range:'150/300/600',damage:'6d10',ap:40,rof:1,shots:10,minSize:20,mods:12,cost:1000000,notes:'Clean Burn',desc:'Super heavy laser. Spinal mount capital weapon. Minutes between shots, nothing survives.'},
+  {id:'laser_mega',name:'Mega Laser',cat:'Lasers',era:'advanced',range:'150/300/600',damage:'8d10',ap:40,rof:1,shots:1,minSize:28,mods:16,cost:2000000,notes:'Clean Burn. 1 minute recharge after firing. Cannot be Linked or d.',desc:'Mega laser. Planet-killer grade. One shot, one minute recharge, one less problem.'},
+  // MASS DRIVERS — Heavy through Mega tiers
+  {id:'md_heavy',name:'Heavy Mass Driver',cat:'Mass Drivers',era:'advanced',range:'100/200/400',damage:'4d12+4',ap:5,rof:1,shots:60,minSize:8,mods:4,cost:40000,notes:'LBT',desc:'Heavy mass driver. Anti-capital kinetic weapon with area-effect impact.'},
+  {id:'md_super',name:'Super Mass Driver',cat:'Mass Drivers',era:'advanced',range:'100/200/400',damage:'6d12+6',ap:5,rof:1,shots:40,minSize:12,mods:8,cost:80000,notes:'10" (20 yard) radius',desc:'Super mass driver. Orbital bombardment capable. Twenty-yard blast radius.'},
+  {id:'md_superheavy',name:'Super Heavy Mass Driver',cat:'Mass Drivers',era:'advanced',range:'100/200/400',damage:'8d12+8',ap:5,rof:1,shots:10,minSize:20,mods:12,cost:400000,notes:'25" (50 yard) radius',desc:'Super heavy mass driver. Strategic kinetic bombardment. Fifty-yard blast radius.'},
+  {id:'md_mega',name:'Mega Mass Driver',cat:'Mass Drivers',era:'advanced',range:'100/200/400',damage:'10d12+10',ap:5,rof:1,shots:1,minSize:28,mods:16,cost:1000000,notes:'50" (100 yard) radius. Planetary bombardment.',desc:'Mega mass driver. Planetary bombardment weapon. Extinction-grade kinetic energy.'},
+  // MISSILES — Micro swarm pods
+  {id:'missile_micro',name:'Micro Missiles',cat:'Missiles',era:'future',range:'25/50/100',damage:'3d6',ap:0,rof:1,shots:2,minSize:1,mods:0,cost:1000,notes:'Swarm pod, LBT, Guided, ignores Pt Def',desc:'Micro missile swarm. Tiny guided munitions that overwhelm point defence through numbers.'},
+  // PARTICLE BEAMS — distinct from Particle Cannons, higher AP/damage
+  {id:'pb_light',name:'Light Particle Beam',cat:'Particle Beams',era:'advanced',range:'75/150/300',damage:'5d8',ap:24,rof:2,shots:40,minSize:4,mods:3,cost:150000,notes:'Beam, Rxn Fire',desc:'Light particle beam. Sustained-fire energy weapon with excellent armour penetration.'},
+  {id:'pb_med',name:'Medium Particle Beam',cat:'Particle Beams',era:'advanced',range:'75/150/300',damage:'7d8',ap:32,rof:2,shots:20,minSize:8,mods:4,cost:750000,notes:'Beam',desc:'Medium particle beam. Capital-grade sustained energy weapon.'},
+  {id:'pb_heavy',name:'Heavy Particle Beam',cat:'Particle Beams',era:'advanced',range:'75/150/300',damage:'9d8',ap:40,rof:2,shots:2,minSize:20,mods:5,cost:3000000,notes:'Beam',desc:'Heavy particle beam. Strategic-grade energy weapon. Carves through heavy capital armour.'},
+  // PARTICLE CANNONS — Heavy tier
+  {id:'pc_heavy',name:'Heavy Particle Cannon',cat:'Particle Cannons',era:'advanced',range:'100/200/400',damage:'8d6+8',ap:20,rof:3,shots:30,minSize:12,mods:6,cost:250000,notes:'',desc:'Heavy particle cannon. Devastating rate of fire at capital scale.'},
+  // ROCKETS — unguided, shorter range than missiles, can't be jammed
+  {id:'rocket_micro',name:'Micro Rockets',cat:'Rockets',era:'future',range:'20/40/80',damage:'3d6',ap:0,rof:1,shots:2,minSize:1,mods:0,cost:500,notes:'Swarm pod, LBT, ignores Pt Def',desc:'Micro rocket swarm. Unguided but overwhelming. Too small for point defence to track.'},
+  {id:'rocket_light',name:'Light Rockets (×8)',cat:'Rockets',era:'future',range:'20/40/80',damage:'6d6',ap:16,rof:4,shots:8,minSize:2,mods:0,cost:2000,notes:'SBT, No Recoil',desc:'Light unguided rocket pod. Fast-cycling area suppression. Immune to jamming.'},
+  {id:'rocket_med',name:'Medium Rockets (×4)',cat:'Rockets',era:'future',range:'20/40/80',damage:'7d6',ap:24,rof:2,shots:4,minSize:2,mods:0,cost:6000,notes:'MBT, No Recoil',desc:'Medium unguided rockets. Heavier warheads, still immune to electronic countermeasures.'},
+  {id:'rocket_heavy',name:'Heavy Rockets (×2)',cat:'Rockets',era:'future',range:'20/40/80',damage:'8d6',ap:32,rof:1,shots:2,minSize:2,mods:0,cost:15000,notes:'LBT, No Recoil',desc:'Heavy unguided rockets. Maximum yield, zero guidance — point and pray.'},
+  {id:'rocket_rack',name:'Rocket Launcher',cat:'Rockets',era:'future',range:'—',damage:'—',ap:0,rof:0,shots:0,minSize:2,mods:1,cost:1000,notes:'Rack only. Load rockets separately.',desc:'Hardpoint or internal bay for rockets. Load ordnance separately.'},
+  // SLUGTHROWERS — Light and Medium MGs (not Heavy Weapons)
+  {id:'slug_light',name:'Light Machine Gun',cat:'Slugthrowers',era:'future',range:'30/60/120',damage:'2d8',ap:2,rof:3,shots:200,minSize:1,mods:1,cost:700,notes:'Pt Def, Rxn Fire. NOT a Heavy Weapon.',desc:'Light machine gun. Kinetic slugthrower for anti-personnel. Not a heavy weapon.'},
+  {id:'slug_med',name:'Medium Machine Gun',cat:'Slugthrowers',era:'future',range:'30/60/120',damage:'2d8+1',ap:2,rof:3,shots:100,minSize:2,mods:1,cost:1000,notes:'Pt Def, Rxn Fire. NOT a Heavy Weapon.',desc:'Medium machine gun. Vehicle-mounted kinetic slugthrower. Reliable suppression.'},
+  {id:'slug_minigun',name:'Minigun',cat:'Slugthrowers',era:'future',range:'50/100/200',damage:'2d8+1',ap:2,rof:5,shots:2000,minSize:3,mods:1,cost:10000,notes:'Min RoF 3, Pt Def, Rxn Fire',desc:'Rotary-barrel minigun. Maximum rate of fire for kinetic suppression.'},
+  // TORPEDOES — replace generic with Light/Medium/Heavy. Space or liquid only.
+  {id:'torpedo_light',name:'Light Torpedo',cat:'Torpedoes',era:'advanced',range:'300/600/1200',damage:'6d10',ap:20,rof:2,shots:2,minSize:12,mods:0,cost:200000,notes:'Guided, LBT. Space or liquid only.',desc:'Light torpedo. Fast-cycling aquatic or vacuum weapon for destroyer-class engagements.'},
+  {id:'torpedo_med',name:'Medium Torpedo',cat:'Torpedoes',era:'advanced',range:'300/600/1200',damage:'7d10',ap:30,rof:1,shots:1,minSize:12,mods:0,cost:300000,notes:'Guided, LBT. Space or liquid only.',desc:'Medium torpedo. Standard anti-capital aquatic or vacuum munition.'},
+  {id:'torpedo_heavy',name:'Heavy Torpedo',cat:'Torpedoes',era:'advanced',range:'300/600/1200',damage:'8d12',ap:40,rof:1,shots:1,minSize:12,mods:0,cost:400000,notes:'Guided, LBT. Space or liquid only.',desc:'Heavy torpedo. Capital-killer class. One hit can cripple a cruiser.'},
+  {id:'torpedo_rack',name:'Torpedo Launcher',cat:'Torpedoes',era:'advanced',range:'—',damage:'—',ap:0,rof:0,shots:0,minSize:12,mods:2,cost:500000,notes:'Rack only. Load torpedoes separately.',desc:'Torpedo launch tube. Load torpedo types separately.'},
+  // GRAVITY CANNON — gravitic distortion weapon
+  {id:'grav_cannon',name:'Gravity Cannon',cat:'Energy Weapons',era:'advanced',range:'50/100/200',damage:'5d12',ap:10,rof:1,shots:10,minSize:12,mods:5,cost:100000,notes:'LBT. Targets Shaken or Wounded are also Distracted.',desc:'Gravity distortion cannon. Warps local spacetime. Targets are crushed and disoriented.'},
+  // MINES
+  {id:'mine_future',name:'Mine',cat:'Ordnance',era:'future',range:'—',damage:'4d6',ap:10,rof:1,shots:1,minSize:1,mods:0,cost:1000,notes:'LBT. Deploy or launch at half Grenade Launcher range. Can be fitted with warheads.',desc:'Deployable proximity mine. Area denial with configurable warhead.'},
+  // GRENADE LAUNCHER (future)
+  {id:'grenade_future',name:'Grenade Launcher',cat:'Launchers',era:'future',range:'24/48/96',damage:'3d6',ap:0,rof:3,shots:12,minSize:1,mods:1,cost:2600,notes:'MBT. Can load warhead grenades.',desc:'Automatic grenade launcher. Rapid-fire fragmentation. Various warhead types.'},
+  // STUN WEAPONS
+  {id:'stun_ray',name:'Stun Ray',cat:'Stun Weapons',era:'future',range:'50/100/200',damage:'—',ap:0,rof:1,shots:60,minSize:1,mods:1,cost:5000,notes:'Vigor –4 or Stunned (–6 on raise). No effect on vehicles or robots.',desc:'Focused neural disruption beam. Incapacitates biologicals. Useless against vehicles.'},
+  {id:'stun_proj',name:'Stun Projector',cat:'Stun Weapons',era:'future',range:'25/50/100',damage:'—',ap:0,rof:1,shots:30,minSize:2,mods:1,cost:10000,notes:'Cone. Vigor –4 or Stunned (–6 on raise). No effect on vehicles or robots.',desc:'Wide-angle neural disruption projector. Cone-effect stun for crowd control.'}
+];
+
+
+// ═══════════════════════════════════════════
 // VEHICLE LIBRARY (loaded from VF localStorage + packs)
 // ═══════════════════════════════════════════
 var allVehicles=[];
-var allWeapons=[];
+var extWeapons=[];
 
 function loadVehicles(){
-  allVehicles=[];allWeapons=[];
+  allVehicles=[];extWeapons=[];
   // Try loading from Vehicle Forge localStorage
   try{var sv=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]');
     sv.forEach(function(v){if(v.name)allVehicles.push(v)})}catch(e){}
-  // Load weapon definitions from VF extensions
+  // Load extension weapon definitions (on top of core WEAPONS)
   try{var ext=JSON.parse(localStorage.getItem('diceforge-cvf-extensions')||'[]');
     var disabled=JSON.parse(localStorage.getItem('diceforge-cvf-disabled')||'[]');
     ext.forEach(function(e){
       if(disabled.indexOf(e.id)!==-1)return;
-      if(e.weapons)e.weapons.forEach(function(w){allWeapons.push(w)})})}catch(e){}
+      if(e.weapons)e.weapons.forEach(function(w){extWeapons.push(w)})})}catch(e){}
 }
 
-function findWeapon(id){return allWeapons.find(function(w){return w.id===id})}
+function getAllWeapons(){return WEAPONS.concat(extWeapons)}
+function findWeapon(id){return getAllWeapons().find(function(w){return w.id===id})}
 function vehicleWeapons(v){
   if(!v.weapons||!v.weapons.length)return[];
   return v.weapons.map(function(w){
-    var wp=findWeapon(w.weaponId);
+    var wp=getAllWeapons().find(function(x){return x.id===w.weaponId});
     if(!wp)return null;
     return{def:wp,mount:w.mount||'fixed',linked:w.linked||0}
   }).filter(Boolean)}
