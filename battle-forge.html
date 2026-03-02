@@ -746,8 +746,8 @@ function nextRound(){
   battle.round++;
   document.getElementById('roundBadge').textContent='Round '+battle.round;
 
-  // Clear round statuses
-  battle.statusA={};battle.statusB={};
+  // Clear round statuses at start of new round
+  // (Distracted/Vulnerable clear at start of affected vehicle's next turn)
 
   addLog('system','','— Round '+battle.round+' —');
 
@@ -756,9 +756,15 @@ function nextRound(){
   var firstSide=initA>=initB?'A':'B';
   var secondSide=firstSide==='A'?'B':'A';
 
+  // Clear statuses for the first-acting side (their turn starts)
+  battle['status'+firstSide]={};
+
   addLog('system','','Initiative: '+(firstSide==='A'?battle.vehicleA.name:battle.vehicleB.name)+' acts first.');
 
   resolveAttacks(firstSide,secondSide);
+
+  // Clear statuses for second-acting side before their turn
+  if(!battle.over)battle['status'+secondSide]={};
   if(!battle.over)resolveAttacks(secondSide,firstSide);
 
   renderWounds('A');renderWounds('B');
@@ -831,7 +837,38 @@ function resolveAttacks(attSide,defSide){
         resultParts.push('<span class="log-crit">Critical Hit ('+crit.roll+'): '+crit.result+'</span>');
       }
 
-      resultParts.push('Out of Control check required.');
+      // Out of Control check — driver rolls maneuvering skill
+      var oocRoll=rollTraitWithWild(crewDie);
+      var oocMod=-Math.min(battle['wounds'+defSide],4);
+      var oocTotal=oocRoll.total+oocMod;
+      var oocDice='['+formatDice(oocRoll.trait)+'] [W:'+formatDice(oocRoll.wild)+']'+(oocRoll.usedWild?' ←':'')+(oocMod?' '+oocMod:'');
+      if(oocTotal>=4){
+        resultParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — driver keeps control.');
+      }else{
+        var ooc=rollOOC();
+        resultParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — <span class="log-crit">Out of Control! ('+ooc.roll+'): '+ooc.result+'</span>');
+        // Apply OOC effects
+        if(ooc.roll<=3){
+          // Major collision (2) or Minor collision (3-4)
+          var collisionWounds=ooc.roll<=2?(rollDie(4)):1;
+          battle['wounds'+defSide]+=collisionWounds;
+          if(ooc.roll<=2)battle['status'+defSide].distracted=true;
+          var collCrit=rollCrit();
+          resultParts.push('<span class="log-wound">Collision: +'+collisionWounds+' Wound'+(collisionWounds>1?'s':'')+'!</span> <span class="log-crit">Critical Hit ('+collCrit.roll+'): '+collCrit.result+'</span>');
+        }else if(ooc.roll<=4){
+          // Minor collision
+          battle['wounds'+defSide]+=1;
+          var collCrit2=rollCrit();
+          resultParts.push('<span class="log-wound">Collision: +1 Wound!</span> <span class="log-crit">Critical Hit ('+collCrit2.roll+'): '+collCrit2.result+'</span>');
+        }else if(ooc.roll<=9){
+          battle['status'+defSide].distracted=true;
+        }else if(ooc.roll<=11){
+          battle['status'+defSide].vulnerable=true;
+        }else{
+          var glitchCrit=rollCrit();
+          resultParts.push('<span class="log-crit">Glitch Critical Hit ('+glitchCrit.roll+'): '+glitchCrit.result+'</span>');
+        }
+      }
 
       if(battle['wounds'+defSide]>=battle['maxWounds'+defSide]){
         battle.over=true;
