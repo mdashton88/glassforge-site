@@ -143,6 +143,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
 /* Footer */
 .bf-footer{font-size:11px;color:var(--text-dim);text-align:center;padding:8px;letter-spacing:1px;font-family:'Cinzel',serif;border-top:1px solid var(--border);background:var(--bg-dark)}
 
+/* Initiative cards */
+.init-cards{display:flex;justify-content:center;align-items:center;gap:24px;margin:8px 0}
+.init-card-group{display:flex;flex-direction:column;align-items:center;gap:4px}
+.init-card-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase}
+.init-card{width:52px;height:74px;border-radius:4px;border:1.5px solid var(--border-light);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:700;position:relative;overflow:hidden;transition:all .3s;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
+.init-card .rank{font-size:18px;line-height:1}
+.init-card .suit{font-size:20px;line-height:1;margin-top:-2px}
+.init-card.red{background:linear-gradient(135deg,#1a1210,#201614);color:#C04040;border-color:#5a2020}
+.init-card.black{background:linear-gradient(135deg,#0e0e10,#14141a);color:#E0D6C6;border-color:#3a3a42}
+.init-card.joker{background:linear-gradient(135deg,#2a1a08,#1a1208);color:var(--gold);border-color:var(--gold-dim);box-shadow:0 0 12px var(--gold-glow),0 2px 8px rgba(0,0,0,0.4)}
+.init-card.winner{border-color:var(--accent);box-shadow:0 0 12px var(--accent-glow),0 2px 8px rgba(0,0,0,0.4);transform:scale(1.08)}
+.init-vs{font-family:'Cinzel',serif;font-size:14px;color:var(--text-dim);letter-spacing:2px}
+@keyframes card-deal{from{opacity:0;transform:translateY(-20px) rotateY(90deg)}to{opacity:1;transform:translateY(0) rotateY(0deg)}}
+.init-card.dealt{animation:card-deal .3s ease}
+
 /* Responsive */
 @media(max-width:1100px){.combatant-panel{width:260px;min-width:240px}}
 @media(max-width:900px){.combatant-panel{width:220px;min-width:200px}}
@@ -595,6 +610,44 @@ function formatDice(detailed){
   }).join('')+(detailed.aced?'!':'')}
 
 // ═══════════════════════════════════════════
+// INITIATIVE — SAVAGE WORLDS CARD DECK
+// ═══════════════════════════════════════════
+var SUITS=['♠','♥','♦','♣'];
+var SUIT_NAMES=['Spades','Hearts','Diamonds','Clubs'];
+var SUIT_COLORS=['black','red','red','black'];
+var RANKS=['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+var initDeck=[];
+
+function buildDeck(){
+  initDeck=[];
+  for(var s=0;s<4;s++)for(var r=0;r<13;r++){
+    initDeck.push({rank:RANKS[r],suit:SUITS[s],suitName:SUIT_NAMES[s],
+      color:SUIT_COLORS[s],value:r*4+(3-s),joker:false})}
+  // Two Jokers — highest initiative, +2 to all trait rolls and damage
+  initDeck.push({rank:'🃏',suit:'',suitName:'Red',color:'joker',value:900,joker:true});
+  initDeck.push({rank:'🃏',suit:'',suitName:'Black',color:'joker',value:901,joker:true});
+  shuffleDeck()}
+
+function shuffleDeck(){
+  for(var i=initDeck.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=initDeck[i];initDeck[i]=initDeck[j];initDeck[j]=t}}
+
+function drawCard(){
+  if(initDeck.length<2)buildDeck(); // Reshuffle when nearly empty
+  return initDeck.pop()}
+
+function cardHTML(card,isWinner){
+  var cls=card.joker?'joker':card.color;
+  if(isWinner)cls+=' winner';
+  if(card.joker)return '<div class="init-card '+cls+' dealt"><div class="rank" style="font-size:28px">🃏</div></div>';
+  return '<div class="init-card '+cls+' dealt"><div class="rank">'+card.rank+'</div><div class="suit">'+card.suit+'</div></div>'}
+
+function cardText(card){
+  if(card.joker)return 'JOKER';
+  return card.rank+card.suit}
+
+// ═══════════════════════════════════════════
 // COMBAT TABLES
 // ═══════════════════════════════════════════
 var OOC_TABLE=[
@@ -639,6 +692,7 @@ var battle={
   handlingA:0,handlingB:0,
   crewDieA:6,crewDieB:6,
   statusA:{},statusB:{},
+  jokerA:false,jokerB:false,
   round:0,over:false};
 
 function setCrew(side,val){battle['crewDie'+side]=parseInt(val)}
@@ -777,26 +831,41 @@ function nextRound(){
   battle.round++;
   document.getElementById('roundBadge').textContent='Round '+battle.round;
 
-  // Clear round statuses at start of new round
-  // (Distracted/Vulnerable clear at start of affected vehicle's next turn)
-
   addLog('system','','— Round '+battle.round+' —');
 
-  // Initiative: both roll d6, higher goes first
-  var initA=rollDie(6),initB=rollDie(6);
-  var firstSide=initA>=initB?'A':'B';
+  // Draw initiative cards
+  var cardA=drawCard(),cardB=drawCard();
+  var firstSide=cardA.value>=cardB.value?'A':'B';
   var secondSide=firstSide==='A'?'B':'A';
+  var winA=firstSide==='A',winB=firstSide==='B';
+
+  // Store Joker bonuses for this round
+  battle.jokerA=cardA.joker;battle.jokerB=cardB.joker;
+
+  // Build card display HTML
+  var cardsHTML='<div class="init-cards">';
+  cardsHTML+='<div class="init-card-group"><div class="init-card-label">'+esc(battle.vehicleA.name)+'</div>'+cardHTML(cardA,winA)+'</div>';
+  cardsHTML+='<div class="init-vs">vs</div>';
+  cardsHTML+='<div class="init-card-group"><div class="init-card-label">'+esc(battle.vehicleB.name)+'</div>'+cardHTML(cardB,winB)+'</div>';
+  cardsHTML+='</div>';
+
+  var initText=cardText(cardA)+' vs '+cardText(cardB)+' — '+(firstSide==='A'?battle.vehicleA.name:battle.vehicleB.name)+' acts first.';
+  if(cardA.joker)initText+=' <span class="log-hit">'+battle.vehicleA.name+' has a Joker! +2 to all rolls!</span>';
+  if(cardB.joker)initText+=' <span class="log-hit">'+battle.vehicleB.name+' has a Joker! +2 to all rolls!</span>';
+
+  addLogRaw('system',cardsHTML+'<div style="margin-top:6px">'+initText+'</div>');
 
   // Clear statuses for the first-acting side (their turn starts)
   battle['status'+firstSide]={};
-
-  addLog('system','','Initiative: '+(firstSide==='A'?battle.vehicleA.name:battle.vehicleB.name)+' acts first.');
 
   resolveAttacks(firstSide,secondSide);
 
   // Clear statuses for second-acting side before their turn
   if(!battle.over)battle['status'+secondSide]={};
   if(!battle.over)resolveAttacks(secondSide,firstSide);
+
+  // Clear Joker bonuses at end of round
+  battle.jokerA=false;battle.jokerB=false;
 
   renderWounds('A');renderWounds('B');
   if(battle.over){
@@ -825,6 +894,9 @@ function resolveAttacks(attSide,defSide){
       var roll=rollTraitWithWild(crewDie);
       var mod=rangePen-Math.min(woundPen,4); // Handling penalty capped at -4
       if(defVulnerable)mod+=2;
+      // Joker bonus: +2 to all trait rolls and damage
+      var jokerBonus=battle['joker'+attSide]?2:0;
+      mod+=jokerBonus;
       var finalRoll=roll.total+mod;
 
       var traitStr='['+formatDice(roll.trait)+']';
@@ -842,6 +914,8 @@ function resolveAttacks(attSide,defSide){
 
       // Roll damage
       var dmg=rollDamage(w.def,raises>0);
+      // Joker bonus applies to damage too
+      if(jokerBonus)dmg.total+=jokerBonus;
       var ap=w.def.ap||0;
       var toughness=battle['tough'+defSide];
       var armour=battle['armour'+defSide];
@@ -924,6 +998,14 @@ function addLog(side,actor,text){
   log.appendChild(div);
   log.scrollTop=log.scrollHeight}
 
+function addLogRaw(side,html){
+  var log=document.getElementById('combatLog');
+  var div=document.createElement('div');
+  div.className='log-entry '+side;
+  div.innerHTML=html;
+  log.appendChild(div);
+  log.scrollTop=log.scrollHeight}
+
 function autoFight(){
   var rounds=0;
   var interval=setInterval(function(){
@@ -948,7 +1030,8 @@ function copyLog(){
 function resetBattle(){
   battle={vehicleA:null,vehicleB:null,woundsA:0,woundsB:0,maxWoundsA:3,maxWoundsB:3,
     toughA:0,toughB:0,armourA:0,armourB:0,handlingA:0,handlingB:0,
-    crewDieA:6,crewDieB:6,statusA:{},statusB:{},round:0,over:false};
+    crewDieA:6,crewDieB:6,statusA:{},statusB:{},jokerA:false,jokerB:false,round:0,over:false};
+  buildDeck();
   ['A','B'].forEach(function(side){
     document.getElementById('name'+side).textContent='Select Vehicle';
     document.getElementById('placeholder'+side).style.display='';
@@ -966,6 +1049,7 @@ function resetBattle(){
 // INIT
 // ═══════════════════════════════════════════
 loadVehicles();
+buildDeck();
 if(!allVehicles.length){
   document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>No armed vehicles found. Open the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a> first to install vehicle packs, then return here.</em></div>'}
 else{
