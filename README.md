@@ -50,3 +50,4 @@ This product is not affiliated with or endorsed by Pinnacle Entertainment
 Group, SmiteWorks, or Foundry Gaming.
 
 Vehicle Forge and Character Forge © Glassforge Games Ltd.
+<!-- deploy trigger -->
