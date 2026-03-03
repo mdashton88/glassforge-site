@@ -148,13 +148,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
 .init-cards{display:flex;justify-content:center;align-items:center;gap:24px;margin:8px 0}
 .init-card-group{display:flex;flex-direction:column;align-items:center;gap:4px}
 .init-card-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase}
-.init-card{width:52px;height:74px;border-radius:4px;border:1.5px solid var(--border-light);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:700;position:relative;overflow:hidden;transition:all .3s;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
-.init-card .rank{font-size:18px;line-height:1}
-.init-card .suit{font-size:20px;line-height:1;margin-top:-2px}
-.init-card.red{background:linear-gradient(135deg,#1a1210,#201614);color:#C04040;border-color:#5a2020}
-.init-card.black{background:linear-gradient(135deg,#0e0e10,#14141a);color:#E0D6C6;border-color:#3a3a42}
-.init-card.joker{background:linear-gradient(135deg,#2a1a08,#1a1208);color:var(--gold);border-color:var(--gold-dim);box-shadow:0 0 12px var(--gold-glow),0 2px 8px rgba(0,0,0,0.4)}
-.init-card.winner{border-color:var(--accent);box-shadow:0 0 12px var(--accent-glow),0 2px 8px rgba(0,0,0,0.4);transform:scale(1.08)}
+.init-card{width:56px;height:80px;border-radius:5px;background:#F5F2ED;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Georgia','Times New Roman',serif;font-weight:700;position:relative;overflow:hidden;transition:all .3s;box-shadow:0 2px 6px rgba(0,0,0,0.5),inset 0 0 0 1px rgba(0,0,0,0.08)}
+.init-card .rank{font-size:22px;line-height:1}
+.init-card .suit{font-size:22px;line-height:1;margin-top:-1px}
+.init-card .corner-tl{position:absolute;top:3px;left:5px;display:flex;flex-direction:column;align-items:center;line-height:1}
+.init-card .corner-tl .cr{font-size:9px}
+.init-card .corner-tl .cs{font-size:10px;margin-top:-2px}
+.init-card .corner-br{position:absolute;bottom:3px;right:5px;display:flex;flex-direction:column;align-items:center;line-height:1;transform:rotate(180deg)}
+.init-card .corner-br .cr{font-size:9px}
+.init-card .corner-br .cs{font-size:10px;margin-top:-2px}
+.init-card.red{color:#B81C1C}
+.init-card.black{color:#1A1A1A}
+.init-card.joker{background:linear-gradient(135deg,#FFF8E8,#F5EDD8);color:var(--gold);box-shadow:0 0 14px var(--gold-glow),0 2px 6px rgba(0,0,0,0.5)}
+.init-card.winner{box-shadow:0 0 14px var(--accent-glow),0 0 24px rgba(212,180,74,0.25),0 2px 6px rgba(0,0,0,0.5);transform:scale(1.1);border:2px solid var(--accent)}
 .init-vs{font-family:'Cinzel',serif;font-size:14px;color:var(--text-dim);letter-spacing:2px}
 @keyframes card-deal{from{opacity:0;transform:translateY(-20px) rotateY(90deg)}to{opacity:1;transform:translateY(0) rotateY(0deg)}}
 .init-card.dealt{animation:card-deal .3s ease}
@@ -641,10 +647,14 @@ function drawCard(){
   return initDeck.pop()}
 
 function cardHTML(card,isWinner){
-  var cls=card.joker?'joker':card.color;
-  if(isWinner)cls+=' winner';
-  if(card.joker)return '<div class="init-card '+cls+' dealt"><div class="rank" style="font-size:28px">🃏</div></div>';
-  return '<div class="init-card '+cls+' dealt"><div class="rank">'+card.rank+'</div><div class="suit">'+card.suit+'</div></div>'}
+  var cls=card.joker?"joker":card.color;
+  if(isWinner)cls+=" winner";
+  if(card.joker)return '<div class="init-card '+cls+' dealt"><div class="rank" style="font-size:16px;letter-spacing:1px">JOKER</div></div>';
+  return '<div class="init-card '+cls+' dealt">'
+    +'<div class="corner-tl"><span class="cr">'+card.rank+'</span><span class="cs">'+card.suit+'</span></div>'
+    +'<div class="suit" style="font-size:26px">'+card.suit+'</div>'
+    +'<div class="corner-br"><span class="cr">'+card.rank+'</span><span class="cs">'+card.suit+'</span></div>'
+    +'</div>'}
 
 function cardText(card){
   if(card.joker)return 'JOKER';
