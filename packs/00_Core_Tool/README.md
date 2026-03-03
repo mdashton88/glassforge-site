@@ -43,4 +43,4 @@ None. All weapons are from the core tool catalogue.
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

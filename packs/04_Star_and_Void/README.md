@@ -69,4 +69,4 @@ The **Star & Void supplement** adds crew station actions (helm, weapons, enginee
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

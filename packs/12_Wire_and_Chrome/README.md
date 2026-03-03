@@ -40,4 +40,4 @@ The **Wire & Chrome supplement** adds vehicle hacking frameworks (netrunners can
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

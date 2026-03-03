@@ -1,6 +1,6 @@
 # Vehicle Forge — Expansion Pack Catalogue
 
-**Publisher:** DiceForge Studios Ltd.
+**Publisher:** Glassforge Games Ltd.
 **System:** Savage Worlds Adventure Edition
 **Tool:** Vehicle Forge (free)
 **Format:** .cvf.json batch import files
@@ -52,7 +52,7 @@ Each .cvf.json file contains:
 - `packId`: Internal identifier
 - `price`: Retail price
 - `vehicleCount`: Number of vehicles in the pack
-- `publisher`: DiceForge Studios Ltd.
+- `publisher`: Glassforge Games Ltd.
 - `note`: (Starters only) Upgrade path description
 - `vehicles[]`: Array of vehicle definitions
 
@@ -70,4 +70,4 @@ Each expansion pack includes a free one-sheet adventure PDF that showcases 3-5 v
 ---
 
 *Vehicle Forge Release Schedule v2.0 — February 2026*
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

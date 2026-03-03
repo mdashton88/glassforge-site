@@ -75,4 +75,4 @@ Minimal. The WWI Aces pack would benefit from synchronised gun and wing damage s
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

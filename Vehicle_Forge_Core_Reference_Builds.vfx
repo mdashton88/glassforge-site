@@ -1,8 +1,8 @@
 {
-  "id": "diceforge-swade-core",
+  "id": "glassforge-swade-core",
   "name": "SWADE Core Rules Reference Builds",
   "version": "1.1",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "description": "All 47 vehicles from Savage Worlds core rulebook (pp.82-86). Weapon loadouts verified line-by-line against canon.",
   "vehicles": [
     {

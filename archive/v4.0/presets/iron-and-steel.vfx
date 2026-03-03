@@ -3,7 +3,7 @@
   "name": "Iron & Steel",
   "version": "1.0",
   "description": "Armoured Ground War — Platoon tactics, hull-down positions, and the thunder of tank guns.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"is_panzerfaust","name":"Panzerfaust Rack","cat":"Anti-Tank","era":"industrial","range":"12/24/48","damage":"4d10 (III)","ap":16,"rof":1,"shots":4,"minSize":1,"mods":0,"cost":500,"notes":"External rack. Infantry weapon adapted for vehicle mount. Disposable. HW."},
     {"id":"is_heat","name":"HEAT Round","cat":"Anti-Tank","era":"modern","range":"75/150/300","damage":"5d10 (IV)","ap":"half","rof":1,"shots":10,"minSize":4,"mods":0,"cost":5000,"notes":"AP = half target's total Armour (round down). Loaded as alternate ammo for tank guns."},

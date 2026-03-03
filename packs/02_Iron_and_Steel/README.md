@@ -119,4 +119,4 @@
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

@@ -90,7 +90,7 @@ def enrich_file(filepath):
 
 def main():
     pack_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 
-                            "diceforge-site", "packs")
+                            "glassforge-site", "packs")
     if not os.path.exists(pack_dir):
         pack_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "packs")
     

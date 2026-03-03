@@ -3,7 +3,7 @@
   "name": "Brass & Steam",
   "version": "1.0",
   "description": "Steampunk & Victorian — Pressure rising. Boiler screaming. Rivets popping. Full speed ahead.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"bs_pneumatic","name":"Pneumatic Launcher","cat":"Steam Weapons","era":"blackpowder","range":"12/24/48","damage":"2d8 (I)","ap":2,"rof":1,"shots":10,"minSize":2,"mods":1,"cost":600,"notes":"Compressed air propulsion. Silent (no gunpowder flash/smoke). Reload 1. Versatile ammunition."},
     {"id":"bs_tesla","name":"Tesla Coil","cat":"Steam Weapons","era":"blackpowder","range":"15/30/60","damage":"3d6 (I)","ap":0,"rof":1,"shots":0,"minSize":3,"mods":2,"cost":2000,"notes":"Electrical discharge. Targets in metal armour: +2 damage. Chains to adjacent target on raise. Requires Reactor or Boiler."},

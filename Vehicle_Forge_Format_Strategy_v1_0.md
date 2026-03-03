@@ -1,6 +1,6 @@
 # Vehicle Forge — Format Strategy & Documentation Architecture v1.0
 
-**DiceForge Studios Ltd.**
+**Glassforge Games Ltd.**
 **February 2026**
 
 ---
@@ -154,7 +154,7 @@ The help panel **never** duplicates content that belongs in the Companion Guide.
 
 ### Companion Guide PDF
 
-Hosted at: `https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf`
+Hosted at: `https://glassforge.pages.dev/vehicle-forge-manual.pdf`
 
 This URL never changes. The file at this URL updates with every release. The tool links to it. The DTRPG listing links to it. The GitHub README links to it.
 
@@ -168,7 +168,7 @@ This URL never changes. The file at this URL updates with every release. The too
 6. Export Formats — JSON, FG XML, Pinnacle stat blocks, format matrix
 7. Expansion Pack Guide — what each pack contains, upgrade paths
 8. One-Sheet Adventures — adventure outlines for each pack
-9. License & Credits — Pinnacle notice, FG notice, Foundry notice, DiceForge credits
+9. License & Credits — Pinnacle notice, FG notice, Foundry notice, Glassforge credits
 
 **Appendix A: Product Catalogue** — auto-updating list of all available packs with prices, vehicle counts, wave status, and DTRPG links
 
@@ -212,5 +212,5 @@ One tool. Three formats. Every platform. Zero friction.
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*
 *February 2026*

@@ -3,8 +3,8 @@
 ## Quick Start
 
 ```bash
-git clone https://github.com/mdashton88/diceforge-site.git
-cd diceforge-site
+git clone https://github.com/mdashton88/glassforge-site.git
+cd glassforge-site
 python3 sync_and_audit.py --audit-only    # Verify everything's clean
 python3 test_combat_regression.py          # Run combat sanity checks
 ```

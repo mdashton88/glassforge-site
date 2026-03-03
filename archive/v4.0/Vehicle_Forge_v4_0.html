@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vehicle Forge — DiceForge Studios</title>
+<title>Vehicle Forge — Glassforge Games</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg-deep:#0E0C0A;--bg-dark:#141210;--bg-card:#1A1816;--bg-panel:#201E1A;--border:#3A3530;--border-light:#4A4540;--accent:#C4A44A;--accent-dim:#C4A44A40;--accent-glow:#C4A44A20;--text:#D4C8B0;--text-bright:#EDE4D4;--text-dim:#8A7A60;--green:#5A9A5A;--red:#8C3030;--red-bright:#B04040;--blue:#4A7A9A;--orange:#B07830}
@@ -194,7 +194,7 @@ html,body{height:100%;background:var(--bg-deep);color:var(--text);font-family:'C
   </div>
   <div class="main">
     <div class="header">
-      <div><div class="header-brand">DiceForge Studios</div><div class="header-title">Vehicle Forge</div></div>
+      <div><div class="header-brand">Glassforge Games</div><div class="header-title">Vehicle Forge</div></div>
       <div class="header-spacer"></div>
       <button class="header-btn" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
       <button class="header-btn" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
@@ -339,7 +339,7 @@ var MODS=[
   {id:'road_vehicle',name:'Road Vehicle',cat:'Locomotion & Power',max:1,mods:0,costFn:function(s){return 5000*s},desc:'Wheeled only. +3 Speed Ratings on paved roads. Road tyres, suspension, transmission. Off-road speed unchanged.'},
   {id:'high_perf_engine',name:'High-Performance Engine',cat:'Locomotion & Power',max:3,mods:1,costFn:function(s){return 20000*s},desc:'+2 Speed Ratings per take. Superchargers, turbines, afterburners. Halve Energy per take.'}
 ];
-// ═══ WEAPON CATALOGUE — DiceForge originals by era, SW compatible ═══
+// ═══ WEAPON CATALOGUE — Glassforge originals by era, SW compatible ═══
 // Eras: ancient, medieval, blackpowder, industrial, modern, future, advanced
 var WEAPONS=[
   // ANCIENT
@@ -484,7 +484,7 @@ var ERA_ORDER=['ancient','medieval','blackpowder','industrial','modern','future'
 var currentEra='modern';
 // Custom weapons storage
 var customWeapons=[];
-try{var cw=localStorage.getItem('diceforge-cvf-custom-weapons');if(cw)customWeapons=JSON.parse(cw)}catch(e){}
+try{var cw=localStorage.getItem('glassforge-cvf-custom-weapons');if(cw)customWeapons=JSON.parse(cw)}catch(e){}
 function getAllWeapons(){return WEAPONS.concat(customWeapons).concat(extWeapons)}
 
 // ═══ SPECIAL ABILITIES (zero-cost narrative traits) ═══
@@ -531,8 +531,8 @@ var SPECIALS=[
 
 // ═══ VFX EXTENSION SYSTEM ═══
 var extensions=[];
-try{var ext=localStorage.getItem('diceforge-cvf-extensions');if(ext)extensions=JSON.parse(ext)}catch(e){}
-function saveExtensions(){localStorage.setItem('diceforge-cvf-extensions',JSON.stringify(extensions))}
+try{var ext=localStorage.getItem('glassforge-cvf-extensions');if(ext)extensions=JSON.parse(ext)}catch(e){}
+function saveExtensions(){localStorage.setItem('glassforge-cvf-extensions',JSON.stringify(extensions))}
 function installExtension(data){
   if(!data||!data.id||!data.name){alert('Invalid .vfx file.');return}
   // Remove existing version
@@ -640,7 +640,7 @@ function showImage(){if(S.image){document.getElementById('imgPreview').src=S.ima
 function clearImage(){S.image='';document.getElementById('imgInput').value='';showImage()}
 
 // ═══ IMPORT/EXPORT ═══
-function exportJSON(){var data={version:'1.1',tool:'DiceForge Vehicle Forge',exported:new Date().toISOString(),
+function exportJSON(){var data={version:'1.1',tool:'Glassforge Vehicle Forge',exported:new Date().toISOString(),
   vehicle:{name:S.name,desc:S.desc,notes:S.notes,image:S.image,size:S.size,loco:S.loco,mods:JSON.parse(JSON.stringify(S.mods)),weapons:JSON.parse(JSON.stringify(S.weapons)),armourTech:S.armourTech,specials:S.specials.slice(),customSpecial:S.customSpecial}};
   var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});var url=URL.createObjectURL(blob);
   var a=document.createElement('a');a.href=url;a.download=(S.name||'vehicle').replace(/[^a-zA-Z0-9_-]/g,'_')+'.cvf.json';a.click();URL.revokeObjectURL(url)}
@@ -651,11 +651,11 @@ function importJSON(e){var file=e.target.files[0];if(!file)return;var reader=new
       showImage();renderAll();Audio.clunk()}
     else if(data.vehicles&&Array.isArray(data.vehicles)){data.vehicles.forEach(function(v){
         S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],armourTech:v.armourTech||0,specials:v.specials||[],customSpecial:v.customSpecial||''})});
-      localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));renderSaved();Audio.clunk();
+      localStorage.setItem('glassforge-cvf',JSON.stringify(S.saved));renderSaved();Audio.clunk();
       alert('Imported '+data.vehicles.length+' vehicles.')}
     else alert('Invalid .cvf.json file.')}catch(err){alert('Error reading file: '+err.message)}};reader.readAsText(file);e.target.value=''}
 function batchExport(){if(!S.saved.length){alert('No saved vehicles to export.');return}
-  var data={version:'1.1',tool:'DiceForge Vehicle Forge',exported:new Date().toISOString(),count:S.saved.length,
+  var data={version:'1.1',tool:'Glassforge Vehicle Forge',exported:new Date().toISOString(),count:S.saved.length,
     vehicles:S.saved.map(function(v){return{name:v.name,desc:v.desc,notes:v.notes,image:v.image,size:v.size,loco:v.loco,mods:JSON.parse(JSON.stringify(v.mods)),weapons:JSON.parse(JSON.stringify(v.weapons)),armourTech:v.armourTech||0,specials:v.specials||[],customSpecial:v.customSpecial||''}})};
   var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});var url=URL.createObjectURL(blob);
   var a=document.createElement('a');a.href=url;a.download='vehicle-pack-'+S.saved.length+'.cvf.json';a.click();URL.revokeObjectURL(url)}
@@ -802,7 +802,7 @@ function addCustomWeapon(){var n=document.getElementById('cw_name').value.trim()
     shots:+(document.getElementById('cw_shots').value)||0,minSize:+(document.getElementById('cw_minsize').value)||1,
     mods:+(document.getElementById('cw_mods').value)||1,cost:+(document.getElementById('cw_cost').value)||0,
     notes:document.getElementById('cw_notes').value.trim()||''};
-  customWeapons.push(w);localStorage.setItem('diceforge-cvf-custom-weapons',JSON.stringify(customWeapons));
+  customWeapons.push(w);localStorage.setItem('glassforge-cvf-custom-weapons',JSON.stringify(customWeapons));
   Audio.clunk();document.getElementById('customForm').style.display='none';renderEraFilter();renderWeaponCatalogue()}
 // ═══ STATS & OUTPUT ═══
 function renderStats(){var f=getFrame(S.size),used=calcModsUsed(),gained=calcModsGained(),total=(S.size*f.modMult+f.compactBonus)+gained,left=total-used;var spd=calcSpeed();var rspd=calcRoadSpeed();var spdLabel=rspd>spd?'Off-Road':'Top Speed';var spdExtra=rspd>spd?'<div class="stat-box"><div class="stat-label">Road Speed</div><div class="stat-value">'+rspd+' ('+speedMPH(rspd)+' MPH)</div></div>':'';
@@ -861,7 +861,7 @@ function renderOutput(){var p=document.getElementById('outputContent'),f=getFram
     +(wl.length?'<div class="sb-line"><span class="sb-label">Weapons:</span></div>'+wl.map(function(w){return '<div class="sb-line">&nbsp;&nbsp;• '+w+'</div>'}).join(''):'')
     +(special.length?'<hr class="sb-divider"><div class="sb-notes"><span class="sb-label">Special:</span>'+special.map(function(s){return '<div style="margin:2px 0 2px 12px">&bull; '+s+'</div>'}).join('')+'</div>':'')
     +notesHtml
-    +'<div class="sb-watermark">Built with DiceForge Vehicle Forge · diceforgestudios.pages.dev</div>'
+    +'<div class="sb-watermark">Built with Glassforge Vehicle Forge · glassforge.pages.dev</div>'
     +'</div>'
     +'<div style="margin-top:16px;display:flex;gap:8px"><button class="header-btn" onclick="copyBlock()">Copy to Clipboard</button><button class="header-btn" onclick="exportJSON()">Export .json</button><button class="header-btn" onclick="printStatBlock()">Print</button></div>'}
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
@@ -886,7 +886,7 @@ function copyBlock(){var f=getFrame(S.size),loco=LOCOS.find(function(l){return l
   if(S.mods.high_perf_engine)special.push('Hi-Perf Engine'+(S.mods.high_perf_engine>1?' x'+S.mods.high_perf_engine:'')+'.');
   getSpecialText().forEach(function(s){special.push(s)});
   if(special.length)t+='Special:\n'+special.map(function(s){return '  \u2022 '+s}).join('\n')+'\n';
-  t+='\n\u2014 Built with DiceForge Vehicle Forge';
+  t+='\n\u2014 Built with Glassforge Vehicle Forge';
   navigator.clipboard.writeText(t).then(function(){var btn=event.target;btn.textContent='Copied!';btn.style.borderColor='var(--green)';btn.style.color='var(--green)';setTimeout(function(){btn.textContent='Copy to Clipboard';btn.style.borderColor='';btn.style.color=''},1500)})}
 // ═══ COMPREHENSIVE HELP/REFERENCE PANEL ═══
 function buildHelp(){
@@ -1041,7 +1041,7 @@ function buildHelp(){
   h+='<p><span class="rule-key">Custom Weapons:</span> Weapons you create via the "Add Custom Weapon" button are stored separately in your browser and appear across all vehicles.</p></div>';
 
   // SECTION: About
-  h+='<div class="help-section" data-help="about credits diceforge studios savage worlds compatible"><h3>About Vehicle Forge</h3>';
+  h+='<div class="help-section" data-help="about credits glassforge studios savage worlds compatible"><h3>About Vehicle Forge</h3>';
   h+='<p>Vehicle Forge is a universal vehicle construction toolkit fully compatible with Savage Worlds. It covers every vehicle type from ancient war chariots to far-future hover carriers — ground, air, water, and walker — in a single tool.</p>';
   h+='<p>111 weapons across 7 historical eras (Ancient through Advanced), 40+ modifications, 11 locomotion types, and sizes from 1 (motorcycle) to 30 (star base). All weapons carry a class rating compatible with the Heavy Metal rules. Plus custom weapon entry for anything your setting needs.</p>';
   h+='<p style="font-size:12px;color:var(--text-dim);margin-top:8px">This product is not affiliated with or endorsed by Pinnacle Entertainment Group. Savage Worlds and all related marks and logos are trademarks of Pinnacle Entertainment Group. Used with permission.</p></div>';
@@ -1130,7 +1130,7 @@ function printStatBlock(){var f=getFrame(S.size),loco=LOCOS.find(function(l){ret
     +(wl.length?'<div class="line"><span class="label">Weapons:</span></div>'+wl.map(function(w){return '<div class="line">&nbsp;&nbsp;• '+w+'</div>'}).join(''):'')
     +(special.length?'<hr><div class="special"><span class="label">Special:</span>'+special.map(function(s){return '<div style="margin:2px 0 2px 12px">&bull; '+s+'</div>'}).join('')+'</div>':'')
     +notesLine
-    +'<div class="watermark">Built with DiceForge Vehicle Forge · diceforgestudios.pages.dev</div>'
+    +'<div class="watermark">Built with Glassforge Vehicle Forge · glassforge.pages.dev</div>'
     +'<script>window.onload=function(){window.print()}<\/script>'
     +'</body></html>');
   win.document.close()}
@@ -1180,13 +1180,13 @@ function printAll(){if(!S.saved.length){alert('No saved vehicles to print.');ret
     +'.watermark{font-size:8px;color:#aaa;text-align:right;margin-top:8px}'
     +'@media print{.card{border:1.5px solid #333}}</style></head><body>'
     +cards
-    +'<div class="watermark">Built with DiceForge Vehicle Forge · diceforgestudios.pages.dev</div>'
+    +'<div class="watermark">Built with Glassforge Vehicle Forge · glassforge.pages.dev</div>'
     +'<script>window.onload=function(){window.print()}<\\/script>'
     +'</body></html>');
   win.document.close()}
-function saveVehicle(){var d={name:S.name,desc:S.desc,notes:S.notes,image:S.image,size:S.size,loco:S.loco,mods:JSON.parse(JSON.stringify(S.mods)),weapons:JSON.parse(JSON.stringify(S.weapons)),armourTech:S.armourTech,specials:S.specials.slice(),customSpecial:S.customSpecial};var i=S.saved.findIndex(function(s){return s.name===S.name});if(i>=0)S.saved[i]=d;else S.saved.push(d);localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));renderSaved();Audio.click()}
+function saveVehicle(){var d={name:S.name,desc:S.desc,notes:S.notes,image:S.image,size:S.size,loco:S.loco,mods:JSON.parse(JSON.stringify(S.mods)),weapons:JSON.parse(JSON.stringify(S.weapons)),armourTech:S.armourTech,specials:S.specials.slice(),customSpecial:S.customSpecial};var i=S.saved.findIndex(function(s){return s.name===S.name});if(i>=0)S.saved[i]=d;else S.saved.push(d);localStorage.setItem('glassforge-cvf',JSON.stringify(S.saved));renderSaved();Audio.click()}
 function loadVehicle(i){var d=S.saved[i];S.name=d.name;S.desc=d.desc||'';S.notes=d.notes||'';S.image=d.image||'';S.size=d.size;S.loco=d.loco;S.mods=JSON.parse(JSON.stringify(d.mods));S.weapons=JSON.parse(JSON.stringify(d.weapons));S.armourTech=d.armourTech||0;S.specials=d.specials||[];S.customSpecial=d.customSpecial||'';document.getElementById('vName').value=S.name;document.getElementById('vDesc').value=S.desc;document.getElementById('vNotes').value=S.notes;document.getElementById('sizeSlider').value=S.size;document.getElementById('customSpecialInput').value=S.customSpecial;showImage();renderAll()}
-function deleteSaved(i){S.saved.splice(i,1);localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));renderSaved()}
+function deleteSaved(i){S.saved.splice(i,1);localStorage.setItem('glassforge-cvf',JSON.stringify(S.saved));renderSaved()}
 function renderSaved(){var list=document.getElementById('savedList');
   if(!S.saved.length){list.innerHTML='<div class="empty-state"><p>No saved builds yet.</p></div>';return}
   list.innerHTML=S.saved.map(function(s,i){var loco=LOCOS.find(function(l){return l.id===s.loco});
@@ -1238,7 +1238,7 @@ function renderAll(){renderFrameInfo();renderLocoGrid();renderAT();renderEraFilt
 // ═══ BOOT ═══
 (function(){function unlock(){Audio.init();if(Audio.ctx.state==='suspended')Audio.ctx.resume();var buf=Audio.ctx.createBuffer(1,1,Audio.ctx.sampleRate);var src=Audio.ctx.createBufferSource();src.buffer=buf;src.connect(Audio.ctx.destination);src.start(0);['touchstart','touchend','mousedown','click'].forEach(function(e){document.removeEventListener(e,unlock,true)})}
   ['touchstart','touchend','mousedown','click'].forEach(function(e){document.addEventListener(e,unlock,true)})})();
-try{var sd=localStorage.getItem('diceforge-cvf');if(sd)S.saved=JSON.parse(sd)}catch(e){}
+try{var sd=localStorage.getItem('glassforge-cvf');if(sd)S.saved=JSON.parse(sd)}catch(e){}
 document.getElementById('vName').addEventListener('input',function(e){S.name=e.target.value||'Untitled Vehicle'});
 document.getElementById('vDesc').addEventListener('input',function(e){S.desc=e.target.value||''});
 document.getElementById('vNotes').addEventListener('input',function(e){S.notes=e.target.value||''});

@@ -40,4 +40,4 @@ The **Sails & Gasbags supplement** adds gas cell vulnerability, buoyancy mechani
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

@@ -56,4 +56,4 @@ This is the deepest .vfx development in the entire catalogue. Living vehicles ar
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

@@ -51,7 +51,7 @@ Tested against all 44 SWADE core rulebook stock vehicles:
 
 ### IP Compliance
 - Zero SFC mod names, descriptions, or mechanics reproduced
-- Uses original DiceForge Chassis Formula (not SFC frame table)
+- Uses original Glassforge Chassis Formula (not SFC frame table)
 - All weapon properties original or generic military terminology
 - SWAG attribution notice included
 - Tool designed to complement SFC, not replace it

@@ -53,4 +53,4 @@ The **Dread & Ruin supplement** adds possession mechanics (the vehicle fights th
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

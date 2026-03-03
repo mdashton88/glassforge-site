@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Savage Worlds Character Builder — Free Online Tool | Character Forge by DiceForge Studios</title>
+<title>Savage Worlds Character Builder — Free Online Tool | Character Forge by Glassforge Games</title>
 <meta name="description" content="Free Savage Worlds character builder. Step-by-step creation with live validation, budget tracking, powers, gear, and export to Fantasy Grounds, PDF, and HTML. No login required.">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -70,7 +70,7 @@
 </head>
 <body>
 <nav class="site-nav">
-  <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
+  <a href="/" class="nav-brand"><span class="anvil">⚒</span> Glassforge Games</a>
   <button class="hamburger" onclick="this.classList.toggle('open');document.getElementById('bldrNav').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -388,7 +388,7 @@ function CharacterForgeApp() {
           </button>
         </div>
         <div style={{fontSize:'11px',color:C.textDim,marginTop:'8px',lineHeight:'1.5'}}>
-          Accepts <strong>diceforge-character-v1</strong> format. Gear costs will need manual re-entry as the Vault stores costs separately.
+          Accepts <strong>glassforge-character-v1</strong> format. Gear costs will need manual re-entry as the Vault stores costs separately.
         </div>
       </div>
 
@@ -894,7 +894,7 @@ function CharacterForgeApp() {
     doc.setDrawColor(colGold[0],colGold[1],colGold[2]); doc.setLineWidth(0.3);
     doc.line(M, y, M+CW, y); y+=4;
     doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(colDim[0],colDim[1],colDim[2]);
-    doc.text('Savage Worlds, property of Pinnacle Entertainment Group. Created with Character Forge by DiceForge Studios.', M, y);
+    doc.text('Savage Worlds, property of Pinnacle Entertainment Group. Created with Character Forge by Glassforge Games.', M, y);
     y+=3;
     doc.text('Modules: '+ch.modules.join(', '), M, y);
 
@@ -954,7 +954,7 @@ function CharacterForgeApp() {
       if (abils) html += '<p><strong>Special Abilities:</strong> '+esc(abils)+'</p>';
     }
     html += '</div>';
-    html += '<div class="footer">Savage Worlds, property of Pinnacle Entertainment Group. Created with Character Forge by DiceForge Studios.<br/>Modules: '+ch.modules.join(', ')+'</div>';
+    html += '<div class="footer">Savage Worlds, property of Pinnacle Entertainment Group. Created with Character Forge by Glassforge Games.<br/>Modules: '+ch.modules.join(', ')+'</div>';
     html += '</div></body></html>';
     downloadFile((ch.name.replace(/[^a-zA-Z0-9]+/g,'_')||'character')+'.html', html, 'text/html');
   }
@@ -1000,11 +1000,11 @@ function CharacterForgeApp() {
     }
     rtf += '\\par\n';
     // Footer
-    rtf += '\\pard\\qc\\f0\\fs14\\cf3 Savage Worlds, property of Pinnacle Entertainment Group. Created with Character Forge by DiceForge Studios.\\par\n';
+    rtf += '\\pard\\qc\\f0\\fs14\\cf3 Savage Worlds, property of Pinnacle Entertainment Group. Created with Character Forge by Glassforge Games.\\par\n';
     rtf += '}';
     downloadFile((ch.name.replace(/[^a-zA-Z0-9]+/g,'_')||'character')+'.rtf', rtf, 'application/rtf');
   }
-  // ── JSON EXPORT (diceforge-character-v1) ──
+  // ── JSON EXPORT (glassforge-character-v1) ──
   function exportJSON() {
     var ch = collectCharData();
     var skillObj = {};
@@ -1017,7 +1017,7 @@ function CharacterForgeApp() {
     });
     var generalGear = ch.gear.filter(function(g){return !g.dmg && !(g.armor>0)}).map(function(g){return g.name}).join(', ');
     var v1 = {
-      _format:'diceforge-character-v1',
+      _format:'glassforge-character-v1',
       name:ch.name, refCode:'', concept:ch.concept||'', ancestry:ch.ancestry||'Human',
       region:'Ammaria', tier:'Wild Card', rank:'Novice',
       category:'Pre-gen', product:'',
@@ -1050,7 +1050,7 @@ function CharacterForgeApp() {
     });
     var generalGear = ch.gear.filter(function(g){return !g.dmg && !(g.armor>0)}).map(function(g){return g.name}).join(', ');
     var v1 = {
-      _format:'diceforge-character-v1',
+      _format:'glassforge-character-v1',
       name:ch.name, refCode:'', concept:ch.concept||'', ancestry:ch.ancestry||'Human',
       region:'Ammaria', tier:'Wild Card', rank:'Novice',
       category:'Pre-gen', product:'',
@@ -1166,7 +1166,7 @@ function CharacterForgeApp() {
       transition:'all .15s',width:'100%',textAlign:'left'
     }};
     var formats = [
-      {id:'json', label:'JSON (Vault Transfer)', desc:'Lossless diceforge-character-v1 format. Import directly into Character Vault or share with other DiceForge tools. Copy or download.', icon:'\u21C4', colour:'#C4A44A', fn:exportJSON, copyFn:copyJSON},
+      {id:'json', label:'JSON (Vault Transfer)', desc:'Lossless glassforge-character-v1 format. Import directly into Character Vault or share with other Glassforge tools. Copy or download.', icon:'\u21C4', colour:'#C4A44A', fn:exportJSON, copyFn:copyJSON},
       {id:'fgxml', label:'Fantasy Grounds XML', desc:'Import directly into Fantasy Grounds Unity as a character sheet. Includes attributes, skills, edges, hindrances, weapons, powers, and inventory.', icon:'\u2694', colour:'#5A9A5A', fn:exportFGXML},
       {id:'pdf', label:'PDF Character Sheet', desc:'Print-ready A4 character sheet styled to Pinnacle canon. Portrait, derived stats bar, all sections formatted for table use.', icon:'\uD83D\uDCC4', colour:'#4A7A9A', fn:exportPDF},
       {id:'html', label:'HTML Character Sheet', desc:'Standalone web page in Pinnacle pre-generated character format. Print-friendly, works in any browser.', icon:'\uD83C\uDF10', colour:'#9A7A4A', fn:exportHTML},
@@ -1258,7 +1258,7 @@ function CharacterForgeApp() {
         </div>
         <div style={{fontSize:'11px',color:C.textDim,textAlign:'center',marginTop:'32px',lineHeight:'1.5',padding:'12px',borderTop:'1px solid '+C.border}}>
           This tool references Savage Worlds, property of Pinnacle Entertainment Group, under the Fan License. Not for resale. You will need the Savage Worlds core rules to play.
-          {activeSupplements.length > 0 ? ' Supplement content \u00A9 DiceForge Studios.' : ''}
+          {activeSupplements.length > 0 ? ' Supplement content \u00A9 Glassforge Games.' : ''}
         </div>
       </div>
     </div>
@@ -1269,7 +1269,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<CharacterForgeApp /
 </script>
 <div style="padding:16px 32px;text-align:center;border-top:1px solid #3A3530;background:#0A0908;font-family:'Crimson Text',Georgia,serif;font-size:12px;color:#5A5040;line-height:1.6">
   <a href="/legal.html" title="Savage Worlds Fan Product"><img src="sw_fan_logo.png" alt="Savage Worlds Fan Product" style="height:36px;vertical-align:middle;margin-right:8px;opacity:0.85"></a>
-  &copy; 2026 DiceForge Studios Ltd. <a href="/legal.html" style="color:#8A7A60">Legal & Licensing</a>
+  &copy; 2026 Glassforge Games Ltd. <a href="/legal.html" style="color:#8A7A60">Legal & Licensing</a>
 </div>
 </body>
 </html>

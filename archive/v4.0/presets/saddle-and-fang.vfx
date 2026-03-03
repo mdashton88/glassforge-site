@@ -3,7 +3,7 @@
   "name": "Saddle & Fang",
   "version": "1.0",
   "description": "Mounts & Living Vehicles — Your mount is not a motorcycle with legs. Treat her accordingly.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"sf_fire_breath","name":"Fire Breath","cat":"Breath Weapons","era":"ancient","range":"Cone","damage":"3d8 (I)","ap":0,"rof":1,"shots":0,"minSize":4,"mods":0,"cost":0,"notes":"Cone. Incendiary. Recharge: 1d4 rounds between uses. Natural weapon — no installation required for living mounts."},
     {"id":"sf_frost_breath","name":"Frost Breath","cat":"Breath Weapons","era":"ancient","range":"Cone","damage":"3d6 (I)","ap":0,"rof":1,"shots":0,"minSize":4,"mods":0,"cost":0,"notes":"Cone. Cold. Targets in cone: Agility -2 or Slowed (half Speed) for 1d4 rounds. Recharge: 1d4 rounds."},

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vehicle Forge Demo — Free Savage Worlds Vehicle Builder | DiceForge Studios</title>
+<title>Vehicle Forge Demo — Free Savage Worlds Vehicle Builder | Glassforge Games</title>
 <meta name="description" content="Free browser-based vehicle construction tool for Savage Worlds. 127 weapons, 47 reference builds, export to Fantasy Grounds, Foundry VTT, and print. No login required.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚒</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -200,7 +200,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 <a href="#panel-output" class="skip-link" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;font-size:14px;padding:8px 16px;background:var(--accent);color:var(--bg-deep)">Skip to stat block</a>
 
 <nav>
-  <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
+  <a href="/" class="nav-brand"><span class="anvil">⚒</span> Glassforge Games</a>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="navLinks">
     <li><a href="/">Home</a></li>
@@ -267,7 +267,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
         <button class="header-btn" onclick="exportJSON()">Export .json</button>
         <button class="header-btn" onclick="document.getElementById('importInput').click()">Import .json</button>
         <button class="header-btn" onclick="showExtensionManager()" style="border-color:var(--accent);color:var(--accent)">⚙ Extensions</button>
-        <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
+        <a href="https://glassforge.pages.dev/vehicle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green)">📖 Manual</a>
         <input type="file" id="importInput" accept=".json,.cvf.json" style="display:none" onchange="importJSON(event)">
       </div>
       <div style="margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:1px;font-family:'Cinzel',serif">Vehicle Forge Demo<div style="margin-top:8px;padding:8px 16px;background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid var(--green);font-size:13px;color:var(--green);text-align:center;letter-spacing:0.5px">
@@ -343,8 +343,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           <h3 style="font-size:16px;margin-bottom:8px">Storage</h3>
           <div style="margin-bottom:8px">
             <label style="font-size:14px;color:var(--text-dim);display:block;margin-bottom:4px">localStorage Key</label>
-            <div style="display:flex;gap:8px"><input type="text" id="settingStorageKey" value="diceforge-cvf" style="flex:1;background:var(--bg-deep);color:var(--text);border:1px solid var(--border);padding:6px 10px;font-size:14px;font-family:monospace" onchange="migrateStorage(this.value)"><button class="header-btn" onclick="clearAllData()" style="font-size:13px;color:var(--red-bright);border-color:var(--red)">Clear All Data</button></div>
-            <p style="font-size:12px;color:var(--text-dim);margin-top:4px">Change to separate saves between campaigns. Default: diceforge-cvf</p>
+            <div style="display:flex;gap:8px"><input type="text" id="settingStorageKey" value="glassforge-cvf" style="flex:1;background:var(--bg-deep);color:var(--text);border:1px solid var(--border);padding:6px 10px;font-size:14px;font-family:monospace" onchange="migrateStorage(this.value)"><button class="header-btn" onclick="clearAllData()" style="font-size:13px;color:var(--red-bright);border-color:var(--red)">Clear All Data</button></div>
+            <p style="font-size:12px;color:var(--text-dim);margin-top:4px">Change to separate saves between campaigns. Default: glassforge-cvf</p>
           </div>
           <div style="margin-top:12px;padding:12px;background:var(--bg-deep);border:1px solid var(--border)">
             <div style="font-size:14px;color:var(--text-dim)">Saved vehicles: <strong id="settingSavedCount" style="color:var(--text-bright)">0</strong></div>
@@ -360,7 +360,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
           </div>
         </div>
         <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim)">
-          Vehicle Forge Demo — DiceForge Studios Ltd<br>
+          Vehicle Forge Demo — Glassforge Games Ltd.<br>
           Compatible with Savage Worlds
         </div>
       </div>
@@ -692,7 +692,7 @@ var ERA_LABELS={ancient:'Ancient',medieval:'Medieval',blackpowder:'Blackpowder',
 var ERA_ORDER=['ancient','medieval','blackpowder','industrial','modern','future','advanced'];
 var currentEra='modern';
 var customWeapons=[];
-try{var cw=localStorage.getItem('diceforge-cvf-custom-weapons');if(cw)customWeapons=JSON.parse(cw)}catch(e){}
+try{var cw=localStorage.getItem('glassforge-cvf-custom-weapons');if(cw)customWeapons=JSON.parse(cw)}catch(e){}
 function getAllWeapons(){return WEAPONS.concat(customWeapons).concat(extWeapons)}
 function findMod(id){var m=MODS.find(function(x){return x.id===id});if(!m)m=extMods.find(function(x){return x.id===id});return m}
 
@@ -739,10 +739,10 @@ var SPECIALS=[
 ];
 
 var extensions=[];var extMods=[];var extWeapons=[];var extSpecials=[];var disabledPacks=[];
-try{var ext=localStorage.getItem('diceforge-cvf-extensions');if(ext)extensions=JSON.parse(ext)}catch(e){}
-try{var dp=localStorage.getItem('diceforge-cvf-disabled');if(dp)disabledPacks=JSON.parse(dp)}catch(e){}
-function saveExtensions(){localStorage.setItem('diceforge-cvf-extensions',JSON.stringify(extensions))}
-function saveDisabledPacks(){localStorage.setItem('diceforge-cvf-disabled',JSON.stringify(disabledPacks))}
+try{var ext=localStorage.getItem('glassforge-cvf-extensions');if(ext)extensions=JSON.parse(ext)}catch(e){}
+try{var dp=localStorage.getItem('glassforge-cvf-disabled');if(dp)disabledPacks=JSON.parse(dp)}catch(e){}
+function saveExtensions(){localStorage.setItem('glassforge-cvf-extensions',JSON.stringify(extensions))}
+function saveDisabledPacks(){localStorage.setItem('glassforge-cvf-disabled',JSON.stringify(disabledPacks))}
 function isPackEnabled(id){return disabledPacks.indexOf(id)===-1}
 function togglePack(id){var i=disabledPacks.indexOf(id);if(i===-1)disabledPacks.push(id);else disabledPacks.splice(i,1);saveDisabledPacks();rebuildExtensionData();renderAll();renderExtensions()}
 function installExtension(data,silent){
@@ -754,11 +754,11 @@ function installExtension(data,silent){
     S.saved=S.saved.filter(function(s){return s._pack!==data.id});
     data.vehicles.forEach(function(v){
       S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:data.id});added++});
-    if(added)localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))}
+    if(added)localStorage.setItem('glassforge-cvf',JSON.stringify(S.saved))}
   if(!silent){renderAll();alert(data.name+' installed! '+(added?added+' vehicles added.':'Vehicles already in library.'))}}
 function removeExtension(id){Audio.remove();
   S.saved=S.saved.filter(function(v){return v._pack!==id});
-  localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));
+  localStorage.setItem('glassforge-cvf',JSON.stringify(S.saved));
   extensions=extensions.filter(function(e){return e.id!==id});saveExtensions();rebuildExtensionData();renderAll()}
 function rebuildExtensionData(){
   extMods=[];extWeapons=[];extSpecials=[];
@@ -775,16 +775,16 @@ rebuildExtensionData();
   var hasOldCore=extensions.find(function(e){return e.id==='core'});
   if(hasOldCore){
     extensions=extensions.filter(function(e){return e.id!=='core'});
-    try{var sv=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]');
+    try{var sv=JSON.parse(localStorage.getItem('glassforge-cvf')||'[]');
       sv=sv.filter(function(v){return v._pack!=='core'});
-      localStorage.setItem('diceforge-cvf',JSON.stringify(sv))}catch(e){}
+      localStorage.setItem('glassforge-cvf',JSON.stringify(sv))}catch(e){}
     saveExtensions();console.log('Migrated: removed legacy core pack, new core packs will auto-install')
   }
 })();
 (function autoInstallDemo(){
   /* Demo version: load only the 3 demo vehicles */
   var hasDemoVehicles=false;
-  try{var sv=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]');hasDemoVehicles=sv.some(function(s){return s._pack==='core-demo'})}catch(e){}
+  try{var sv=JSON.parse(localStorage.getItem('glassforge-cvf')||'[]');hasDemoVehicles=sv.some(function(s){return s._pack==='core-demo'})}catch(e){}
   if(hasDemoVehicles){console.log('Demo vehicles already loaded');return}
   fetch('packs/00_Core_Tool/Vehicle_Forge_Demo_Builds.vfx')
     .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
@@ -943,7 +943,7 @@ function showImage(){if(S.image){document.getElementById('imgPreview').src=S.ima
 function clearImage(){S.image='';document.getElementById('imgInput').value='';showImage()}
 
 // ═══ IMPORT/EXPORT ═══
-function exportJSON(){var data={version:'2.0',tool:'DiceForge Vehicle Forge',exported:new Date().toISOString(),
+function exportJSON(){var data={version:'2.0',tool:'Glassforge Vehicle Forge',exported:new Date().toISOString(),
   vehicle:{name:S.name,desc:S.desc,notes:S.notes,image:S.image,size:S.size,loco:S.loco,mods:JSON.parse(JSON.stringify(S.mods)),weapons:JSON.parse(JSON.stringify(S.weapons)),toughLevel:S.toughLevel,armourLevel:S.armourLevel,speedLevel:S.speedLevel,handlingLevel:S.handlingLevel,woundsLevel:S.woundsLevel,crewLevel:S.crewLevel,passengers:S.passengers,mphOverride:S.mphOverride}};
   var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});var url=URL.createObjectURL(blob);
   var a=document.createElement('a');a.href=url;a.download=(S.name||'vehicle').replace(/[^a-zA-Z0-9_-]/g,'_')+'.cvf.json';a.click();URL.revokeObjectURL(url)}
@@ -954,11 +954,11 @@ function importJSON(e){var file=e.target.files[0];if(!file)return;var reader=new
       showImage();renderAll();Audio.clunk()}
     else if(data.vehicles&&Array.isArray(data.vehicles)){data.vehicles.forEach(function(v){
         S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0})});
-      localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved));renderSaved();Audio.clunk();
+      localStorage.setItem('glassforge-cvf',JSON.stringify(S.saved));renderSaved();Audio.clunk();
       alert('Imported '+data.vehicles.length+' vehicles.')}
     else alert('Invalid .cvf.json file.')}catch(err){alert('Error reading file: '+err.message)}};reader.readAsText(file);e.target.value=''}
 function batchExport(){if(!S.saved.length){alert('No saved vehicles to export.');return}
-  var data={version:'1.0',tool:'DiceForge Vehicle Forge',exported:new Date().toISOString(),count:S.saved.length,
+  var data={version:'1.0',tool:'Glassforge Vehicle Forge',exported:new Date().toISOString(),count:S.saved.length,
     vehicles:S.saved.map(function(v){return{name:v.name,desc:v.desc,notes:v.notes,image:v.image,size:v.size,loco:v.loco,mods:JSON.parse(JSON.stringify(v.mods)),weapons:JSON.parse(JSON.stringify(v.weapons)),toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0}})};
   var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});var url=URL.createObjectURL(blob);
   var a=document.createElement('a');a.href=url;a.download='vehicle-pack-'+S.saved.length+'.cvf.json';a.click();URL.revokeObjectURL(url)}
@@ -1126,7 +1126,7 @@ function addCustomWeapon(){Audio.clunk();var n=document.getElementById('cw_name'
     shots:+(document.getElementById('cw_shots').value)||0,minSize:+(document.getElementById('cw_minsize').value)||1,
     mods:+(document.getElementById('cw_mods').value)||1,cost:+(document.getElementById('cw_cost').value)||0,
     notes:document.getElementById('cw_notes').value.trim()||''};
-  customWeapons.push(w);localStorage.setItem('diceforge-cvf-custom-weapons',JSON.stringify(customWeapons));
+  customWeapons.push(w);localStorage.setItem('glassforge-cvf-custom-weapons',JSON.stringify(customWeapons));
   Audio.clunk();document.getElementById('customForm').style.display='none';renderEraFilter();renderWeaponCatalogue()}
 // ═══ STATS & OUTPUT ═══
 function renderStats(){var f=getFrame(S.size),used=calcModsUsed(),gained=calcModsGained(),total=f.modSlots+gained,left=total-used;var spd=calcSpeed();var rspd=calcRoadSpeed();var spdLabel=rspd>spd?'Off-Road':'Top Speed';var spdExtra=rspd>spd?'<div class="stat-box"><div class="stat-label">Road Speed</div><div class="stat-value">'+rspd+' ('+speedMPH(rspd)+' MPH)</div></div>':'';
@@ -1226,7 +1226,7 @@ function copyBlock(){var f=getFrame(S.size),loco=LOCOS.find(function(l){return l
   if(notes.length)t+='Mods: '+notes.join(', ')+'.\n';if(wl.length)t+='Weapons:\n'+wl.join('\n')+'\n';
   if(special.length)t+='Special: '+special.join(' ')+'\n';
   if(S.notes)t+='GM Notes: '+S.notes+'\n';
-  t+='\u2014 Built with DiceForge Vehicle Forge';
+  t+='\u2014 Built with Glassforge Vehicle Forge';
   navigator.clipboard.writeText(t).then(function(){var btn=event.target;btn.textContent='Copied!';btn.style.borderColor='var(--green)';btn.style.color='var(--green)';setTimeout(function(){btn.textContent='Copy to Clipboard';btn.style.borderColor='';btn.style.color=''},1500)})}
 
 function genStatBlockText(v){
@@ -1266,7 +1266,7 @@ function exportStatBlock(){
 function exportFGXML(){alert('Fantasy Grounds export is available in the full Vehicle Forge — free on DriveThruRPG.');return;
   var vehicles=S.saved.length?S.saved:[S];
   var xml='<?xml version="1.0" encoding="utf-8"?>\n';
-  xml+='<!-- Vehicle Forge FG Export \u2014 DiceForge Studios Ltd. -->\n';
+  xml+='<!-- Vehicle Forge FG Export \u2014 Glassforge Games Ltd. -->\n';
   xml+='<!-- Paste this into your campaign db.xml or module db.xml -->\n';
   xml+='<!-- This game references the Savage Worlds game system, available from -->\n';
   xml+='<!-- Pinnacle Entertainment Group at www.peginc.com. -->\n';
@@ -1326,12 +1326,12 @@ function exportFGModule(){alert('Fantasy Grounds module export is available in t
   var def='<?xml version="1.0" encoding="utf-8"?>\n';
   def+='<root version="5.1" dataversion="'+today+'" release="5.16|CoreRPG:7">\n';
   def+='\t<n>'+escXML(modName)+'</n>\n';
-  def+='\t<author>DiceForge Studios</author>\n';
+  def+='\t<author>Glassforge Games</author>\n';
   def+='\t<ruleset>SavageWorlds</ruleset>\n';
   def+='</root>\n';
 
   var db='<?xml version="1.0" encoding="utf-8"?>\n';
-  db+='<!-- Generated by Vehicle Forge — DiceForge Studios Ltd. -->\n';
+  db+='<!-- Generated by Vehicle Forge — Glassforge Games Ltd. -->\n';
   db+='<!-- This game references the Savage Worlds game system, available from -->\n';
   db+='<!-- Pinnacle Entertainment Group at www.peginc.com. -->\n';
   db+='<!-- Savage Worlds and all associated logos and trademarks are copyrights -->\n';
@@ -1439,8 +1439,8 @@ function buildHelp(){
   h+='</div>';
   h+='<div class="help-section" data-help="manual companion guide pdf reference">';
   h+='<h3>Companion Guide</h3>';
-  h+='<p><div style="margin:20px 0;padding:16px;background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid var(--green);text-align:center"><strong style="color:var(--green);font-size:16px">Get the Full Vehicle Forge — Free</strong><p style="color:var(--text-dim);margin:8px 0">47 reference builds, expansion packs, Fantasy Grounds export, and more.</p><a href="https://www.drivethrurpg.com" target="_blank" style="display:inline-block;padding:10px 24px;background:var(--green);color:#000;font-weight:bold;text-decoration:none;margin-top:4px">Download on DriveThruRPG</a></div><p>The <a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="color:var(--accent)">Vehicle Forge Companion Guide (PDF)</a> is the complete reference for the tool. It covers vehicle frames, all 127 weapons, 41 modifications, 34 special abilities, export formats, vehicle packs, walker combat rules, and one-sheet adventures.</p>';
-  h+='<div style="text-align:center;margin:20px 0"><a href="https://diceforgestudios.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="display:inline-block;padding:12px 32px;border:1px solid var(--accent);color:var(--accent);font-family:Cinzel,serif;font-size:15px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s" onmouseover="this.style.background=\'var(--accent)\';this.style.color=\'var(--bg-deep)\'" onmouseout="this.style.background=\'transparent\';this.style.color=\'var(--accent)\'">Open Companion Guide</a></div>';
+  h+='<p><div style="margin:20px 0;padding:16px;background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid var(--green);text-align:center"><strong style="color:var(--green);font-size:16px">Get the Full Vehicle Forge — Free</strong><p style="color:var(--text-dim);margin:8px 0">47 reference builds, expansion packs, Fantasy Grounds export, and more.</p><a href="https://www.drivethrurpg.com" target="_blank" style="display:inline-block;padding:10px 24px;background:var(--green);color:#000;font-weight:bold;text-decoration:none;margin-top:4px">Download on DriveThruRPG</a></div><p>The <a href="https://glassforge.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="color:var(--accent)">Vehicle Forge Companion Guide (PDF)</a> is the complete reference for the tool. It covers vehicle frames, all 127 weapons, 41 modifications, 34 special abilities, export formats, vehicle packs, walker combat rules, and one-sheet adventures.</p>';
+  h+='<div style="text-align:center;margin:20px 0"><a href="https://glassforge.pages.dev/vehicle-forge-manual.pdf" target="_blank" style="display:inline-block;padding:12px 32px;border:1px solid var(--accent);color:var(--accent);font-family:Cinzel,serif;font-size:15px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s" onmouseover="this.style.background=\'var(--accent)\';this.style.color=\'var(--bg-deep)\'" onmouseout="this.style.background=\'transparent\';this.style.color=\'var(--accent)\'">Open Companion Guide</a></div>';
   h+='</div>';
   h+='<div class="help-section" data-help="export formats fantasy grounds foundry json stat block">';
   h+='<h3>Export Formats</h3>';
@@ -1450,9 +1450,9 @@ function buildHelp(){
   h+='<p><span class="rule-key">FG Module (.mod)</span> \u2014 generates a ready-to-install Fantasy Grounds Unity module containing all enabled vehicles. Drop the .mod file into your FGU modules folder, load it in your campaign, and all vehicles appear in the sidebar. No manual XML editing required.</p>';
   h+='<p><span class="rule-key">Batch Export / Print All</span> \u2014 exports or prints every saved vehicle at once.</p>';
   h+='</div>';
-  h+='<div class="help-section" data-help="about vehicle forge diceforge version">';
+  h+='<div class="help-section" data-help="about vehicle forge glassforge version">';
   h+='<h3>About Vehicle Forge</h3>';
-  h+='<p>Vehicle Forge is a free tool by <a href="/" style="color:var(--accent)">DiceForge Studios</a>. It references the Savage Worlds game system by <a href="https://www.peginc.com" target="_blank" style="color:var(--accent)">Pinnacle Entertainment Group</a>. Savage Worlds and all associated logos and trademarks are copyrights of Pinnacle Entertainment Group. Used with permission.</p>';
+  h+='<p>Vehicle Forge is a free tool by <a href="/" style="color:var(--accent)">Glassforge Games</a>. It references the Savage Worlds game system by <a href="https://www.peginc.com" target="_blank" style="color:var(--accent)">Pinnacle Entertainment Group</a>. Savage Worlds and all associated logos and trademarks are copyrights of Pinnacle Entertainment Group. Used with permission.</p>';
   h+='<p style="font-size:13px;color:var(--text-dim)">Fantasy Grounds is a trademark of SmiteWorks USA, LLC. Foundry Virtual Tabletop is a trademark of Foundry Gaming LLC. This product is not affiliated with or endorsed by Pinnacle Entertainment Group, SmiteWorks, or Foundry Gaming.</p>';
   h+='</div>';
   return h}
@@ -1523,7 +1523,7 @@ function printStatBlock(){var f=getFrame(S.size),loco=LOCOS.find(function(l){ret
     +(wl.length?'<div class="line"><span class="label">Weapons:</span></div>'+wl.map(function(w){return '<div class="line">&nbsp;&nbsp;• '+w+'</div>'}).join(''):'')
     +(special.length?'<hr><div class="special"><span class="label">Special:</span> '+special.join(' ')+'</div>':'')
     +notesLine
-    +'<div class="watermark">Built with DiceForge Vehicle Forge · diceforgestudios.pages.dev</div>'
+    +'<div class="watermark">Built with Glassforge Vehicle Forge · glassforge.pages.dev</div>'
     +DEMO_WATERMARK
     +'<script>window.onload=function(){window.print()}<\/script>'
     +'</body></html>');
@@ -1575,7 +1575,7 @@ function printAll(){if(!S.saved.length){alert('No saved vehicles to print.');ret
     +'.watermark{font-size:11px;color:#aaa;text-align:right;margin-top:8px}'
     +'@media print{.card{border:1.5px solid #333}}</style></head><body>'
     +cards
-    +'<div class="watermark">Built with DiceForge Vehicle Forge · diceforgestudios.pages.dev</div>'
+    +'<div class="watermark">Built with Glassforge Vehicle Forge · glassforge.pages.dev</div>'
     +'<div style="margin-top:24px;padding:12px;border-top:2px solid #666;text-align:center;font-size:11px;color:#666">VEHICLE FORGE DEMO — Full version with 47 reference builds free at DriveThruRPG.com</div>'
     +'<script>window.onload=function(){window.print()}<\\/script>'
     +'</body></html>');
@@ -1584,7 +1584,7 @@ function saveVehicle(){if(S.saved.length>=3&&!S.saved.some(function(v){return v.
   var i=S.saved.findIndex(function(s){return s.name===S.name});
   if(i>=0&&isCanon(S.saved[i])){alert('Cannot overwrite DF Canon vehicle "'+S.name+'".\nUse Clone to create an editable copy in My Vehicles.');return}
   if(i>=0)S.saved[i]=d;else S.saved.push(d);save();renderSaved();Audio.click()}
-function save(){localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))}
+function save(){localStorage.setItem('glassforge-cvf',JSON.stringify(S.saved))}
 function deleteSaved(i){if(isCanon(S.saved[i])){alert('Cannot delete DF Canon vehicles.\nDisable the pack in the Packs tab to hide them.');return}Audio.remove();S.saved.splice(i,1);save();renderSaved()}
 var hangarTab='all';
 var collapsedGroups={};
@@ -1615,7 +1615,7 @@ function syncVehiclesFromPacks(){
         S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:ext.id})});
       changed=true}
   });
-  if(changed)localStorage.setItem('diceforge-cvf',JSON.stringify(S.saved))
+  if(changed)localStorage.setItem('glassforge-cvf',JSON.stringify(S.saved))
 }
 function renderSaved(){syncVehiclesFromPacks();var list=document.getElementById('savedList');
   if(!list)return;
@@ -1730,16 +1730,16 @@ function popOutHelp(){var w=window.open('','Vehicle Forge Reference','width=800,
 
 // ═══ SETTINGS ═══
 var audioEnabled=true;
-var storageKey='diceforge-cvf';
-try{var sp=localStorage.getItem('diceforge-cvf-settings');if(sp){var prefs=JSON.parse(sp);if(prefs.brightness)applyBrightness(prefs.brightness,true);if(prefs.textSize)applyTextSize(prefs.textSize,true);if(prefs.audioEnabled===false){audioEnabled=false}if(prefs.storageKey)storageKey=prefs.storageKey}}catch(e){}
-function saveSettings(){var prefs={brightness:parseInt(document.getElementById('settingBrightness').value),textSize:parseInt(document.getElementById('settingTextSize').value),audioEnabled:audioEnabled,storageKey:storageKey};localStorage.setItem('diceforge-cvf-settings',JSON.stringify(prefs))}
+var storageKey='glassforge-cvf';
+try{var sp=localStorage.getItem('glassforge-cvf-settings');if(sp){var prefs=JSON.parse(sp);if(prefs.brightness)applyBrightness(prefs.brightness,true);if(prefs.textSize)applyTextSize(prefs.textSize,true);if(prefs.audioEnabled===false){audioEnabled=false}if(prefs.storageKey)storageKey=prefs.storageKey}}catch(e){}
+function saveSettings(){var prefs={brightness:parseInt(document.getElementById('settingBrightness').value),textSize:parseInt(document.getElementById('settingTextSize').value),audioEnabled:audioEnabled,storageKey:storageKey};localStorage.setItem('glassforge-cvf-settings',JSON.stringify(prefs))}
 function applyBrightness(v,silent){var pct=v/100;var r=document.documentElement;r.style.setProperty('--text','hsl(38,35%,'+Math.round(80*pct)+'%)');r.style.setProperty('--text-bright','hsl(38,30%,'+Math.round(92*pct)+'%)');r.style.setProperty('--text-dim','hsl(38,30%,'+Math.round(52*pct)+'%)');var el=document.getElementById('brightnessVal');if(el)el.textContent=v+'%';var sl=document.getElementById('settingBrightness');if(sl)sl.value=v;if(!silent)saveSettings()}
 function applyTextSize(v,silent){document.documentElement.style.setProperty('--text-scale',v/100);document.querySelector('.main-area').style.fontSize=(13*v/100)+'px';var el=document.getElementById('textSizeVal');if(el)el.textContent=v+'%';var sl=document.getElementById('settingTextSize');if(sl)sl.value=v;if(!silent)saveSettings()}
 function resetDisplay(){applyBrightness(100);applyTextSize(100);document.getElementById('settingBrightness').value=100;document.getElementById('settingTextSize').value=100;saveSettings()}
 function toggleAudio(){audioEnabled=!audioEnabled;var btn=document.getElementById('settingAudioToggle');if(btn)btn.textContent=audioEnabled?'Enabled':'Disabled';saveSettings()}
 function migrateStorage(newKey){if(!newKey||newKey===storageKey)return;if(!confirm('Migrate saved vehicles from "'+storageKey+'" to "'+newKey+'"?'))return;var data=localStorage.getItem(storageKey);if(data)localStorage.setItem(newKey,data);storageKey=newKey;saveSettings();updateSettingsInfo()}
 function clearAllData(){if(!confirm('Delete ALL saved vehicles and settings? This cannot be undone.'))return;localStorage.removeItem(storageKey);localStorage.removeItem(storageKey+'-extensions');localStorage.removeItem(storageKey+'-custom-weapons');S.saved=[];extensions=[];customWeapons=[];rebuildExtensionData();renderAll();updateSettingsInfo();alert('All data cleared.')}
-function updateSettingsInfo(){var sc=document.getElementById('settingSavedCount');var ec=document.getElementById('settingExtCount');var ss=document.getElementById('settingStorageSize');if(sc)sc.textContent=S.saved.length;if(ec)ec.textContent=extensions.length;if(ss){var total=0;for(var k in localStorage){if(k.indexOf('diceforge')>=0)total+=(localStorage[k]||'').length}ss.textContent=total>1024?(total/1024).toFixed(1)+' KB':total+' bytes'}}
+function updateSettingsInfo(){var sc=document.getElementById('settingSavedCount');var ec=document.getElementById('settingExtCount');var ss=document.getElementById('settingStorageSize');if(sc)sc.textContent=S.saved.length;if(ec)ec.textContent=extensions.length;if(ss){var total=0;for(var k in localStorage){if(k.indexOf('glassforge')>=0)total+=(localStorage[k]||'').length}ss.textContent=total>1024?(total/1024).toFixed(1)+' KB':total+' bytes'}}
 
 // Wrap Audio methods to respect enabled flag
 var _origClunk=Audio.clunk.bind(Audio),_origClick=Audio.click.bind(Audio),_origRemove=Audio.remove.bind(Audio);
@@ -1804,7 +1804,7 @@ var CANON_BUILDS=[
   ['touchstart','touchend','mousedown','click'].forEach(function(e){document.addEventListener(e,unlock,true)})})();
 // Load user saves from localStorage, merge with embedded canon builds
 try{
-  var sd=localStorage.getItem('diceforge-cvf');
+  var sd=localStorage.getItem('glassforge-cvf');
   if(sd){
     var userSaved=JSON.parse(sd);
     // Keep user's custom (non-pack) vehicles, replace pack vehicles with embedded canon
@@ -1824,7 +1824,7 @@ updateSettingsInfo();
 
 // ═══ FIRST-VISIT WELCOME BANNER ═══
 (function(){
-  var key='diceforge-cvf-welcomed';
+  var key='glassforge-cvf-welcomed';
   try{if(localStorage.getItem(key))return}catch(e){return}
   var overlay=document.createElement('div');
   overlay.style.cssText='position:fixed;inset:0;z-index:10000;background:rgba(10,9,8,0.85);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)';

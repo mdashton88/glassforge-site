@@ -21,4 +21,4 @@ Disallow: /packs/
 Disallow: /v5.0/
 Disallow: /archive/
 
-Sitemap: https://diceforgestudios.pages.dev/sitemap.xml
+Sitemap: https://glassforge.pages.dev/sitemap.xml

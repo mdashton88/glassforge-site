@@ -3,7 +3,7 @@
   "name": "Wire & Chrome",
   "version": "1.0",
   "description": "Cyberpunk & Near-Future — Everything is networked. Everything can be hacked. Everything is for sale.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"wc_emp_proj","name":"EMP Projector","cat":"Electronic Warfare","era":"future","range":"30/60/120","damage":"—","ap":0,"rof":1,"shots":6,"minSize":2,"mods":1,"cost":10000,"notes":"Target vehicle: Electronics -4 or all systems shut down 1d4 rounds. No effect on non-electronic vehicles."},
     {"id":"wc_smart_gun","name":"Smart-Link Turret","cat":"Networked Weapons","era":"future","range":"50/100/200","damage":"2d10 (I)","ap":4,"rof":3,"shots":200,"minSize":2,"mods":2,"cost":15000,"notes":"AI-assisted targeting. +1 Shooting. Can fire autonomously at -2 if crew incapacitated. Hackable."},

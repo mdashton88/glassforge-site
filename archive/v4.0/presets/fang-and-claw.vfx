@@ -3,7 +3,7 @@
   "name": "Fang & Claw",
   "version": "1.0",
   "description": "Mechs & Walkers — Pilot bonding, arena combat, and sixty tons of walking destruction.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"fc_chainsaw","name":"Chainsaw Arm","cat":"Walker Melee","era":"future","range":"—","damage":"Str+3d8","ap":4,"rof":0,"shots":0,"minSize":4,"mods":2,"cost":15000,"notes":"Melee. +2 damage on raise. Unreliable: snake eyes = jam (Repair to clear). Walker only."},
     {"id":"fc_pile_bunker","name":"Pile Bunker","cat":"Walker Melee","era":"future","range":"—","damage":"Str+4d10","ap":20,"rof":0,"shots":0,"minSize":6,"mods":3,"cost":30000,"notes":"Melee. Single devastating strike. Recharge 2 rounds after use. Walker only."},

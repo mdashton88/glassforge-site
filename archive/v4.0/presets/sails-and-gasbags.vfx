@@ -3,7 +3,7 @@
   "name": "Sails & Gasbags",
   "version": "1.0",
   "description": "Skyships & Lighter-Than-Air — The wind fills the envelope. The city shrinks below. The sky is yours.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"sg_incendiary","name":"Incendiary Round","cat":"Anti-Gasbag","era":"industrial","range":"30/60/120","damage":"2d8 (I)","ap":0,"rof":1,"shots":20,"minSize":1,"mods":0,"cost":500,"notes":"Anti-gasbag specialist. Incendiary. On raise vs gasbag vessel: ignites gas cells (catastrophic)."},
     {"id":"sg_boarding_harpoon","name":"Boarding Harpoon","cat":"Aerial Boarding","era":"blackpowder","range":"10/20/40","damage":"2d8 (I)","ap":2,"rof":1,"shots":4,"minSize":2,"mods":0,"cost":800,"notes":"Grapple + zipline. Opposed Piloting to latch. Boarding party can cross on success."},

@@ -40,4 +40,4 @@ The **Brass & Steam supplement** adds boiler pressure mechanics (push the engine
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

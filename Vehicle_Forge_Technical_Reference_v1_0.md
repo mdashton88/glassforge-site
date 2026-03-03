@@ -1,6 +1,6 @@
 # Vehicle Forge — Technical Reference v1.0
 
-**DiceForge Studios Ltd.**
+**Glassforge Games Ltd.**
 **Document 601 — February 2026**
 
 ---
@@ -15,11 +15,11 @@ This document is the canonical reference for the Vehicle Forge tool — its arch
 
 ## 1. What Vehicle Forge Is
 
-Vehicle Forge is a free, browser-based vehicle construction tool for Savage Worlds. It lives at `diceforgestudios.pages.dev/vehicle-forge` and runs entirely client-side — no backend, no accounts, no login. All data persists in `localStorage`.
+Vehicle Forge is a free, browser-based vehicle construction tool for Savage Worlds. It lives at `glassforge.pages.dev/vehicle-forge` and runs entirely client-side — no backend, no accounts, no login. All data persists in `localStorage`.
 
 The tool is designed around Savage Worlds' *Fast! Furious! Fun!* philosophy. Six sliders control the core statistics. Weapons snap into mount points. Modifications add capability. Special abilities add character. The stat block generates in real time. A vehicle that takes thirty minutes to build from reference tables takes three minutes in the Forge.
 
-Vehicle Forge is **not** a reproduction of the Science Fiction Companion's vehicle construction rules. It is an original DiceForge design system that produces Savage Worlds-compatible stat blocks. This distinction matters for IP compliance (see Section 9).
+Vehicle Forge is **not** a reproduction of the Science Fiction Companion's vehicle construction rules. It is an original Glassforge design system that produces Savage Worlds-compatible stat blocks. This distinction matters for IP compliance (see Section 9).
 
 ### Current Version: v0.10.20
 
@@ -27,9 +27,9 @@ Vehicle Forge is **not** a reproduction of the Science Fiction Companion's vehic
 
 ## 2. Repository Structure
 
-**Repo:** `github.com/mdashton88/diceforge-site`
+**Repo:** `github.com/mdashton88/glassforge-site`
 **Deployment:** Cloudflare Pages, auto-deploys on push to `main` (~30 seconds)
-**Live URL:** `diceforgestudios.pages.dev`
+**Live URL:** `glassforge.pages.dev`
 
 ### Root Files — Active
 
@@ -41,7 +41,7 @@ Vehicle Forge is **not** a reproduction of the Science Fiction Companion's vehic
 | `vehicle-database.json` | Reference database: 47 SWADE core vehicles + 32 weapons + grade system. Used by the tool for canon reference data. |
 | `vehicle-forge-landing.html` | Marketing landing page for the Forge. |
 | `og-vehicle-forge.png` | Open Graph preview image for social sharing. |
-| `index.html` | DiceForge Studios landing page (all tools). |
+| `index.html` | Glassforge Games landing page (all tools). |
 | `builder.html` | Character Forge — separate tool, character builder for Savage Worlds. |
 | `swade-core.js` | Savage Worlds core rules data module (shared across tools). |
 | `swade-rules.js` | Rules reference data. |
@@ -53,7 +53,7 @@ Vehicle Forge is **not** a reproduction of the Science Fiction Companion's vehic
 
 ### Root Files — Other Tools (Not Vehicle Forge)
 
-`adventure-forge.html`, `adventure-vault.html`, `character-vault.html`, `character-db.html`, `npc-manager.html`, `forge-help.html`, `foundry.html`, `pa-forge.html`, `task-vault.html`, `walker-workshop.html`, `vault-help.html` — these are other DiceForge tools, not part of Vehicle Forge.
+`adventure-forge.html`, `adventure-vault.html`, `character-vault.html`, `character-db.html`, `npc-manager.html`, `forge-help.html`, `foundry.html`, `pa-forge.html`, `task-vault.html`, `walker-workshop.html`, `vault-help.html` — these are other Glassforge tools, not part of Vehicle Forge.
 
 Supporting: `ammaria.js`, `encoding-fix.js`, `marked.min.js`, `tool-navigation.js`, `vault-integration.js`, `tribute-lands.css`, `vault-common.css`, `adventures.json`, `task-vault-data.json`, `enrich_vehicles.py`.
 
@@ -203,7 +203,7 @@ Pintle (base cost, 180° arc), Fixed Front (half cost rounded up, forward only),
 
 ## 5. The Class System
 
-DiceForge Class provides an at-a-glance combat rating using the same A–Z scale for both vehicles and weapons. Vehicle Class = total Toughness. Weapon Class = average damage + AP. Because both use the same scale, GMs compare them instantly.
+Glassforge Class provides an at-a-glance combat rating using the same A–Z scale for both vehicles and weapons. Vehicle Class = total Toughness. Weapon Class = average damage + AP. Because both use the same scale, GMs compare them instantly.
 
 | Class | Value Range | SFC Equivalent |
 |-------|-------------|----------------|
@@ -228,7 +228,7 @@ The tool ships with 47 vehicles from the Savage Worlds core rulebook (pages 83�
 
 Calibration was performed on 22 February 2026 by executing the tool's actual JavaScript calculation functions (`calcTotalTough`, `calcArmourValue`, `calcHand`) in the live deployed browser via Chrome automation. For each vehicle, all slider combinations (toughLevel, armourLevel, handlingLevel from −5 to +5) were tested to minimise weighted error against SWADE canon stat lines.
 
-**Important note:** An earlier calibration attempt (same date, earlier session) used Python formula extraction that did not match the live tool's JavaScript. That attempt reported false accuracy claims. The current calibration was verified against the running tool at `diceforgestudios.pages.dev`, not against offline calculations.
+**Important note:** An earlier calibration attempt (same date, earlier session) used Python formula extraction that did not match the live tool's JavaScript. That attempt reported false accuracy claims. The current calibration was verified against the running tool at `glassforge.pages.dev`, not against offline calculations.
 
 ### Calibration Results
 
@@ -269,7 +269,7 @@ Nine vehicles had incorrect Size values in the original VFX data. These were cor
   "id": "unique-pack-id",
   "name": "Pack Display Name",
   "version": "1.0",
-  "publisher": "DiceForge Studios",
+  "publisher": "Glassforge Games",
   "description": "Pack description",
   "price": "$2.99",
   "weapons": [],
@@ -353,7 +353,7 @@ Vehicle Forge operates under the Pinnacle Fan Licence (free products) or SWAG te
 ### Key IP Boundaries
 
 - **No SFC mechanics reproduced.** The slot-buying system for Toughness/Armour is SFC's design. Our slider system is original.
-- **No SFC mod names.** All 41 modifications use original DiceForge names and descriptions.
+- **No SFC mod names.** All 41 modifications use original Glassforge names and descriptions.
 - **No protected terminology.** The v4→v5 rewrite removed all SFC-derived content. Roman numeral damage class notation removed. Weapon properties renamed to original or generic military terms.
 - **Mod slot counts deliberately differ from SFC** — this is a feature, not a bug. Different accounting, same compatible output.
 - **The Class system (A–G) is original.** The SFC equivalents (I–VII) are provided as a convenience mapping, not a reproduction.
@@ -378,7 +378,7 @@ Fantasy Grounds and Foundry VTT trademarks also attributed.
 | 3 weapon mount types (Pintle, Fixed, Turret) | ✓ |
 | Linked weapons (×2, ×4) | ✓ |
 | Custom weapon creation | ✓ |
-| DiceForge Class system (A–Z with SFC mapping) | ✓ |
+| Glassforge Class system (A–Z with SFC mapping) | ✓ |
 | Vehicle Hangar (save/load/clone/duplicate/delete) | ✓ |
 | DF Canon reference builds (47, locked, cloneable) | ✓ |
 | 3 export formats (JSON, Stat Block, FG XML) | ✓ |

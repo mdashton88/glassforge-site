@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Power Armour Forge — DiceForge Studios</title>
+<title>Power Armour Forge — Glassforge Games</title>
 <script src="tool-navigation.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
@@ -137,10 +137,10 @@ html,body{height:100%;background:var(--bg-deep);color:var(--text);font-family:'C
     <div class="sidebar-section"><h3>Frame</h3><div class="chassis-grid" id="chassisGrid"></div></div>
     <div class="sidebar-section"><h3>Statistics</h3><div class="stats-grid" id="statsGrid"></div><div class="mods-remaining" id="modsRemaining"></div><div class="cost-display" id="costDisplay"></div></div>
     <div class="sidebar-section" style="flex:1;overflow-y:auto"><h3>Saved Suits</h3><div class="saved-list" id="savedList"></div></div>
-    <div class="sidebar-footer">Savage Worlds &copy; Pinnacle Entertainment Group. &copy; DiceForge Studios Ltd.</div>
+    <div class="sidebar-footer">Savage Worlds &copy; Pinnacle Entertainment Group. &copy; Glassforge Games Ltd.</div>
   </div>
   <div class="main">
-    <div class="header"><div><div class="header-brand">DiceForge Studios</div><div class="header-title">Power Armour Forge</div></div><div class="header-spacer"></div><button class="header-btn" onclick="newSuit()">New</button><button class="header-btn" onclick="saveSuit()">Save</button><button class="header-btn primary" onclick="switchTab('output')">Export</button></div>
+    <div class="header"><div><div class="header-brand">Glassforge Games</div><div class="header-title">Power Armour Forge</div></div><div class="header-spacer"></div><button class="header-btn" onclick="newSuit()">New</button><button class="header-btn" onclick="saveSuit()">Save</button><button class="header-btn primary" onclick="switchTab('output')">Export</button></div>
     <div class="tab-bar">
       <div class="tab active" data-tab="mods" onclick="switchTab('mods')">Modifications</div>
       <div class="tab" data-tab="weapons" onclick="switchTab('weapons')">Weapon Systems</div>
@@ -416,11 +416,11 @@ function copyStatBlock(){var f=getFrame(),notes=[],wl=[];
 
 // ═══ TABS, SAVE/LOAD, UTILS ═══
 function switchTab(tab){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+tab)});if(tab==='output')renderOutput()}
-function saveSuit(){var d={name:state.name,frameId:state.frameId,mods:JSON.parse(JSON.stringify(state.mods)),weapons:JSON.parse(JSON.stringify(state.weapons))};var i=state.savedSuits.findIndex(function(s){return s.name===state.name});if(i>=0)state.savedSuits[i]=d;else state.savedSuits.push(d);localStorage.setItem('diceforge-pa',JSON.stringify(state.savedSuits));renderSaved()}
+function saveSuit(){var d={name:state.name,frameId:state.frameId,mods:JSON.parse(JSON.stringify(state.mods)),weapons:JSON.parse(JSON.stringify(state.weapons))};var i=state.savedSuits.findIndex(function(s){return s.name===state.name});if(i>=0)state.savedSuits[i]=d;else state.savedSuits.push(d);localStorage.setItem('glassforge-pa',JSON.stringify(state.savedSuits));renderSaved()}
 function loadSuit(i){var d=state.savedSuits[i];state.name=d.name;state.frameId=d.frameId;state.mods=JSON.parse(JSON.stringify(d.mods));state.weapons=JSON.parse(JSON.stringify(d.weapons));document.getElementById('suitName').value=state.name;renderFrames();renderModCatalogue();renderModBay();renderWeaponCatalogue();renderWeaponBay();renderStats();renderOutput();renderSaved()}
-function deleteSavedSuit(i){state.savedSuits.splice(i,1);localStorage.setItem('diceforge-pa',JSON.stringify(state.savedSuits));renderSaved()}
+function deleteSavedSuit(i){state.savedSuits.splice(i,1);localStorage.setItem('glassforge-pa',JSON.stringify(state.savedSuits));renderSaved()}
 function newSuit(){state.name='Untitled Suit';state.frameId='s1';state.mods={};state.weapons=[];document.getElementById('suitName').value=state.name;renderFrames();renderModCatalogue();renderModBay();renderWeaponCatalogue();renderWeaponBay();renderStats();renderOutput()}
-function loadSaved(){try{var d=localStorage.getItem('diceforge-pa');if(d)state.savedSuits=JSON.parse(d)}catch(e){}}
+function loadSaved(){try{var d=localStorage.getItem('glassforge-pa');if(d)state.savedSuits=JSON.parse(d)}catch(e){}}
 function renderSaved(){var list=document.getElementById('savedList');
   if(!state.savedSuits.length){list.innerHTML='<div class="empty-state"><p>No saved suits yet.</p></div>';return}
   list.innerHTML=state.savedSuits.map(function(s,i){var f=FRAMES.find(function(x){return x.id===s.frameId});

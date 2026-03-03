@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════════════
 // AMMARIA — The Merchant Realms Data Module v1.0
 // ═══════════════════════════════════════════════════════════════
-// Self-registering supplement module for DiceForge tools.
+// Self-registering supplement module for Glassforge tools.
 // Generated from verified canonical JSON data files.
 // All data verified against Ammaria regional module (published).
 // ═══════════════════════════════════════════════════════════════

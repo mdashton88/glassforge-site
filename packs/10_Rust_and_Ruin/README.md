@@ -40,4 +40,4 @@ The **Rust & Ruin supplement** adds fuel-as-currency mechanics (every mile costs
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

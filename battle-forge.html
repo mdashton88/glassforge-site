@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Battle Forge — DiceForge Studios</title>
+<title>Battle Forge — Glassforge Games</title>
 <meta name="description" content="Vehicle combat simulator for Savage Worlds. Drag two vehicles into the arena and watch them fight.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -179,7 +179,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
 <body>
 
 <nav>
-  <a href="/" class="nav-brand"><span class="anvil">⚒</span> DiceForge Studios</a>
+  <a href="/" class="nav-brand"><span class="anvil">⚒</span> Glassforge Games</a>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="navLinks">
     <li><a href="/">Home</a></li>
@@ -245,7 +245,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
     </div>
     <div class="bf-footer">
       <a href="/legal.html" title="Savage Worlds Fan Product"><img src="sw_fan_logo.png" alt="Savage Worlds Fan Product" style="height:40px;vertical-align:middle;margin-right:8px;opacity:0.85"></a>
-      Battle Forge v0.3.4 — <a href="/legal.html" style="color:var(--gold-dim)">DiceForge Studios Ltd</a>
+      Battle Forge v0.3.4 — <a href="/legal.html" style="color:var(--gold-dim)">Glassforge Games Ltd.</a>
     </div>
   </div>
 
@@ -550,9 +550,9 @@ var extWeapons=[];
 function loadVehicles(){
   allVehicles=[];extWeapons=[];
   var disabled=[];
-  try{disabled=JSON.parse(localStorage.getItem('diceforge-cvf-disabled')||'[]')}catch(e){}
+  try{disabled=JSON.parse(localStorage.getItem('glassforge-cvf-disabled')||'[]')}catch(e){}
   // Load vehicles — only from enabled packs (or user-created with no pack)
-  try{var sv=JSON.parse(localStorage.getItem('diceforge-cvf')||'[]');
+  try{var sv=JSON.parse(localStorage.getItem('glassforge-cvf')||'[]');
     sv.forEach(function(v){
       if(!v.name)return;
       // Filter: skip vehicles from disabled packs
@@ -563,7 +563,7 @@ function loadVehicles(){
   // Sort alphabetically
   allVehicles.sort(function(a,b){return a.name.localeCompare(b.name)});
   // Load extension weapon definitions (on top of core WEAPONS)
-  try{var ext=JSON.parse(localStorage.getItem('diceforge-cvf-extensions')||'[]');
+  try{var ext=JSON.parse(localStorage.getItem('glassforge-cvf-extensions')||'[]');
     ext.forEach(function(e){
       if(disabled.indexOf(e.id)!==-1)return;
       if(e.weapons)e.weapons.forEach(function(w){extWeapons.push(w)})})}catch(e){}
@@ -1078,7 +1078,7 @@ else{
 
 // Cross-tab messaging: Vehicle Forge can send vehicles via postMessage
 window.addEventListener('message',function(e){
-  if(!e.data||e.data.type!=='diceforge-battle')return;
+  if(!e.data||e.data.type!=='glassforge-battle')return;
   var v=e.data.vehicle;
   var side=e.data.side||'A';
   if(v&&v.name){

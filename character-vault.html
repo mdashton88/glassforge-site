@@ -240,13 +240,13 @@ table.data-table td { padding: 4px 8px; border-bottom: 1px solid #2a2a2a; }
   <div class="save-msg" style="font-family:'Cinzel',serif;font-size:22px;color:#fff;letter-spacing:2px;text-shadow:0 0 20px rgba(255,180,0,0.5);padding:30px 50px;border:2px solid var(--accent);border-radius:8px;background:rgba(0,0,0,0.8)">⏳ SAVING...</div>
 </div>
 <script>
-var DICEFORGE_AUTH=false;
+var GLASSFORGE_AUTH=false;
 (function(){
-  if(localStorage.getItem('diceforge_npcdb_auth')==='54546-44-56456-7567-2345') DICEFORGE_AUTH=true;
+  if(localStorage.getItem('glassforge_npcdb_auth')==='54546-44-56456-7567-2345') GLASSFORGE_AUTH=true;
 })();
 </script>
 <header>
-  <div><h1>TRIBUTE LANDS — CHARACTER VAULT</h1><div class="subtitle">DiceForge Studios Production System</div></div>
+  <div><h1>TRIBUTE LANDS — CHARACTER VAULT</h1><div class="subtitle">Glassforge Games Production System</div></div>
   <div id="headerButtons" style="display:flex;align-items:center;gap:8px;">
     <button class="btn sm" onclick="window.location.href='foundry'" title="Production Dashboard">🏭 Foundry</button>
     <button class="btn sm" onclick="window.location.href='adventure-vault'" title="Adventure Content">🎭 Adventures</button>
@@ -324,7 +324,7 @@ var DICEFORGE_AUTH=false;
   <div class="main empty-state" id="mainContent">
     <div id="welcomeGate" style="text-align:center;max-width:400px">
       <h2 style="color:var(--accent);margin-bottom:6px;font-size:22px">TRIBUTE LANDS</h2>
-      <div style="color:var(--text-dim);font-size:13px;margin-bottom:24px;letter-spacing:1px">CHARACTER VAULT — DICEFORGE STUDIOS</div>
+      <div style="color:var(--text-dim);font-size:13px;margin-bottom:24px;letter-spacing:1px">CHARACTER VAULT — GLASSFORGE GAMES</div>
       <div id="pinForm">
         <input id="pinInput" type="password" placeholder="Enter PIN" style="width:200px;text-align:center;padding:10px 14px;font-size:16px;letter-spacing:4px;background:var(--bg-card);border:1px solid var(--border);border-radius:4px;color:var(--text);margin-bottom:12px" onkeydown="if(event.key==='Enter')checkPin()">
         <br><button class="btn primary" onclick="checkPin()" style="padding:8px 28px">Enter</button>
@@ -799,12 +799,12 @@ const CACHE_KEY='tl_npc_cache';
 // GIST_TOKEN: a GitHub personal access token with 'gist' scope only
 // GIST_FILENAME: must match the filename in your Gist
 const GIST_ID = '7fa2d50c458ed95c21a3c6d283f863d6';
-const GIST_TOKEN = localStorage.getItem('diceforge_gist_token')||'';
+const GIST_TOKEN = localStorage.getItem('glassforge_gist_token')||'';
 const GIST_FILENAME = 'ammaria-characters.json';
 
 function promptForToken(){
   const t=prompt('Enter your GitHub Gist token (one-time setup per device):');
-  if(t&&t.startsWith('github_pat_')){localStorage.setItem('diceforge_gist_token',t);location.reload();}
+  if(t&&t.startsWith('github_pat_')){localStorage.setItem('glassforge_gist_token',t);location.reload();}
   else if(t){alert('Token should start with github_pat_...');promptForToken();}
 }
 
@@ -2752,7 +2752,7 @@ function createNPC(){
 // === TRANSFER (IMPORT / EXPORT) ===
 function buildExportJSON(n){
   return {
-    _format:'diceforge-character-v1',
+    _format:'glassforge-character-v1',
     name:n.name,refCode:n.refCode||'',concept:n.concept||'',ancestry:n.ancestry||'Human',
     region:n.region||'Ammaria',tier:n.tier||'Wild Card',rank:n.rank||'Novice',
     category:n.category||'NPC',product:n.product||'',
@@ -2918,7 +2918,7 @@ function buildExportHTML(n){
   if(n.armour.length) h+='<div class="stat-line"><span class="stat-label">Armour:</span> '+n.armour.map(a=>esc(a.name)+' (+'+a.armor+')').join(', ')+'</div>\n';
   if(n.gearText) h+='<div class="stat-line"><span class="stat-label">Gear:</span> '+esc(n.gearText)+'</div>\n';
   if(n.abName) h+='<div class="stat-line"><span class="stat-label">Arcane Background:</span> '+esc(n.abName)+(n.abSkill?' ('+esc(n.abSkill)+')':'')+'</div>\n';
-  h+='<div class="footer">Exported from DiceForge Character Vault — diceforge-character-v1</div>\n';
+  h+='<div class="footer">Exported from Glassforge Character Vault — glassforge-character-v1</div>\n';
   h+='</body></html>';
   return h;
 }
@@ -2942,7 +2942,7 @@ function buildExportRTF(n){
   if(n.armour.length) r+='{\\b\\cf1 Armour:} '+n.armour.map(a=>re(a.name)+' (+'+a.armor+')').join(', ')+'\\par\n';
   if(n.gearText) r+='{\\b\\cf1 Gear:} '+re(n.gearText)+'\\par\n';
   if(n.abName) r+='{\\b\\cf1 Arcane Background:} '+re(n.abName)+(n.abSkill?' ('+re(n.abSkill)+')':'')+'\\par\n';
-  r+='\\par{\\f1\\fs16\\cf2 Exported from DiceForge Character Vault}\\par\n}';
+  r+='\\par{\\f1\\fs16\\cf2 Exported from Glassforge Character Vault}\\par\n}';
   return r;
 }
 
@@ -3278,8 +3278,8 @@ async function loadChangelog(){
 function checkPin(){
   var pin=document.getElementById('pinInput').value;
   if(pin==='54546-44-56456-7567-2345'){
-    localStorage.setItem('diceforge_npcdb_auth',pin);
-    DICEFORGE_AUTH=true;
+    localStorage.setItem('glassforge_npcdb_auth',pin);
+    GLASSFORGE_AUTH=true;
     unlockApp();
   } else {
     document.getElementById('pinError').textContent='Invalid PIN';
@@ -3654,8 +3654,8 @@ async function unlockApp(){
 window.addEventListener('beforeunload',(e)=>{if(saveTimer){clearTimeout(saveTimer);saveTimer=null;pushToGist();e.returnValue='Save in progress...';}});
 document.addEventListener('DOMContentLoaded',()=>{
   addToolNavigation('character-vault');
-  document.getElementById('sidebarInner').style.display=DICEFORGE_AUTH?'':'none';
-  if(DICEFORGE_AUTH){
+  document.getElementById('sidebarInner').style.display=GLASSFORGE_AUTH?'':'none';
+  if(GLASSFORGE_AUTH){
     const check=setInterval(()=>{if(window.CharacterForge){clearInterval(check);unlockApp();}},50);
   } else {
     document.getElementById('pinInput').focus();

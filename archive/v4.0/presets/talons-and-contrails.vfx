@@ -3,7 +3,7 @@
   "name": "Talons & Contrails",
   "version": "1.0",
   "description": "Aircraft & Dogfights — Barrel rolls, target lock, and the merciless geometry of aerial combat.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"tc_sync_mg","name":"Synchronized MGs","cat":"Aircraft Guns","era":"industrial","range":"20/40/80","damage":"2d8 (I)","ap":2,"rof":4,"shots":500,"minSize":2,"mods":0,"cost":800,"notes":"Fire through propeller arc. Fixed front only. WWI-era interrupter gear."},
     {"id":"tc_aam","name":"Air-to-Air Missile","cat":"Air Missiles","era":"modern","range":"100/200/400","damage":"5d6 (II)","ap":10,"rof":1,"shots":2,"minSize":2,"mods":0,"cost":8000,"notes":"Guided. Target lock required (Electronics roll). Spoofable by flares/chaff."},

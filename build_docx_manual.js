@@ -202,7 +202,7 @@ const children = [];
 // ── TITLE PAGE ──
 children.push(
     new Paragraph({ spacing: { before: 2400 }, children: [] }),
-    new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 80 }, children: [new TextRun({ text: "DICEFORGE STUDIOS", font: "Cinzel", size: 18, color: DIM })] }),
+    new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 80 }, children: [new TextRun({ text: "GLASSFORGE GAMES", font: "Cinzel", size: 18, color: DIM })] }),
     new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 40 }, children: [new TextRun({ text: "VEHICLE FORGE", font: "Cinzel", size: 60, bold: true, color: GOLD })] }),
     new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 120 }, children: [new TextRun({ text: "COMPANION GUIDE", font: "Cinzel", size: 40, bold: true, color: DARK })] }),
     goldRule(),
@@ -216,15 +216,15 @@ children.push(
 children.push(
     new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun("Credits & Legal")] }),
     goldRule(),
-    bodyBold("Writing & Design: ", "DiceForge Studios Ltd."),
-    bodyBold("Vehicle Forge Tool: ", "DiceForge Studios Ltd."),
+    bodyBold("Writing & Design: ", "Glassforge Games Ltd."),
+    bodyBold("Vehicle Forge Tool: ", "Glassforge Games Ltd."),
     subheading("Legal Notice"),
     new Paragraph({
         spacing: { after: 160 },
         children: [new TextRun({ text: "This game references the Savage Worlds game system, available from Pinnacle Entertainment Group at www.peginc.com. Savage Worlds and all associated logos and trademarks are copyrights of Pinnacle Entertainment Group. Used with permission. Pinnacle makes no representation or warranty as to the quality, viability, or suitability for purpose of this product.", font: "Palatino Linotype", size: 20, italics: true, color: DIM })]
     }),
     body("You will need the Savage Worlds core rules to use this product. The Science Fiction Companion is recommended for campaigns involving walkers, starships, or advanced technology vehicles."),
-    body(`Vehicle Forge and all associated content \u00A9 2026 DiceForge Studios Ltd. All Rights Reserved.`),
+    body(`Vehicle Forge and all associated content \u00A9 2026 Glassforge Games Ltd. All Rights Reserved.`),
     body("Fantasy Grounds is a trademark of SmiteWorks USA, LLC. Foundry Virtual Tabletop is a trademark of Foundry Gaming LLC. Neither is affiliated with or endorsed by their respective trademark holders."),
     new Paragraph({ children: [new PageBreak()] })
 );
@@ -243,7 +243,7 @@ children.push(
     goldRule(),
     chapterQuote("The difference between a good GM and a great one is preparation. The difference between a great GM and a legendary one is knowing when to stop preparing and start playing."),
     body(`Welcome to the Vehicle Forge Companion Guide \u2014 your complete reference for building vehicles, war machines, and fighting craft for the Savage Worlds roleplaying game. Whether you need a WWII medium tank for tonight\u2019s session, a pirate frigate for a swashbuckling campaign, or a capital ship for a far-future war, the Forge builds it in minutes.`),
-    body(`The Vehicle Forge is a standalone HTML tool that runs in any modern browser. It ships with ${WEAPON_COUNT} weapons across seven technological eras, ${MOD_COUNT} modifications across eight categories, and ${BUILD_COUNT} reference builds covering everything from bicycles to battleships. All content is original DiceForge material \u2014 the tool references Savage Worlds mechanics by name but does not reproduce them.`),
+    body(`The Vehicle Forge is a standalone HTML tool that runs in any modern browser. It ships with ${WEAPON_COUNT} weapons across seven technological eras, ${MOD_COUNT} modifications across eight categories, and ${BUILD_COUNT} reference builds covering everything from bicycles to battleships. All content is original Glassforge material \u2014 the tool references Savage Worlds mechanics by name but does not reproduce them.`),
     body("This guide covers everything you need to get the most from the Forge. The opening chapters walk you through the interface and construction sequence. The reference chapters document every modification, weapon, and special ability. The walkthroughs build three complete vehicles step by step, explaining every choice. The closing chapters discuss design philosophy and the supplement ecosystem."),
     subheading("Design Philosophy"),
     new Paragraph({ spacing: { before: 240, after: 120 }, children: [new TextRun({ text: "Fast, Furious, Fun", font: "Cinzel", size: 24, bold: true, color: GOLD })] }),
@@ -519,7 +519,7 @@ children.push(
     bodyBold("Sails & Gasbags \u2014 ", "Fantasy skyships, airships, and magical vessels."),
     bodyBold("Cog & Steam \u2014 ", "Steampunk and Victorian-era mechanical wonders."),
     bodyBold("Wire & Current \u2014 ", "Cyberpunk and near-future urban vehicles."),
-    body("Pack availability, pricing, and release schedule will be confirmed at launch. Check the DiceForge Studios website for the latest catalogue."),
+    body("Pack availability, pricing, and release schedule will be confirmed at launch. Check the Glassforge Games website for the latest catalogue."),
     new Paragraph({ children: [new PageBreak()] })
 );
 
@@ -529,7 +529,7 @@ children.push(
     goldRule(),
     body("The Vehicle Forge is a living tool. Future updates will expand the core weapon catalogue, add new locomotion types, and refine the construction system based on community feedback."),
     body(`Vehicle bundles \u2014 pre-built fleets for specific genres and campaigns \u2014 will provide ready-to-play vehicle collections that snap into the Forge alongside the extension packs. The ${BUILD_COUNT} reference builds are just the beginning.`),
-    body("For the latest products, updates, and community content, visit DiceForge Studios on DriveThruRPG."),
+    body("For the latest products, updates, and community content, visit Glassforge Games on DriveThruRPG."),
     new Paragraph({ spacing: { before: 600 }, alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Now go build something.", font: "Cinzel", size: 28, bold: true, color: GOLD })] }),
     new Paragraph({ children: [new PageBreak()] })
 );
@@ -539,10 +539,10 @@ children.push(
     new Paragraph({ spacing: { before: 4000 }, alignment: AlignmentType.CENTER, children: [new TextRun({ text: "VEHICLE FORGE COMPANION GUIDE", font: "Cinzel", size: 22, color: DIM })] }),
     new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [new TextRun({ text: VERSION, font: "Palatino Linotype", size: 20, color: DIM })] }),
     goldRule(),
-    new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 200 }, children: [new TextRun({ text: "DiceForge Studios Ltd.", font: "Cinzel", size: 18, color: DIM })] }),
+    new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 200 }, children: [new TextRun({ text: "Glassforge Games Ltd.", font: "Cinzel", size: 18, color: DIM })] }),
     new Paragraph({ alignment: AlignmentType.CENTER, children: [
-        new ExternalHyperlink({ link: "https://diceforgestudios.pages.dev/vehicle-forge.html",
-            children: [new TextRun({ text: "diceforgestudios.pages.dev/vehicle-forge.html", font: "Palatino Linotype", size: 18, color: GOLD, underline: {} })] })
+        new ExternalHyperlink({ link: "https://glassforge.pages.dev/vehicle-forge.html",
+            children: [new TextRun({ text: "glassforge.pages.dev/vehicle-forge.html", font: "Palatino Linotype", size: 18, color: GOLD, underline: {} })] })
     ]})
 );
 
@@ -588,7 +588,7 @@ const doc = new Document({
                     border: { top: { style: BorderStyle.SINGLE, size: 3, color: GOLD, space: 4 } },
                     tabStops: [{ type: TabStopType.RIGHT, position: 9360 }],
                     children: [
-                        new TextRun({ text: "DICEFORGE STUDIOS", font: "Cinzel", size: 14, color: DIM }),
+                        new TextRun({ text: "GLASSFORGE GAMES", font: "Cinzel", size: 14, color: DIM }),
                         new TextRun({ text: "\t", font: "Palatino Linotype", size: 16 }),
                         new TextRun({ text: "Page ", font: "Palatino Linotype", size: 16, color: DIM }),
                         new TextRun({ children: [PageNumber.CURRENT], font: "Palatino Linotype", size: 16, color: DIM })

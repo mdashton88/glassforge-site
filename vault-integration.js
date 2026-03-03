@@ -8,9 +8,9 @@ window.VaultIntegration = (function() {
   'use strict';
   
   const STORAGE_KEYS = {
-    NPCS: 'diceforge_vault_npcs',
-    ADVENTURES: 'diceforge_vault_adventures',
-    LAST_SYNC: 'diceforge_vault_last_sync'
+    NPCS: 'glassforge_vault_npcs',
+    ADVENTURES: 'glassforge_vault_adventures',
+    LAST_SYNC: 'glassforge_vault_last_sync'
   };
   
   // ═══ STORAGE SYNC ═══

@@ -1,9 +1,9 @@
 /**
  * TRIBUTE LANDS — TOOL NAVIGATION v2.0
  * Site-wide primary nav + tool switcher + Savage Worlds Fan Licence footer
- * Injected into all DiceForge internal production tools.
+ * Injected into all Glassforge internal production tools.
  *
- * DiceForge Studios Ltd.
+ * Glassforge Games Ltd.
  * Version: 2.0
  */
 
@@ -28,7 +28,7 @@ function addToolNavigation(currentTool) {
   /* ── PRIMARY NAV ── */
   var nav = document.createElement('div');
   nav.className = 'dfs-primary-nav';
-  nav.innerHTML = '<a href="/" class="brand"><span style="font-size:18px;color:#D4B45A">⚒</span> DiceForge Studios</a>'
+  nav.innerHTML = '<a href="/" class="brand"><span style="font-size:18px;color:#D4B45A">⚒</span> Glassforge Games</a>'
     + '<div class="site-links">'
     + '<a href="/">Home</a>'
     + '<a href="/vehicle-forge-v2.1.html">Vehicle Forge</a>'
@@ -63,7 +63,7 @@ function addToolNavigation(currentTool) {
   footer.className = 'dfs-fan-footer';
   footer.innerHTML = '<a href="/legal.html" title="Savage Worlds Fan Product">'
     + '<img src="/sw_fan_logo.png" alt="Savage Worlds Fan Product" style="height:36px;vertical-align:middle;margin-right:8px;opacity:0.85"></a> '
-    + '<span style="font-size:10px">&copy; 2026 DiceForge Studios Ltd. <a href="/legal.html" style="color:#8A7A60">Legal & Licensing</a></span>';
+    + '<span style="font-size:10px">&copy; 2026 Glassforge Games Ltd. <a href="/legal.html" style="color:#8A7A60">Legal & Licensing</a></span>';
   document.body.appendChild(footer);
 }
 

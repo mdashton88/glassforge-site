@@ -99,4 +99,4 @@ The **Blood & Thunder supplement** adds broadside arc mechanics, boarding action
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

@@ -16,13 +16,13 @@
   Dark backgrounds look great on screen but nobody prints them.
 - **Fonts**: Helvetica family (always available in ReportLab).
   Headings: Helvetica-Bold. Body: Helvetica. Notes: Helvetica-Oblique.
-- **Page footer**: Gold rule, version string, page number, "DICEFORGE STUDIOS" centred
+- **Page footer**: Gold rule, version string, page number, "GLASSFORGE GAMES" centred
 - **Gold horizontal rules** between chapter title and content
 
 ## HYPERLINKS — CRITICAL
 
 All URLs must be clickable hyperlinks, not just styled text:
-- DiceForge website URL on title page and final page
+- Glassforge website URL on title page and final page
 - www.peginc.com in Savage Worlds licence text
 - Any other URLs referenced
 
@@ -38,7 +38,7 @@ canvas.linkURL("https://url", (x1, y1, x2, y2))
 ## CONTENT REQUIREMENTS
 
 ### Title Page
-- "DICEFORGE STUDIOS" brand line
+- "GLASSFORGE GAMES" brand line
 - "Vehicle Forge" title in gold
 - "Companion Guide" subtitle
 - Version string (pull from vehicle-forge.html header)
@@ -46,7 +46,7 @@ canvas.linkURL("https://url", (x1, y1, x2, y2))
 - DO NOT claim pack counts or vehicle counts for unreleased content
 - Savage Worlds licence text
 - "You will need the Savage Worlds core rules" in bold
-- DiceForge copyright
+- Glassforge copyright
 
 ### Table of Contents
 1. Getting Started
@@ -82,7 +82,7 @@ C. Licence and Credits
 - Each mod: name and effect description
 - Categories: Drawbacks, Core Systems, Defensive, Offensive,
   Locomotion & Power, Personnel, Structural, Walker Systems
-- This is 100% original DiceForge content
+- This is 100% original Glassforge content
 
 ### Ch 5: Class System
 - A-G classification table
@@ -162,7 +162,7 @@ IP/LICENCE BOUNDARY (CRITICAL):
 - Savage Worlds licence (full Pinnacle text)
 - Fantasy Grounds trademark
 - Foundry VTT trademark
-- DiceForge copyright with IP compliance statement
+- Glassforge copyright with IP compliance statement
 - Clickable URL to the tool
 
 ## THINGS THE MANUAL MUST NOT DO

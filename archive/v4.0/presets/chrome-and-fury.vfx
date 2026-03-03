@@ -3,7 +3,7 @@
   "name": "Chrome & Fury",
   "version": "1.0",
   "description": "Chases & Pursuit — Burning rubber, shattered glass, and the road that never ends.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"cf_harpoon","name":"Harpoon Gun","cat":"Pursuit Weapons","era":"modern","range":"10/20/40","damage":"2d8 (I)","ap":2,"rof":1,"shots":1,"minSize":1,"mods":0,"cost":500,"notes":"Grapple at speed. Opposed Driving vs target Driving to latch. Tethered vehicles dragged together."},
     {"id":"cf_oil_slick","name":"Oil Slick Dispenser","cat":"Pursuit Weapons","era":"modern","range":"—","damage":"—","ap":0,"rof":1,"shots":3,"minSize":1,"mods":0,"cost":1000,"notes":"Deploy behind as free action. Pursuing vehicles: Driving -4 or Out of Control. Lasts 3 rounds."},

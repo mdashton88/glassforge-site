@@ -70,4 +70,4 @@ The **Chrome & Fury supplement** adds ram and sideswipe mechanics, gadget modifi
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*

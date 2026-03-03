@@ -3,7 +3,7 @@
   "name": "Blood & Thunder",
   "version": "1.0",
   "description": "Ships & the Sea — Broadsides, boarding actions, and the fury of the open sea.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"bt_chain_shot","name":"Chain Shot","cat":"Naval Specials","era":"blackpowder","range":"15/30/60","damage":"3d6 (I)","ap":0,"rof":1,"shots":0,"minSize":3,"mods":0,"cost":200,"notes":"Anti-rigging. Reload 3. Targets mast/locomotion only. Cripples rather than sinks."},
     {"id":"bt_heated_shot","name":"Heated Shot","cat":"Naval Specials","era":"blackpowder","range":"20/40/80","damage":"3d6+1 (I)","ap":4,"rof":1,"shots":0,"minSize":4,"mods":1,"cost":800,"notes":"Reload 4. Incendiary. Requires furnace mod. Devastating vs wooden hulls."},

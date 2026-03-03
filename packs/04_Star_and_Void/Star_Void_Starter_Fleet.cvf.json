@@ -5,7 +5,7 @@
   "packId": "scifi_starter",
   "price": "$2.99",
   "vehicleCount": 10,
-  "publisher": "DiceForge Studios Ltd.",
+  "publisher": "Glassforge Games Ltd.",
   "note": "Uses core weapons only. No .vfx extension required. For expanded fleet operations including crew stations, shields, FTL, and sensor ops, see the full Star & Void supplement.",
   "vehicles": [
     {

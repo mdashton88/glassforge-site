@@ -3,7 +3,7 @@
 **Archived:** 2026-02-21
 **Status:** Complete, cohesive bundle. Do not modify.
 
-This folder preserves the fully developed v4.0 release of the DiceForge Vehicle Forge
+This folder preserves the fully developed v4.0 release of the Glassforge Vehicle Forge
 and all associated documentation. Everything in this archive worked together as a
 tested, coherent system.
 

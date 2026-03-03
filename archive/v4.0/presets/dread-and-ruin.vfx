@@ -3,7 +3,7 @@
   "name": "Dread & Ruin",
   "version": "1.0",
   "description": "Horror & Supernatural Vehicles — It doesn't have a driver. It has a hunger.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"dr_soul_cannon","name":"Soul Cannon","cat":"Eldritch Weapons","era":"future","range":"50/100/200","damage":"4d6 (II)","ap":0,"rof":1,"shots":0,"minSize":4,"mods":2,"cost":0,"notes":"Supernatural. Ignores physical armour entirely. Targets Spirit instead of Vigour for Wounds. Ammunition is souls."},
     {"id":"dr_ghost_ram","name":"Spectral Ram","cat":"Eldritch Weapons","era":"medieval","range":"—","damage":"Str+3d8","ap":0,"rof":0,"shots":0,"minSize":4,"mods":1,"cost":0,"notes":"Melee. Supernatural. Ignores physical armour. The prow passes through hulls and strikes the crew directly."},

@@ -3,7 +3,7 @@
   "name": "Rust & Ruin",
   "version": "1.0",
   "description": "Post-Apocalypse Campaign — Fuel is life. Scrap is currency. The road is all that's left.",
-  "author": "DiceForge Studios",
+  "author": "Glassforge Games",
   "weapons": [
     {"id":"rr_flame_belcher","name":"Flame Belcher","cat":"Improvised","era":"modern","range":"Cone","damage":"2d8 (I)","ap":0,"rof":1,"shots":6,"minSize":1,"mods":0,"cost":200,"notes":"Improvised flamethrower. Incendiary. Unreliable: snake eyes = backfire (1d6 fire damage to own vehicle)."},
     {"id":"rr_junk_launcher","name":"Junk Launcher","cat":"Improvised","era":"modern","range":"12/24/48","damage":"2d6 (I)","ap":0,"rof":1,"shots":10,"minSize":2,"mods":0,"cost":100,"notes":"Launches debris, rocks, scrap. Unreliable: snake eyes = jam. Ammo is free (it's trash)."},

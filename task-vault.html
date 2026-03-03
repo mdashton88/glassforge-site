@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Vault - DiceForge Studios</title>
+  <title>Task Vault - Glassforge Games</title>
   <link rel="stylesheet" href="tribute-lands.css">
   <link rel="stylesheet" href="vault-common.css">
   <script src="tool-navigation.js"></script>
@@ -12,7 +12,7 @@
   <header>
     <div>
       <h1>TRIBUTE LANDS — TASK VAULT</h1>
-      <div class="subtitle">DiceForge Studios Production System</div>
+      <div class="subtitle">Glassforge Games Production System</div>
     </div>
     <div id="headerButtons" style="display:flex;align-items:center;gap:8px;">
       <!-- Populated by integration script -->
@@ -70,9 +70,9 @@
   <script>
     // Gist configuration
     const GIST_ID = '7fa2d50c458ed95c21a3c6d283f863d6';
-    const GIST_TOKEN = localStorage.getItem('diceforge_gist_token') || '';
-    const GIST_FILENAME = 'diceforge-tasks.json';
-    const CACHE_KEY = 'diceforge_tasks_cache';
+    const GIST_TOKEN = localStorage.getItem('glassforge_gist_token') || '';
+    const GIST_FILENAME = 'glassforge-tasks.json';
+    const CACHE_KEY = 'glassforge_tasks_cache';
 
     // State
     let allTasks = [];
@@ -199,7 +199,7 @@
     function promptForToken() {
       const token = prompt('Enter your GitHub Personal Access Token:');
       if (token) {
-        localStorage.setItem('diceforge_gist_token', token);
+        localStorage.setItem('glassforge_gist_token', token);
         location.reload();
       }
     }

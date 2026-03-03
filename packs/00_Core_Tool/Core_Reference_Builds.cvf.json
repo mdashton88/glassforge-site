@@ -1,10 +1,10 @@
 {
   "formatVersion": "1.0",
   "packName": "Vehicle Forge \u2014 Core Reference Builds",
-  "packId": "diceforge-core",
+  "packId": "glassforge-core",
   "price": "FREE",
   "vehicleCount": 47,
-  "publisher": "DiceForge Studios Ltd.",
+  "publisher": "Glassforge Games Ltd.",
   "note": "47 reference builds from the Savage Worlds core rulebook.",
   "vehicles": [
     {

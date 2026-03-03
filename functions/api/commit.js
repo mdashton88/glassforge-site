@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════
-// DICEFORGE CANON COMMIT API
+// GLASSFORGE CANON COMMIT API
 // ═══════════════════════════════════════════════════════════════
 // Cloudflare Pages Function — endpoint: /api/commit
 // Holds GitHub token server-side; browser never sees it.
@@ -277,14 +277,14 @@ function b64decode(str) {
 }
 async function ghGet(path, token) {
   return fetch(`https://api.github.com${path}`, {
-    headers: { 'Authorization': `Bearer ${token}`, 'User-Agent': 'DiceForge-Canon-API', 'Accept': 'application/vnd.github.v3+json' }
+    headers: { 'Authorization': `Bearer ${token}`, 'User-Agent': 'Glassforge-Canon-API', 'Accept': 'application/vnd.github.v3+json' }
   });
 }
 
 async function ghPut(path, token, body) {
   return fetch(`https://api.github.com${path}`, {
     method: 'PUT',
-    headers: { 'Authorization': `Bearer ${token}`, 'User-Agent': 'DiceForge-Canon-API', 'Content-Type': 'application/json' },
+    headers: { 'Authorization': `Bearer ${token}`, 'User-Agent': 'Glassforge-Canon-API', 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
 }

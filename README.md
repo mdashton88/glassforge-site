@@ -1,7 +1,7 @@
-# diceforge-site
+# glassforge-site
 
-**DiceForge Studios — public website and tools.**
-Deployed via Cloudflare Pages at [diceforgestudios.pages.dev](https://diceforgestudios.pages.dev)
+**Glassforge Games — public website and tools.**
+Deployed via Cloudflare Pages at [glassforge.pages.dev](https://glassforge.pages.dev)
 
 ## ⚠ Data Governance — READ FIRST
 
@@ -10,7 +10,7 @@ Deployed via Cloudflare Pages at [diceforgestudios.pages.dev](https://diceforges
 ## Tools
 
 ```
-index.html                  Landing page — DiceForge Studios branding
+index.html                  Landing page — Glassforge Games branding
 builder.html                Character Forge — free Savage Worlds character builder
 vehicle-forge.html   Vehicle Forge — free Savage Worlds vehicle construction tool
 vehicle-database.json       Vehicle database (47 SWADE core reference builds)
@@ -20,7 +20,7 @@ swade-core.js               Savage Worlds core rules data module
 
 ## Vehicle Forge
 
-Interactive vehicle construction tool for Savage Worlds. Original DiceForge design
+Interactive vehicle construction tool for Savage Worlds. Original Glassforge design
 rules compatible with Savage Worlds vehicle mechanics (Size, Handling, Toughness,
 Wounds, Mods). Ships with 47 canon reference builds from the Savage Worlds core
 rulebook, three export formats (JSON, Pinnacle stat block, Fantasy Grounds XML),
@@ -49,4 +49,4 @@ Foundry Virtual Tabletop is a trademark of Foundry Gaming LLC.
 This product is not affiliated with or endorsed by Pinnacle Entertainment
 Group, SmiteWorks, or Foundry Gaming.
 
-Vehicle Forge and Character Forge © DiceForge Studios Ltd.
+Vehicle Forge and Character Forge © Glassforge Games Ltd.

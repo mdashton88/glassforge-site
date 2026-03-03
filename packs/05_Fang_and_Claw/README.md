@@ -51,4 +51,4 @@ The **Fang & Claw supplement** adds pilot bonding mechanics, expanded melee weap
 
 ---
 
-*DiceForge Studios Ltd.*
+*Glassforge Games Ltd.*
