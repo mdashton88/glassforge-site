@@ -343,7 +343,21 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 
   <!-- ═══ CENTRE: WORKSPACE ═══ -->
   <div class="workspace">
-    <!-- Chevron bar (visible in Workshop mode only) -->
+    <!-- Chevron bar: PACKS mode -->
+    <div class="chevron-bar" id="chevronBarPacks" style="display:flex">
+      <div class="chevron active"><span class="chevron-indicator"></span><span>Browse</span></div>
+      <div class="chevron"><span class="chevron-indicator"></span><span>Enable</span></div>
+      <div class="chevron"><span class="chevron-indicator"></span><span>Install</span></div>
+      <div class="chevron"><span class="chevron-indicator"></span><span>Configure</span></div>
+    </div>
+    <!-- Chevron bar: HANGAR mode -->
+    <div class="chevron-bar" id="chevronBarHangar" style="display:none">
+      <div class="chevron active"><span class="chevron-indicator"></span><span>Browse</span></div>
+      <div class="chevron"><span class="chevron-indicator"></span><span>Select</span></div>
+      <div class="chevron"><span class="chevron-indicator"></span><span>Compare</span></div>
+      <div class="chevron"><span class="chevron-indicator"></span><span>Deploy</span></div>
+    </div>
+    <!-- Chevron bar: WORKSHOP mode -->
     <div class="chevron-bar" id="chevronBar" style="display:none">
       <div class="chevron active" id="chev-build" onclick="switchWorkshopStep('build')">
         <span class="chevron-indicator"></span><span>Build</span>
@@ -1730,6 +1744,8 @@ function switchMode(mode){
   if(btn)btn.classList.add('active');
   // Show/hide chevron bar
   document.getElementById('chevronBar').style.display=(mode==='workshop'?'flex':'none');
+  document.getElementById('chevronBarPacks').style.display=(mode==='packs'?'flex':'none');
+  document.getElementById('chevronBarHangar').style.display=(mode==='library'?'flex':'none');
   // Show/hide LH context sections
   document.getElementById('csSearch').style.display='';
   document.getElementById('csFilters').style.display=(mode==='library'||mode==='packs')?'':'none';
