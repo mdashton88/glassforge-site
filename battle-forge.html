@@ -1029,22 +1029,14 @@ var logTyping=false;
 var lastRenderedWoundsA=0;
 var lastRenderedWoundsB=0;
 
-// Pre-load real sound samples
+// Pre-load typewriter click
 var twClickAudio=new Audio('/sfx/tw-click.mp3');
-var twBoomAudio=new Audio('/sfx/boom.mp3');
 twClickAudio.volume=0.3;
-twBoomAudio.volume=0.3;
 
 function twTap(){
   var snd=twClickAudio.cloneNode();
   snd.volume=0.2+Math.random()*0.15;
   snd.playbackRate=0.97+Math.random()*0.06;
-  snd.play().catch(function(){})}
-
-function twExplosion(severity){
-  var snd=twBoomAudio.cloneNode();
-  snd.volume=Math.min(0.25+severity*0.1,0.7);
-  snd.playbackRate=1.1-severity*0.08;
   snd.play().catch(function(){})}
 
 function twScreenShake(severity){
@@ -1102,7 +1094,6 @@ function processLogQueue(){
     var newB=battle.woundsB-lastRenderedWoundsB;
     var maxNew=Math.max(newA,newB);
     if(maxNew>0){
-      twExplosion(maxNew);
       twScreenShake(maxNew);
     }
     renderWounds('A');renderWounds('B');
