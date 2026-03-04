@@ -1273,10 +1273,9 @@ function resetBattle(){
       document.getElementById('drop'+side).classList.remove('has-vehicle')});
     document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>Drag or click to load vehicles into each slot, then press <strong>FIGHT</strong> to begin.</em></div>';
     document.getElementById('roundBadge').textContent='Awaiting Combatants';
-  }
-  document.getElementById('roundBadge').textContent='Awaiting Combatants';
-  document.getElementById('btnFight').disabled=true;
-  document.getElementById('btnAuto').disabled=true}
+    document.getElementById('btnFight').disabled=true;
+    document.getElementById('btnAuto').disabled=true;
+  }}
 
 // ═══════════════════════════════════════════
 // INIT
