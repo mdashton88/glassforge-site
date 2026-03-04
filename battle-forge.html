@@ -883,7 +883,13 @@ function nextRound(){
   // Clear Joker bonuses at end of round
   battle.jokerA=false;battle.jokerB=false;
 
-  renderWounds('A');renderWounds('B');
+  if(battle.autoMode){
+    renderWounds('A');renderWounds('B');
+  } else {
+    // In cinematic mode, wounds render after typewriter finishes each entry
+    logQueue.push({side:'_woundSync',woundSync:true});
+    if(!logTyping) processLogQueue();
+  }
   if(battle.over){
     document.getElementById('btnFight').disabled=true;
     document.getElementById('btnAuto').disabled=true}}
@@ -1012,15 +1018,15 @@ function resolveAttacks(attSide,defSide){
 var logQueue=[];
 var logTyping=false;
 var twCtx=null;
+var lastRenderedWoundsA=0;
+var lastRenderedWoundsB=0;
 
 function twTap(heavy){
-  // Subtle mechanical click via Web Audio — varies pitch to avoid robotic feel
   if(!twCtx){try{twCtx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){return}}
   if(twCtx.state==='suspended')twCtx.resume();
   var osc=twCtx.createOscillator();
   var gain=twCtx.createGain();
   osc.connect(gain);gain.connect(twCtx.destination);
-  // Vary frequency: heavy taps (punctuation) are lower, regular taps shimmer
   var baseFreq=heavy?400:600;
   osc.frequency.value=baseFreq+(Math.random()*200-100);
   osc.type='square';
@@ -1028,6 +1034,56 @@ function twTap(heavy){
   gain.gain.exponentialRampToValueAtTime(0.001,twCtx.currentTime+(heavy?0.06:0.03));
   osc.start(twCtx.currentTime);
   osc.stop(twCtx.currentTime+(heavy?0.06:0.03))}
+
+function twExplosion(severity){
+  // severity: 1=glancing, 2=solid, 3+=devastating
+  if(!twCtx){try{twCtx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){return}}
+  if(twCtx.state==='suspended')twCtx.resume();
+  var t=twCtx.currentTime;
+  var dur=0.3+severity*0.15;
+  var vol=0.04+severity*0.02;
+  // Low rumble via noise
+  var bufSize=twCtx.sampleRate*dur;
+  var buf=twCtx.createBuffer(1,bufSize,twCtx.sampleRate);
+  var data=buf.getChannelData(0);
+  for(var i=0;i<bufSize;i++){data[i]=(Math.random()*2-1)}
+  var noise=twCtx.createBufferSource();
+  noise.buffer=buf;
+  // Low-pass filter for rumble
+  var filt=twCtx.createBiquadFilter();
+  filt.type='lowpass';
+  filt.frequency.value=80+severity*30;
+  var gain=twCtx.createGain();
+  gain.gain.setValueAtTime(Math.min(vol,0.12),t);
+  gain.gain.exponentialRampToValueAtTime(0.001,t+dur);
+  noise.connect(filt);filt.connect(gain);gain.connect(twCtx.destination);
+  noise.start(t);noise.stop(t+dur);
+  // Thump transient
+  var osc=twCtx.createOscillator();
+  var oscGain=twCtx.createGain();
+  osc.frequency.setValueAtTime(60+severity*10,t);
+  osc.frequency.exponentialRampToValueAtTime(20,t+0.15);
+  osc.type='sine';
+  oscGain.gain.setValueAtTime(Math.min(vol*1.5,0.15),t);
+  oscGain.gain.exponentialRampToValueAtTime(0.001,t+0.2);
+  osc.connect(oscGain);oscGain.connect(twCtx.destination);
+  osc.start(t);osc.stop(t+0.3)}
+
+function twScreenShake(severity){
+  var app=document.querySelector('.app');
+  if(!app)return;
+  var intensity=1.5+severity*1.5;
+  var dur=200+severity*100;
+  var start=Date.now();
+  function shake(){
+    var elapsed=Date.now()-start;
+    if(elapsed>dur){app.style.transform='';return}
+    var decay=1-(elapsed/dur);
+    var x=(Math.random()*2-1)*intensity*decay;
+    var y=(Math.random()*2-1)*intensity*decay;
+    app.style.transform='translate('+x+'px,'+y+'px)';
+    requestAnimationFrame(shake)}
+  shake()}
 
 var twTapCount=0;
 
@@ -1061,6 +1117,21 @@ function processLogQueue(){
   if(!logQueue.length){logTyping=false;return}
   logTyping=true;
   var item=logQueue.shift();
+  // Wound sync — render wounds with effects after typewriter catches up
+  if(item.woundSync){
+    var newA=battle.woundsA-lastRenderedWoundsA;
+    var newB=battle.woundsB-lastRenderedWoundsB;
+    var maxNew=Math.max(newA,newB);
+    if(maxNew>0){
+      twExplosion(maxNew);
+      twScreenShake(maxNew);
+    }
+    renderWounds('A');renderWounds('B');
+    lastRenderedWoundsA=battle.woundsA;
+    lastRenderedWoundsB=battle.woundsB;
+    var pauseAfter=maxNew>0?400+maxNew*200:100;
+    setTimeout(processLogQueue,pauseAfter);
+    return}
   if(item.raw){
     addLogRawInstant(item.side,item.html);
     setTimeout(processLogQueue,330);
@@ -1149,6 +1220,7 @@ function copyLog(){
   })}
 
 function resetBattle(){
+  lastRenderedWoundsA=0;lastRenderedWoundsB=0;logQueue=[];logTyping=false;
   battle={vehicleA:null,vehicleB:null,woundsA:0,woundsB:0,maxWoundsA:3,maxWoundsB:3,
     toughA:0,toughB:0,armourA:0,armourB:0,handlingA:0,handlingB:0,
     crewDieA:6,crewDieB:6,statusA:{},statusB:{},jokerA:false,jokerB:false,round:0,over:false,autoMode:false};
