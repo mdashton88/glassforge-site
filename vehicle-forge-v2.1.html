@@ -968,19 +968,32 @@ function rebuildExtensionData(){
     if(ext.specials)ext.specials.forEach(function(s){s._ext=ext.id;s._extName=ext.name;extSpecials.push(s)})})}
 rebuildExtensionData();
 (function autoInstallCore(){
-  /* Core vehicles now ship as 4 themed packs in the manifest (core-roads-wheels, core-armour-iron,
-     core-wings-rotors, core-hulls-harbours). They auto-install via autoInstallAllPacks below.
-     Always purge legacy _pack:"core" vehicles to prevent duplicates. */
-  extensions=extensions.filter(function(e){return e.id!=='core'});
+  /* Core vehicles now ship as 4 themed packs in the manifest. Always purge
+     legacy _pack:"core" vehicles AND stale core extension data to force
+     a clean reinstall from the authoritative .vfx files. */
+  var purgedVehicles=false, purgedExtensions=false;
   try{var sv=JSON.parse(localStorage.getItem('glassforge-cvf')||'[]');
     var before=sv.length;
     sv=sv.filter(function(v){return v._pack!=='core'});
     if(sv.length<before){
       localStorage.setItem('glassforge-cvf',JSON.stringify(sv));
       S.saved=sv;
-      console.log('Purged '+(before-sv.length)+' legacy core vehicles')}
+      purgedVehicles=true}
   }catch(e){}
-  saveExtensions();
+  // Also purge stale core-* extension data so packs reinstall fresh from .vfx
+  var extChanged=false;
+  extensions=extensions.filter(function(e){
+    if(e.id==='core'||e.id.indexOf('core-')===0){extChanged=true;return false}
+    return true});
+  if(extChanged){saveExtensions();purgedExtensions=true}
+  // Remove core-* vehicles from S.saved so autoInstallAllPacks re-fetches them
+  if(purgedExtensions){
+    try{var sv2=JSON.parse(localStorage.getItem('glassforge-cvf')||'[]');
+      sv2=sv2.filter(function(v){return !v._pack||v._pack.indexOf('core-')!==0});
+      localStorage.setItem('glassforge-cvf',JSON.stringify(sv2));
+      S.saved=sv2}catch(e){}
+  }
+  if(purgedVehicles||purgedExtensions)console.log('Purged legacy core data — fresh install from .vfx packs');
 })();
 (function autoInstallAllPacks(){
   var isFirstLoad=!localStorage.getItem('glassforge-cvf-extensions');
@@ -2005,7 +2018,7 @@ function syncVehiclesFromPacks(){
     var hasAny=S.saved.some(function(s){return s._pack===ext.id});
     if(!hasAny){
       ext.vehicles.forEach(function(v){
-        S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:ext.id})});
+        S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],specials:v.specials||[],customSpecial:v.customSpecial||'',toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:ext.id})});
       changed=true;console.log('Synced missing vehicles for: '+ext.name)}
   });
   if(changed)localStorage.setItem('glassforge-cvf',JSON.stringify(S.saved))
