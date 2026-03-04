@@ -1070,10 +1070,9 @@ var lastRenderedWoundsA=0;
 var lastRenderedWoundsB=0;
 
 // Pre-load audio
-var twClickAudio=new Audio('/sfx/tw-click.mp3');
+var twKeys=[new Audio('/sfx/key_1.mp3'),new Audio('/sfx/key_2.mp3'),new Audio('/sfx/key_3.mp3')];
 var twWoundAudio=new Audio('/sfx/boom-wound.mp3');
 var twWreckAudio=new Audio('/sfx/boom-wreck.mp3');
-twClickAudio.volume=0.3;
 twWoundAudio.volume=0.5;
 twWreckAudio.volume=0.6;
 
@@ -1081,10 +1080,15 @@ twWreckAudio.volume=0.6;
 var WOUND_SFX_DUR=5.9;
 var WRECK_SFX_DUR=4.6;
 
+var twLastKey=-1;
 function twTap(){
-  var snd=twClickAudio.cloneNode();
-  snd.volume=0.2+Math.random()*0.15;
-  snd.playbackRate=0.97+Math.random()*0.06;
+  // Pick a different key each time for natural variation
+  var idx=Math.floor(Math.random()*twKeys.length);
+  if(idx===twLastKey) idx=(idx+1)%twKeys.length;
+  twLastKey=idx;
+  var snd=twKeys[idx].cloneNode();
+  snd.volume=0.15+Math.random()*0.15;
+  snd.playbackRate=0.95+Math.random()*0.10;
   snd.play().catch(function(){})}
 
 function twExplosion(severity,isWreck){
