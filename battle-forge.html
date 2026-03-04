@@ -652,7 +652,7 @@ function drawCard(){
 function cardHTML(card,isWinner){
   var cls=card.joker?"joker":card.color;
   if(isWinner)cls+=" winner";
-  if(card.joker)return '<div class="init-card '+cls+' dealt"><div class="rank" style="font-size:16px;letter-spacing:1px">JOKER</div></div>';
+  if(card.joker)return '<div class="init-card '+cls+' dealt"><div class="rank" style="font-size:16px;letter-spacing:1px">🃏 JOKER 🃏</div></div>';
   return '<div class="init-card '+cls+' dealt">'
     +'<div class="corner-tl"><span class="cr">'+card.rank+'</span><span class="cs">'+card.suit+'</span></div>'
     +'<div class="suit" style="font-size:26px">'+card.suit+'</div>'
@@ -660,7 +660,7 @@ function cardHTML(card,isWinner){
     +'</div>'}
 
 function cardText(card){
-  if(card.joker)return 'JOKER';
+  if(card.joker)return '🃏 JOKER';
   return card.rank+card.suit}
 
 // ═══════════════════════════════════════════
@@ -866,8 +866,8 @@ function nextRound(){
   cardsHTML+='</div>';
 
   var initText=cardText(cardA)+' vs '+cardText(cardB)+' — '+(firstSide==='A'?battle.vehicleA.name:battle.vehicleB.name)+' acts first.';
-  if(cardA.joker)initText+=' <span class="log-hit">'+battle.vehicleA.name+' has a Joker! +2 to all rolls!</span>';
-  if(cardB.joker)initText+=' <span class="log-hit">'+battle.vehicleB.name+' has a Joker! +2 to all rolls!</span>';
+  if(cardA.joker)initText+=' <span class="log-hit">🃏 '+battle.vehicleA.name+' draws a Joker! +2 to all rolls!</span>';
+  if(cardB.joker)initText+=' <span class="log-hit">🃏 '+battle.vehicleB.name+' draws a Joker! +2 to all rolls!</span>';
 
   addLogRaw('system',cardsHTML+'<div style="margin-top:6px">'+initText+'</div>');
 
@@ -885,11 +885,10 @@ function nextRound(){
 
   if(battle.autoMode){
     renderWounds('A');renderWounds('B');
-  } else {
-    // In cinematic mode, wounds render after typewriter finishes each entry
-    logQueue.push({side:'_woundSync',woundSync:true});
-    if(!logTyping) processLogQueue();
+    lastRenderedWoundsA=battle.woundsA;
+    lastRenderedWoundsB=battle.woundsB;
   }
+  // In cinematic mode, wounds render via per-attack woundSync entries in the queue
   if(battle.over){
     document.getElementById('btnFight').disabled=true;
     document.getElementById('btnAuto').disabled=true}}
@@ -1009,6 +1008,11 @@ function resolveAttacks(attSide,defSide){
       addLog(attSide==='A'?'left':'right',attV.name,
         '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+' = '+finalRoll+'</span> '+hitText+
         ' Damage: '+dmgStr+' '+tStr+'. '+resultParts.join(' '));
+      // Queue wound sync immediately after this attack's log entry
+      if(woundsDealt>0||battle.over){
+        if(!battle.autoMode){
+          logQueue.push({woundSync:true});
+          if(!logTyping) processLogQueue()}}
     }
   })}
 
