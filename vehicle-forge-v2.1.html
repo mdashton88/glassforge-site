@@ -952,7 +952,7 @@ function installExtension(data,silent){
   if(data.vehicles&&data.vehicles.length){
     S.saved=S.saved.filter(function(s){return s._pack!==data.id});
     data.vehicles.forEach(function(v){
-      S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:data.id});added++});
+      S.saved.push({name:v.name||'Imported',desc:v.desc||'',notes:v.notes||'',image:v.image||'',size:v.size||6,loco:v.loco||'wheeled',mods:v.mods||{},weapons:v.weapons||[],specials:v.specials||[],customSpecial:v.customSpecial||'',toughLevel:v.toughLevel||0,armourLevel:v.armourLevel||0,speedLevel:v.speedLevel||0,handlingLevel:v.handlingLevel||0,woundsLevel:v.woundsLevel||0,crewLevel:v.crewLevel||0,passengers:v.passengers||0,mphOverride:v.mphOverride||0,_pack:data.id});added++});
     if(added)localStorage.setItem('glassforge-cvf',JSON.stringify(S.saved))}
   if(!silent){renderAll();alert(data.name+' installed! '+(added?added+' vehicles added.':'Vehicles already in library.'))}}
 function removeExtension(id){Audio.remove();
@@ -2216,19 +2216,11 @@ try{
   var sd=localStorage.getItem('glassforge-cvf');
   if(sd){
     var userSaved=JSON.parse(sd);
-    // If themed core packs are installed, use localStorage as-is (just keep customs + pack vehicles)
-    var hasThemedCore=userSaved.some(function(v){return v._pack&&v._pack.indexOf('core-')===0});
-    if(hasThemedCore){
-      S.saved=userSaved;
-    } else {
-      // No themed packs yet — seed from embedded CANON_BUILDS + user customs
-      var customs=userSaved.filter(function(v){return !v._pack});
-      S.saved=CANON_BUILDS.map(function(v){return JSON.parse(JSON.stringify(v))}).concat(customs);
-    }
+    S.saved=userSaved;
   } else {
-    S.saved=CANON_BUILDS.map(function(v){return JSON.parse(JSON.stringify(v))});
+    S.saved=[];
   }
-}catch(e){S.saved=CANON_BUILDS.map(function(v){return JSON.parse(JSON.stringify(v))})}
+}catch(e){S.saved=[]}
 document.getElementById('vName').addEventListener('input',function(e){S.name=e.target.value||'Untitled Vehicle'});
 var vd=document.getElementById('vDesc');if(vd)vd.addEventListener('input',function(e){S.desc=e.target.value||''});
 var vn=document.getElementById('vNotes');if(vn)vn.addEventListener('input',function(e){S.notes=e.target.value||''});
