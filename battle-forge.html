@@ -1069,11 +1069,16 @@ var logTyping=false;
 var lastRenderedWoundsA=0;
 var lastRenderedWoundsB=0;
 
-// Pre-load typewriter click and explosion boom
+// Pre-load typewriter click
 var twClickAudio=new Audio('/sfx/tw-click.mp3');
-var twBoomAudio=new Audio('/sfx/boom.mp3');
 twClickAudio.volume=0.3;
-twBoomAudio.volume=0.4;
+
+// Lazy-init shared AudioContext for synthesised sounds
+var _audioCtx=null;
+function getAudioCtx(){
+  if(!_audioCtx) _audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  if(_audioCtx.state==='suspended') _audioCtx.resume();
+  return _audioCtx}
 
 function twTap(){
   var snd=twClickAudio.cloneNode();
@@ -1082,9 +1087,83 @@ function twTap(){
   snd.play().catch(function(){})}
 
 function twExplosion(severity){
-  var snd=twBoomAudio.cloneNode();
-  snd.volume=Math.min(0.3+severity*0.12,0.8);
-  snd.play().catch(function(){})}
+  // Synthesised cannon boom with natural decay
+  try{
+    var ctx=getAudioCtx();
+    var now=ctx.currentTime;
+    var vol=Math.min(0.25+severity*0.1,0.65);
+    var dur=1.2+severity*0.4; // longer ring for bigger hits
+
+    // Master gain
+    var master=ctx.createGain();
+    master.gain.setValueAtTime(vol,now);
+    master.gain.exponentialRampToValueAtTime(vol*0.4,now+0.15);
+    master.gain.exponentialRampToValueAtTime(0.001,now+dur);
+    master.connect(ctx.destination);
+
+    // Layer 1: deep boom (noise burst through lowpass)
+    var boomLen=Math.floor(ctx.sampleRate*dur);
+    var noiseBuf=ctx.createBuffer(1,boomLen,ctx.sampleRate);
+    var noiseData=noiseBuf.getChannelData(0);
+    for(var i=0;i<boomLen;i++){
+      // Shaped noise: loud burst then rapid decay
+      var t=i/ctx.sampleRate;
+      var env=Math.exp(-t*6);
+      noiseData[i]=(Math.random()*2-1)*env;
+    }
+    var noiseSrc=ctx.createBufferSource();
+    noiseSrc.buffer=noiseBuf;
+    var lp=ctx.createBiquadFilter();
+    lp.type='lowpass';
+    lp.frequency.setValueAtTime(200+severity*40,now);
+    lp.frequency.exponentialRampToValueAtTime(60,now+dur*0.7);
+    lp.Q.value=0.7;
+    noiseSrc.connect(lp);
+    lp.connect(master);
+    noiseSrc.start(now);
+
+    // Layer 2: sub thump (sine oscillator)
+    var sub=ctx.createOscillator();
+    sub.type='sine';
+    sub.frequency.setValueAtTime(55+severity*5,now);
+    sub.frequency.exponentialRampToValueAtTime(25,now+0.5);
+    var subGain=ctx.createGain();
+    subGain.gain.setValueAtTime(vol*0.8,now);
+    subGain.gain.exponentialRampToValueAtTime(0.001,now+0.6);
+    sub.connect(subGain);
+    subGain.connect(master);
+    sub.start(now);
+    sub.stop(now+0.7);
+
+    // Layer 3: crackle/ring (bandpassed noise, delayed onset)
+    var ringLen=Math.floor(ctx.sampleRate*(dur-0.05));
+    var ringBuf=ctx.createBuffer(1,ringLen,ctx.sampleRate);
+    var ringData=ringBuf.getChannelData(0);
+    for(var j=0;j<ringLen;j++){
+      var t2=j/ctx.sampleRate;
+      var env2=Math.exp(-t2*3);
+      ringData[j]=(Math.random()*2-1)*env2;
+    }
+    var ringSrc=ctx.createBufferSource();
+    ringSrc.buffer=ringBuf;
+    var bp=ctx.createBiquadFilter();
+    bp.type='bandpass';
+    bp.frequency.setValueAtTime(800+Math.random()*400,now+0.05);
+    bp.frequency.exponentialRampToValueAtTime(200,now+dur);
+    bp.Q.value=1.5;
+    var ringGain=ctx.createGain();
+    ringGain.gain.setValueAtTime(vol*0.3,now+0.05);
+    ringGain.gain.exponentialRampToValueAtTime(0.001,now+dur);
+    ringSrc.connect(bp);
+    bp.connect(ringGain);
+    ringGain.connect(master);
+    ringSrc.start(now+0.05);
+
+    // Cleanup
+    noiseSrc.stop(now+dur+0.1);
+    ringSrc.stop(now+dur+0.1);
+    setTimeout(function(){master.disconnect()},Math.ceil((dur+0.5)*1000));
+  }catch(e){}}
 
 function twScreenShake(severity){
   var app=document.querySelector('.app');
