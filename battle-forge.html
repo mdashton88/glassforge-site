@@ -1238,21 +1238,42 @@ function copyLog(){
   })}
 
 function resetBattle(){
+  // Save current combatants and crew dice before resetting
+  var savedA=battle.vehicleA?JSON.parse(JSON.stringify(battle.vehicleA)):null;
+  var savedB=battle.vehicleB?JSON.parse(JSON.stringify(battle.vehicleB)):null;
+  var savedCrewA=battle.crewDieA;
+  var savedCrewB=battle.crewDieB;
+
   lastRenderedWoundsA=0;lastRenderedWoundsB=0;logQueue=[];logTyping=false;
   battle={vehicleA:null,vehicleB:null,woundsA:0,woundsB:0,maxWoundsA:3,maxWoundsB:3,
     toughA:0,toughB:0,armourA:0,armourB:0,handlingA:0,handlingB:0,
     crewDieA:6,crewDieB:6,statusA:{},statusB:{},jokerA:false,jokerB:false,
     reloadA:[],reloadB:[],round:0,over:false,autoMode:false};
   buildDeck();
-  ['A','B'].forEach(function(side){
-    document.getElementById('name'+side).textContent='Select Vehicle';
-    document.getElementById('placeholder'+side).style.display='';
-    document.getElementById('loaded'+side).style.display='none';
-    document.getElementById('loaded'+side).innerHTML='';
-    document.getElementById('woundTrack'+side).style.display='none';
-    document.getElementById('crewRow'+side).style.display='none';
-    document.getElementById('drop'+side).classList.remove('has-vehicle')});
-  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>Drag or click to load vehicles into each slot, then press <strong>FIGHT</strong> to begin.</em></div>';
+
+  // Restore combatants if we had them
+  if(savedA&&savedB){
+    loadCombatant('A',savedA);
+    loadCombatant('B',savedB);
+    // Restore crew dice selections
+    battle.crewDieA=savedCrewA;
+    battle.crewDieB=savedCrewB;
+    document.getElementById('crewA').value=savedCrewA;
+    document.getElementById('crewB').value=savedCrewB;
+    document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>Combatants restored. Ready for the next engagement.</em></div>';
+    document.getElementById('roundBadge').textContent='Ready — Round 0';
+  } else {
+    ['A','B'].forEach(function(side){
+      document.getElementById('name'+side).textContent='Select Vehicle';
+      document.getElementById('placeholder'+side).style.display='';
+      document.getElementById('loaded'+side).style.display='none';
+      document.getElementById('loaded'+side).innerHTML='';
+      document.getElementById('woundTrack'+side).style.display='none';
+      document.getElementById('crewRow'+side).style.display='none';
+      document.getElementById('drop'+side).classList.remove('has-vehicle')});
+    document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>Drag or click to load vehicles into each slot, then press <strong>FIGHT</strong> to begin.</em></div>';
+    document.getElementById('roundBadge').textContent='Awaiting Combatants';
+  }
   document.getElementById('roundBadge').textContent='Awaiting Combatants';
   document.getElementById('btnFight').disabled=true;
   document.getElementById('btnAuto').disabled=true}
