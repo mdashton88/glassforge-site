@@ -1017,57 +1017,26 @@ function resolveAttacks(attSide,defSide){
 // ═══════════════════════════════════════════
 var logQueue=[];
 var logTyping=false;
-var twCtx=null;
 var lastRenderedWoundsA=0;
 var lastRenderedWoundsB=0;
 
-function twTap(heavy){
-  if(!twCtx){try{twCtx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){return}}
-  if(twCtx.state==='suspended')twCtx.resume();
-  var osc=twCtx.createOscillator();
-  var gain=twCtx.createGain();
-  osc.connect(gain);gain.connect(twCtx.destination);
-  var baseFreq=heavy?400:600;
-  osc.frequency.value=baseFreq+(Math.random()*200-100);
-  osc.type='square';
-  gain.gain.value=heavy?0.025:0.012;
-  gain.gain.exponentialRampToValueAtTime(0.001,twCtx.currentTime+(heavy?0.06:0.03));
-  osc.start(twCtx.currentTime);
-  osc.stop(twCtx.currentTime+(heavy?0.06:0.03))}
+// Pre-load real sound samples
+var twClickAudio=new Audio('/sfx/tw-click.mp3');
+var twBoomAudio=new Audio('/sfx/boom.mp3');
+twClickAudio.volume=0.3;
+twBoomAudio.volume=0.3;
+
+function twTap(){
+  var snd=twClickAudio.cloneNode();
+  snd.volume=0.2+Math.random()*0.15;
+  snd.playbackRate=0.92+Math.random()*0.16;
+  snd.play().catch(function(){})}
 
 function twExplosion(severity){
-  // severity: 1=glancing, 2=solid, 3+=devastating
-  if(!twCtx){try{twCtx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){return}}
-  if(twCtx.state==='suspended')twCtx.resume();
-  var t=twCtx.currentTime;
-  var dur=0.3+severity*0.15;
-  var vol=0.04+severity*0.02;
-  // Low rumble via noise
-  var bufSize=twCtx.sampleRate*dur;
-  var buf=twCtx.createBuffer(1,bufSize,twCtx.sampleRate);
-  var data=buf.getChannelData(0);
-  for(var i=0;i<bufSize;i++){data[i]=(Math.random()*2-1)}
-  var noise=twCtx.createBufferSource();
-  noise.buffer=buf;
-  // Low-pass filter for rumble
-  var filt=twCtx.createBiquadFilter();
-  filt.type='lowpass';
-  filt.frequency.value=80+severity*30;
-  var gain=twCtx.createGain();
-  gain.gain.setValueAtTime(Math.min(vol,0.12),t);
-  gain.gain.exponentialRampToValueAtTime(0.001,t+dur);
-  noise.connect(filt);filt.connect(gain);gain.connect(twCtx.destination);
-  noise.start(t);noise.stop(t+dur);
-  // Thump transient
-  var osc=twCtx.createOscillator();
-  var oscGain=twCtx.createGain();
-  osc.frequency.setValueAtTime(60+severity*10,t);
-  osc.frequency.exponentialRampToValueAtTime(20,t+0.15);
-  osc.type='sine';
-  oscGain.gain.setValueAtTime(Math.min(vol*1.5,0.15),t);
-  oscGain.gain.exponentialRampToValueAtTime(0.001,t+0.2);
-  osc.connect(oscGain);oscGain.connect(twCtx.destination);
-  osc.start(t);osc.stop(t+0.3)}
+  var snd=twBoomAudio.cloneNode();
+  snd.volume=Math.min(0.25+severity*0.1,0.7);
+  snd.playbackRate=1.1-severity*0.08;
+  snd.play().catch(function(){})}
 
 function twScreenShake(severity){
   var app=document.querySelector('.app');
@@ -1084,6 +1053,7 @@ function twScreenShake(severity){
     app.style.transform='translate('+x+'px,'+y+'px)';
     requestAnimationFrame(shake)}
   shake()}
+
 
 var twTapCount=0;
 
@@ -1183,8 +1153,8 @@ function typewriteHTML(el,html,cb){
     // Key tap sound — every 2-3 chars for regular text, always on punctuation
     var isPunc=(ch==='.'||ch==='!'||ch===','||ch==='—'||ch===':');
     twTapCount++;
-    if(isPunc){twTap(true);twTapCount=0}
-    else if(twTapCount>=5+Math.floor(Math.random()*2)){twTap(false);twTapCount=0}
+    if(isPunc){twTap();twTapCount=0}
+    else if(twTapCount>=5+Math.floor(Math.random()*2)){twTap();twTapCount=0}
     // Determine delay — base 19ms (+5%), pauses +10%
     var delay=19;
     if(ch==='.'||ch==='!'){
