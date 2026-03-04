@@ -591,6 +591,12 @@ function vehicleWeapons(v){
     return{def:wp,mount:w.mount||'fixed',linked:w.linked||0}
   }).filter(Boolean)}
 
+function getReload(wpn){
+  // Parse "Reload N" from weapon notes string
+  var notes=wpn.def.notes||'';
+  var m=notes.match(/Reload\s+(\d+)/i);
+  return m?parseInt(m[1]):0}
+
 // ═══════════════════════════════════════════
 // SAVAGE WORLDS DICE ENGINE
 // ═══════════════════════════════════════════
@@ -792,6 +798,9 @@ function loadCombatant(side,v){
   battle['wounds'+side]=0;
   battle['status'+side]={};
 
+  // Init reload counters (all weapons start loaded — ready to fire round 1)
+  battle['reload'+side]=wpns.map(function(){return 0});
+
   // Update header
   document.getElementById('name'+side).textContent=v.name;
 
@@ -812,7 +821,9 @@ function loadCombatant(side,v){
     html+='<div class="lv-weapons"><h4>Weapons</h4>';
     wpns.forEach(function(w){
       var wClass=weaponClassLabel(w.def,w.linked);
-      html+='<div class="lv-weapon"><span class="wname">'+esc(w.def.name)+' <span style="opacity:0.5;font-size:11px">['+wClass+']</span></span><span class="wdmg">'+w.def.damage+' AP'+w.def.ap+' RoF'+w.def.rof+'</span></div>'});
+      var reloadVal=getReload(w);
+      var reloadTxt=reloadVal?' R'+reloadVal:'';
+      html+='<div class="lv-weapon"><span class="wname">'+esc(w.def.name)+' <span style="opacity:0.5;font-size:11px">['+wClass+']</span></span><span class="wdmg">'+w.def.damage+' AP'+w.def.ap+' RoF'+w.def.rof+reloadTxt+'</span></div>'});
     html+='</div>'}
 
   document.getElementById('placeholder'+side).style.display='none';
@@ -855,6 +866,12 @@ function nextRound(){
   if(battle.over)return;
   battle.round++;
   document.getElementById('roundBadge').textContent='Round '+battle.round;
+
+  // Decrement reload counters for both sides
+  ['A','B'].forEach(function(side){
+    var rc=battle['reload'+side];
+    for(var i=0;i<rc.length;i++){if(rc[i]>0)rc[i]--}
+  });
 
   addLog('system','','— Round '+battle.round+' —');
 
@@ -916,12 +933,20 @@ function resolveAttacks(attSide,defSide){
   var woundPen=battle['wounds'+attSide]; // -1 Handling per wound
   var defVulnerable=battle['status'+defSide].vulnerable;
 
-  wpns.forEach(function(w){
+  wpns.forEach(function(w,wIdx){
+    // Check reload counter
+    var reloadCounter=battle['reload'+attSide];
+    if(reloadCounter[wIdx]>0){
+      addLog(attSide==='A'?'left':'right',attV.name,w.def.name+' crew reloading. ('+reloadCounter[wIdx]+' round'+(reloadCounter[wIdx]>1?'s':'')+' remaining)');
+      return}
     var rof=Math.max(1,w.def.rof);
     // Linked weapon bonuses (SWADE p82): dual +1 hit/+2 dmg, quad +2 hit/+4 dmg
     var linkedHit=0,linkedDmg=0;
     if(w.linked>=3){linkedHit=2;linkedDmg=4}
     else if(w.linked>=1){linkedHit=1;linkedDmg=2}
+    // Set reload counter after firing
+    var reloadVal=getReload(w);
+    if(reloadVal>0)reloadCounter[wIdx]=reloadVal;
     for(var shot=0;shot<rof;shot++){
       if(battle.over)return;
       // Roll Shooting + Wild Die
@@ -1216,7 +1241,8 @@ function resetBattle(){
   lastRenderedWoundsA=0;lastRenderedWoundsB=0;logQueue=[];logTyping=false;
   battle={vehicleA:null,vehicleB:null,woundsA:0,woundsB:0,maxWoundsA:3,maxWoundsB:3,
     toughA:0,toughB:0,armourA:0,armourB:0,handlingA:0,handlingB:0,
-    crewDieA:6,crewDieB:6,statusA:{},statusB:{},jokerA:false,jokerB:false,round:0,over:false,autoMode:false};
+    crewDieA:6,crewDieB:6,statusA:{},statusB:{},jokerA:false,jokerB:false,
+    reloadA:[],reloadB:[],round:0,over:false,autoMode:false};
   buildDeck();
   ['A','B'].forEach(function(side){
     document.getElementById('name'+side).textContent='Select Vehicle';
