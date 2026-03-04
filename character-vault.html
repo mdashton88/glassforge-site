@@ -2900,7 +2900,6 @@ function buildExportHTML(n){
   const tDisp=n.toughnessArmor>0?n.toughness+' ('+n.toughnessArmor+')':''+n.toughness;
   const wcStar=n.tier==='Wild Card'?' ★':'';
   let h='<!DOCTYPE html>\n<html><head>
-<script src="/auth-gate.js"></script><meta charset="utf-8"><title>'+esc(n.name)+'</title>\n';
   h+='<style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;padding:20px;color:#222;line-height:1.6}';
   h+='h1{font-size:22px;margin-bottom:2px;color:#8b0000}h2{font-size:14px;color:#666;font-weight:normal;margin-top:0}';
   h+='.quote{font-style:italic;color:#555;margin:12px 0;border-left:3px solid #8b0000;padding-left:12px}';
@@ -3574,7 +3573,6 @@ function exportProductStatBlocks(code){
   const headerTxt=`STAT BLOCKS — ${p.code}: ${p.title}\nGenerated: ${new Date().toLocaleDateString()}\nCharacters: ${chars.length}\n`;
   const textBlocks=headerTxt+'\n'+separator+chars.map(n=>buildStatBlockText(n)).join(separator);
   const htmlBlocks=`<!DOCTYPE html><html><head>
-<script src="/auth-gate.js"></script><meta charset="utf-8"><title>Stat Blocks — ${esc(p.code)}: ${esc(p.title)}</title><style>body{font-family:Georgia,serif;max-width:700px;margin:20px auto;color:#222;background:#fff}h1{font-size:20px;border-bottom:2px solid #333;padding-bottom:6px}p.meta{font-size:12px;color:#888}</style></head><body><h1>${esc(p.code)}: ${esc(p.title)}</h1><p class="meta">Generated: ${new Date().toLocaleDateString()} · ${chars.length} character${chars.length===1?'':'s'}</p>${chars.map(n=>buildStatBlockHTML(n)).join('')}</body></html>`;
   // State
   let currentFmt='text';
   const modal=document.createElement('div');

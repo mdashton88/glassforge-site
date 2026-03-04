@@ -1500,7 +1500,6 @@ function printStatBlock(){var f=getFrame(S.size),loco=LOCOS.find(function(l){ret
   var notesLine=S.notes?'<p style="font-size:13px;color:#666;margin-top:8px;border-top:1px solid #ccc;padding-top:6px"><strong>GM Notes:</strong> '+esc(S.notes)+'</p>':'';
   var win=window.open('','_blank','width=700,height=900');
   win.document.write('<!DOCTYPE html><html lang="en"><head>
-<script src="/auth-gate.js"></script><title>'+esc(S.name)+' — Stat Block</title>'
     +'<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Georgia,serif;font-size:15px;line-height:1.5;padding:24px;color:#111;max-width:600px;margin:0 auto}'
     +'h1{font-size:20px;border-bottom:2px solid #333;padding-bottom:4px;margin-bottom:4px}'
     +'.type{font-size:14px;color:#555;font-style:italic;margin-bottom:8px}'
@@ -1565,7 +1564,6 @@ function printAll(){if(!S.saved.length){alert('No saved vehicles to print.');ret
   var cards=S.saved.map(function(v){return buildStatHTML(v)}).join('');
   var win=window.open('','_blank','width=800,height=900');
   win.document.write('<!DOCTYPE html><html lang="en"><head>
-<script src="/auth-gate.js"></script><title>Vehicle Pack — '+S.saved.length+' Vehicles</title>'
     +'<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Georgia,serif;font-size:13px;line-height:1.4;padding:16px;color:#111}'
     +'.card{border:2px solid #333;padding:10px 12px;margin-bottom:12px;page-break-inside:avoid;max-width:600px}'
     +'h2{font-size:16px;border-bottom:1px solid #333;padding-bottom:2px;margin-bottom:4px}'
@@ -1730,7 +1728,6 @@ function handleImageDrop(e){var files=e.dataTransfer.files;if(files.length>0){va
 
 // ═══ POP-OUT HELP ═══
 function popOutHelp(){var w=window.open('','Vehicle Forge Reference','width=800,height=600');var content=document.getElementById('helpContent');if(w&&content){w.document.write('<html lang="en"><head>
-<script src="/auth-gate.js"></script><title>Vehicle Forge Demo Reference</title><style>body{background:#141210;color:#D4C8B0;font-family:Crimson Pro,serif;padding:20px;line-height:1.6}h3{color:#C4A44A}code{background:#1A1816;padding:2px 6px}</style></head><body>'+content.innerHTML+'</body></html>');w.document.close()}}
 
 // ═══ SETTINGS ═══
 var audioEnabled=true;
