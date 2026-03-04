@@ -556,13 +556,22 @@ function loadVehicles(){
   try{disabled=JSON.parse(localStorage.getItem('glassforge-cvf-disabled')||'[]')}catch(e){}
   // Load vehicles — only from enabled packs (or user-created with no pack)
   try{var sv=JSON.parse(localStorage.getItem('glassforge-cvf')||'[]');
+    // Deduplicate: if same name appears from themed core pack AND legacy 'core', keep themed
+    var seen={};
     sv.forEach(function(v){
       if(!v.name)return;
-      // Filter: skip vehicles from disabled packs
       if(v._pack&&disabled.indexOf(v._pack)!==-1)return;
-      // Skip vehicles with no weapons (nothing to fight with)
       if(!v.weapons||!v.weapons.length)return;
-      allVehicles.push(v)})}catch(e){}
+      var key=v.name;
+      // Prefer themed core packs (core-*) over legacy 'core'
+      if(seen[key]){
+        var existing=seen[key];
+        if(existing._pack==='core'&&v._pack&&v._pack.indexOf('core-')===0){seen[key]=v}
+        else if(v._pack==='core'&&existing._pack&&existing._pack.indexOf('core-')===0){/*keep existing*/}
+        else{seen[key]=v} // last wins for non-core duplicates
+      }else{seen[key]=v}
+    });
+    for(var k in seen)allVehicles.push(seen[k])}catch(e){}
   // Sort alphabetically
   allVehicles.sort(function(a,b){return a.name.localeCompare(b.name)});
   // Load extension weapon definitions (on top of core WEAPONS)

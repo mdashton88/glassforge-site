@@ -968,17 +968,19 @@ function rebuildExtensionData(){
     if(ext.specials)ext.specials.forEach(function(s){s._ext=ext.id;s._extName=ext.name;extSpecials.push(s)})})}
 rebuildExtensionData();
 (function autoInstallCore(){
-  /* Core vehicles now ship as 4 packs in the manifest (core-roads-wheels, core-armour-iron,
+  /* Core vehicles now ship as 4 themed packs in the manifest (core-roads-wheels, core-armour-iron,
      core-wings-rotors, core-hulls-harbours). They auto-install via autoInstallAllPacks below.
-     This function retained as fallback for legacy localStorage with old 'core' pack ID. */
-  var hasOldCore=extensions.find(function(e){return e.id==='core'});
-  if(hasOldCore){
-    extensions=extensions.filter(function(e){return e.id!=='core'});
-    try{var sv=JSON.parse(localStorage.getItem('glassforge-cvf')||'[]');
-      sv=sv.filter(function(v){return v._pack!=='core'});
-      localStorage.setItem('glassforge-cvf',JSON.stringify(sv))}catch(e){}
-    saveExtensions();console.log('Migrated: removed legacy core pack, new core packs will auto-install')
-  }
+     Always purge legacy _pack:"core" vehicles to prevent duplicates. */
+  extensions=extensions.filter(function(e){return e.id!=='core'});
+  try{var sv=JSON.parse(localStorage.getItem('glassforge-cvf')||'[]');
+    var before=sv.length;
+    sv=sv.filter(function(v){return v._pack!=='core'});
+    if(sv.length<before){
+      localStorage.setItem('glassforge-cvf',JSON.stringify(sv));
+      S.saved=sv;
+      console.log('Purged '+(before-sv.length)+' legacy core vehicles')}
+  }catch(e){}
+  saveExtensions();
 })();
 (function autoInstallAllPacks(){
   var isFirstLoad=!localStorage.getItem('glassforge-cvf-extensions');
@@ -2214,9 +2216,15 @@ try{
   var sd=localStorage.getItem('glassforge-cvf');
   if(sd){
     var userSaved=JSON.parse(sd);
-    // Keep user's custom (non-pack) vehicles, replace pack vehicles with embedded canon
-    var customs=userSaved.filter(function(v){return !v._pack});
-    S.saved=CANON_BUILDS.map(function(v){return JSON.parse(JSON.stringify(v))}).concat(customs);
+    // If themed core packs are installed, use localStorage as-is (just keep customs + pack vehicles)
+    var hasThemedCore=userSaved.some(function(v){return v._pack&&v._pack.indexOf('core-')===0});
+    if(hasThemedCore){
+      S.saved=userSaved;
+    } else {
+      // No themed packs yet — seed from embedded CANON_BUILDS + user customs
+      var customs=userSaved.filter(function(v){return !v._pack});
+      S.saved=CANON_BUILDS.map(function(v){return JSON.parse(JSON.stringify(v))}).concat(customs);
+    }
   } else {
     S.saved=CANON_BUILDS.map(function(v){return JSON.parse(JSON.stringify(v))});
   }
