@@ -1021,8 +1021,8 @@ function twTap(heavy){
   var gain=twCtx.createGain();
   osc.connect(gain);gain.connect(twCtx.destination);
   // Vary frequency: heavy taps (punctuation) are lower, regular taps shimmer
-  var baseFreq=heavy?1800:3200;
-  osc.frequency.value=baseFreq+(Math.random()*800-400);
+  var baseFreq=heavy?400:600;
+  osc.frequency.value=baseFreq+(Math.random()*200-100);
   osc.type='square';
   gain.gain.value=heavy?0.025:0.012;
   gain.gain.exponentialRampToValueAtTime(0.001,twCtx.currentTime+(heavy?0.06:0.03));
@@ -1113,7 +1113,7 @@ function typewriteHTML(el,html,cb){
     var isPunc=(ch==='.'||ch==='!'||ch===','||ch==='—'||ch===':');
     twTapCount++;
     if(isPunc){twTap(true);twTapCount=0}
-    else if(twTapCount>=2+Math.floor(Math.random()*2)){twTap(false);twTapCount=0}
+    else if(twTapCount>=5+Math.floor(Math.random()*2)){twTap(false);twTapCount=0}
     // Determine delay — base 19ms (+5%), pauses +10%
     var delay=19;
     if(ch==='.'||ch==='!'){
