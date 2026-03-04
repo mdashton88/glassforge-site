@@ -909,6 +909,10 @@ function resolveAttacks(attSide,defSide){
 
   wpns.forEach(function(w){
     var rof=Math.max(1,w.def.rof);
+    // Linked weapon bonuses (SWADE p82): dual +1 hit/+2 dmg, quad +2 hit/+4 dmg
+    var linkedHit=0,linkedDmg=0;
+    if(w.linked>=3){linkedHit=2;linkedDmg=4}
+    else if(w.linked>=1){linkedHit=1;linkedDmg=2}
     for(var shot=0;shot<rof;shot++){
       if(battle.over)return;
       // Roll Shooting + Wild Die
@@ -917,7 +921,7 @@ function resolveAttacks(attSide,defSide){
       if(defVulnerable)mod+=2;
       // Joker bonus: +2 to all trait rolls and damage
       var jokerBonus=battle['joker'+attSide]?2:0;
-      mod+=jokerBonus;
+      mod+=jokerBonus+linkedHit;
       var finalRoll=roll.total+mod;
 
       var traitStr='['+formatDice(roll.trait)+']';
@@ -937,6 +941,7 @@ function resolveAttacks(attSide,defSide){
       var dmg=rollDamage(w.def,raises>0);
       // Joker bonus applies to damage too
       if(jokerBonus)dmg.total+=jokerBonus;
+      dmg.total+=linkedDmg;
       var ap=w.def.ap||0;
       var toughness=battle['tough'+defSide];
       var armour=battle['armour'+defSide];
