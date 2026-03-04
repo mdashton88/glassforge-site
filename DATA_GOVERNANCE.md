@@ -81,7 +81,7 @@ packs/
   12_Wire_and_Chrome/                       ← Cyberpunk (3 packs, 23 vehicles)
   Total: 54 packs, 547 vehicles + 47 CANON_BUILDS = 594 unique
 
-Vehicle_Forge_Core_Reference_Builds.vfx     ← Generated export of CANON_BUILDS
+Core_Collection_*.vfx (4 themed packs)     ← Generated export of CANON_BUILDS
 VEHICLE_MANIFEST.json                       ← Machine-readable file inventory
 DATA_GOVERNANCE.md                          ← THIS FILE
 VEHICLE_FORGE_VERSIONING.md                 ← Human-readable architecture overview
@@ -115,7 +115,7 @@ Vehicle_Forge_Technical_Reference_v1_0.md   ← Full technical reference (formul
 2. If it's a SWADE Core weapon, verify against pp.79-81
 3. If it has an era variant pair, update both IDs
 4. Search all `.vfx` and `.cvf.json` files for embedded copies — update them
-5. Regenerate `Vehicle_Forge_Core_Reference_Builds.vfx` if affected
+5. Regenerate `Core_Collection_*.vfx (4 themed packs)` if affected
 6. Commit with: what changed, how many files affected, what was verified
 
 ### Adding a weapon
@@ -157,7 +157,7 @@ python3 sync_and_audit.py --sync-only  # Sync without full audit
 
 ### What the script checks
 
-**Sync:** Pushes corrected weapon loadouts from `Vehicle_Forge_Core_Reference_Builds.vfx` to all downstream files automatically. No manual propagation.
+**Sync:** Pushes corrected weapon loadouts from `Core_Collection_*.vfx (4 themed packs)` to all downstream files automatically. No manual propagation.
 
 **Tier 1 — Hard Canon (must match exactly):**
 - 19 SWADE Core weapon definitions vs pp.79-81 (damage, AP, RoF, range)
