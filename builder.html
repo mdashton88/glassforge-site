@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="/auth-gate.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Savage Worlds Character Builder — Free Online Tool | Character Forge by Glassforge Games</title>
@@ -905,7 +906,8 @@ function CharacterForgeApp() {
   function exportHTML() {
     var ch = collectCharData();
     var portraitBlock = ch.portrait ? '<div style="text-align:center;margin-bottom:16px"><img src="'+ch.portrait+'" style="width:140px;height:175px;object-fit:cover;border:3px solid #C4A44A" /></div>' : '';
-    var html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">';
+    var html = '<!DOCTYPE html><html lang="en"><head>
+<script src="/auth-gate.js"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">';
     html += '<title>'+esc(ch.name)+' \u2014 Savage Worlds Character Sheet</title>';
     html += '<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">';
     html += '<style>';
