@@ -961,11 +961,12 @@ function resolveAttacks(attSide,defSide){
       var woundsDealt=damageRaises;
 
       var resultParts=[];
+      var critParts=[];
       if(woundsDealt>0){
         battle['wounds'+defSide]+=woundsDealt;
         resultParts.push('<span class="log-wound">'+woundsDealt+' Wound'+(woundsDealt>1?'s':'')+'!</span>');
         var crit=rollCrit();
-        resultParts.push('<span class="log-crit">Critical Hit ('+crit.roll+'): '+crit.result+'</span>');
+        critParts.push('<span class="log-crit">Critical Hit ('+crit.roll+'): '+crit.result+'</span>');
       }
 
       // Out of Control check — but only if not already wrecked
@@ -975,10 +976,10 @@ function resolveAttacks(attSide,defSide){
         var oocTotal=oocRoll.total+oocMod;
         var oocDice='['+formatDice(oocRoll.trait)+'] [W:'+formatDice(oocRoll.wild)+']'+(oocRoll.usedWild?' ←':'')+(oocMod?' '+oocMod:'');
         if(oocTotal>=4){
-          resultParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — driver keeps control.');
+          critParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — driver keeps control.');
         }else{
           var ooc=rollOOC();
-          resultParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — <span class="log-crit">Out of Control! ('+ooc.roll+'): '+ooc.result+'</span>');
+          critParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — <span class="log-crit">Out of Control! ('+ooc.roll+'): '+ooc.result+'</span>');
           // Apply OOC effects
         if(ooc.roll===2){
           // Major collision: 2d6 damage + crit + distracted
@@ -988,36 +989,41 @@ function resolveAttacks(attSide,defSide){
           battle['wounds'+defSide]+=Math.max(1,collWounds);
           battle['status'+defSide].distracted=true;
           var collCrit=rollCrit();
-          resultParts.push('<span class="log-wound">Catastrophic Impact! +'+Math.max(1,collWounds)+' Wound(s)!</span> <span class="log-crit">Critical Hit ('+collCrit.roll+'): '+collCrit.result+'</span>');
+          critParts.push('<span class="log-wound">Catastrophic Impact! +'+Math.max(1,collWounds)+' Wound(s)!</span> <span class="log-crit">Critical Hit ('+collCrit.roll+'): '+collCrit.result+'</span>');
         }else if(ooc.roll<=4){
           // Minor collision: 1 wound + crit
           battle['wounds'+defSide]+=1;
           var collCrit2=rollCrit();
-          resultParts.push('<span class="log-wound">Glancing Impact! +1 Wound!</span> <span class="log-crit">Critical Hit ('+collCrit2.roll+'): '+collCrit2.result+'</span>');
+          critParts.push('<span class="log-wound">Glancing Impact! +1 Wound!</span> <span class="log-crit">Critical Hit ('+collCrit2.roll+'): '+collCrit2.result+'</span>');
         }else if(ooc.roll<=9){
           battle['status'+defSide].distracted=true;
         }else if(ooc.roll<=11){
           battle['status'+defSide].vulnerable=true;
         }else{
           var glitchCrit=rollCrit();
-          resultParts.push('<span class="log-crit">Mechanical Fault — Critical Hit ('+glitchCrit.roll+'): '+glitchCrit.result+'</span>');
+          critParts.push('<span class="log-crit">Mechanical Fault — Critical Hit ('+glitchCrit.roll+'): '+glitchCrit.result+'</span>');
         }
         } // end else (failed OOC check)
       } // end OOC guard (not already wrecked)
 
-      if(battle['wounds'+defSide]>=battle['maxWounds'+defSide]){
+      var wrecked=battle['wounds'+defSide]>=battle['maxWounds'+defSide];
+      if(wrecked){
         battle.over=true;
-        resultParts.push('<span class="log-wound" style="font-size:17px">'+esc(defV.name)+' is WRECKED!</span>');
+        critParts.push('<span class="log-wound" style="font-size:17px">'+esc(defV.name)+' is WRECKED!</span>');
       }
 
+      // First log entry: hit + damage + wounds
       addLog(attSide==='A'?'left':'right',attV.name,
         '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+' = '+finalRoll+'</span> '+hitText+
         ' Damage: '+dmgStr+' '+tStr+'. '+resultParts.join(' '));
-      // Queue wound sync immediately after this attack's log entry
-      if(woundsDealt>0||battle.over){
+      // Queue wound sync (boom + shake + damage lights) after wounds line
+      if(woundsDealt>0||wrecked){
         if(!battle.autoMode){
           logQueue.push({woundSync:true});
           if(!logTyping) processLogQueue()}}
+      // Second log entry: critical hit + OOC (types out after the boom settles)
+      if(critParts.length>0){
+        addLog(attSide==='A'?'left':'right',attV.name,critParts.join(' '))}
     }
   })}
 
