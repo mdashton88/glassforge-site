@@ -1071,16 +1071,10 @@ function resolveAttacks(attSide,defSide){
         +' vs Toughness '+toughness+(armour?' ('+armour+' armour)':'')+(ap?', AP '+ap:'');
       var dmgStr='<span class="log-dice-detail">'+dmgDetail+'</span>';
 
-      if(dmg.total<effectiveTough){
-        // Hit but no penetration — trait dice, then log
-        addLogDice(roll._die);
-        addLog(attSide==='A'?'left':'right',attV.name,
-          '<strong>'+esc(w.def.name)+'</strong> fires — '+hitText+' <span class="log-miss">No damage.</span> '
-          +'<span class="log-dice-detail">(Roll '+finalRoll+' — '+diceStr+' | Damage '+dmg.total+' vs Toughness '+toughness+(armour?' ('+armour+' armour)':'')+(ap?' AP '+ap:'')+')</span>');
-        continue}
-
+      // Unified hit path — no-damage and wound cases share the same queue sequence
       var damageRaises=Math.floor((dmg.total-effectiveTough)/4);
-      var woundsDealt=damageRaises;
+      var woundsDealt=Math.max(0,damageRaises);
+      var noDamage=dmg.total<effectiveTough;
 
       var resultParts=[];
       var critParts=[];
@@ -1136,13 +1130,19 @@ function resolveAttacks(attSide,defSide){
         critParts.push('<span class="log-wound log-wrecked">'+esc(defV.name)+' is WRECKED.</span>');
       }
 
-      // Wound path: trait dice → hit+damage log → damage dice → woundSync (boom+LEDs) → crit log
+      // Sequence: trait dice → hit headline → damage dice → detail+verdict → woundSync → crits
+      // 1. Trait dice
       addLogDice(roll._die);
+      // 2. Hit headline only — outcome not yet revealed
       addLog(attSide==='A'?'left':'right',attV.name,
-        '<strong>'+esc(w.def.name)+'</strong> fires — '+hitText+' '+resultParts.join(' ')
-        +' <span class="log-dice-detail">(Roll '+finalRoll+' — '+diceStr+' | '+dmgDetail+')</span>');
-      // Damage dice roll after the hit line types out
+        '<strong>'+esc(w.def.name)+'</strong> fires — '+hitText);
+      // 3. Damage dice
       if(!battle.autoMode) addLogDice(dmg._die);
+      // 4. Detail line with verdict after damage dice settle
+      var verdictHtml=noDamage
+        ? '<span class="log-dice-detail">(Roll '+finalRoll+' — '+diceStr+' | '+dmgDetail+')</span> <span class="log-miss">No damage.</span>'
+        : '<span class="log-dice-detail">(Roll '+finalRoll+' — '+diceStr+' | '+dmgDetail+')</span> '+resultParts.join(' ');
+      addLog(attSide==='A'?'left':'right','',verdictHtml);
       // Wound sync (boom + shake + damage lights) after damage dice settle
       // Snapshot wound state NOW so playback shows wounds at the correct narrative moment
       if(woundsDealt>0||wrecked){
