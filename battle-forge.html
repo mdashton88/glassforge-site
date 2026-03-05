@@ -1267,7 +1267,7 @@ function hideDiceOverlay(){
 function triggerDiceRoll(notation){
   if(!bfSettings.diceEnabled||!diceBoxReady||!diceBox)return;
   showDiceOverlay();
-  diceBox.clearDice();
+  diceBox.clear();
   diceBox.roll(notation).catch(function(e){console.warn('Dice roll error:',e)})}
 
 // Pre-load audio
