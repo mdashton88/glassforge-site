@@ -2,7 +2,8 @@ User-agent: *
 Allow: /
 Allow: /vehicle-forge-landing
 Allow: /vehicle-forge
-Allow: /battle-log-ticker
+Allow: /battle-forge
+Allow: /legal
 
 # Internal/development tools — not for indexing
 Disallow: /builder
