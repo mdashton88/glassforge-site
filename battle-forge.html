@@ -1050,6 +1050,7 @@ function resolveAttacks(attSide,defSide){
 
       if(finalRoll<4){
         // Miss — trait dice first, then the miss log
+        if(bfSettings.audioEnabled){var ms=twMissWhizz.cloneNode();ms.volume=(bfSettings.diceVolume/100)*0.7;ms.play().catch(function(){});}
         addLogDice(roll._die);
         addLog(attSide==='A'?'left':'right',attV.name,
           '<strong>'+esc(w.def.name)+'</strong> fires — <span class="log-miss">miss.</span> '
@@ -1143,6 +1144,7 @@ function resolveAttacks(attSide,defSide){
       // 3. Damage dice
       if(!battle.autoMode) addLogDice(dmg._die);
       // 4. Detail line with verdict after damage dice settle
+      if(noDamage&&bfSettings.audioEnabled){var rc=twRicochet.cloneNode();rc.volume=(bfSettings.diceVolume/100)*0.8;rc.play().catch(function(){});}
       var verdictHtml=noDamage
         ? '<span class="log-dice-detail">(Roll '+finalRoll+' — '+diceStr+' | '+dmgDetail+')</span> <span class="log-miss">No damage.</span>'
         : '<span class="log-dice-detail">(Roll '+finalRoll+' — '+diceStr+' | '+dmgDetail+')</span> '+resultParts.join(' ');
@@ -1299,19 +1301,15 @@ function initDiceBox(){
           var snd=twDiceRattle.cloneNode();
           snd.volume=bfSettings.diceVolume/100;
           snd.play().catch(function(){});}},
-      onDieComplete:function(results){
-        // Check each die — if it landed on max, add an acing die in burst colour
-        results.forEach(function(group){
-          Object.values(group.rolls||{}).forEach(function(die){
-            var sides=die.sides;
-            if(typeof sides==='string')sides=parseInt(sides.replace(/[^0-9]/g,''));
-            if(Number.isInteger(sides)&&sides>1&&die.value===sides){
-              // Ace! Add another die of same type — bright orange burst
-              diceAcePending++;
-              diceBox.add([{qty:1,sides:sides,themeColor:'#ff6a00'}]);
-            }
-          });
-        });
+      onDieComplete:function(die){
+        // onDieComplete receives a single die result object, not an array
+        var sides=die.sides;
+        if(typeof sides==='string')sides=parseInt(sides.replace(/[^0-9]/g,''));
+        if(Number.isInteger(sides)&&sides>1&&die.value===sides){
+          // Ace! Add another die of same type — bright orange burst colour
+          diceAcePending++;
+          diceBox.add([{qty:1,sides:sides,themeColor:'#ff6a00'}]);
+        }
       },
       onRollComplete:function(){
         // Only fire settle callback when all acing additions have also completed
@@ -1388,6 +1386,8 @@ function processDiceQueue(){
 
 // Pre-load audio
 var twDiceRattle=new Audio('/sfx/dice-rattle.mp3');
+var twMissWhizz=new Audio('/sfx/miss-whizz.mp3');
+var twRicochet=new Audio('/sfx/ricochet.mp3');
 twDiceRattle.volume=bfSettings.diceVolume/100;
 var twKeys=[new Audio('/sfx/key_1.mp3'),new Audio('/sfx/key_2.mp3'),new Audio('/sfx/key_3.mp3')];
 var twWoundAudio=new Audio('/sfx/boom-wound.mp3');
