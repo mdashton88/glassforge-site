@@ -196,6 +196,48 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
   <!-- ═══ DICE BOX OVERLAY ═══ -->
   <div id="dice-box-container" style="position:fixed;top:72px;left:0;right:0;bottom:0;pointer-events:none;z-index:500;opacity:0;transition:opacity 0.3s;"></div>
 
+  <!-- ═══ SETTINGS MODAL ═══ -->
+  <div id="settings-modal" style="display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+    <div style="background:var(--bg-card);border:1px solid var(--border-light);max-width:460px;width:90%;padding:32px;position:relative;font-family:'Crimson Pro',Georgia,serif;">
+      <button onclick="closeSettings()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;line-height:1">✕</button>
+      <h2 style="font-family:'Cinzel',serif;font-size:16px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px">⚙ Settings</h2>
+
+      <!-- AUDIO -->
+      <div style="margin-bottom:24px">
+        <h3 style="font-size:15px;font-family:'Cinzel',serif;letter-spacing:1px;color:var(--text-bright);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)">Audio</h3>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <label style="font-size:14px;color:var(--text-dim)">Sound Effects</label>
+          <button class="header-btn" id="settingAudioToggle" onclick="toggleSettingAudio()" style="font-size:13px;min-width:80px">Enabled</button>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <label style="font-size:14px;color:var(--text-dim)">Screen Shake</label>
+          <button class="header-btn" id="settingShakeToggle" onclick="toggleSettingShake()" style="font-size:13px;min-width:80px">Enabled</button>
+        </div>
+      </div>
+
+      <!-- 3D DICE -->
+      <div style="margin-bottom:24px">
+        <h3 style="font-size:15px;font-family:'Cinzel',serif;letter-spacing:1px;color:var(--text-bright);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)">3D Dice Flourish</h3>
+        <div style="font-size:13px;color:var(--text-dim);margin-bottom:12px;line-height:1.5">Physics-based 3D dice appear on screen when rolls are made. A cosmetic flourish only — results are always determined by the engine before the animation plays.</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <label style="font-size:14px;color:var(--text-dim)">3D Dice</label>
+          <button class="header-btn" id="settingDiceToggle" onclick="toggleSettingDice()" style="font-size:13px;min-width:80px">Disabled</button>
+        </div>
+        <div id="diceScaleRow" style="opacity:0.4;pointer-events:none">
+          <label style="font-size:14px;color:var(--text-dim);display:block;margin-bottom:4px">Dice Size</label>
+          <input type="range" id="settingDiceScale" min="4" max="12" value="7" oninput="applyDiceScale(+this.value)" style="width:100%;accent-color:var(--gold)">
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-top:2px"><span>Small</span><span id="diceScaleVal">7</span><span>Large</span></div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim);line-height:1.6">
+        Battle Forge v0.3.4 — <a href="/legal.html" style="color:var(--gold-dim)">Glassforge Games Ltd.</a><br>
+        3D dice powered by <a href="https://github.com/3d-dice/dice-box" target="_blank" style="color:var(--gold-dim)">Dice Box</a> by Frank Ali &amp; the 3D Dice team, MIT Licence.
+      </div>
+    </div>
+  </div>
+
   <!-- ═══ LEFT: COMBATANT A ═══ -->
   <div class="combatant-panel" id="panelA">
     <div class="combatant-header">
@@ -247,7 +289,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
       <button class="header-btn" id="btnAuto" onclick="autoFight()" disabled>▶ Auto (10 rounds)</button>
       <button class="header-btn" onclick="resetBattle()">↺ Reset</button>
       <button class="header-btn" onclick="copyLog()">📋 Copy Log</button>
-      <button class="header-btn" id="dice-toggle-btn" onclick="setDiceBoxEnabled(!diceBoxEnabled)" style="color:var(--text-dim)">🎲 3D Dice: OFF</button>
+      <button class="header-btn" onclick="openSettings()" style="color:var(--text-dim)">⚙ Settings</button>
       <a href="/battle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green);font-size:13px">📖 Manual</a>
     </div>
     <div class="bf-footer">
@@ -1079,21 +1121,79 @@ var lastRenderedWoundsA=0;
 var lastRenderedWoundsB=0;
 
 // ═══════════════════════════════════════════
+// SETTINGS — PERSIST TO LOCALSTORAGE
+// ═══════════════════════════════════════════
+var bfSettings={audioEnabled:true,shakeEnabled:true,diceEnabled:false,diceScale:7};
+
+function loadBFSettings(){
+  try{var s=localStorage.getItem('glassforge-bf-settings');if(s){var p=JSON.parse(s);
+    if(p.audioEnabled===false)bfSettings.audioEnabled=false;
+    if(p.shakeEnabled===false)bfSettings.shakeEnabled=false;
+    if(p.diceEnabled===true)bfSettings.diceEnabled=true;
+    if(p.diceScale)bfSettings.diceScale=p.diceScale;
+  }}catch(e){}}
+
+function saveBFSettings(){
+  try{localStorage.setItem('glassforge-bf-settings',JSON.stringify(bfSettings))}catch(e){}}
+
+function openSettings(){
+  updateSettingsDisplay();
+  document.getElementById('settings-modal').style.display='flex';}
+
+function closeSettings(){
+  document.getElementById('settings-modal').style.display='none';}
+
+document.getElementById('settings-modal').addEventListener('click',function(e){
+  if(e.target===this)closeSettings();});
+
+function updateSettingsDisplay(){
+  var at=document.getElementById('settingAudioToggle');
+  var st=document.getElementById('settingShakeToggle');
+  var dt=document.getElementById('settingDiceToggle');
+  var sl=document.getElementById('settingDiceScale');
+  var sv=document.getElementById('diceScaleVal');
+  var sr=document.getElementById('diceScaleRow');
+  if(at){at.textContent=bfSettings.audioEnabled?'Enabled':'Disabled';at.style.color=bfSettings.audioEnabled?'var(--green)':'var(--text-dim)';}
+  if(st){st.textContent=bfSettings.shakeEnabled?'Enabled':'Disabled';st.style.color=bfSettings.shakeEnabled?'var(--green)':'var(--text-dim)';}
+  if(dt){dt.textContent=bfSettings.diceEnabled?'Enabled':'Disabled';dt.style.color=bfSettings.diceEnabled?'var(--gold)':'var(--text-dim)';}
+  if(sl)sl.value=bfSettings.diceScale;
+  if(sv)sv.textContent=bfSettings.diceScale;
+  if(sr){sr.style.opacity=bfSettings.diceEnabled?'1':'0.4';sr.style.pointerEvents=bfSettings.diceEnabled?'auto':'none';}}
+
+function toggleSettingAudio(){
+  bfSettings.audioEnabled=!bfSettings.audioEnabled;
+  saveBFSettings();updateSettingsDisplay();}
+
+function toggleSettingShake(){
+  bfSettings.shakeEnabled=!bfSettings.shakeEnabled;
+  saveBFSettings();updateSettingsDisplay();}
+
+function toggleSettingDice(){
+  bfSettings.diceEnabled=!bfSettings.diceEnabled;
+  saveBFSettings();updateSettingsDisplay();
+  if(bfSettings.diceEnabled&&!diceBox)initDiceBox();}
+
+function applyDiceScale(v){
+  bfSettings.diceScale=v;
+  var sv=document.getElementById('diceScaleVal');if(sv)sv.textContent=v;
+  if(diceBox)diceBox.updateConfig({scale:v});
+  saveBFSettings();}
+
+// ═══════════════════════════════════════════
 // DICE BOX — 3D DICE FLOURISH
 // ═══════════════════════════════════════════
 var diceBox=null;
 var diceBoxReady=false;
-var diceBoxEnabled=false; // off by default — user opts in
 
 function initDiceBox(){
-  if(diceBox||!diceBoxEnabled)return;
+  if(diceBox||!bfSettings.diceEnabled)return;
   import('/dice-box/dice-box.es.min.js').then(function(mod){
     var DiceBox=mod.default||mod.DiceBox||Object.values(mod)[0];
     var box=new DiceBox('#dice-box-container',{
       assetPath:'/dice-box/assets/',
       theme:'default',
       offscreen:false,
-      scale:7,
+      scale:bfSettings.diceScale,
       gravity:1,
       mass:1,
       friction:0.8,
@@ -1105,8 +1205,7 @@ function initDiceBox(){
       startingHeight:8,
       settleTimeout:4000,
       onBeforeRoll:function(){},
-      onRollComplete:function(results){
-        // Auto-hide after dice settle
+      onRollComplete:function(){
         setTimeout(function(){hideDiceOverlay()},2200)}
     });
     box.init().then(function(){
@@ -1124,17 +1223,10 @@ function hideDiceOverlay(){
   if(el)el.style.opacity='0';}
 
 function triggerDiceRoll(notation){
-  if(!diceBoxEnabled||!diceBoxReady||!diceBox)return;
+  if(!bfSettings.diceEnabled||!diceBoxReady||!diceBox)return;
   showDiceOverlay();
   diceBox.clearDice();
   diceBox.roll(notation).catch(function(e){console.warn('Dice roll error:',e)})}
-
-function setDiceBoxEnabled(val){
-  diceBoxEnabled=val;
-  var btn=document.getElementById('dice-toggle-btn');
-  if(btn){btn.textContent=val?'🎲 3D Dice: ON':'🎲 3D Dice: OFF';
-    btn.style.color=val?'var(--gold)':'var(--text-dim)';}
-  if(val&&!diceBox)initDiceBox();}
 
 // Pre-load audio
 var twKeys=[new Audio('/sfx/key_1.mp3'),new Audio('/sfx/key_2.mp3'),new Audio('/sfx/key_3.mp3')];
@@ -1149,6 +1241,7 @@ var WRECK_SFX_DUR=4.6;
 
 var twLastKey=-1;
 function twTap(){
+  if(!bfSettings.audioEnabled)return;
   // Pick a different key each time for natural variation
   var idx=Math.floor(Math.random()*twKeys.length);
   if(idx===twLastKey) idx=(idx+1)%twKeys.length;
@@ -1159,6 +1252,7 @@ function twTap(){
   snd.play().catch(function(){})}
 
 function twExplosion(severity,isWreck){
+  if(!bfSettings.audioEnabled)return;
   var snd;
   if(isWreck){
     snd=twWreckAudio.cloneNode();
@@ -1170,6 +1264,7 @@ function twExplosion(severity,isWreck){
   snd.play().catch(function(){})}
 
 function twScreenShake(severity){
+  if(!bfSettings.shakeEnabled)return;
   var app=document.querySelector('.app');
   if(!app)return;
   var intensity=1.5+severity*1.5;
@@ -1364,6 +1459,7 @@ function resetBattle(){
 // ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
+loadBFSettings();
 loadVehicles();
 buildDeck();
 if(!allVehicles.length){
