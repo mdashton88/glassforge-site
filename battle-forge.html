@@ -238,8 +238,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
         </div>
         <div id="diceScaleRow" style="opacity:0.4;pointer-events:none">
           <label style="font-size:14px;color:var(--text-dim);display:block;margin-bottom:4px">Dice Size</label>
-          <input type="range" id="settingDiceScale" min="4" max="12" value="7" oninput="applyDiceScale(+this.value)" style="width:100%;accent-color:var(--gold)">
-          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-top:2px"><span>Small</span><span id="diceScaleVal">7</span><span>Large</span></div>
+          <input type="range" id="settingDiceScale" min="1" max="12" value="2" oninput="applyDiceScale(+this.value)" style="width:100%;accent-color:var(--gold)">
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-top:2px"><span>Small</span><span id="diceScaleVal">2</span><span>Large</span></div>
         </div>
         <div id="diceVolumeRow" style="margin-top:12px;opacity:0.4;pointer-events:none">
           <label style="font-size:14px;color:var(--text-dim);display:block;margin-bottom:4px">Rattle Volume</label>
@@ -937,7 +937,7 @@ function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g
 // ═══════════════════════════════════════════
 function nextRound(){
   if(battle.over)return;
-  diceRollPending=false; // Allow one dice flourish per round
+  diceQueue=[];diceRolling=false; // Clear any leftover dice from previous round
   battle.round++;
   document.getElementById('roundBadge').textContent='Round '+battle.round;
 
@@ -1146,7 +1146,7 @@ var lastRenderedWoundsB=0;
 // ═══════════════════════════════════════════
 // SETTINGS — PERSIST TO LOCALSTORAGE
 // ═══════════════════════════════════════════
-var bfSettings={audioEnabled:true,shakeEnabled:true,diceEnabled:true,diceScale:7,diceVolume:60};
+var bfSettings={audioEnabled:true,shakeEnabled:true,diceEnabled:true,diceScale:2,diceVolume:60};
 
 function loadBFSettings(){
   try{var s=localStorage.getItem('glassforge-bf-settings');if(s){var p=JSON.parse(s);
@@ -1222,7 +1222,8 @@ function applyDiceVolume(v){
 // ═══════════════════════════════════════════
 var diceBox=null;
 var diceBoxReady=false;
-var diceRollPending=false; // Only show first roll per round; subsequent calls skip to avoid thrashing
+var diceQueue=[];      // Queued notation strings waiting to roll
+var diceRolling=false; // True while a roll is in-flight
 
 function initDiceBox(){
   if(diceBox||!bfSettings.diceEnabled)return;
@@ -1233,7 +1234,7 @@ function initDiceBox(){
       assetPath:'/dice-box/assets/',
       theme:'default',
       offscreen:false,
-      scale:bfSettings.diceScale,
+      scale:bfSettings.diceScale||2,
       gravity:1,
       mass:1,
       friction:0.8,
@@ -1249,8 +1250,7 @@ function initDiceBox(){
           var snd=twDiceRattle.cloneNode();
           snd.volume=bfSettings.diceVolume/100;
           snd.play().catch(function(){});}},
-      onRollComplete:function(){
-        setTimeout(function(){hideDiceOverlay()},2200)}
+      onRollComplete:function(){}
     });
     // Briefly make container non-zero opacity so DiceBox canvas measures real dimensions
     var diceEl=document.getElementById('dice-box-container');
@@ -1278,11 +1278,17 @@ function hideDiceOverlay(){
 
 function triggerDiceRoll(notation){
   if(!bfSettings.diceEnabled||!diceBoxReady||!diceBox)return;
-  if(diceRollPending)return; // Already showing dice this round — skip
-  diceRollPending=true;
+  diceQueue.push(notation);
+  if(!diceRolling)processDiceQueue();}
+
+function processDiceQueue(){
+  if(!diceQueue.length){diceRolling=false;hideDiceOverlay();return;}
+  diceRolling=true;
+  var notation=diceQueue.shift();
   showDiceOverlay();
   diceBox.clear();
-  diceBox.roll(notation).catch(function(e){console.warn('Dice roll error:',e)})}
+  diceBox.roll(notation).catch(function(e){console.warn('Dice roll error:',e);});
+  setTimeout(processDiceQueue,900);}
 
 // Pre-load audio
 var twDiceRattle=new Audio('/sfx/dice-rattle.mp3');
