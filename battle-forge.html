@@ -1260,6 +1260,10 @@ function applyDiceTheme(v){
 var diceBox=null;
 var diceBoxReady=false;
 var diceSettleCallback=null; // Set before each roll; fired by onRollComplete
+// Re-measure canvas if window is resized (covers edge cases like DevTools opening)
+window.addEventListener('resize',function(){
+  if(diceBox&&diceBoxReady)diceBox.resizeWorld();
+});
 var diceQueue=[];      // Queued notation strings waiting to roll
 var diceRolling=false; // True while a roll is in-flight
 
@@ -1298,10 +1302,16 @@ function initDiceBox(){
     // Container uses visibility:hidden so canvas always has real dimensions for init
     box.init().then(function(){
       diceBox=box;
-      diceBoxReady=true;
       var canvas=document.querySelector('#dice-box-container canvas');
       if(canvas){canvas.style.width='100%';canvas.style.height='100%';}
-      box.resizeWorld();
+      // Wait two animation frames so the canvas has real painted dimensions
+      // before resizeWorld() measures it — otherwise it sees 0x0
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          box.resizeWorld();
+          diceBoxReady=true;
+        });
+      });
     }).catch(function(e){
       console.warn('Dice Box init failed:',e);
     });
