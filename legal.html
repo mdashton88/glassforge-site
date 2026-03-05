@@ -11,12 +11,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0A0908;color:#D4C9B8;font-family:'Crimson Pro',Georgia,serif;min-height:100vh;line-height:1.7;font-size:16px}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:-1}
-nav{position:fixed;top:0;left:0;right:0;z-index:10000;background:#0A0908E8;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #3A3530;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px;font-family:'Cinzel',serif}
-.nav-brand{font-weight:700;font-size:16px;color:#C4A44A;letter-spacing:3px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:10px}
-.nav-brand .anvil{font-size:22px;color:#D4B45A}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#8A7A60;text-decoration:none;transition:color .3s}
-.nav-links a:hover{color:#C4A44A}
 .content{max-width:720px;margin:0 auto;padding:120px 32px 80px}
 h1{font-family:'Cinzel',serif;font-size:clamp(24px,4vw,32px);font-weight:700;color:#C4A44A;letter-spacing:3px;margin-bottom:32px;text-transform:uppercase}
 h2{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:#D4C9B8;letter-spacing:2px;margin:40px 0 16px;text-transform:uppercase;border-bottom:1px solid #3A3530;padding-bottom:8px}
@@ -27,23 +21,16 @@ a:hover{color:#E8C85A}
 .logo-block img{height:80px;opacity:0.9}
 .legal-text{font-size:14px;color:#8A8070;line-height:1.8;padding:20px;background:#0E0C0A;border:1px solid #332E28;border-radius:2px;margin:16px 0}
 .rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,#C4A44A,transparent);margin:32px auto}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:10001}
-.hamburger span{display:block;width:24px;height:2px;background:#C4A44A;transition:all .3s}
-@media(max-width:768px){nav{padding:0 16px}.nav-links{display:none;position:fixed;top:72px;left:0;right:0;background:#0A0908F5;backdrop-filter:blur(16px);flex-direction:column;padding:32px 40px;gap:24px;border-bottom:1px solid #3A3530;transform:translateY(-100%);opacity:0;pointer-events:none;transition:all .3s}.nav-links.open{display:flex;transform:translateY(0);opacity:1;pointer-events:auto}.hamburger{display:flex}.content{padding:96px 16px 60px}}
+@media(max-width:768px){.content{padding:96px 16px 60px}}
 </style>
+<script src="/site-nav.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    initSiteNav({ bodyOffset:true, footer:true });
+  });
+</script>
 </head>
 <body>
-
-<nav>
-  <a href="/" class="nav-brand"><span class="anvil">⚒</span> Glassforge Games</a>
-  <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open');this.classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="/">Home</a></li>
-    <li><a href="/vehicle-forge">Vehicle Forge</a></li>
-    <li><a href="/battle-forge">Battle Forge</a></li>
-    <li><a href="/#arrath">World of Arr'ath</a></li>
-  </ul>
-</nav>
 
 <div class="content">
 

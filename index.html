@@ -106,138 +106,6 @@ body::before {
   z-index: 9999;
 }
 
-/* ── NAVIGATION ── */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: #0A0908E8;
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 72px;
-}
-
-.nav-brand {
-  font-family: 'Cinzel', serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--gold);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.nav-brand .anvil {
-  font-size: 22px;
-  color: var(--gold-bright);
-}
-
-.nav-links {
-  display: flex;
-  gap: 32px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-family: 'Cinzel', serif;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  text-decoration: none;
-  transition: color 0.3s;
-  position: relative;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--gold);
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--gold);
-  transform: scaleX(0);
-  transition: transform 0.3s;
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-  transform: scaleX(1);
-}
-
-/* ── HAMBURGER ── */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 8px;
-  background: none;
-  border: none;
-  z-index: 1001;
-}
-
-.hamburger span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--gold);
-  transition: all 0.3s;
-}
-
-.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-/* ── MOBILE NAV ── */
-@media (max-width: 768px) {
-  .hamburger { display: flex; }
-
-  .nav-links {
-    position: fixed;
-    top: 72px;
-    left: 0;
-    right: 0;
-    background: #0A0908F5;
-    backdrop-filter: blur(16px);
-    flex-direction: column;
-    padding: 32px 40px;
-    gap: 24px;
-    border-bottom: 1px solid var(--border);
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s;
-  }
-
-  .nav-links.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .nav-links a {
-    font-size: 14px;
-    letter-spacing: 3px;
-  }
-}
-
 /* ── PAGE SECTIONS ── */
 .page {
   display: none;
@@ -706,26 +574,28 @@ footer a:hover { color: var(--gold); }
   .region-card { padding: 32px 24px; }
 }
 </style>
+<script src="/site-nav.js"></script>
+<script>
+  // index.html manages 'active' state dynamically via showPage().
+  // bodyOffset:false — pages handle their own padding-top:72px via .page CSS.
+  // footer:true — show the SW fan licence footer at the bottom.
+  document.addEventListener('DOMContentLoaded', function(){
+    initSiteNav({ active:'home', bodyOffset:false, footer:true });
+    // Patch Home and Arr'ath links to use SPA routing
+    document.querySelectorAll('#gn-links a').forEach(function(a){
+      var href = a.getAttribute('href');
+      if (href === '/') {
+        a.setAttribute('href','#');
+        a.addEventListener('click', function(e){ e.preventDefault(); showPage('home'); });
+      } else if (href === '/#arrath') {
+        a.setAttribute('href','#');
+        a.addEventListener('click', function(e){ e.preventDefault(); showPage('arrath'); });
+      }
+    });
+  });
+</script>
 </head>
 <body>
-
-<!-- ════════════════════════════════════════════════════════════ -->
-<!-- NAVIGATION                                                  -->
-<!-- ════════════════════════════════════════════════════════════ -->
-<nav>
-  <a href="#" class="nav-brand" onclick="showPage('home')">
-    <span class="anvil">⚒</span> Glassforge Games
-  </a>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#" onclick="showPage('home');return false" id="nav-home" class="active">Home</a></li>
-    <li><a href="/vehicle-forge" id="nav-vehicle">Vehicle Forge</a></li>
-    <li><a href="/battle-forge" id="nav-battle">Battle Forge</a></li>
-    <li><a href="#" onclick="showPage('arrath');return false" id="nav-arrath">World of Arr'ath</a></li>
-  </ul>
-</nav>
 
 <!-- ════════════════════════════════════════════════════════════ -->
 <!-- HOME PAGE                                                    -->
@@ -916,19 +786,23 @@ footer a:hover { color: var(--gold); }
 <script>
 function showPage(id) {
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-  document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); });
   document.getElementById('page-' + id).classList.add('active');
-  document.getElementById('nav-' + id).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  // Close mobile menu on navigation
-  document.getElementById('navLinks').classList.remove('open');
-  document.querySelector('.hamburger').classList.remove('open');
+  // Update active state on site-nav links
+  var keyMap = { home: '/', arrath: '/#arrath' };
+  var links = document.querySelectorAll('#gn-links a');
+  links.forEach(function(a) {
+    a.classList.remove('active');
+    if (keyMap[id] && a.getAttribute('href') === keyMap[id]) a.classList.add('active');
+  });
+  // Close mobile menu
+  var gnLinks = document.getElementById('gn-links');
+  var gnHam   = document.getElementById('gn-hamburger');
+  if (gnLinks) gnLinks.classList.remove('open');
+  if (gnHam)   gnHam.classList.remove('open');
 }
 
-function toggleMenu() {
-  document.getElementById('navLinks').classList.toggle('open');
-  document.querySelector('.hamburger').classList.toggle('open');
-}
+function toggleMenu(){/* handled by site-nav.js */}
 
 // Handle /#arrath and /#about from external links
 (function() {

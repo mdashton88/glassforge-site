@@ -1,79 +1,69 @@
 /**
- * TRIBUTE LANDS — TOOL NAVIGATION v2.0
- * Site-wide primary nav + tool switcher + Savage Worlds Fan Licence footer
- * Injected into all Glassforge internal production tools.
+ * GLASSFORGE GAMES — TOOL NAVIGATION v3.0
+ * Internal tools sub-nav (tool switcher below the primary site-nav).
+ * Primary nav is now handled entirely by site-nav.js.
  *
+ * Usage: addToolNavigation('adventure-forge')
+ *
+ * Requires site-nav.js to be loaded first on the page.
  * Glassforge Games Ltd.
- * Version: 2.0
  */
 
 function addToolNavigation(currentTool) {
 
-  /* ── INJECT STYLES ── */
-  var s = document.createElement('style');
-  s.textContent = [
-    '.dfs-primary-nav{position:fixed;top:0;left:0;right:0;z-index:10000;background:#0A0908E8;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #3A3530;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px;font-family:Cinzel,serif}',
-    '.dfs-primary-nav a.brand{font-weight:700;font-size:16px;color:#C4A44A;letter-spacing:3px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:10px}',
-    '.dfs-primary-nav .site-links{display:flex;gap:32px}',
-    '.dfs-primary-nav .site-links a{font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#8A7A60;text-decoration:none;transition:color .25s;position:relative}',
-    '.dfs-primary-nav .site-links a:hover{color:#C4A44A}',
-    '.dfs-tool-nav{position:fixed;top:72px;left:0;right:0;z-index:9999;display:flex;background:#141210;border-bottom:1px solid #3A3530;padding:0 8px;overflow-x:auto;-webkit-overflow-scrolling:touch}',
-    '.dfs-tool-nav button{background:transparent;border:none;border-bottom:2px solid transparent;color:#8A7A60;padding:8px 14px;font-size:10px;letter-spacing:1.5px;cursor:pointer;font-family:Cinzel,serif;text-transform:uppercase;transition:all .15s;white-space:nowrap}',
-    '.dfs-tool-nav button:hover{color:#D4C8B0}',
-    '.dfs-tool-nav button.active{color:#C4A44A;border-bottom-color:#C4A44A}',
-    '.dfs-fan-footer{padding:20px 32px;text-align:center;border-top:1px solid #3A3530;background:#0A0908;font-family:"Crimson Text",Georgia,serif;font-size:12px;color:#5A5040;line-height:1.5}'
-  ].join('\n');
-  document.head.appendChild(s);
+  /* ── TOOL SWITCHER STYLES ── */
+  if (!document.getElementById('dfs-tool-nav-css')) {
+    var s = document.createElement('style');
+    s.id = 'dfs-tool-nav-css';
+    s.textContent =
+      '.dfs-tool-nav{position:fixed;top:72px;left:0;right:0;z-index:9999;' +
+      'display:flex;background:#141210;border-bottom:1px solid #3A3530;' +
+      'padding:0 8px;overflow-x:auto;-webkit-overflow-scrolling:touch}' +
+      '.dfs-tool-nav button{background:transparent;border:none;' +
+      'border-bottom:2px solid transparent;color:#8A7A60;' +
+      'padding:8px 14px;font-size:10px;letter-spacing:1.5px;' +
+      'cursor:pointer;font-family:Cinzel,serif;text-transform:uppercase;' +
+      'transition:all .15s;white-space:nowrap}' +
+      '.dfs-tool-nav button:hover{color:#D4C8B0}' +
+      '.dfs-tool-nav button.active{color:#C4A44A;border-bottom-color:#C4A44A}';
+    document.head.appendChild(s);
+  }
 
-  /* ── PRIMARY NAV ── */
-  var nav = document.createElement('div');
-  nav.className = 'dfs-primary-nav';
-  nav.innerHTML = '<a href="/" class="brand"><span style="font-size:18px;color:#D4B45A">⚒</span> Glassforge Games</a>'
-    + '<div class="site-links">'
-    + '<a href="/">Home</a>'
-    + '<a href="/vehicle-forge-v2.1.html">Vehicle Forge</a>'
-    + '<a href="/battle-forge.html">Battle Forge</a>'
-    + '</div>';
-  document.body.insertBefore(nav, document.body.firstChild);
+  function injectToolNav() {
+    var nav = document.getElementById('glassforge-nav');
+    if (!nav) { setTimeout(injectToolNav, 50); return; }
+    if (document.querySelector('.dfs-tool-nav')) return;
 
-  /* ── TOOL SWITCHER ── */
-  var tools = [
-    { id: 'foundry', label: '🏭 The Foundry', url: 'foundry' },
-    { id: 'adventure-forge', label: '🗺 Adventure Forge', url: 'adventure-forge' },
-    { id: 'adventure-vault', label: '🎭 Adventure Vault', url: 'adventure-vault' },
-    { id: 'pa-forge', label: '🛡 Power Armour', url: 'pa-forge' },
-    { id: 'task-vault', label: '📋 Task Vault', url: 'task-vault' }
-  ];
+    var tools = [
+      { id: 'foundry',         label: '\uD83C\uDFED The Foundry',    url: '/foundry' },
+      { id: 'adventure-forge', label: '\uD83D\uDDFA Adventure Forge', url: '/adventure-forge' },
+      { id: 'adventure-vault', label: '\uD83C\uDFAD Adventure Vault', url: '/adventure-vault' },
+      { id: 'pa-forge',        label: '\uD83D\uDEE1 Power Armour',    url: '/pa-forge' },
+      { id: 'task-vault',      label: '\uD83D\uDCCB Task Vault',      url: '/task-vault' }
+    ];
 
-  var toolNav = document.createElement('div');
-  toolNav.className = 'dfs-tool-nav';
-  tools.forEach(function(tool) {
-    var btn = document.createElement('button');
-    btn.textContent = tool.label;
-    if (tool.id === currentTool) btn.className = 'active';
-    btn.onclick = function() { if (tool.id !== currentTool) window.location.href = tool.url; };
-    toolNav.appendChild(btn);
-  });
-  nav.insertAdjacentElement('afterend', toolNav);
+    var toolNav = document.createElement('div');
+    toolNav.className = 'dfs-tool-nav';
+    tools.forEach(function (tool) {
+      var btn = document.createElement('button');
+      btn.textContent = tool.label;
+      if (tool.id === currentTool) btn.className = 'active';
+      btn.onclick = function () {
+        if (tool.id !== currentTool) window.location.href = tool.url;
+      };
+      toolNav.appendChild(btn);
+    });
 
-  /* ── FAN LICENCE FOOTER ── */
-  var footer = document.createElement('div');
-  footer.className = 'dfs-fan-footer';
-  footer.innerHTML = '<a href="/legal.html" title="Savage Worlds Fan Product">'
-    + '<img src="/sw_fan_logo.png" alt="Savage Worlds Fan Product" style="height:36px;vertical-align:middle;margin-right:8px;opacity:0.85"></a> '
-    + '<span style="font-size:10px">&copy; 2026 Glassforge Games Ltd. <a href="/legal.html" style="color:#8A7A60">Legal & Licensing</a></span>';
-  document.body.appendChild(footer);
-}
+    nav.insertAdjacentElement('afterend', toolNav);
 
-/* ── ADJUST BODY MARGIN FOR DOUBLE NAV (72 + 36 = 108px) ── */
-(function() {
-  function adjust() {
+    /* Adjust header margin: 72px primary nav + 36px tool-nav = 108px */
     var header = document.querySelector('header');
     if (header) header.style.marginTop = '108px';
   }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', adjust);
+    document.addEventListener('DOMContentLoaded', injectToolNav);
   } else {
-    adjust();
+    injectToolNav();
   }
-})();
+}
