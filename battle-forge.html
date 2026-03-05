@@ -125,6 +125,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
 .log-entry.system{border-left-color:var(--accent);font-style:italic;color:var(--text-dim);text-align:center}
 .log-entry .log-actor{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
 .log-entry .log-dice{font-family:monospace;font-size:13px;color:var(--text-dim);background:var(--bg-card);padding:2px 8px;display:inline-block;margin:2px 0}
+.log-entry .log-dice-detail{font-size:12px;color:var(--text-dim);font-style:italic}
+.log-entry .log-wrecked{font-size:18px;letter-spacing:0.03em}
 .log-entry .log-hit{color:var(--gold-bright);font-weight:700}
 .log-entry .log-miss{color:var(--text-dim)}
 .log-entry .log-wound{color:var(--crimson);font-weight:700}
@@ -929,7 +931,7 @@ function nextRound(){
     for(var i=0;i<rc.length;i++){if(rc[i]>0)rc[i]--}
   });
 
-  addLog('system','','— Round '+battle.round+' —');
+  addLog('system','','── Round '+battle.round+' ──');
 
   // Draw initiative cards
   var cardA=drawCard(),cardB=drawCard();
@@ -983,7 +985,7 @@ function resolveAttacks(attSide,defSide){
   if(battle['wounds'+attSide]>=battle['maxWounds'+attSide])return; // Wrecked
 
   var wpns=vehicleWeapons(attV);
-  if(!wpns.length){addLog(attSide==='A'?'left':'right',attV.name,'No weapons mounted. The crew watches helplessly.');return}
+  if(!wpns.length){addLog(attSide==='A'?'left':'right',attV.name,'No weapons — the crew can only brace for what comes.');return}
 
   var crewDie=battle['crewDie'+attSide];
   var rangePen=parseInt(document.getElementById('rangeSelect').value)||0;
@@ -994,7 +996,7 @@ function resolveAttacks(attSide,defSide){
     // Check reload counter
     var reloadCounter=battle['reload'+attSide];
     if(reloadCounter[wIdx]>0){
-      addLog(attSide==='A'?'left':'right',attV.name,w.def.name+' crew reloading. ('+reloadCounter[wIdx]+' round'+(reloadCounter[wIdx]>1?'s':'')+' remaining)');
+      addLog(attSide==='A'?'left':'right',attV.name,w.def.name+' is reloading. ('+reloadCounter[wIdx]+' round'+(reloadCounter[wIdx]>1?'s':'')+' remaining)');
       return}
     var rof=Math.max(1,w.def.rof);
     // Linked weapon bonuses (SWADE p82): dual +1 hit/+2 dmg, quad +2 hit/+4 dmg
@@ -1015,15 +1017,18 @@ function resolveAttacks(attSide,defSide){
       mod+=jokerBonus+linkedHit;
       var finalRoll=roll.total+mod;
 
-      var traitStr='['+formatDice(roll.trait)+']';
-      var wildStr='[W:'+formatDice(roll.wild)+']';
-      var diceStr=traitStr+' '+wildStr+(roll.usedWild?' ←':'');
+      var traitStr=formatDice(roll.trait)+(roll.trait.aced?' (aced)':'');
+      var wildStr=formatDice(roll.wild)+(roll.wild.aced?' (aced)':'');
+      var usedStr=roll.usedWild?'Wild d6: <em>'+wildStr+'</em> — used':'d'+crewDie+': '+traitStr+', Wild d6: '+wildStr;
+      var diceStr='<span class="log-dice-detail">'+usedStr+'</span>';
+      var rollTotal=finalRoll-(mod||0);
 
       if(finalRoll<4){
         // Miss — trait dice first, then the miss log
         addLogDice(roll._die);
         addLog(attSide==='A'?'left':'right',attV.name,
-          '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+(mod?' '+mod:'')+' = '+finalRoll+'</span> vs TN 4. <span class="log-miss">Miss.</span>');
+          '<strong>'+esc(w.def.name)+'</strong> fires — <span class="log-miss">miss.</span> '
+          +'<span class="log-dice-detail">(Roll '+rollTotal+(mod?' '+mod:'')+' = '+finalRoll+' — '+diceStr+')</span>');
         continue}
 
       var raises=Math.floor((finalRoll-4)/4);
@@ -1041,14 +1046,16 @@ function resolveAttacks(attSide,defSide){
       var effectiveTough=toughness-armour+effectiveArmour;
 
       var dmgDice=dmg.dice.map(function(d){return formatDice(d)}).join(', ');
-      var dmgStr='<span class="log-dice">'+dmg.total+(dmg.bonus?' ('+dmg.bonus+' bonus)':'')+' ['+dmgDice+']</span>';
-      var tStr='vs Toughness '+toughness+'('+armour+')'+(ap?' AP '+ap+' → effective '+effectiveTough:'');
+      var dmgDetail='Damage '+dmg.total+(dmg.bonus?' (+'+dmg.bonus+' bonus)':'')+(dmg.raised?' (raise)':'')
+        +' vs Toughness '+toughness+(armour?' ('+armour+' armour)':'')+(ap?', AP '+ap:'');
+      var dmgStr='<span class="log-dice-detail">'+dmgDetail+'</span>';
 
       if(dmg.total<effectiveTough){
         // Hit but no penetration — trait dice, then log
         addLogDice(roll._die);
         addLog(attSide==='A'?'left':'right',attV.name,
-          '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+' = '+finalRoll+'</span> '+hitText+' Damage: '+dmgStr+' '+tStr+'. <span class="log-miss">No effect.</span>');
+          '<strong>'+esc(w.def.name)+'</strong> fires — '+hitText+' <span class="log-miss">No damage.</span> '
+          +'<span class="log-dice-detail">(Roll '+finalRoll+' — '+diceStr+' | Damage '+dmg.total+' vs Toughness '+toughness+(armour?' ('+armour+' armour)':'')+(ap?' AP '+ap:'')+')</span>');
         continue}
 
       var damageRaises=Math.floor((dmg.total-effectiveTough)/4);
@@ -1060,7 +1067,7 @@ function resolveAttacks(attSide,defSide){
         battle['wounds'+defSide]+=woundsDealt;
         resultParts.push('<span class="log-wound">'+woundsDealt+' Wound'+(woundsDealt>1?'s':'')+'!</span>');
         var crit=rollCrit();
-        critParts.push('<span class="log-crit">Critical Hit ('+crit.roll+'): '+crit.result+'</span>');
+        critParts.push('Critical hit: <span class="log-crit">'+crit.result+'</span>');
       }
 
       // Out of Control check — but only if not already wrecked
@@ -1068,12 +1075,12 @@ function resolveAttacks(attSide,defSide){
         var oocRoll=rollTraitWithWild(crewDie);
         var oocMod=-Math.min(battle['wounds'+defSide],4);
         var oocTotal=oocRoll.total+oocMod;
-        var oocDice='['+formatDice(oocRoll.trait)+'] [W:'+formatDice(oocRoll.wild)+']'+(oocRoll.usedWild?' ←':'')+(oocMod?' '+oocMod:'');
+        var oocDice=(oocRoll.usedWild?'Wild d6: '+formatDice(oocRoll.wild):formatDice(oocRoll.trait))+(oocMod?' '+oocMod:'');
         if(oocTotal>=4){
-          critParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — driver keeps control.');
+          critParts.push('Handling check: <span class="log-dice-detail">'+oocDice+' = '+oocTotal+'</span> — driver holds it together.');
         }else{
           var ooc=rollOOC();
-          critParts.push('OOC check: <span class="log-dice">'+oocDice+' = '+oocTotal+'</span> — <span class="log-crit">Out of Control! ('+ooc.roll+'): '+ooc.result+'</span>');
+          critParts.push('<span class="log-crit">Out of Control!</span> Handling check fails <span class="log-dice-detail">('+oocDice+' = '+oocTotal+')</span> — '+ooc.result);
           // Apply OOC effects
         if(ooc.roll===2){
           // Major collision: 2d6 damage + crit + distracted
@@ -1083,19 +1090,19 @@ function resolveAttacks(attSide,defSide){
           battle['wounds'+defSide]+=Math.max(1,collWounds);
           battle['status'+defSide].distracted=true;
           var collCrit=rollCrit();
-          critParts.push('<span class="log-wound">Catastrophic Impact! +'+Math.max(1,collWounds)+' Wound(s)!</span> <span class="log-crit">Critical Hit ('+collCrit.roll+'): '+collCrit.result+'</span>');
+          critParts.push('<span class="log-wound">Catastrophic Impact — +'+Math.max(1,collWounds)+' Wound'+(Math.max(1,collWounds)>1?'s':'')+'!</span> Critical: '+collCrit.result);
         }else if(ooc.roll<=4){
           // Minor collision: 1 wound + crit
           battle['wounds'+defSide]+=1;
           var collCrit2=rollCrit();
-          critParts.push('<span class="log-wound">Glancing Impact! +1 Wound!</span> <span class="log-crit">Critical Hit ('+collCrit2.roll+'): '+collCrit2.result+'</span>');
+          critParts.push('<span class="log-wound">Glancing Impact — +1 Wound!</span> Critical: '+collCrit2.result);
         }else if(ooc.roll<=9){
           battle['status'+defSide].distracted=true;
         }else if(ooc.roll<=11){
           battle['status'+defSide].vulnerable=true;
         }else{
           var glitchCrit=rollCrit();
-          critParts.push('<span class="log-crit">Mechanical Fault — Critical Hit ('+glitchCrit.roll+'): '+glitchCrit.result+'</span>');
+          critParts.push('<span class="log-crit">Mechanical Fault:</span> '+glitchCrit.result);
         }
         } // end else (failed OOC check)
       } // end OOC guard (not already wrecked)
@@ -1103,14 +1110,14 @@ function resolveAttacks(attSide,defSide){
       var wrecked=battle['wounds'+defSide]>=battle['maxWounds'+defSide];
       if(wrecked){
         battle.over=true;
-        critParts.push('<span class="log-wound" style="font-size:17px">'+esc(defV.name)+' is WRECKED!</span>');
+        critParts.push('<span class="log-wound log-wrecked">'+esc(defV.name)+' is WRECKED.</span>');
       }
 
       // Wound path: trait dice → hit+damage log → damage dice → woundSync (boom+LEDs) → crit log
       addLogDice(roll._die);
       addLog(attSide==='A'?'left':'right',attV.name,
-        '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+' = '+finalRoll+'</span> '+hitText+
-        ' Damage: '+dmgStr+' '+tStr+'. '+resultParts.join(' '));
+        '<strong>'+esc(w.def.name)+'</strong> fires — '+hitText+' '+resultParts.join(' ')
+        +' <span class="log-dice-detail">(Roll '+finalRoll+' — '+diceStr+' | '+dmgDetail+')</span>');
       // Damage dice roll after the hit line types out
       if(!battle.autoMode) addLogDice(dmg._die);
       // Wound sync (boom + shake + damage lights) after damage dice settle
