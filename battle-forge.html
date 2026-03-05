@@ -1017,9 +1017,9 @@ function resolveAttacks(attSide,defSide){
       mod+=jokerBonus+linkedHit;
       var finalRoll=roll.total+mod;
 
-      var traitStr=formatDice(roll.trait)+(roll.trait.aced?' (aced)':'');
-      var wildStr=formatDice(roll.wild)+(roll.wild.aced?' (aced)':'');
-      var usedStr=roll.usedWild?'Wild d6: <em>'+wildStr+'</em> — used':'d'+crewDie+': '+traitStr+', Wild d6: '+wildStr;
+      var traitVal=roll.trait.total+(roll.trait.aced?' (aced)':'');
+      var wildVal=roll.wild.total+(roll.wild.aced?' (aced)':'');
+      var usedStr='Roll ['+traitVal+'], Wild die ['+wildVal+']'+(roll.usedWild?' — Wild used':'');
       var diceStr='<span class="log-dice-detail">'+usedStr+'</span>';
       var rollTotal=finalRoll-(mod||0);
 
