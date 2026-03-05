@@ -199,7 +199,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="navLinks">
     <li><a href="/">Home</a></li>
-    <li><a href="/vehicle-forge-v2.1.html">Vehicle Forge</a></li>
+    <li><a href="/vehicle-forge">Vehicle Forge</a></li>
     <li><a href="/battle-forge.html" class="active">Battle Forge</a></li>
     <li><a href="/#arrath">World of Arr'ath</a></li>
   </ul>
@@ -1627,9 +1627,9 @@ if(!allVehicles.length){
   // No VF packs installed — inject demo vehicles so the tool is immediately usable
   DEMO_VEHICLES.forEach(function(v){allVehicles.push(v)});
   usingDemos=true;
-  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>8 demo vehicles loaded across four theatres — age of sail, WWII dogfight, mech skirmish, and space combat. Drag one into each slot and press <strong>FIGHT</strong>. Install packs in the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a> to unlock the full library.</em></div>';
+  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>8 demo vehicles loaded across four theatres — age of sail, WWII dogfight, mech skirmish, and space combat. Drag one into each slot and press <strong>FIGHT</strong>. Install packs in the <a href="/vehicle-forge" style="color:var(--accent)">Vehicle Forge</a> to unlock the full library.</em></div>';
 }else{
-  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>'+allVehicles.length+' armed vehicles ready. Click a drop zone to select, or send vehicles from the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a>.</em></div>'}
+  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>'+allVehicles.length+' armed vehicles ready. Click a drop zone to select, or send vehicles from the <a href="/vehicle-forge" style="color:var(--accent)">Vehicle Forge</a>.</em></div>'}
 
 
 // URL parameter loading: ?a=VehicleName&b=VehicleName
