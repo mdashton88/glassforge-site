@@ -1255,6 +1255,10 @@ function initDiceBox(){
     box.init().then(function(){
       diceBox=box;
       diceBoxReady=true;
+      // Force canvas to fill container — DiceBox sizes from canvas.clientWidth/Height
+      var canvas=document.querySelector('#dice-box-container canvas');
+      if(canvas){canvas.style.width='100%';canvas.style.height='100%';}
+      box.resizeWorld();
     }).catch(function(e){console.warn('Dice Box init failed:',e)});
   }).catch(function(e){console.warn('Dice Box load failed:',e)})}
 
