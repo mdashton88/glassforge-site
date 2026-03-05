@@ -580,7 +580,7 @@ footer a:hover { color: var(--gold); }
   // bodyOffset:false — pages handle their own padding-top:72px via .page CSS.
   // footer:true — show the SW fan licence footer at the bottom.
   document.addEventListener('DOMContentLoaded', function(){
-    initSiteNav({ active:'home', bodyOffset:false, footer:true });
+    initSiteNav({ active:'home', bodyOffset:false, footer:true, footerVersion:'Glassforge Games' });
     // Patch Home and Arr'ath links to use SPA routing
     document.querySelectorAll('#gn-links a').forEach(function(a){
       var href = a.getAttribute('href');
@@ -774,11 +774,7 @@ footer a:hover { color: var(--gold); }
 <!-- ════════════════════════════════════════════════════════════ -->
 <!-- FOOTER (all pages)                                           -->
 <!-- ════════════════════════════════════════════════════════════ -->
-<footer>
-  <a href="/legal" title="Savage Worlds Fan Product"><img src="sw-fan-logo.png" alt="Savage Worlds Fan Product" style="height:40px;vertical-align:middle;margin-right:8px;margin-bottom:8px;opacity:0.85"></a>
-  <div class="footer-brand">Glassforge Games</div>
-  <p>&copy; 2026 Glassforge Games Ltd. All rights reserved. <a href="/legal">Legal & Licensing</a></p>
-</footer>
+
 
 <!-- ════════════════════════════════════════════════════════════ -->
 <!-- SCRIPTS                                                      -->
