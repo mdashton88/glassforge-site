@@ -6,6 +6,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Battle Forge — Glassforge Games</title>
 <meta name="description" content="Vehicle combat simulator for Savage Worlds. Drag two vehicles into the arena and watch them fight.">
+<meta property="og:title" content="Battle Forge — Savage Worlds Vehicle Combat Simulator">
+<meta property="og:description" content="Drag two vehicles into the arena and fight. Initiative cards, critical hits, crew quality — all the Fast Furious Fun of Savage Worlds vehicle combat. Free, no login required.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://glassforge.pages.dev/battle-forge">
+<meta property="og:image" content="https://glassforge.pages.dev/og-vehicle-forge.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Glassforge Games">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Battle Forge — Savage Worlds Vehicle Combat Simulator">
+<meta name="twitter:description" content="Drag two vehicles into the arena and fight. Initiative cards, critical hits, crew quality — all the Fast Furious Fun of Savage Worlds vehicle combat. Free, no login required.">
+<meta name="twitter:image" content="https://glassforge.pages.dev/og-vehicle-forge.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
@@ -1485,13 +1497,58 @@ function resetBattle(){
 // ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
+// ═══════════════════════════════════════════
+// DEMO VEHICLES — fallback when no VF packs installed
+// Four vehicles spanning eras: a taster, not a full library.
+// ═══════════════════════════════════════════
+var DEMO_VEHICLES=[
+  {
+    name:'WW2 Medium Tank',
+    size:7,loco:'tracked',
+    toughLevel:1,armourLevel:5,speedLevel:0,handlingLevel:0,woundsLevel:0,crewLevel:0,
+    weapons:[{weaponId:'tank_gun_75mm',mount:'turret',linked:0},{weaponId:'hmg',mount:'fixed',linked:0}],
+    mods:{},specials:[],_pack:'demo',
+    desc:'The workhorse of mid-war armoured warfare. Thick hide, hard punch, and a hull gun for everything else.'
+  },
+  {
+    name:'Third-Rate Ship of the Line',
+    size:12,loco:'water_sail',
+    toughLevel:0,armourLevel:3,speedLevel:-1,handlingLevel:-1,woundsLevel:0,crewLevel:2,
+    weapons:[{weaponId:'med_cannon_bp',mount:'broadside',linked:2},{weaponId:'carronade',mount:'fixed',linked:0}],
+    mods:{},specials:[],_pack:'demo',
+    desc:'Seventy-four guns and four hundred souls. The backbone of the age of sail.'
+  },
+  {
+    name:'Modern Main Battle Tank',
+    size:8,loco:'tracked',
+    toughLevel:2,armourLevel:7,speedLevel:0,handlingLevel:0,woundsLevel:0,crewLevel:0,
+    weapons:[{weaponId:'tank_gun_120mm',mount:'turret',linked:0},{weaponId:'hmg',mount:'fixed',linked:0}],
+    mods:{},specials:[],_pack:'demo',
+    desc:'Composite armour, smoothbore 120mm, and a fire-control system that shoots first and asks questions later.'
+  },
+  {
+    name:'Sci-Fi Gunship',
+    size:6,loco:'vtol',
+    toughLevel:0,armourLevel:3,speedLevel:2,handlingLevel:1,woundsLevel:0,crewLevel:0,
+    weapons:[{weaponId:'laser_heavy',mount:'turret',linked:0},{weaponId:'missile_light',mount:'fixed',linked:0}],
+    mods:{},specials:[],_pack:'demo',
+    desc:'Fast, lethal, and built to kill things three times its size. What it lacks in armour it makes up for in speed and firepower.'
+  }
+];
+
 loadBFSettings();
 loadVehicles();
 buildDeck();
+
+var usingDemos=false;
 if(!allVehicles.length){
-  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>No armed vehicles found. Open the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a> first to install vehicle packs, then return here.</em></div>'}
-else{
+  // No VF packs installed — inject demo vehicles so the tool is immediately usable
+  DEMO_VEHICLES.forEach(function(v){allVehicles.push(v)});
+  usingDemos=true;
+  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>Showing 4 demo vehicles — drag one into each slot and press <strong>FIGHT</strong>. Install packs in the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a> to unlock the full library.</em></div>';
+}else{
   document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>'+allVehicles.length+' armed vehicles ready. Click a drop zone to select, or send vehicles from the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a>.</em></div>'}
+
 
 // URL parameter loading: ?a=VehicleName&b=VehicleName
 (function loadFromURL(){
