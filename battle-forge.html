@@ -937,6 +937,7 @@ function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g
 // ═══════════════════════════════════════════
 function nextRound(){
   if(battle.over)return;
+  diceRollPending=false; // Allow one dice flourish per round
   battle.round++;
   document.getElementById('roundBadge').textContent='Round '+battle.round;
 
@@ -1221,6 +1222,7 @@ function applyDiceVolume(v){
 // ═══════════════════════════════════════════
 var diceBox=null;
 var diceBoxReady=false;
+var diceRollPending=false; // Only show first roll per round; subsequent calls skip to avoid thrashing
 
 function initDiceBox(){
   if(diceBox||!bfSettings.diceEnabled)return;
@@ -1266,6 +1268,8 @@ function hideDiceOverlay(){
 
 function triggerDiceRoll(notation){
   if(!bfSettings.diceEnabled||!diceBoxReady||!diceBox)return;
+  if(diceRollPending)return; // Already showing dice this round — skip
+  diceRollPending=true;
   showDiceOverlay();
   diceBox.clear();
   diceBox.roll(notation).catch(function(e){console.warn('Dice roll error:',e)})}
