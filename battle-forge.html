@@ -192,7 +192,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
   </ul>
 </nav>
 
-<div class="app">
+
+  <!-- ═══ DICE BOX OVERLAY ═══ -->
+  <div id="dice-box-container" style="position:fixed;top:72px;left:0;right:0;bottom:0;pointer-events:none;z-index:500;opacity:0;transition:opacity 0.3s;"></div>
+
   <!-- ═══ LEFT: COMBATANT A ═══ -->
   <div class="combatant-panel" id="panelA">
     <div class="combatant-header">
@@ -244,6 +247,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
       <button class="header-btn" id="btnAuto" onclick="autoFight()" disabled>▶ Auto (10 rounds)</button>
       <button class="header-btn" onclick="resetBattle()">↺ Reset</button>
       <button class="header-btn" onclick="copyLog()">📋 Copy Log</button>
+      <button class="header-btn" id="dice-toggle-btn" onclick="setDiceBoxEnabled(!diceBoxEnabled)" style="color:var(--text-dim)">🎲 3D Dice: OFF</button>
       <a href="/battle-forge-manual.pdf" target="_blank" class="header-btn" style="text-decoration:none;display:inline-block;border-color:var(--green);color:var(--green);font-size:13px">📖 Manual</a>
     </div>
     <div class="bf-footer">
@@ -615,6 +619,8 @@ function rollTraitWithWild(traitDie){
   var wild=rollDieDetailed(6);
   var best=Math.max(trait.total,wild.total);
   var usedWild=wild.total>=trait.total;
+  // Dice flourish: show the trait die + d6 wild die
+  triggerDiceRoll('1d'+traitDie+'+1d6');
   return{total:best,trait:trait,wild:wild,usedWild:usedWild}}
 
 function parseDamage(str){
@@ -629,6 +635,9 @@ function rollDamage(wpn,raised){
   for(var i=0;i<d.count;i++){var r=rollDieDetailed(d.sides);dice.push(r);total+=r.total}
   if(raised){var bonus=rollDieDetailed(6);dice.push(bonus);total+=bonus.total}
   total+=d.bonus;
+  // Dice flourish: show damage dice
+  var notation=d.count+'d'+d.sides+(raised?'+1d6':'');
+  triggerDiceRoll(notation);
   return{total:total,dice:dice,bonus:d.bonus,raised:raised}}
 
 function formatDice(detailed){
@@ -1068,6 +1077,64 @@ var logQueue=[];
 var logTyping=false;
 var lastRenderedWoundsA=0;
 var lastRenderedWoundsB=0;
+
+// ═══════════════════════════════════════════
+// DICE BOX — 3D DICE FLOURISH
+// ═══════════════════════════════════════════
+var diceBox=null;
+var diceBoxReady=false;
+var diceBoxEnabled=false; // off by default — user opts in
+
+function initDiceBox(){
+  if(diceBox||!diceBoxEnabled)return;
+  import('/dice-box/dice-box.es.min.js').then(function(mod){
+    var DiceBox=mod.default||mod.DiceBox||Object.values(mod)[0];
+    var box=new DiceBox('#dice-box-container',{
+      assetPath:'/dice-box/assets/',
+      theme:'default',
+      offscreen:false,
+      scale:7,
+      gravity:1,
+      mass:1,
+      friction:0.8,
+      restitution:0,
+      angularDamping:0.4,
+      linearDamping:0.4,
+      spinForce:4,
+      throwForce:4,
+      startingHeight:8,
+      settleTimeout:4000,
+      onBeforeRoll:function(){},
+      onRollComplete:function(results){
+        // Auto-hide after dice settle
+        setTimeout(function(){hideDiceOverlay()},2200)}
+    });
+    box.init().then(function(){
+      diceBox=box;
+      diceBoxReady=true;
+    }).catch(function(e){console.warn('Dice Box init failed:',e)});
+  }).catch(function(e){console.warn('Dice Box load failed:',e)})}
+
+function showDiceOverlay(){
+  var el=document.getElementById('dice-box-container');
+  if(el)el.style.opacity='1';}
+
+function hideDiceOverlay(){
+  var el=document.getElementById('dice-box-container');
+  if(el)el.style.opacity='0';}
+
+function triggerDiceRoll(notation){
+  if(!diceBoxEnabled||!diceBoxReady||!diceBox)return;
+  showDiceOverlay();
+  diceBox.clearDice();
+  diceBox.roll(notation).catch(function(e){console.warn('Dice roll error:',e)})}
+
+function setDiceBoxEnabled(val){
+  diceBoxEnabled=val;
+  var btn=document.getElementById('dice-toggle-btn');
+  if(btn){btn.textContent=val?'🎲 3D Dice: ON':'🎲 3D Dice: OFF';
+    btn.style.color=val?'var(--gold)':'var(--text-dim)';}
+  if(val&&!diceBox)initDiceBox();}
 
 // Pre-load audio
 var twKeys=[new Audio('/sfx/key_1.mp3'),new Audio('/sfx/key_2.mp3'),new Audio('/sfx/key_3.mp3')];
