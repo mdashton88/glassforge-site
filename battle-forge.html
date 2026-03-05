@@ -1075,9 +1075,11 @@ function resolveAttacks(attSide,defSide){
         critParts.push('Critical hit: <span class="log-crit">'+crit.result+'</span>');
       }
 
-      // Out of Control check — but only if not already wrecked
-      if(battle['wounds'+defSide]<battle['maxWounds'+defSide]){
-        var oocRoll=rollTraitWithWild(crewDie);
+      // Out of Control check — only on actual wounds, only if not already wrecked
+      // Uses defender's crew die (it's their driver fighting for control)
+      if(woundsDealt>0&&battle['wounds'+defSide]<battle['maxWounds'+defSide]){
+        var defCrewDie=battle['crewDie'+defSide];
+        var oocRoll=rollTraitWithWild(defCrewDie);
         var oocMod=-Math.min(battle['wounds'+defSide],4);
         var oocTotal=oocRoll.total+oocMod;
         var oocDice=(oocRoll.usedWild?'Wild d6: '+formatDice(oocRoll.wild):formatDice(oocRoll.trait))+(oocMod?' '+oocMod:'');
@@ -1126,9 +1128,12 @@ function resolveAttacks(attSide,defSide){
       // Damage dice roll after the hit line types out
       if(!battle.autoMode) addLogDice(dmg._die);
       // Wound sync (boom + shake + damage lights) after damage dice settle
+      // Snapshot wound state NOW so playback shows wounds at the correct narrative moment
       if(woundsDealt>0||wrecked){
         if(!battle.autoMode){
-          logQueue.push({woundSync:true});
+          logQueue.push({woundSync:true,
+            snapA:battle.woundsA,snapB:battle.woundsB,
+            maxA:battle.maxWoundsA,maxB:battle.maxWoundsB});
           if(!logTyping) processLogQueue()}}
       // Critical hit + OOC — types out after the boom settles
       // Show OOC dice roll before the crit line types
@@ -1390,17 +1395,29 @@ function processLogQueue(){
   var item=logQueue.shift();
   // Wound sync — render wounds with effects after typewriter catches up
   if(item.woundSync){
-    var newA=battle.woundsA-lastRenderedWoundsA;
-    var newB=battle.woundsB-lastRenderedWoundsB;
+    // Use snapshot wound state — not live battle state — so LEDs match the narrative moment
+    var snapA=item.snapA!==undefined?item.snapA:battle.woundsA;
+    var snapB=item.snapB!==undefined?item.snapB:battle.woundsB;
+    var maxA=item.maxA!==undefined?item.maxA:battle.maxWoundsA;
+    var maxB=item.maxB!==undefined?item.maxB:battle.maxWoundsB;
+    var newA=snapA-lastRenderedWoundsA;
+    var newB=snapB-lastRenderedWoundsB;
     var maxNew=Math.max(newA,newB);
-    var isWreck=battle.woundsA>=battle.maxWoundsA||battle.woundsB>=battle.maxWoundsB;
+    var isWreck=snapA>=maxA||snapB>=maxB;
     if(maxNew>0){
       twExplosion(maxNew,isWreck);
       twScreenShake(maxNew);
     }
+    // Temporarily override battle wounds for rendering, then restore
+    var realA=battle.woundsA,realB=battle.woundsB;
+    var realMaxA=battle.maxWoundsA,realMaxB=battle.maxWoundsB;
+    battle.woundsA=snapA;battle.woundsB=snapB;
+    battle.maxWoundsA=maxA;battle.maxWoundsB=maxB;
     renderWounds('A');renderWounds('B');
-    lastRenderedWoundsA=battle.woundsA;
-    lastRenderedWoundsB=battle.woundsB;
+    battle.woundsA=realA;battle.woundsB=realB;
+    battle.maxWoundsA=realMaxA;battle.maxWoundsB=realMaxB;
+    lastRenderedWoundsA=snapA;
+    lastRenderedWoundsB=snapB;
     var pauseAfter=maxNew>0?(isWreck?WRECK_SFX_DUR:WOUND_SFX_DUR)*1000:100;
     setTimeout(processLogQueue,pauseAfter);
     return}
@@ -1664,7 +1681,7 @@ if(!allVehicles.length){
   usingDemos=true;
   document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>8 demo vehicles loaded across four theatres — age of sail, WWII dogfight, mech skirmish, and space combat. Drag one into each slot and press <strong>FIGHT</strong>. Install packs in the <a href="/vehicle-forge" style="color:var(--accent)">Vehicle Forge</a> to unlock the full library.</em></div>';
 }else{
-  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>'+allVehicles.length+' armed vehicles ready. Click a drop zone to select, or send vehicles from the <a href="/vehicle-forge" style="color:var(--accent)">Vehicle Forge</a>.</em></div>'}
+  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>'+allVehicles.length+' vehicles ready. Click a drop zone to select, or send vehicles from the <a href="/vehicle-forge" style="color:var(--accent)">Vehicle Forge</a>.</em></div>'}
 
 
 // URL parameter loading: ?a=VehicleName&b=VehicleName
