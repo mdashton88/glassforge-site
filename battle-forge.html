@@ -191,7 +191,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
 
 
   <!-- ═══ DICE BOX OVERLAY ═══ -->
-  <div id="dice-box-container" style="position:fixed;top:72px;left:0;right:0;bottom:0;pointer-events:none;z-index:500;visibility:hidden;"></div>
+  <div id="dice-box-container" style="position:fixed;top:72px;left:0;right:0;bottom:0;pointer-events:none;z-index:500;visibility:hidden;opacity:0;"></div>
 
   <!-- ═══ SETTINGS MODAL ═══ -->
   <div id="settings-modal" style="display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
@@ -1259,6 +1259,7 @@ function applyDiceTheme(v){
 // ═══════════════════════════════════════════
 var diceBox=null;
 var diceBoxReady=false;
+var diceSettleCallback=null; // Set before each roll; fired by onRollComplete
 var diceQueue=[];      // Queued notation strings waiting to roll
 var diceRolling=false; // True while a roll is in-flight
 
@@ -1278,18 +1279,21 @@ function initDiceBox(){
       mass:1,
       friction:0.8,
       restitution:0,
-      angularDamping:0.4,
-      linearDamping:0.4,
-      spinForce:4,
-      throwForce:4,
-      startingHeight:8,
-      settleTimeout:4000,
+      angularDamping:0.5,
+      linearDamping:0.5,
+      spinForce:3.2,
+      throwForce:3.2,
+      startingHeight:6,
+      settleTimeout:3500,
       onBeforeRoll:function(){
         if(bfSettings.audioEnabled&&twDiceRattle){
           var snd=twDiceRattle.cloneNode();
           snd.volume=bfSettings.diceVolume/100;
           snd.play().catch(function(){});}},
-      onRollComplete:function(){}
+      onRollComplete:function(){
+        // Dice have physically settled — start the 1s pause then fade
+        if(diceSettleCallback)diceSettleCallback();
+      }
     });
     // Container uses visibility:hidden so canvas always has real dimensions for init
     box.init().then(function(){
@@ -1305,11 +1309,28 @@ function initDiceBox(){
 
 function showDiceOverlay(){
   var el=document.getElementById('dice-box-container');
-  if(el)el.style.visibility='visible';}
+  if(!el)return;
+  el.style.transition='opacity 0.15s';
+  el.style.opacity='1';
+  el.style.visibility='visible';}
 
 function hideDiceOverlay(){
   var el=document.getElementById('dice-box-container');
-  if(el)el.style.visibility='hidden';}
+  if(!el)return;
+  el.style.transition='none';
+  el.style.opacity='0';
+  el.style.visibility='hidden';}
+
+function fadeDiceOverlay(cb){
+  var el=document.getElementById('dice-box-container');
+  if(!el){if(cb)cb();return;}
+  el.style.transition='opacity 0.4s';
+  el.style.opacity='0';
+  setTimeout(function(){
+    el.style.visibility='hidden';
+    el.style.transition='none';
+    if(cb)cb();
+  },420);}
 
 function triggerDiceRoll(notation){
   if(!bfSettings.diceEnabled||!diceBoxReady||!diceBox)return;
@@ -1322,8 +1343,17 @@ function processDiceQueue(){
   var notation=diceQueue.shift();
   showDiceOverlay();
   diceBox.clear();
+  // Fire next roll after settle + 1s pause; fallback timeout in case onRollComplete misfires
+  var fired=false;
+  function onSettle(){
+    if(fired)return; fired=true;
+    diceSettleCallback=null;
+    setTimeout(function(){fadeDiceOverlay(function(){processDiceQueue();});},1000);
+  }
+  diceSettleCallback=onSettle;
+  setTimeout(function(){onSettle();},3800); // fallback
   diceBox.roll(notation).catch(function(e){console.warn('Dice roll error:',e);});
-  setTimeout(processDiceQueue,900);}
+}
 
 // Pre-load audio
 var twDiceRattle=new Audio('/sfx/dice-rattle.mp3');
@@ -1455,9 +1485,15 @@ function processLogQueue(){
       snd.volume=bfSettings.diceVolume/100;
       snd.play().catch(function(){});}
     diceBox.clear();
+    var fired2=false;
+    function onSettle2(){
+      if(fired2)return; fired2=true;
+      diceSettleCallback=null;
+      setTimeout(function(){fadeDiceOverlay(function(){setTimeout(processLogQueue,200);});},1000);
+    }
+    diceSettleCallback=onSettle2;
+    setTimeout(function(){onSettle2();},3800); // fallback
     diceBox.roll(item.notation).catch(function(e){console.warn('Dice roll error:',e);});
-    // Wait for dice to settle before continuing the log
-    setTimeout(function(){hideDiceOverlay();setTimeout(processLogQueue,200);},1800);
     return}
   if(item.raw){
     addLogRawInstant(item.side,item.html);
