@@ -288,7 +288,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
       </div>
     </div>
     <div class="combat-bar">
-      <button class="header-btn primary" id="btnFight" onclick="battle.autoMode=false;nextRound()" disabled>⚔ Fight</button>
+      <button class="header-btn primary" id="btnFight" onclick="battle.autoMode=false;nextRound();document.getElementById('btnPause').disabled=false;" disabled>⚔ Fight</button>
       <button class="header-btn" id="btnAuto" onclick="autoFight()" disabled>▶ Auto (10 rounds)</button>
       <button class="header-btn" id="btnPause" onclick="togglePause()" disabled style="min-width:90px">⏸ Pause</button>
       <button class="header-btn" onclick="resetBattle()">↺ Reset</button>
@@ -896,7 +896,6 @@ function loadCombatant(side,v){
   if(battle.vehicleA&&battle.vehicleB){
     document.getElementById('btnFight').disabled=false;
     document.getElementById('btnAuto').disabled=false;
-    document.getElementById('btnPause').disabled=false;
     document.getElementById('roundBadge').textContent='Ready — Round 0'}
 }
 
@@ -1380,7 +1379,7 @@ function addLogRawInstant(side,html){
 
 function processLogQueue(){
   if(logPaused){logTyping=false;return}
-  if(!logQueue.length){logTyping=false;updatePauseBtn();return}
+  if(!logQueue.length){logTyping=false;logPaused=false;document.getElementById('btnPause').disabled=true;updatePauseBtn();return}
   logTyping=true;
   var item=logQueue.shift();
   // Wound sync — render wounds with effects after typewriter catches up
