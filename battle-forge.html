@@ -228,6 +228,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
           <input type="range" id="settingDiceScale" min="4" max="12" value="7" oninput="applyDiceScale(+this.value)" style="width:100%;accent-color:var(--gold)">
           <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-top:2px"><span>Small</span><span id="diceScaleVal">7</span><span>Large</span></div>
         </div>
+        <div id="diceVolumeRow" style="margin-top:12px;opacity:0.4;pointer-events:none">
+          <label style="font-size:14px;color:var(--text-dim);display:block;margin-bottom:4px">Rattle Volume</label>
+          <input type="range" id="settingDiceVolume" min="0" max="100" value="60" oninput="applyDiceVolume(+this.value)" style="width:100%;accent-color:var(--gold)">
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-top:2px"><span>Off</span><span id="diceVolumeVal">60%</span><span>Loud</span></div>
+        </div>
       </div>
 
       <!-- ABOUT -->
@@ -1123,7 +1128,7 @@ var lastRenderedWoundsB=0;
 // ═══════════════════════════════════════════
 // SETTINGS — PERSIST TO LOCALSTORAGE
 // ═══════════════════════════════════════════
-var bfSettings={audioEnabled:true,shakeEnabled:true,diceEnabled:false,diceScale:7};
+var bfSettings={audioEnabled:true,shakeEnabled:true,diceEnabled:false,diceScale:7,diceVolume:60};
 
 function loadBFSettings(){
   try{var s=localStorage.getItem('glassforge-bf-settings');if(s){var p=JSON.parse(s);
@@ -1131,6 +1136,7 @@ function loadBFSettings(){
     if(p.shakeEnabled===false)bfSettings.shakeEnabled=false;
     if(p.diceEnabled===true)bfSettings.diceEnabled=true;
     if(p.diceScale)bfSettings.diceScale=p.diceScale;
+    if(p.diceVolume!==undefined)bfSettings.diceVolume=p.diceVolume;
   }}catch(e){}}
 
 function saveBFSettings(){
@@ -1153,12 +1159,20 @@ function updateSettingsDisplay(){
   var sl=document.getElementById('settingDiceScale');
   var sv=document.getElementById('diceScaleVal');
   var sr=document.getElementById('diceScaleRow');
+  var vl=document.getElementById('settingDiceVolume');
+  var vv=document.getElementById('diceVolumeVal');
+  var vr=document.getElementById('diceVolumeRow');
   if(at){at.textContent=bfSettings.audioEnabled?'Enabled':'Disabled';at.style.color=bfSettings.audioEnabled?'var(--green)':'var(--text-dim)';}
   if(st){st.textContent=bfSettings.shakeEnabled?'Enabled':'Disabled';st.style.color=bfSettings.shakeEnabled?'var(--green)':'var(--text-dim)';}
   if(dt){dt.textContent=bfSettings.diceEnabled?'Enabled':'Disabled';dt.style.color=bfSettings.diceEnabled?'var(--gold)':'var(--text-dim)';}
   if(sl)sl.value=bfSettings.diceScale;
   if(sv)sv.textContent=bfSettings.diceScale;
-  if(sr){sr.style.opacity=bfSettings.diceEnabled?'1':'0.4';sr.style.pointerEvents=bfSettings.diceEnabled?'auto':'none';}}
+  if(vl)vl.value=bfSettings.diceVolume;
+  if(vv)vv.textContent=bfSettings.diceVolume+'%';
+  var diceRowsActive=bfSettings.diceEnabled?'1':'0.4';
+  var diceRowsEvents=bfSettings.diceEnabled?'auto':'none';
+  if(sr){sr.style.opacity=diceRowsActive;sr.style.pointerEvents=diceRowsEvents;}
+  if(vr){vr.style.opacity=diceRowsActive;vr.style.pointerEvents=diceRowsEvents;}}
 
 function toggleSettingAudio(){
   bfSettings.audioEnabled=!bfSettings.audioEnabled;
@@ -1177,6 +1191,12 @@ function applyDiceScale(v){
   bfSettings.diceScale=v;
   var sv=document.getElementById('diceScaleVal');if(sv)sv.textContent=v;
   if(diceBox)diceBox.updateConfig({scale:v});
+  saveBFSettings();}
+
+function applyDiceVolume(v){
+  bfSettings.diceVolume=v;
+  var vv=document.getElementById('diceVolumeVal');if(vv)vv.textContent=v+'%';
+  if(twDiceRattle)twDiceRattle.volume=v/100;
   saveBFSettings();}
 
 // ═══════════════════════════════════════════
@@ -1204,7 +1224,11 @@ function initDiceBox(){
       throwForce:4,
       startingHeight:8,
       settleTimeout:4000,
-      onBeforeRoll:function(){},
+      onBeforeRoll:function(){
+        if(bfSettings.audioEnabled&&twDiceRattle){
+          var snd=twDiceRattle.cloneNode();
+          snd.volume=bfSettings.diceVolume/100;
+          snd.play().catch(function(){});}},
       onRollComplete:function(){
         setTimeout(function(){hideDiceOverlay()},2200)}
     });
@@ -1229,6 +1253,8 @@ function triggerDiceRoll(notation){
   diceBox.roll(notation).catch(function(e){console.warn('Dice roll error:',e)})}
 
 // Pre-load audio
+var twDiceRattle=new Audio('/sfx/dice-rattle.mp3');
+twDiceRattle.volume=bfSettings.diceVolume/100;
 var twKeys=[new Audio('/sfx/key_1.mp3'),new Audio('/sfx/key_2.mp3'),new Audio('/sfx/key_3.mp3')];
 var twWoundAudio=new Audio('/sfx/boom-wound.mp3');
 var twWreckAudio=new Audio('/sfx/boom-wreck.mp3');
