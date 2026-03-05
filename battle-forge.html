@@ -684,7 +684,9 @@ function rollTraitWithWild(traitDie){
   var best=Math.max(trait.total,wild.total);
   var usedWild=wild.total>=trait.total;
   // Dice flourish deferred — caller queues diceSync at the right narrative moment
-  return{total:best,trait:trait,wild:wild,usedWild:usedWild,_die:'1d'+traitDie+'+1d6'}}
+  // _die is an array: trait die normal colour, wild die gold
+  var _die=[{qty:1,sides:traitDie},{qty:1,sides:6,themeColor:'#d4b04a'}];
+  return{total:best,trait:trait,wild:wild,usedWild:usedWild,_die:_die}}
 
 function parseDamage(str){
   // Parse "2d8+1", "4d10", "Str+2d6" etc
@@ -698,9 +700,11 @@ function rollDamage(wpn,raised){
   for(var i=0;i<d.count;i++){var r=rollDieDetailed(d.sides);dice.push(r);total+=r.total}
   if(raised){var bonus=rollDieDetailed(6);dice.push(bonus);total+=bonus.total}
   total+=d.bonus;
-  var notation=d.count+'d'+d.sides+(raised?'+1d6':'');
+  // _die is an array — raise die is gold to match wild die convention
+  var _die=[{qty:d.count,sides:d.sides}];
+  if(raised)_die.push({qty:1,sides:6,themeColor:'#d4b04a'});
   // Dice flourish deferred — caller queues diceSync at the right narrative moment
-  return{total:total,dice:dice,bonus:d.bonus,raised:raised,_die:notation}}
+  return{total:total,dice:dice,bonus:d.bonus,raised:raised,_die:_die}}
 
 function formatDice(detailed){
   return detailed.rolls.map(function(r,i){
@@ -1260,6 +1264,7 @@ function applyDiceTheme(v){
 var diceBox=null;
 var diceBoxReady=false;
 var diceSettleCallback=null; // Set before each roll; fired by onRollComplete
+var diceAcePending=0;         // Count of in-flight acing dice — delays settle callback
 // Re-measure canvas if window is resized (covers edge cases like DevTools opening)
 window.addEventListener('resize',function(){
   if(diceBox&&diceBoxReady)diceBox.resizeWorld();
@@ -1294,8 +1299,23 @@ function initDiceBox(){
           var snd=twDiceRattle.cloneNode();
           snd.volume=bfSettings.diceVolume/100;
           snd.play().catch(function(){});}},
+      onDieComplete:function(results){
+        // Check each die — if it landed on max, add an acing die in burst colour
+        results.forEach(function(group){
+          Object.values(group.rolls||{}).forEach(function(die){
+            var sides=die.sides;
+            if(typeof sides==='string')sides=parseInt(sides.replace(/[^0-9]/g,''));
+            if(Number.isInteger(sides)&&sides>1&&die.value===sides){
+              // Ace! Add another die of same type — bright orange burst
+              diceAcePending++;
+              diceBox.add([{qty:1,sides:sides,themeColor:'#ff6a00'}]);
+            }
+          });
+        });
+      },
       onRollComplete:function(){
-        // Dice have physically settled — start the 1s pause then fade
+        // Only fire settle callback when all acing additions have also completed
+        if(diceAcePending>0){diceAcePending--;return;}
         if(diceSettleCallback)diceSettleCallback();
       }
     });
@@ -1352,6 +1372,7 @@ function processDiceQueue(){
   diceRolling=true;
   var notation=diceQueue.shift();
   showDiceOverlay();
+  diceAcePending=0;
   diceBox.clear();
   // Fire next roll after settle + 1s pause; fallback timeout in case onRollComplete misfires
   var fired=false;
@@ -1429,6 +1450,7 @@ function addLog(side,actor,text){
 
 function addLogDice(notation){
   // Queue a dice flourish as an in-sequence event — fires after previous text finishes typing
+  // notation may be a string ('1d8') or an array [{qty,sides,themeColor?},...]
   if(battle.autoMode||!bfSettings.diceEnabled||!diceBoxReady||!diceBox) return;
   logQueue.push({diceSync:true,notation:notation});
   if(!logTyping) processLogQueue()}
@@ -1494,6 +1516,7 @@ function processLogQueue(){
       var snd=twDiceRattle.cloneNode();
       snd.volume=bfSettings.diceVolume/100;
       snd.play().catch(function(){});}
+    diceAcePending=0;
     diceBox.clear();
     var fired2=false;
     function onSettle2(){
