@@ -336,6 +336,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
 <div class="picker-overlay" id="pickerOverlay">
   <div class="picker-header">
     <h2 id="pickerTitle">Select Vehicle</h2>
+      <span id="pickerCount" style="font-family:'Crimson Pro',serif;font-size:14px;color:var(--text-dim);margin-left:16px"></span>
     <div style="display:flex;gap:12px;align-items:center">
       <input type="text" class="picker-search" id="pickerSearch" placeholder="Search vehicles..." oninput="filterPicker()">
       <button class="header-btn" onclick="closePicker()">✕ Close</button>
@@ -624,8 +625,7 @@ function loadVehicles(){
       }else{seen[key]=v}
     });
     for(var k in seen)allVehicles.push(seen[k])}catch(e){}
-  // Sort alphabetically
-  allVehicles.sort(function(a,b){return a.name.localeCompare(b.name)});
+  // Order matches Vehicle Forge hangar (localStorage insertion order — no re-sort)
   // Load extension weapon definitions (on top of core WEAPONS)
   try{var ext=JSON.parse(localStorage.getItem('glassforge-cvf-extensions')||'[]');
     ext.forEach(function(e){
@@ -803,6 +803,12 @@ function renderPicker(filter){
   var grid=document.getElementById('pickerGrid');
   var q=(filter||'').toLowerCase();
   var html='';
+  var shown=0;
+  allVehicles.forEach(function(v,i){
+    if(q&&v.name.toLowerCase().indexOf(q)<0)return;
+    shown++});
+  var countEl=document.getElementById('pickerCount');
+  if(countEl)countEl.textContent=shown+' vehicle'+(shown!==1?'s':'')+(q?' found':' available');
   allVehicles.forEach(function(v,i){
     if(q&&v.name.toLowerCase().indexOf(q)<0)return;
     var f=getFrame(v.size);
