@@ -664,9 +664,8 @@ function rollTraitWithWild(traitDie){
   var wild=rollDieDetailed(6);
   var best=Math.max(trait.total,wild.total);
   var usedWild=wild.total>=trait.total;
-  // Dice flourish: show the trait die + d6 wild die
-  triggerDiceRoll('1d'+traitDie+'+1d6');
-  return{total:best,trait:trait,wild:wild,usedWild:usedWild}}
+  // Dice flourish deferred — caller queues diceSync at the right narrative moment
+  return{total:best,trait:trait,wild:wild,usedWild:usedWild,_die:'1d'+traitDie+'+1d6'}}
 
 function parseDamage(str){
   // Parse "2d8+1", "4d10", "Str+2d6" etc
@@ -680,10 +679,9 @@ function rollDamage(wpn,raised){
   for(var i=0;i<d.count;i++){var r=rollDieDetailed(d.sides);dice.push(r);total+=r.total}
   if(raised){var bonus=rollDieDetailed(6);dice.push(bonus);total+=bonus.total}
   total+=d.bonus;
-  // Dice flourish: show damage dice
   var notation=d.count+'d'+d.sides+(raised?'+1d6':'');
-  triggerDiceRoll(notation);
-  return{total:total,dice:dice,bonus:d.bonus,raised:raised}}
+  // Dice flourish deferred — caller queues diceSync at the right narrative moment
+  return{total:total,dice:dice,bonus:d.bonus,raised:raised,_die:notation}}
 
 function formatDice(detailed){
   return detailed.rolls.map(function(r,i){
@@ -1019,7 +1017,8 @@ function resolveAttacks(attSide,defSide){
       var diceStr=traitStr+' '+wildStr+(roll.usedWild?' ←':'');
 
       if(finalRoll<4){
-        // Miss
+        // Miss — trait dice first, then the miss log
+        addLogDice(roll._die);
         addLog(attSide==='A'?'left':'right',attV.name,
           '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+(mod?' '+mod:'')+' = '+finalRoll+'</span> vs TN 4. <span class="log-miss">Miss.</span>');
         continue}
@@ -1043,6 +1042,8 @@ function resolveAttacks(attSide,defSide){
       var tStr='vs Toughness '+toughness+'('+armour+')'+(ap?' AP '+ap+' → effective '+effectiveTough:'');
 
       if(dmg.total<effectiveTough){
+        // Hit but no penetration — trait dice, then log
+        addLogDice(roll._die);
         addLog(attSide==='A'?'left':'right',attV.name,
           '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+' = '+finalRoll+'</span> '+hitText+' Damage: '+dmgStr+' '+tStr+'. <span class="log-miss">No effect.</span>');
         continue}
@@ -1102,17 +1103,22 @@ function resolveAttacks(attSide,defSide){
         critParts.push('<span class="log-wound" style="font-size:17px">'+esc(defV.name)+' is WRECKED!</span>');
       }
 
-      // First log entry: hit + damage + wounds
+      // Wound path: trait dice → hit+damage log → damage dice → woundSync (boom+LEDs) → crit log
+      addLogDice(roll._die);
       addLog(attSide==='A'?'left':'right',attV.name,
         '<strong>'+esc(w.def.name)+'</strong> fires. <span class="log-dice">'+diceStr+' = '+finalRoll+'</span> '+hitText+
         ' Damage: '+dmgStr+' '+tStr+'. '+resultParts.join(' '));
-      // Queue wound sync (boom + shake + damage lights) after wounds line
+      // Damage dice roll after the hit line types out
+      if(!battle.autoMode) addLogDice(dmg._die);
+      // Wound sync (boom + shake + damage lights) after damage dice settle
       if(woundsDealt>0||wrecked){
         if(!battle.autoMode){
           logQueue.push({woundSync:true});
           if(!logTyping) processLogQueue()}}
-      // Second log entry: critical hit + OOC (types out after the boom settles)
+      // Critical hit + OOC — types out after the boom settles
+      // Show OOC dice roll before the crit line types
       if(critParts.length>0){
+        if(!battle.autoMode&&typeof oocRoll!=='undefined') addLogDice(oocRoll._die);
         addLog(attSide==='A'?'left':'right',attV.name,critParts.join(' '))}
     }
   })}
@@ -1334,6 +1340,12 @@ function addLog(side,actor,text){
   logQueue.push({side:side,actor:actor,text:text,raw:false});
   if(!logTyping) processLogQueue()}
 
+function addLogDice(notation){
+  // Queue a dice flourish as an in-sequence event — fires after previous text finishes typing
+  if(battle.autoMode||!bfSettings.diceEnabled||!diceBoxReady||!diceBox) return;
+  logQueue.push({diceSync:true,notation:notation});
+  if(!logTyping) processLogQueue()}
+
 function addLogRaw(side,html){
   if(battle.autoMode) return addLogRawInstant(side,html);
   logQueue.push({side:side,html:html,raw:true});
@@ -1374,6 +1386,18 @@ function processLogQueue(){
     lastRenderedWoundsB=battle.woundsB;
     var pauseAfter=maxNew>0?(isWreck?WRECK_SFX_DUR:WOUND_SFX_DUR)*1000:100;
     setTimeout(processLogQueue,pauseAfter);
+    return}
+  // Dice flourish — show 3D dice, wait for them to settle, then continue
+  if(item.diceSync){
+    showDiceOverlay();
+    if(bfSettings.audioEnabled&&twDiceRattle){
+      var snd=twDiceRattle.cloneNode();
+      snd.volume=bfSettings.diceVolume/100;
+      snd.play().catch(function(){});}
+    diceBox.clear();
+    diceBox.roll(item.notation).catch(function(e){console.warn('Dice roll error:',e);});
+    // Wait for dice to settle before continuing the log
+    setTimeout(function(){hideDiceOverlay();setTimeout(processLogQueue,200);},1800);
     return}
   if(item.raw){
     addLogRawInstant(item.side,item.html);
