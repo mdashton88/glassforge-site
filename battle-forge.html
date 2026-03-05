@@ -230,6 +230,22 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
           <input type="range" id="settingDiceVolume" min="0" max="100" value="60" oninput="applyDiceVolume(+this.value)" style="width:100%;accent-color:var(--gold)">
           <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-top:2px"><span>Off</span><span id="diceVolumeVal">60%</span><span>Loud</span></div>
         </div>
+        <div id="diceThemeRow" style="margin-top:12px;opacity:0.4;pointer-events:none">
+          <label style="font-size:14px;color:var(--text-dim);display:block;margin-bottom:6px">Dice Theme</label>
+          <select id="settingDiceTheme" onchange="applyDiceTheme(this.value)" style="width:100%;background:var(--bg-deep);border:1px solid var(--border);color:var(--text);padding:6px 10px;font-family:'Crimson Pro',serif;font-size:14px;accent-color:var(--gold)">
+            <option value="smooth">Smooth</option>
+            <option value="smooth-pip">Smooth Pips</option>
+            <option value="default">Classic</option>
+            <option value="default-extras">Classic Extras</option>
+            <option value="gemstone">Gemstone</option>
+            <option value="gemstoneMarble">Gemstone Marble</option>
+            <option value="rock">Rock</option>
+            <option value="rust">Rust</option>
+            <option value="wooden">Wooden</option>
+            <option value="blueGreenMetal">Blue-Green Metal</option>
+            <option value="diceOfRolling">Dice of Rolling</option>
+          </select>
+        </div>
       </div>
 
       <!-- ABOUT -->
@@ -1155,7 +1171,7 @@ var lastRenderedWoundsB=0;
 // ═══════════════════════════════════════════
 // SETTINGS — PERSIST TO LOCALSTORAGE
 // ═══════════════════════════════════════════
-var bfSettings={audioEnabled:true,shakeEnabled:true,diceEnabled:true,diceScale:2,diceVolume:60};
+var bfSettings={audioEnabled:true,shakeEnabled:true,diceEnabled:true,diceScale:2,diceVolume:60,diceTheme:'smooth'};
 
 function loadBFSettings(){
   try{var s=localStorage.getItem('glassforge-bf-settings');if(s){var p=JSON.parse(s);
@@ -1164,6 +1180,7 @@ function loadBFSettings(){
     if(p.diceEnabled===true)bfSettings.diceEnabled=true;
     if(p.diceScale)bfSettings.diceScale=p.diceScale;
     if(p.diceVolume!==undefined)bfSettings.diceVolume=p.diceVolume;
+    if(p.diceTheme)bfSettings.diceTheme=p.diceTheme;
   }}catch(e){}}
 
 function saveBFSettings(){
@@ -1198,8 +1215,12 @@ function updateSettingsDisplay(){
   if(vv)vv.textContent=bfSettings.diceVolume+'%';
   var diceRowsActive=bfSettings.diceEnabled?'1':'0.4';
   var diceRowsEvents=bfSettings.diceEnabled?'auto':'none';
+  var tr=document.getElementById('diceThemeRow');
+  var ts=document.getElementById('settingDiceTheme');
   if(sr){sr.style.opacity=diceRowsActive;sr.style.pointerEvents=diceRowsEvents;}
-  if(vr){vr.style.opacity=diceRowsActive;vr.style.pointerEvents=diceRowsEvents;}}
+  if(vr){vr.style.opacity=diceRowsActive;vr.style.pointerEvents=diceRowsEvents;}
+  if(tr){tr.style.opacity=diceRowsActive;tr.style.pointerEvents=diceRowsEvents;}
+  if(ts)ts.value=bfSettings.diceTheme||'smooth';}
 
 function toggleSettingAudio(){
   bfSettings.audioEnabled=!bfSettings.audioEnabled;
@@ -1226,6 +1247,13 @@ function applyDiceVolume(v){
   if(twDiceRattle)twDiceRattle.volume=v/100;
   saveBFSettings();}
 
+function applyDiceTheme(v){
+  bfSettings.diceTheme=v;
+  saveBFSettings();
+  if(diceBox){
+    diceBox.updateConfig({theme:v});
+  }}
+
 // ═══════════════════════════════════════════
 // DICE BOX — 3D DICE FLOURISH
 // ═══════════════════════════════════════════
@@ -1241,7 +1269,7 @@ function initDiceBox(){
     var box=new DiceBox({
       container:'#dice-box-container',
       assetPath:'/dice-box/assets/',
-      theme:'default',
+      theme:bfSettings.diceTheme||'smooth',
       offscreen:false,
       scale:bfSettings.diceScale||1.8,
       lightIntensity:0.85,

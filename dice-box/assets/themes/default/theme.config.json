@@ -12,9 +12,9 @@
 		},
 		"diffuseLevel": 1,
 		"bumpTexture": "normal.png",
-		"bumpLevel": 0.2,
+		"bumpLevel": 0.5,
 		"specularTexture": "specular.jpg",
-		"specularPower": 0.3
+		"specularPower": 1
 	},
 	"diceAvailable": [
 		"d4",
