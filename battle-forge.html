@@ -288,6 +288,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
     <div class="combat-bar">
       <button class="header-btn primary" id="btnFight" onclick="battle.autoMode=false;nextRound()" disabled>⚔ Fight</button>
       <button class="header-btn" id="btnAuto" onclick="autoFight()" disabled>▶ Auto (10 rounds)</button>
+      <button class="header-btn" id="btnPause" onclick="togglePause()" disabled style="min-width:90px">⏸ Pause</button>
       <button class="header-btn" onclick="resetBattle()">↺ Reset</button>
       <button class="header-btn" onclick="copyLog()">📋 Copy Log</button>
       <button class="header-btn" onclick="openSettings()" style="color:var(--text-dim)">⚙ Settings</button>
@@ -893,6 +894,7 @@ function loadCombatant(side,v){
   if(battle.vehicleA&&battle.vehicleB){
     document.getElementById('btnFight').disabled=false;
     document.getElementById('btnAuto').disabled=false;
+    document.getElementById('btnPause').disabled=false;
     document.getElementById('roundBadge').textContent='Ready — Round 0'}
 }
 
@@ -971,7 +973,8 @@ function nextRound(){
   // In cinematic mode, wounds render via per-attack woundSync entries in the queue
   if(battle.over){
     document.getElementById('btnFight').disabled=true;
-    document.getElementById('btnAuto').disabled=true}}
+    document.getElementById('btnAuto').disabled=true;
+    document.getElementById('btnPause').disabled=true;logPaused=false;updatePauseBtn();}}
 
 function resolveAttacks(attSide,defSide){
   var attV=battle['vehicle'+attSide];
@@ -1128,6 +1131,7 @@ function resolveAttacks(attSide,defSide){
 // ═══════════════════════════════════════════
 var logQueue=[];
 var logTyping=false;
+var logPaused=false;
 var lastRenderedWoundsA=0;
 var lastRenderedWoundsB=0;
 
@@ -1368,7 +1372,8 @@ function addLogRawInstant(side,html){
   log.scrollTop=log.scrollHeight}
 
 function processLogQueue(){
-  if(!logQueue.length){logTyping=false;return}
+  if(logPaused){logTyping=false;return}
+  if(!logQueue.length){logTyping=false;updatePauseBtn();return}
   logTyping=true;
   var item=logQueue.shift();
   // Wound sync — render wounds with effects after typewriter catches up
@@ -1472,6 +1477,18 @@ function autoFight(){
     if(battle.over||rounds>=10){clearInterval(interval);battle.autoMode=false;return}
     nextRound();rounds++},300)}
 
+function updatePauseBtn(){
+  var btn=document.getElementById('btnPause');
+  if(!btn)return;
+  btn.textContent=logPaused?'▶ Resume':'⏸ Pause';
+  btn.style.borderColor=logPaused?'var(--green)':'';
+  btn.style.color=logPaused?'var(--green)':'';}
+
+function togglePause(){
+  logPaused=!logPaused;
+  updatePauseBtn();
+  if(!logPaused&&!logTyping) processLogQueue();}
+
 function copyLog(){
   var log=document.getElementById('combatLog');
   var text=log.innerText||log.textContent;
@@ -1494,7 +1511,7 @@ function resetBattle(){
   var savedCrewA=battle.crewDieA;
   var savedCrewB=battle.crewDieB;
 
-  lastRenderedWoundsA=0;lastRenderedWoundsB=0;logQueue=[];logTyping=false;
+  lastRenderedWoundsA=0;lastRenderedWoundsB=0;logQueue=[];logTyping=false;logPaused=false;updatePauseBtn();
   battle={vehicleA:null,vehicleB:null,woundsA:0,woundsB:0,maxWoundsA:3,maxWoundsB:3,
     toughA:0,toughB:0,armourA:0,armourB:0,handlingA:0,handlingB:0,
     crewDieA:6,crewDieB:6,statusA:{},statusB:{},jokerA:false,jokerB:false,
