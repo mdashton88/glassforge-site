@@ -12,12 +12,12 @@ function addToolNavigation(currentTool) {
   /* ── INJECT STYLES ── */
   var s = document.createElement('style');
   s.textContent = [
-    '.dfs-primary-nav{position:fixed;top:0;left:0;right:0;z-index:10000;background:#0A0908E8;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #3A3530;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:48px;font-family:Cinzel,serif}',
-    '.dfs-primary-nav a.brand{font-weight:700;font-size:13px;color:#C4A44A;letter-spacing:3px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:8px}',
-    '.dfs-primary-nav .site-links{display:flex;gap:24px}',
-    '.dfs-primary-nav .site-links a{font-family:Cinzel,serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#8A7A60;text-decoration:none;transition:color .25s}',
+    '.dfs-primary-nav{position:fixed;top:0;left:0;right:0;z-index:10000;background:#0A0908E8;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #3A3530;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px;font-family:Cinzel,serif}',
+    '.dfs-primary-nav a.brand{font-weight:700;font-size:16px;color:#C4A44A;letter-spacing:3px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:10px}',
+    '.dfs-primary-nav .site-links{display:flex;gap:32px}',
+    '.dfs-primary-nav .site-links a{font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#8A7A60;text-decoration:none;transition:color .25s;position:relative}',
     '.dfs-primary-nav .site-links a:hover{color:#C4A44A}',
-    '.dfs-tool-nav{position:fixed;top:48px;left:0;right:0;z-index:9999;display:flex;background:#141210;border-bottom:1px solid #3A3530;padding:0 8px;overflow-x:auto;-webkit-overflow-scrolling:touch}',
+    '.dfs-tool-nav{position:fixed;top:72px;left:0;right:0;z-index:9999;display:flex;background:#141210;border-bottom:1px solid #3A3530;padding:0 8px;overflow-x:auto;-webkit-overflow-scrolling:touch}',
     '.dfs-tool-nav button{background:transparent;border:none;border-bottom:2px solid transparent;color:#8A7A60;padding:8px 14px;font-size:10px;letter-spacing:1.5px;cursor:pointer;font-family:Cinzel,serif;text-transform:uppercase;transition:all .15s;white-space:nowrap}',
     '.dfs-tool-nav button:hover{color:#D4C8B0}',
     '.dfs-tool-nav button.active{color:#C4A44A;border-bottom-color:#C4A44A}',
@@ -65,11 +65,11 @@ function addToolNavigation(currentTool) {
   document.body.appendChild(footer);
 }
 
-/* ── ADJUST BODY MARGIN FOR DOUBLE NAV (48 + 36 = 84px) ── */
+/* ── ADJUST BODY MARGIN FOR DOUBLE NAV (72 + 36 = 108px) ── */
 (function() {
   function adjust() {
     var header = document.querySelector('header');
-    if (header) header.style.marginTop = '84px';
+    if (header) header.style.marginTop = '108px';
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', adjust);
