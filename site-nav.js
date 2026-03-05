@@ -38,7 +38,7 @@
 
     /* Links */
     '#glassforge-nav .gn-links{display:flex;gap:32px;list-style:none;margin:0;padding:0}',
-    '#glassforge-nav .gn-links a{font-family:"Cinzel",serif;font-size:13px;font-weight:600;',
+    '#glassforge-nav .gn-links a{font-family:"Cinzel",serif;font-size:13px;font-weight:700;',
     'letter-spacing:2px;text-transform:uppercase;color:#A89A88;',
     'text-decoration:none;transition:color 0.3s;position:relative}',
     '#glassforge-nav .gn-links a:hover,#glassforge-nav .gn-links a.active{color:#D4B44A}',
