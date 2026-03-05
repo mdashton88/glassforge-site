@@ -191,7 +191,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
 
 
   <!-- ═══ DICE BOX OVERLAY ═══ -->
-  <div id="dice-box-container" style="position:fixed;top:72px;left:0;right:0;bottom:0;pointer-events:none;z-index:500;opacity:0;transition:opacity 0.3s;"></div>
+  <div id="dice-box-container" style="position:fixed;top:72px;left:0;right:0;bottom:0;pointer-events:none;z-index:500;visibility:hidden;"></div>
 
   <!-- ═══ SETTINGS MODAL ═══ -->
   <div id="settings-modal" style="display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
@@ -1263,29 +1263,25 @@ function initDiceBox(){
           snd.play().catch(function(){});}},
       onRollComplete:function(){}
     });
-    // Briefly make container non-zero opacity so DiceBox canvas measures real dimensions
-    var diceEl=document.getElementById('dice-box-container');
-    if(diceEl)diceEl.style.opacity='0.01';
+    // Container uses visibility:hidden so canvas always has real dimensions for init
     box.init().then(function(){
       diceBox=box;
       diceBoxReady=true;
       var canvas=document.querySelector('#dice-box-container canvas');
       if(canvas){canvas.style.width='100%';canvas.style.height='100%';}
       box.resizeWorld();
-      if(diceEl)diceEl.style.opacity='0';
     }).catch(function(e){
-      if(diceEl)diceEl.style.opacity='0';
       console.warn('Dice Box init failed:',e);
     });
   }).catch(function(e){console.warn('Dice Box load failed:',e)})}
 
 function showDiceOverlay(){
   var el=document.getElementById('dice-box-container');
-  if(el)el.style.opacity='1';}
+  if(el)el.style.visibility='visible';}
 
 function hideDiceOverlay(){
   var el=document.getElementById('dice-box-container');
-  if(el)el.style.opacity='0';}
+  if(el)el.style.visibility='hidden';}
 
 function triggerDiceRoll(notation){
   if(!bfSettings.diceEnabled||!diceBoxReady||!diceBox)return;
