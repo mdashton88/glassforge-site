@@ -41,8 +41,6 @@ function addToolNavigation(currentTool) {
     { id: 'foundry', label: '🏭 The Foundry', url: 'foundry' },
     { id: 'adventure-forge', label: '🗺 Adventure Forge', url: 'adventure-forge' },
     { id: 'adventure-vault', label: '🎭 Adventure Vault', url: 'adventure-vault' },
-    { id: 'character-vault', label: '👤 Character Vault', url: 'character-vault' },
-    { id: 'walker-workshop', label: '⚙ Walker Workshop', url: 'walker-workshop' },
     { id: 'pa-forge', label: '🛡 Power Armour', url: 'pa-forge' },
     { id: 'task-vault', label: '📋 Task Vault', url: 'task-vault' }
   ];
