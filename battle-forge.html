@@ -613,7 +613,7 @@ function loadVehicles(){
     sv.forEach(function(v){
       if(!v.name)return;
       if(v._pack&&disabled.indexOf(v._pack)!==-1)return;
-      if(!v.weapons||!v.weapons.length)return;
+      // All vehicles valid — unarmed vehicles can still be targets
       var key=v.name;
       // Prefer themed core packs (core-*) over legacy 'core'
       if(seen[key]){
