@@ -114,6 +114,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
 .hangar-card .hc-meta{font-size:12px;color:var(--text-dim);line-height:1.4;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .hangar-card .hc-badge{display:inline-block;font-size:10px;padding:1px 5px;border-radius:2px;font-weight:700;letter-spacing:.5px}
 .hc-badge.canon{background:rgba(212,180,74,0.15);color:var(--accent)}
+.hc-badge.demo{background:rgba(74,122,180,0.18);color:#7AAAD4}
 
 /* Dragging */
 .hangar-card[draggable=true]{cursor:grab}
@@ -827,7 +828,8 @@ function renderPicker(filter){
     html+='<div class="hc-meta">Size '+v.size+' '+f.cat+' · '+lname+'</div>';
     html+='</div>';
     html+='<span class="hc-class">'+vClass+'</span>';
-    if(v._pack)html+='<span class="hc-badge canon" style="position:absolute;bottom:4px;right:8px">PACK</span>';
+    if(v._pack==='demo')html+='<span class="hc-badge demo" style="position:absolute;bottom:4px;right:8px">DEMO</span>';
+    else if(v._pack)html+='<span class="hc-badge canon" style="position:absolute;bottom:4px;right:8px">PACK</span>';
     html+='</div>'});
   if(!html)html='<div style="grid-column:1/-1;text-align:center;color:var(--text-dim);padding:40px;font-style:italic">No vehicles found. Install packs in the Vehicle Forge first.</div>';
   grid.innerHTML=html}
@@ -1501,38 +1503,92 @@ function resetBattle(){
 // DEMO VEHICLES — fallback when no VF packs installed
 // Four vehicles spanning eras: a taster, not a full library.
 // ═══════════════════════════════════════════
+// ── DEMO VEHICLE PAIRS ──────────────────────────────────────────
+// Four theatres, eight vehicles. Each pair is balanced for an
+// interesting fight. Covers sea, air, land (walkers), and space —
+// showcasing the full range of Vehicle Forge locomotion types.
+// ────────────────────────────────────────────────────────────────
+
 var DEMO_VEHICLES=[
+
+  // ── SEA: AGE OF SAIL ──────────────────────────────────────────
+  // A nimble privateer sloop against a heavily-gunned Navy frigate.
+  // Fast & manoeuvrable vs. raw broadside weight.
   {
-    name:'WW2 Medium Tank',
-    size:7,loco:'tracked',
-    toughLevel:1,armourLevel:5,speedLevel:0,handlingLevel:0,woundsLevel:0,crewLevel:0,
-    weapons:[{weaponId:'tank_gun_75mm',mount:'turret',linked:0},{weaponId:'hmg',mount:'fixed',linked:0}],
+    name:"Fortune's Blade",
+    size:6,loco:'water_sail',
+    toughLevel:0,armourLevel:1,speedLevel:2,handlingLevel:2,woundsLevel:0,crewLevel:1,
+    weapons:[{weaponId:'light_cannon_bp',mount:'broadside',linked:1},{weaponId:'swivel_gun',mount:'fixed',linked:0}],
     mods:{},specials:[],_pack:'demo',
-    desc:'The workhorse of mid-war armoured warfare. Thick hide, hard punch, and a hull gun for everything else.'
+    desc:"A privateer sloop — lean, fast, and rigged to run if the fight turns. Light broadside, deadly at close quarters, and gone before the smoke clears."
   },
   {
-    name:'Third-Rate Ship of the Line',
-    size:12,loco:'water_sail',
-    toughLevel:0,armourLevel:3,speedLevel:-1,handlingLevel:-1,woundsLevel:0,crewLevel:2,
-    weapons:[{weaponId:'med_cannon_bp',mount:'broadside',linked:2},{weaponId:'carronade',mount:'fixed',linked:0}],
+    name:'HMS Indomitable',
+    size:10,loco:'water_sail',
+    toughLevel:1,armourLevel:3,speedLevel:-1,handlingLevel:-1,woundsLevel:1,crewLevel:2,
+    weapons:[{weaponId:'med_cannon_bp',mount:'broadside',linked:2},{weaponId:'carronade',mount:'fixed',linked:0},{weaponId:'chain_shot',mount:'fixed',linked:0}],
     mods:{},specials:[],_pack:'demo',
-    desc:'Seventy-four guns and four hundred souls. The backbone of the age of sail.'
+    desc:"A Navy fifth-rate frigate. Thirty-six guns, two hundred men, and enough broadside to end arguments. Slow to turn, devastating to cross."
+  },
+
+  // ── AIR: WWII DOGFIGHT ────────────────────────────────────────
+  // A Spitfire vs. a Focke-Wulf 190. Matched speed, different
+  // weapons loadouts — the classic dogfight.
+  {
+    name:'Spitfire Mk.IX',
+    size:2,loco:'turboprop',
+    toughLevel:0,armourLevel:1,speedLevel:2,handlingLevel:2,woundsLevel:0,crewLevel:0,
+    weapons:[{weaponId:'cannon_20mm',mount:'fixed',linked:1},{weaponId:'mmg',mount:'fixed',linked:1}],
+    mods:{},specials:[],_pack:'demo',
+    desc:"Elliptical wings and a Merlin engine. The Spitfire is faster in a climb and tighter in a turn — but it burns fuel fast and the pilot knows it."
   },
   {
-    name:'Modern Main Battle Tank',
-    size:8,loco:'tracked',
-    toughLevel:2,armourLevel:7,speedLevel:0,handlingLevel:0,woundsLevel:0,crewLevel:0,
-    weapons:[{weaponId:'tank_gun_120mm',mount:'turret',linked:0},{weaponId:'hmg',mount:'fixed',linked:0}],
+    name:'Focke-Wulf Fw 190A',
+    size:2,loco:'turboprop',
+    toughLevel:1,armourLevel:2,speedLevel:1,handlingLevel:1,woundsLevel:0,crewLevel:0,
+    weapons:[{weaponId:'cannon_20mm',mount:'fixed',linked:1},{weaponId:'hmg',mount:'fixed',linked:1}],
     mods:{},specials:[],_pack:'demo',
-    desc:'Composite armour, smoothbore 120mm, and a fire-control system that shoots first and asks questions later.'
+    desc:"The butcher bird. Heavier armament, tougher airframe, and a radial engine that laughs at battle damage. Slower to turn, but it hits like a freight train."
+  },
+
+  // ── LAND: MECH SKIRMISH ───────────────────────────────────────
+  // A fast bipedal assault walker vs. a slow but armoured
+  // multi-legged siege crawler. Handling vs. Toughness.
+  {
+    name:'Strider-IV Assault Walker',
+    size:5,loco:'legs_biped',
+    toughLevel:0,armourLevel:2,speedLevel:2,handlingLevel:2,woundsLevel:0,crewLevel:0,
+    weapons:[{weaponId:'ac_light',mount:'turret',linked:0},{weaponId:'missile_light',mount:'fixed',linked:0}],
+    mods:{},specials:[],_pack:'demo',
+    desc:"A bipedal assault walker — quick on its feet and built for flanking manoeuvres. Light armour and a fast autocannon. It wins by not being where you're shooting."
   },
   {
-    name:'Sci-Fi Gunship',
-    size:6,loco:'vtol',
-    toughLevel:0,armourLevel:3,speedLevel:2,handlingLevel:1,woundsLevel:0,crewLevel:0,
-    weapons:[{weaponId:'laser_heavy',mount:'turret',linked:0},{weaponId:'missile_light',mount:'fixed',linked:0}],
+    name:'Ironback Siege Crawler',
+    size:7,loco:'legs_quad',
+    toughLevel:2,armourLevel:5,speedLevel:-1,handlingLevel:-2,woundsLevel:1,crewLevel:0,
+    weapons:[{weaponId:'laser_med',mount:'turret',linked:0},{weaponId:'flamer_future',mount:'fixed',linked:0}],
     mods:{},specials:[],_pack:'demo',
-    desc:'Fast, lethal, and built to kill things three times its size. What it lacks in armour it makes up for in speed and firepower.'
+    desc:"A four-legged siege platform. Heavily armoured, slow to react, and armed with a medium laser that cuts through cover. It doesn't chase — it endures."
+  },
+
+  // ── SPACE: STARFIGHTER SKIRMISH ───────────────────────────────
+  // A nimble interceptor vs. a heavier patrol gunship.
+  // Speed and missiles against armour and sustained fire.
+  {
+    name:'Raptor Interceptor',
+    size:3,loco:'space_thruster',
+    toughLevel:0,armourLevel:1,speedLevel:3,handlingLevel:2,woundsLevel:0,crewLevel:0,
+    weapons:[{weaponId:'laser_light',mount:'fixed',linked:1},{weaponId:'missile_light',mount:'fixed',linked:0}],
+    mods:{},specials:[],_pack:'demo',
+    desc:"A single-seat interceptor — all thrust and nerve. Light laser for strafing runs, a rack of smart missiles for anything that tries to run. It will not survive a slugging match."
+  },
+  {
+    name:'Warden-class Patrol Gunship',
+    size:6,loco:'space_thruster',
+    toughLevel:1,armourLevel:3,speedLevel:0,handlingLevel:0,woundsLevel:1,crewLevel:1,
+    weapons:[{weaponId:'laser_med',mount:'turret',linked:0},{weaponId:'missile_med',mount:'fixed',linked:0},{weaponId:'ac_light',mount:'fixed',linked:0}],
+    mods:{},specials:[],_pack:'demo',
+    desc:"A two-crew patrol gunship. Three weapon systems, layered armour, and enough hull to take a missile and keep fighting. Slower than the interceptor, and it doesn't need to be."
   }
 ];
 
@@ -1545,7 +1601,7 @@ if(!allVehicles.length){
   // No VF packs installed — inject demo vehicles so the tool is immediately usable
   DEMO_VEHICLES.forEach(function(v){allVehicles.push(v)});
   usingDemos=true;
-  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>Showing 4 demo vehicles — drag one into each slot and press <strong>FIGHT</strong>. Install packs in the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a> to unlock the full library.</em></div>';
+  document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>8 demo vehicles loaded across four theatres — age of sail, WWII dogfight, mech skirmish, and space combat. Drag one into each slot and press <strong>FIGHT</strong>. Install packs in the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a> to unlock the full library.</em></div>';
 }else{
   document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>'+allVehicles.length+' armed vehicles ready. Click a drop zone to select, or send vehicles from the <a href="/vehicle-forge-v2.1.html" style="color:var(--accent)">Vehicle Forge</a>.</em></div>'}
 
