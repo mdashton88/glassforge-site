@@ -234,7 +234,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0908E8;backdr
         <div style="font-size:13px;color:var(--text-dim);margin-bottom:12px;line-height:1.5">Physics-based 3D dice appear on screen when rolls are made. A cosmetic flourish only — results are always determined by the engine before the animation plays.</div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
           <label style="font-size:14px;color:var(--text-dim)">3D Dice</label>
-          <button class="header-btn" id="settingDiceToggle" onclick="toggleSettingDice()" style="font-size:13px;min-width:80px">Disabled</button>
+          <button class="header-btn" id="settingDiceToggle" onclick="toggleSettingDice()" style="font-size:13px;min-width:80px">Enabled</button>
         </div>
         <div id="diceScaleRow" style="opacity:0.4;pointer-events:none">
           <label style="font-size:14px;color:var(--text-dim);display:block;margin-bottom:4px">Dice Size</label>
@@ -1146,7 +1146,7 @@ var lastRenderedWoundsB=0;
 // ═══════════════════════════════════════════
 // SETTINGS — PERSIST TO LOCALSTORAGE
 // ═══════════════════════════════════════════
-var bfSettings={audioEnabled:true,shakeEnabled:true,diceEnabled:false,diceScale:7,diceVolume:60};
+var bfSettings={audioEnabled:true,shakeEnabled:true,diceEnabled:true,diceScale:7,diceVolume:60};
 
 function loadBFSettings(){
   try{var s=localStorage.getItem('glassforge-bf-settings');if(s){var p=JSON.parse(s);
@@ -1252,14 +1252,20 @@ function initDiceBox(){
       onRollComplete:function(){
         setTimeout(function(){hideDiceOverlay()},2200)}
     });
+    // Briefly make container non-zero opacity so DiceBox canvas measures real dimensions
+    var diceEl=document.getElementById('dice-box-container');
+    if(diceEl)diceEl.style.opacity='0.01';
     box.init().then(function(){
       diceBox=box;
       diceBoxReady=true;
-      // Force canvas to fill container — DiceBox sizes from canvas.clientWidth/Height
       var canvas=document.querySelector('#dice-box-container canvas');
       if(canvas){canvas.style.width='100%';canvas.style.height='100%';}
       box.resizeWorld();
-    }).catch(function(e){console.warn('Dice Box init failed:',e)});
+      if(diceEl)diceEl.style.opacity='0';
+    }).catch(function(e){
+      if(diceEl)diceEl.style.opacity='0';
+      console.warn('Dice Box init failed:',e);
+    });
   }).catch(function(e){console.warn('Dice Box load failed:',e)})}
 
 function showDiceOverlay(){
