@@ -1223,7 +1223,8 @@ function initDiceBox(){
   if(diceBox||!bfSettings.diceEnabled)return;
   import('/dice-box/dice-box.es.min.js').then(function(mod){
     var DiceBox=mod.default||mod.DiceBox||Object.values(mod)[0];
-    var box=new DiceBox('#dice-box-container',{
+    var box=new DiceBox({
+      container:'#dice-box-container',
       assetPath:'/dice-box/assets/',
       theme:'default',
       offscreen:false,
@@ -1415,7 +1416,8 @@ function typewriteHTML(el,html,cb){
     var ch=seg.val[ci];
     buf+=ch;
     el.innerHTML=buf+'<span class="tw-cursor">▌</span>';
-    el.parentElement.parentElement.scrollTop=el.parentElement.parentElement.scrollHeight;
+    var scrollEl=el.parentElement&&el.parentElement.parentElement;
+    if(scrollEl)scrollEl.scrollTop=scrollEl.scrollHeight;
     ci++;
     // Key tap sound — every 2-3 chars for regular text, always on punctuation
     var isPunc=(ch==='.'||ch==='!'||ch===','||ch==='—'||ch===':');
