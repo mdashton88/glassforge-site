@@ -278,7 +278,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
 
       <!-- ABOUT -->
       <div style="padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-dim);line-height:1.6">
-        Battle Forge v0.3.30 — <a href="/legal" style="color:var(--gold-dim)">Glassforge Games Ltd.</a><br>
+        Battle Forge v0.3.31 — <a href="/legal" style="color:var(--gold-dim)">Glassforge Games Ltd.</a><br>
         3D dice powered by <a href="https://github.com/3d-dice/dice-box" target="_blank" style="color:var(--gold-dim)">Dice Box</a> by Frank Ali &amp; the 3D Dice team, MIT Licence.
       </div>
     </div>
@@ -350,7 +350,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
     </div>
     <div class="bf-footer">
       <a href="/legal" title="Savage Worlds Fan Product"><img src="sw-fan-logo.png" alt="Savage Worlds Fan Product" style="height:40px;vertical-align:middle;margin-right:8px;opacity:0.85"></a>
-      Battle Forge v0.3.30 — <a href="/legal" style="color:var(--gold-dim)">Glassforge Games Ltd.</a>
+      Battle Forge v0.3.31 — <a href="/legal" style="color:var(--gold-dim)">Glassforge Games Ltd.</a>
     </div>
   </div>
 
@@ -727,9 +727,24 @@ function rollTraitWithWild(traitDie){
   var wild=rollDieDetailed(6);
   var best=Math.max(trait.total,wild.total);
   var usedWild=wild.total>=trait.total;
-  // Dice flourish deferred — caller queues diceSync at the right narrative moment
-  // _die is an array: trait die normal colour, wild die gold
-  var _die=[{qty:1,sides:traitDie},{qty:1,sides:6,themeColor:'#d4b04a'}];
+  // Build _die to reflect actual acing: one entry per physical die that was rolled.
+  // rollDieDetailed puts every roll in the rolls[] array — so rolls.length > 1 means acing occurred.
+  // We show trait die rolls first, then wild die rolls (gold). Each acing die inherits parent sides.
+  var _die=[];
+  // Trait die chain — first roll normal colour, acing rolls orange
+  for(var ti=0;ti<trait.rolls.length;ti++){
+    _die.push(ti===0?{qty:1,sides:traitDie}:{qty:1,sides:traitDie,themeColor:'#ff6a00'});
+  }
+  // Wild die chain — first roll gold, acing rolls orange
+  for(var wi=0;wi<wild.rolls.length;wi++){
+    _die.push(wi===0?{qty:1,sides:6,themeColor:'#d4b04a'}:{qty:1,sides:6,themeColor:'#ff6a00'});
+  }
+  // Console audit trail
+  console.log('[BF TRAIT ROLL] traitDie=d'+traitDie
+    +' | trait rolls='+JSON.stringify(trait.rolls)+' total='+trait.total+(trait.aced?' ACED':'')
+    +' | wild rolls='+JSON.stringify(wild.rolls)+' total='+wild.total+(wild.aced?' ACED':'')
+    +' | best='+best+' usedWild='+usedWild
+    +' | _die count='+_die.length);
   return{total:best,trait:trait,wild:wild,usedWild:usedWild,_die:_die}}
 
 function parseDamage(str){
@@ -744,9 +759,27 @@ function rollDamage(wpn,raised){
   for(var i=0;i<d.count;i++){var r=rollDieDetailed(d.sides);dice.push(r);total+=r.total}
   if(raised){var bonus=rollDieDetailed(6);dice.push(bonus);total+=bonus.total}
   total+=d.bonus;
-  // _die is an array — raise die is gold to match wild die convention
-  var _die=[{qty:d.count,sides:d.sides}];
-  if(raised)_die.push({qty:1,sides:6,themeColor:'#d4b04a'});
+  // Build _die reflecting actual acing — each aced die adds an orange die entry
+  var _die=[];
+  for(var di=0;di<dice.length;di++){
+    var isDmgRaiseDie=(raised&&di===dice.length-1); // last die is the raise d6
+    var dieSides=isDmgRaiseDie?6:d.sides;
+    var baseColor=isDmgRaiseDie?'#d4b04a':undefined; // raise die gold
+    for(var ri=0;ri<dice[di].rolls.length;ri++){
+      if(ri===0){
+        var entry={qty:1,sides:dieSides};
+        if(baseColor)entry.themeColor=baseColor;
+        _die.push(entry);
+      } else {
+        _die.push({qty:1,sides:dieSides,themeColor:'#ff6a00'}); // acing die orange
+      }
+    }
+  }
+  // Console audit trail
+  var dmgRollStr=dice.map(function(d,i){return'['+d.rolls.join('→')+']'+(d.aced?'!':'')}).join(' ');
+  console.log('[BF DAMAGE ROLL] dice='+d.count+'d'+d.sides+(d.bonus?'+'+d.bonus:'')+(raised?' +raise':'')
+    +' | rolls='+dmgRollStr+' total='+total
+    +' | _die count='+_die.length);
   // Dice flourish deferred — caller queues diceSync at the right narrative moment
   return{total:total,dice:dice,bonus:d.bonus,raised:raised,_die:_die}}
 
@@ -1123,6 +1156,12 @@ function resolveAttacks(attSide,defSide){
       mod+=jokerBonus+linkedHit;
       var finalRoll=roll.total+mod;
 
+      // Console audit: confirm finalRoll = best die total + modifiers
+      console.log('[BF TO-HIT] weapon='+w.def.name
+        +' | crewDie=d'+crewDie+' | roll.total(best)='+roll.total
+        +' | mod='+mod+' | finalRoll='+finalRoll
+        +' | '+(finalRoll>=4?'HIT raises='+Math.floor((finalRoll-4)/4):'MISS'));
+
       var traitVal=roll.trait.total+(roll.trait.aced?' (aced)':'');
       var wildVal=roll.wild.total+(roll.wild.aced?' (aced)':'');
       var usedStr='Roll ['+traitVal+'], Wild die ['+wildVal+']'+(roll.usedWild?' — Wild used':'');
@@ -1391,17 +1430,13 @@ function initDiceBox(){
           snd.volume=bfSettings.diceVolume/100;
           snd.play().catch(function(){});}},
       onDieComplete:function(die){
-        // onDieComplete receives a single die result object, not an array
-        var sides=die.sides;
-        if(typeof sides==='string')sides=parseInt(sides.replace(/[^0-9]/g,''));
-        if(Number.isInteger(sides)&&sides>1&&die.value===sides){
-          // Ace! Add another die of same type — bright orange burst colour
-          diceAcePending++;
-          diceBox.add([{qty:1,sides:sides,themeColor:'#ff6a00'}]);
-        }
+        // Acing dice are now pre-built into _die arrays by rollTraitWithWild/rollDamage.
+        // This handler is retained for future use (e.g. visual flair per die) but
+        // no longer spawns additional dice — that caused decoupling from software rolls.
+        console.log('[BF DIE LANDED] sides='+die.sides+' value='+die.value
+          +(die.value===die.sides?' (MAX)':''));
       },
       onRollComplete:function(){
-        // Only fire settle callback when all acing additions have also completed
         if(diceAcePending>0){diceAcePending--;return;}
         if(diceSettleCallback)diceSettleCallback();
       }
