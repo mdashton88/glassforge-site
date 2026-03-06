@@ -967,6 +967,19 @@ function nextRound(){
     for(var i=0;i<rc.length;i++){if(rc[i]>0)rc[i]--}
   });
 
+  // Clear Distracted/Vulnerable — they last until end of the turn they were applied,
+  // i.e. exactly one round. Clear at the start of the next round and log expiry.
+  ['A','B'].forEach(function(side){
+    var st=battle['status'+side];
+    var vName=battle['vehicle'+side]?battle['vehicle'+side].name:'Vehicle '+side;
+    if(st.distracted){
+      st.distracted=false;
+      addLog('system','',esc(vName)+' is no longer Distracted.');}
+    if(st.vulnerable){
+      st.vulnerable=false;
+      addLog('system','',esc(vName)+' is no longer Vulnerable.');}
+  });
+
   addLog('system','','── Round '+battle.round+' ──');
 
   // Draw initiative cards
@@ -1027,6 +1040,7 @@ function resolveAttacks(attSide,defSide){
   var rangePen=parseInt(document.getElementById('rangeSelect').value)||0;
   var woundPen=battle['wounds'+attSide]; // -1 Handling per wound
   var defVulnerable=battle['status'+defSide].vulnerable;
+  var attDistracted=battle['status'+attSide].distracted;
 
   wpns.forEach(function(w,wIdx){
     // Check reload counter
@@ -1047,7 +1061,8 @@ function resolveAttacks(attSide,defSide){
       // Roll Shooting + Wild Die
       var roll=rollTraitWithWild(crewDie);
       var mod=rangePen-Math.min(woundPen,4); // Handling penalty capped at -4
-      if(defVulnerable)mod+=2;
+      if(defVulnerable)mod+=2;   // Defender Vulnerable: +2 to attack
+      if(attDistracted)mod-=2;  // Attacker Distracted: -2 to all weapon rolls
       // Joker bonus: +2 to all trait rolls and damage
       var jokerBonus=battle['joker'+attSide]?2:0;
       mod+=jokerBonus+linkedHit;
@@ -1056,6 +1071,11 @@ function resolveAttacks(attSide,defSide){
       var traitVal=roll.trait.total+(roll.trait.aced?' (aced)':'');
       var wildVal=roll.wild.total+(roll.wild.aced?' (aced)':'');
       var usedStr='Roll ['+traitVal+'], Wild die ['+wildVal+']'+(roll.usedWild?' — Wild used':'');
+      // Annotate active status modifiers in detail string
+      var modNotes=[];
+      if(attDistracted)modNotes.push('Distracted −2');
+      if(defVulnerable)modNotes.push('Vulnerable +2');
+      if(modNotes.length)usedStr+=' <em>('+modNotes.join(', ')+')</em>';
       var diceStr='<span class="log-dice-detail">'+usedStr+'</span>';
       var rollTotal=finalRoll-(mod||0);
 
@@ -1107,6 +1127,8 @@ function resolveAttacks(attSide,defSide){
         var defCrewDie=battle['crewDie'+defSide];
         var oocRoll=rollTraitWithWild(defCrewDie);
         var oocMod=-Math.min(battle['wounds'+defSide],4);
+        // Distracted defender: -2 to handling check (SWADE: Distracted = -2 to all skill rolls)
+        if(battle['status'+defSide].distracted)oocMod-=2;
         var oocTotal=oocRoll.total+oocMod;
         var oocDice=(oocRoll.usedWild?'Wild d6: '+formatDice(oocRoll.wild):formatDice(oocRoll.trait))+(oocMod?' '+oocMod:'');
         if(oocTotal>=4){
