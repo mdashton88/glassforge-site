@@ -10,14 +10,14 @@
 <meta property="og:description" content="Drag two vehicles into the arena and fight. Initiative cards, critical hits, crew quality — all the Fast Furious Fun of Savage Worlds vehicle combat. Free, no login required.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://glassforge.pages.dev/battle-forge">
-<meta property="og:image" content="https://glassforge.pages.dev/og-home.png">
+<meta property="og:image" content="https://glassforge.pages.dev/og-battle-forge.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:site_name" content="Glassforge Games">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Battle Forge — Savage Worlds Vehicle Combat Simulator">
 <meta name="twitter:description" content="Drag two vehicles into the arena and fight. Initiative cards, critical hits, crew quality — all the Fast Furious Fun of Savage Worlds vehicle combat. Free, no login required.">
-<meta name="twitter:image" content="https://glassforge.pages.dev/og-home.png">
+<meta name="twitter:image" content="https://glassforge.pages.dev/og-battle-forge.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
@@ -175,7 +175,17 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
 @media(max-width:1100px){.combatant-panel{width:280px;min-width:280px;max-width:280px}}
 @media(max-width:900px){.combatant-panel{width:240px;min-width:240px;max-width:240px}}
 @media(max-width:768px){
-.app{flex-direction:column}.combatant-panel{width:100%;min-width:auto;border:none;border-bottom:1px solid var(--border);max-height:200px}
+.app{flex-direction:column}
+.combatant-panel{width:100%;min-width:auto;max-width:100%;border:none;border-bottom:1px solid var(--border);max-height:280px;flex-shrink:0}
+.combat-centre{min-height:300px}
+.bf-header{flex-wrap:wrap;gap:6px;padding:8px 12px;height:auto;min-height:56px}
+.bf-header h1{font-size:16px;letter-spacing:2px}
+.header-btn{font-size:11px;padding:5px 10px}
+.log-actor{font-size:12px}
+#combatLog{font-size:13px}}
+@media(max-width:500px){
+.combatant-panel{max-height:220px}
+.bf-header h1{display:none}
 }
 </style>
 <script src="/site-nav.js"></script>
