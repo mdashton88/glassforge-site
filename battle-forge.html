@@ -81,6 +81,23 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
 .badge-distracted{background:rgba(90,138,170,0.2);color:var(--blue);border:1px solid var(--blue)}
 .badge-vulnerable{background:rgba(192,64,64,0.2);color:var(--red-bright);border:1px solid var(--red-bright)}
 .badge-wrecked{background:var(--crimson);color:var(--text-bright);border:1px solid var(--red-bright);animation:wreck-pulse 1s infinite}
+/* ── WARNING LIGHT PANEL ── */
+.warn-panel{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:10px 12px;background:var(--bg-deep);border-top:1px solid var(--border)}
+.warn-light{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:default}
+.warn-bulb{width:28px;height:28px;border-radius:50%;background:#1a1714;border:1px solid #2a2520;box-shadow:inset 0 2px 4px rgba(0,0,0,0.8);transition:all 0.2s}
+.warn-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.5px;text-transform:uppercase;color:#3a3530;text-align:center;line-height:1.2;transition:color 0.2s}
+/* Active states — red warning lights */
+.warn-light.active .warn-bulb{background:radial-gradient(circle at 38% 32%,#ffffff 0%,#ff4444 35%,#cc1111 65%,#880000 100%);border-color:#ff4444;box-shadow:0 0 8px 3px rgba(255,60,60,0.7),0 0 20px 6px rgba(220,40,40,0.4),inset 0 1px 2px rgba(255,200,200,0.3)}
+.warn-light.active .warn-label{color:#ff8888}
+/* Wrecked — deeper red, faster pulse */
+.warn-light.wrecked .warn-bulb{background:radial-gradient(circle at 38% 32%,#ffffff 0%,#ff2200 30%,#aa0000 60%,#660000 100%);border-color:#ff2200;box-shadow:0 0 10px 4px rgba(255,40,0,0.8),0 0 24px 8px rgba(200,20,0,0.5),inset 0 1px 2px rgba(255,180,180,0.4);animation:wreck-pulse 0.8s infinite}
+.warn-light.wrecked .warn-label{color:#ff6666}
+/* OOC flash — orange, brief */
+.warn-light.ooc .warn-bulb{background:radial-gradient(circle at 38% 32%,#ffffff 0%,#ffaa00 35%,#cc6600 65%,#884400 100%);border-color:#ffaa00;box-shadow:0 0 8px 3px rgba(255,160,0,0.7),0 0 20px 6px rgba(220,120,0,0.4)}
+.warn-light.ooc .warn-label{color:#ffcc66}
+/* Wound lights — amber when hit */
+.warn-light.wounded .warn-bulb{background:radial-gradient(circle at 38% 32%,#ffffff 0%,#ff8800 35%,#cc4400 65%,#882200 100%);border-color:#ff8800;box-shadow:0 0 7px 2px rgba(255,130,0,0.65),0 0 16px 5px rgba(200,80,0,0.35)}
+.warn-light.wounded .warn-label{color:#ffaa66}
 @keyframes wreck-pulse{0%,100%{opacity:1}50%{opacity:.6}}
 
 /* Vehicle picker overlay */
@@ -281,7 +298,15 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
     <div class="wound-track" id="woundTrackA" style="display:none">
       <h4>Damage</h4>
       <div class="wound-pips" id="woundPipsA"></div>
-      <div class="status-badges" id="statusA"></div>
+    </div>
+    <div class="warn-panel" id="warnPanelA" style="display:none">
+      <div class="warn-light" id="wA-w1"><div class="warn-bulb"></div><div class="warn-label">Wound 1</div></div>
+      <div class="warn-light" id="wA-w2"><div class="warn-bulb"></div><div class="warn-label">Wound 2</div></div>
+      <div class="warn-light" id="wA-w3"><div class="warn-bulb"></div><div class="warn-label">Wound 3</div></div>
+      <div class="warn-light" id="wA-dist"><div class="warn-bulb"></div><div class="warn-label">Distracted</div></div>
+      <div class="warn-light" id="wA-vuln"><div class="warn-bulb"></div><div class="warn-label">Vulnerable</div></div>
+      <div class="warn-light" id="wA-ooc"><div class="warn-bulb"></div><div class="warn-label">Out of Control</div></div>
+      <div class="warn-light" id="wA-wreck"><div class="warn-bulb"></div><div class="warn-label">Wrecked</div></div>
     </div>
     <div style="padding:8px 12px;display:none" id="crewRowA">
       <span style="font-family:Cinzel,serif;font-size:11px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase">Crew Quality</span>
@@ -342,7 +367,15 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Crimso
     <div class="wound-track" id="woundTrackB" style="display:none">
       <h4>Damage</h4>
       <div class="wound-pips" id="woundPipsB"></div>
-      <div class="status-badges" id="statusB"></div>
+    </div>
+    <div class="warn-panel" id="warnPanelB" style="display:none">
+      <div class="warn-light" id="wB-w1"><div class="warn-bulb"></div><div class="warn-label">Wound 1</div></div>
+      <div class="warn-light" id="wB-w2"><div class="warn-bulb"></div><div class="warn-label">Wound 2</div></div>
+      <div class="warn-light" id="wB-w3"><div class="warn-bulb"></div><div class="warn-label">Wound 3</div></div>
+      <div class="warn-light" id="wB-dist"><div class="warn-bulb"></div><div class="warn-label">Distracted</div></div>
+      <div class="warn-light" id="wB-vuln"><div class="warn-bulb"></div><div class="warn-label">Vulnerable</div></div>
+      <div class="warn-light" id="wB-ooc"><div class="warn-bulb"></div><div class="warn-label">Out of Control</div></div>
+      <div class="warn-light" id="wB-wreck"><div class="warn-bulb"></div><div class="warn-label">Wrecked</div></div>
     </div>
     <div style="padding:8px 12px;display:none" id="crewRowB">
       <span style="font-family:Cinzel,serif;font-size:11px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase">Crew Quality</span>
@@ -926,6 +959,7 @@ function loadCombatant(side,v){
 
   // Show wound track
   document.getElementById('woundTrack'+side).style.display='block';
+  document.getElementById('warnPanel'+side).style.display='grid';
   document.getElementById('crewRow'+side).style.display='block';
   renderWounds(side);
 
@@ -942,13 +976,34 @@ function renderWounds(side){
   var html='';
   for(var i=0;i<max;i++)html+='<div class="wound-pip'+(i<cur?' filled':'')+'"></div>';
   document.getElementById('woundPips'+side).innerHTML=html;
-  // Status badges
+  updateWarningLights(side);}
+
+function setLight(id,cls){
+  var el=document.getElementById(id);
+  if(!el)return;
+  el.className='warn-light'+(cls?' '+cls:'');}
+
+function updateWarningLights(side){
   var st=battle['status'+side];
-  var badges='';
-  if(st.distracted)badges+='<span class="status-badge badge-distracted">Distracted</span>';
-  if(st.vulnerable)badges+='<span class="status-badge badge-vulnerable">Vulnerable</span>';
-  if(cur>=max)badges+='<span class="status-badge badge-wrecked">Wrecked</span>';
-  document.getElementById('status'+side).innerHTML=badges}
+  var cur=battle['wounds'+side];
+  var max=battle['maxWounds'+side];
+  var wrecked=(cur>=max);
+  // Wound lights — amber when wounded, deep red when wrecked
+  setLight('w'+side+'-w1', cur>=1?(wrecked?'wrecked':'wounded'):'');
+  setLight('w'+side+'-w2', cur>=2?(wrecked?'wrecked':'wounded'):'');
+  setLight('w'+side+'-w3', cur>=3?(wrecked?'wrecked':'wounded'):'');
+  // Status lights
+  setLight('w'+side+'-dist', st.distracted?'active':'');
+  setLight('w'+side+'-vuln', st.vulnerable?'active':'');
+  setLight('w'+side+'-wreck', wrecked?'wrecked':'');
+  // OOC managed by flashOOC() — not touched here
+}
+
+function flashOOC(side){
+  var el=document.getElementById('w'+side+'-ooc');
+  if(!el)return;
+  el.className='warn-light ooc';
+  setTimeout(function(){el.className='warn-light';},3000);}
 
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 
@@ -1135,6 +1190,7 @@ function resolveAttacks(attSide,defSide){
           critParts.push('Handling check: <span class="log-dice-detail">'+oocDice+' = '+oocTotal+'</span> — driver holds it together.');
         }else{
           var ooc=rollOOC();
+          flashOOC(defSide);
           critParts.push('<span class="log-crit">Out of Control!</span> Handling check fails <span class="log-dice-detail">('+oocDice+' = '+oocTotal+')</span> — '+ooc.result);
           // Apply OOC effects
         if(ooc.roll===2){
@@ -1693,6 +1749,7 @@ function resetBattle(){
       document.getElementById('loaded'+side).style.display='none';
       document.getElementById('loaded'+side).innerHTML='';
       document.getElementById('woundTrack'+side).style.display='none';
+  document.getElementById('warnPanel'+side).style.display='none';
       document.getElementById('crewRow'+side).style.display='none';
       document.getElementById('drop'+side).classList.remove('has-vehicle')});
     document.getElementById('combatLog').innerHTML='<div class="log-entry system"><em>Drag or click to load vehicles into each slot, then press <strong>FIGHT</strong> to begin.</em></div>';
